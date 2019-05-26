@@ -1,12 +1,12 @@
 package rabbitescape.engine.solution;
 
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.ItemType;
 
 public class SelectAction implements CommandAction, TimeStepAction
 {
-    public final Token.Type type;
+    public final ItemType type;
 
-    public SelectAction( Token.Type type )
+    public SelectAction( ItemType type )
     {
         this.type = type;
     }

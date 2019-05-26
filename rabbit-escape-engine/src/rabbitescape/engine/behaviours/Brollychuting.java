@@ -1,7 +1,7 @@
 package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.Token.Type.brolly;
+import static rabbitescape.engine.items.ItemType.brolly;
 
 import java.util.Map;
 

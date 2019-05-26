@@ -27,7 +27,7 @@ import rabbitescape.engine.Fire;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.*;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
@@ -85,7 +85,7 @@ public class LineProcessor
     private final List<Rabbit> rabbits;
     private final List<Thing> things;
     private final Map<Position, Integer> waterAmounts;
-    private final Map<Token.Type, Integer> abilities;
+    private final Map<ItemType, Integer> abilities;
     public  final String[] lines;
     private final Map<String, String>  m_metaStrings;
     private final Map<String, Map<Integer, String>> m_metaStringArraysByKey;
@@ -105,7 +105,7 @@ public class LineProcessor
         List<Rabbit> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
-        Map<Token.Type, Integer> abilities,
+        Map<ItemType, Integer> abilities,
         String[] lines,
         VariantGenerator variantGen
     )
@@ -362,11 +362,11 @@ public class LineProcessor
         }
         else if ( TextWorldManip.ABILITIES.contains( key ) )
         {
-            if ( abilities.keySet().contains( Token.Type.valueOf( key ) ) )
+            if ( abilities.keySet().contains( ItemType.valueOf( key ) ) )
             {
                 throw new DuplicateMetaKey( lines, lineNum );
             }
-            abilities.put( Token.Type.valueOf( key ), toInt( value ) );
+            abilities.put( ItemType.valueOf( key ), toInt( value ) );
         }
         else if ( key.equals( TextWorldManip.water_definition ) )
         {
@@ -597,43 +597,43 @@ public class LineProcessor
             }
             case 'b':
             {
-                ret = new Token( x, y, Token.Type.bash );
+                ret = new BashItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'd':
             {
-                ret = new Token( x, y, Token.Type.dig );
+                ret = new DigItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'i':
             {
-                ret = new Token( x, y, Token.Type.bridge );
+                ret = new BridgeItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'k':
             {
-                ret = new Token( x, y, Token.Type.block );
+                ret = new BlockItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'c':
             {
-                ret = new Token( x, y, Token.Type.climb );
+                ret = new ClimbItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'p':
             {
-                ret = new Token( x, y, Token.Type.explode );
+                ret = new ExplodeItem( x, y );
                 things.add( ret );
                 break;
             }
             case 'l':
             {
-                ret = new Token( x, y, Token.Type.brolly );
+                ret = new BrollyItem( x, y );
                 things.add( ret );
                 break;
             }

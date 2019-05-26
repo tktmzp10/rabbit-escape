@@ -21,10 +21,12 @@ import java.util.Map;
 import org.junit.Test;
 
 import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.BridgeItem;
+import rabbitescape.engine.items.Item;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.DontStepAfterFinish;
 import rabbitescape.engine.WorldStatsListener;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.util.Position;
 import rabbitescape.engine.util.WaterUtil;
@@ -252,7 +254,7 @@ public class TestWorld
                 "###"
         );
 
-        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 5 ) );
+        assertThat( world.abilities.get( ItemType.bash ), equalTo( 5 ) );
     }
 
     @Test
@@ -267,17 +269,17 @@ public class TestWorld
         );
 
         // This is what we are testing
-        world.changes.addToken( 0, 0, Token.Type.bash );
+        world.changes.addToken( 0, 0, ItemType.bash );
         world.step();
 
         // There should be one less bash
-        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 4 ) );
+        assertThat( world.abilities.get( ItemType.bash ), equalTo( 4 ) );
 
         // The dig ability was unaffected
-        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 3 ) );
+        assertThat( world.abilities.get( ItemType.dig ), equalTo( 3 ) );
 
         // The bridge ability was unaffected
-        assertThat( world.abilities.get( Token.Type.bridge ), equalTo( 2 ) );
+        assertThat( world.abilities.get( ItemType.bridge ), equalTo( 2 ) );
     }
 
     @Test
@@ -290,17 +292,17 @@ public class TestWorld
         );
 
         // Use up the last bash
-        world.changes.addToken( 0, 0, Token.Type.bash );
+        world.changes.addToken( 0, 0, ItemType.bash );
         world.step();
 
         // Sanity
-        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 0 ) );
+        assertThat( world.abilities.get( ItemType.bash ), equalTo( 0 ) );
 
         // This is what we are testing: can't add another
         World.UnableToAddToken caughtException = null;
         try
         {
-            world.changes.addToken( 1, 0, Token.Type.bash );
+            world.changes.addToken( 1, 0, ItemType.bash );
         }
         catch ( World.UnableToAddToken e )
         {
@@ -318,13 +320,13 @@ public class TestWorld
             "###"
         );
 
-        Token token = world.getTokenAt( 1, 0 );
+        Item item = world.getTokenAt( 1, 0 );
 
         // Sanity
-        assertThat( token, is( notNullValue() ) );
+        assertThat( item, is( notNullValue() ) );
 
         // Remove it
-        world.changes.removeToken( token );
+        world.changes.removeToken( item );
 
         // This is what we are testing: it's gone
         assertThat( world.getTokenAt( 1, 0 ), is( nullValue() ) );
@@ -342,22 +344,22 @@ public class TestWorld
             "###"
         );
 
-        world.things.add( new Token( 1, 0, Token.Type.bridge ) );
+        world.things.add( new BridgeItem( 1, 0 ) );
 
-        Token token = world.getTokenAt( 1, 0 );
+        Item item = world.getTokenAt( 1, 0 );
 
         // Sanity
-        assertThat( token, is( notNullValue() ) );
+        assertThat( item, is( notNullValue() ) );
 
-        // Remove one token
-        world.changes.removeToken( token );
+        // Remove one item
+        world.changes.removeToken( item );
 
         // This is what we are testing: there's another
-        Token token2 = world.getTokenAt( 1, 0 );
-        assertThat( token2, is( notNullValue() ) );
+        Item item2 = world.getTokenAt( 1, 0 );
+        assertThat( item2, is( notNullValue() ) );
 
         // Remove that one too
-        world.changes.removeToken( token2 );
+        world.changes.removeToken( item2 );
 
         // Now there's nothing left
         assertThat( world.getTokenAt( 1, 0 ), is( nullValue() ) );

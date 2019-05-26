@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.*;
 
-public class TestPlaceTokenAction
+public class TestPlaceItemAction
 {
     @Test
     public void Equal_actions_are_equal()

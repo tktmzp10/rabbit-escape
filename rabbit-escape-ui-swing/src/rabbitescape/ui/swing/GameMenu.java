@@ -13,16 +13,16 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.render.BitmapCache;
 
 class GameMenu
 {
     public interface AbilityChangedListener
     {
-        void abilityChosen( Token.Type ability );
+        void abilityChosen( ItemType ability );
     }
 
     private static final int ICON_SIZE = 32;
@@ -40,7 +40,7 @@ class GameMenu
     private final Color backgroundColor;
 
     private final JPanel panel;
-    public final Map<Token.Type, AbilityDisplay> abilities;
+    public final Map<ItemType, AbilityDisplay> abilities;
 
     public GameMenu(
         Container contentPane,
@@ -48,7 +48,7 @@ class GameMenu
         Dimension buttonSizeInPixels,
         Config uiConfig,
         Color backgroundColor,
-        Map<Token.Type, Integer> abilityTypes
+        Map<ItemType, Integer> abilityTypes
     )
     {
         this.bitmapCache = bitmapCache;
@@ -147,17 +147,17 @@ class GameMenu
         return ret;
     }
 
-    private Map<Token.Type, AbilityDisplay> addAbilitiesButtons(
-        Map<Token.Type, Integer> abilityTypes,
+    private Map<ItemType, AbilityDisplay> addAbilitiesButtons(
+        Map<ItemType, Integer> abilityTypes,
         Dimension buttonSizeInPixels
     )
     {
-        Map<Token.Type, AbilityDisplay> ret = new HashMap<>();
+        Map<ItemType, AbilityDisplay> ret = new HashMap<>();
 
         ButtonGroup abilitiesGroup = new ButtonGroup();
 
         int key = KeyEvent.VK_1;
-        for ( Token.Type ability : sorted( abilityTypes.keySet() ) )
+        for ( ItemType ability : sorted( abilityTypes.keySet() ) )
         {
             String iconName = "ability_" + ability.toString();
 
@@ -165,7 +165,7 @@ class GameMenu
                 iconName,
                 null,
                 false,
-                t( Token.name( ability ) ),
+                t( ItemType.name( ability ) ),
                 buttonSizeInPixels
             );
 
@@ -253,7 +253,7 @@ class GameMenu
     public void addAbilitiesListener( final AbilityChangedListener listener )
     {
         for (
-            final Map.Entry<Token.Type, AbilityDisplay> abilityEntry
+            final Map.Entry<ItemType, AbilityDisplay> abilityEntry
                 : abilities.entrySet()
         )
         {
