@@ -5,8 +5,8 @@ import static rabbitescape.engine.util.Util.*;
 import java.io.PrintStream;
 import java.util.Locale;
 
-import rabbitescape.engine.IgnoreLevelWinListener;
-import rabbitescape.engine.IgnoreWorldStatsListener;
+import rabbitescape.engine.listener.IgnoreLevelWinListener;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.LoadWorldFile;
 import rabbitescape.engine.World;

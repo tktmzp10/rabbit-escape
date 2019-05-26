@@ -16,6 +16,7 @@ import org.junit.Test;
 import static rabbitescape.engine.util.Util.*;
 
 import rabbitescape.engine.World.CompletionState;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.solution.Solution;
 import rabbitescape.engine.solution.SolutionExceptions;
 import rabbitescape.engine.solution.SolutionParser;

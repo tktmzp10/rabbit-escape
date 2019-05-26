@@ -4,7 +4,7 @@ import static rabbitescape.engine.util.Util.split;
 
 import java.io.IOException;
 
-import rabbitescape.engine.IgnoreWorldStatsListener;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.LoadWorldFile;
 import rabbitescape.engine.World;
 import rabbitescape.engine.textworld.LineProcessor;

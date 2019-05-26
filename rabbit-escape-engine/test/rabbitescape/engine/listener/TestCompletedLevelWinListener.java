@@ -1,4 +1,4 @@
-package rabbitescape.engine;
+package rabbitescape.engine.listener;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.*;
 
+import rabbitescape.engine.listener.CompletedLevelWinListener;
 import rabbitescape.engine.menu.LevelsCompleted;
 
 public class TestCompletedLevelWinListener

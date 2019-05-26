@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import rabbitescape.engine.IgnoreLevelWinListener;
+import rabbitescape.engine.listener.IgnoreLevelWinListener;
 import rabbitescape.engine.util.FakeFileSystem;
 import rabbitescape.engine.util.FileSystem;
 import rabbitescape.engine.util.NothingExistsFileSystem;

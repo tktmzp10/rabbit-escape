@@ -1,6 +1,6 @@
 package rabbitescape.ui.text;
 
-import rabbitescape.engine.IgnoreWorldStatsListener;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.LoadWorldFile;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;

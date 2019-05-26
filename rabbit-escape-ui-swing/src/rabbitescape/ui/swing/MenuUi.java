@@ -33,10 +33,10 @@ import static rabbitescape.engine.util.Util.*;
 import static rabbitescape.engine.i18n.Translation.*;
 import static rabbitescape.ui.swing.SwingConfigSetup.*;
 
-import rabbitescape.engine.CompletedLevelWinListener;
-import rabbitescape.engine.IgnoreLevelWinListener;
+import rabbitescape.engine.listener.CompletedLevelWinListener;
+import rabbitescape.engine.listener.IgnoreLevelWinListener;
 import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.MultiLevelWinListener;
+import rabbitescape.engine.listener.MultiLevelWinListener;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigKeys;
 import rabbitescape.engine.config.ConfigTools;

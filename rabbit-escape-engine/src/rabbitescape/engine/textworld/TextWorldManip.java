@@ -13,7 +13,7 @@ import java.util.Map;
 
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription;
-import rabbitescape.engine.IgnoreWorldStatsListener;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
@@ -108,7 +108,7 @@ public class TextWorldManip
     }
 
     /**
-     * @param encode if true, create a world with obfuscated hints and solutions
+     * Encode if true, create a world with obfuscated hints and solutions
      */
     public static World createWorldWithName(
         String nameIfNoneSupplied,

@@ -1,5 +1,6 @@
-package rabbitescape.engine;
+package rabbitescape.engine.listener;
 
+import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.menu.LevelsCompleted;
 
 public class CompletedLevelWinListener implements LevelWinListener

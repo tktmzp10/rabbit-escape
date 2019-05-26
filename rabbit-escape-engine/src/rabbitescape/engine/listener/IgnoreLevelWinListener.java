@@ -1,4 +1,6 @@
-package rabbitescape.engine;
+package rabbitescape.engine.listener;
+
+import rabbitescape.engine.LevelWinListener;
 
 public class IgnoreLevelWinListener implements LevelWinListener
 {

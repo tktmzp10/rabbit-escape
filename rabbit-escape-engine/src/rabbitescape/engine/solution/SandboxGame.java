@@ -8,7 +8,7 @@ import java.util.List;
 import rabbitescape.engine.Entrance;
 import rabbitescape.engine.Exit;
 import rabbitescape.engine.Fire;
-import rabbitescape.engine.IgnoreWorldStatsListener;
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;

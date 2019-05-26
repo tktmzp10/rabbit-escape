@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import rabbitescape.engine.listener.IgnoreWorldStatsListener;
 import rabbitescape.engine.menu.*;
 import rabbitescape.engine.solution.Solution;
 import rabbitescape.engine.solution.SolutionExceptions;

@@ -1,9 +1,11 @@
-package rabbitescape.engine;
+package rabbitescape.engine.listener;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.*;
+import rabbitescape.engine.LevelWinListener;
+import rabbitescape.engine.listener.MultiLevelWinListener;
 
 public class TestMultiLevelWinListener
 {
