@@ -96,8 +96,11 @@ public abstract class Character extends Thing implements Comparable<Character>
             return;
         }
         BehaviourTools t = new BehaviourTools( this, world );
-        if ( t.blockHere() != null ||
-            !BehaviourTools.isSlope( t.blockBelow() ) )
+
+        final boolean isBlockAtCharacterPosition = t.blockHere() != null;
+        final boolean isBlockUnderCharacterPosition = !BehaviourTools.isSlope( t.blockBelow() );
+
+        if ( isBlockAtCharacterPosition || isBlockUnderCharacterPosition )
         {
             return;
         }
