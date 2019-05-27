@@ -41,13 +41,9 @@ public class Fire extends Thing
     public void calcNewState( World world )
     {
         // Check if being extinguished.
-        for ( WaterRegion waterRegion : world.waterTable.getItemsAt( x, y ) )
-        {
-            if ( waterRegion.getContents() > 0 )
-            {
-                state = FIRE_EXTINGUISHING;
-                return;
-            }
+        if (isFireExtinguished(world)) {
+        	state = FIRE_EXTINGUISHING;
+        	return;
         }
 
         Block blockBelow = world.getBlockAt( x, y + 1 );
@@ -122,6 +118,7 @@ public class Fire extends Thing
             return;
         }
     }
+   
 
     private State baseVariantSwitch( State a, State b, State c, State d )
     {
@@ -172,6 +169,19 @@ public class Fire extends Thing
         }
 
     }
+    
+    private boolean isFireExtinguished(World world) {
+        // Check if being extinguished.
+        for ( WaterRegion waterRegion : world.waterTable.getItemsAt( x, y ) )
+        {
+            if ( waterRegion.getContents() > 0 )
+            {
+                
+                return true;
+            }
+        }
+		return false;
+	}
 
     @Override
     public Map<String, String> saveState( boolean runtimeMeta )
