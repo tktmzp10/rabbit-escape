@@ -12,8 +12,8 @@ public class TestSelectAction
     @Test
     public void Equal_actions_are_equal()
     {
-        SelectAction a1 = new SelectAction( Token.Type.bridge );
-        SelectAction a2 = new SelectAction( Token.Type.bridge );
+        SelectAction a1 = new SelectAction( Token.Type.BRIDGE );
+        SelectAction a2 = new SelectAction( Token.Type.BRIDGE );
 
         assertThat( a1, equalTo( a2 ) );
         assertThat( a1.hashCode(), equalTo( a2.hashCode() ) );
@@ -22,8 +22,8 @@ public class TestSelectAction
     @Test
     public void Different_actions_are_unequal()
     {
-        SelectAction a1 = new SelectAction( Token.Type.bridge );
-        SelectAction a2 = new SelectAction( Token.Type.bash );
+        SelectAction a1 = new SelectAction( Token.Type.BRIDGE );
+        SelectAction a2 = new SelectAction( Token.Type.BASH );
 
         assertThat( a1, not( equalTo( a2 ) ) );
 

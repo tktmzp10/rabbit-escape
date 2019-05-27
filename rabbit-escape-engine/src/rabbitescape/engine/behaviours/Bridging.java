@@ -44,7 +44,7 @@ public class Bridging extends Behaviour
 
             if ( possibleState != null ) // Only pick up if we can bridge
             {
-                return t.pickUpToken( bridge );
+                return t.pickUpToken( BRIDGE );
             }
         }
         return false;

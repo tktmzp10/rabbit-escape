@@ -27,13 +27,13 @@ public class TestSolutionTimeStep
         SolutionTimeStep ts1 = new SolutionTimeStep(
             2,
             new PlaceTokenAction( 2, 2 ),
-            new SelectAction( Token.Type.bridge )
+            new SelectAction( Token.Type.BRIDGE )
         );
 
         SolutionTimeStep ts2 = new SolutionTimeStep(
             2,
             new PlaceTokenAction( 2, 2 ),
-            new SelectAction( Token.Type.bridge )
+            new SelectAction( Token.Type.BRIDGE )
         );
 
         assertThat( ts1, equalTo( ts2 ) );
@@ -89,7 +89,7 @@ public class TestSolutionTimeStep
         return new SolutionTimeStep(
               commandIndex
             , new PlaceTokenAction( 3, yCoord )
-            , new SelectAction( Token.Type.block )
+            , new SelectAction( Token.Type.BLOCK )
             , new AssertStateAction( World.CompletionState.RUNNING )
         );
     }
@@ -100,7 +100,7 @@ public class TestSolutionTimeStep
         return new SolutionTimeStep(
               commandIndex
             , new PlaceTokenAction( 3, yCoord )
-            , new SelectAction( Token.Type.block )
+            , new SelectAction( Token.Type.BLOCK )
         );
     }
 }

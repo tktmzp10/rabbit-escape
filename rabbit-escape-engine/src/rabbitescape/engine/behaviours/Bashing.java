@@ -24,7 +24,7 @@ public class Bashing extends Behaviour
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
-        return t.pickUpToken( bash );
+        return t.pickUpToken( BASH );
     }
 
     @Override

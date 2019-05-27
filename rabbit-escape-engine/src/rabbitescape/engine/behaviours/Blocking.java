@@ -22,7 +22,7 @@ public class Blocking extends Behaviour
     public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
-        return t.pickUpToken( block );
+        return t.pickUpToken( BLOCK );
     }
 
     @Override

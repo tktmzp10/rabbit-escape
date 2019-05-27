@@ -597,43 +597,43 @@ public class LineProcessor
             }
             case 'b':
             {
-                ret = new Token( x, y, Token.Type.bash );
+                ret = new Token( x, y, Token.Type.BASH );
                 things.add( ret );
                 break;
             }
             case 'd':
             {
-                ret = new Token( x, y, Token.Type.dig );
+                ret = new Token( x, y, Token.Type.DIG );
                 things.add( ret );
                 break;
             }
             case 'i':
             {
-                ret = new Token( x, y, Token.Type.bridge );
+                ret = new Token( x, y, Token.Type.BRIDGE );
                 things.add( ret );
                 break;
             }
             case 'k':
             {
-                ret = new Token( x, y, Token.Type.block );
+                ret = new Token( x, y, Token.Type.BLOCK );
                 things.add( ret );
                 break;
             }
             case 'c':
             {
-                ret = new Token( x, y, Token.Type.climb );
+                ret = new Token( x, y, Token.Type.CLIMB );
                 things.add( ret );
                 break;
             }
             case 'p':
             {
-                ret = new Token( x, y, Token.Type.explode );
+                ret = new Token( x, y, Token.Type.EXPLODE );
                 things.add( ret );
                 break;
             }
             case 'l':
             {
-                ret = new Token( x, y, Token.Type.brolly );
+                ret = new Token( x, y, Token.Type.BROLLY );
                 things.add( ret );
                 break;
             }

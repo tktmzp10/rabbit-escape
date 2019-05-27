@@ -1081,8 +1081,8 @@ public class TestUtil
     {
         Token[] tokens = new Token[]
         {
-            new Token( 0, 0, Token.Type.bash ),
-            new Token( 1, 1, Token.Type.bridge )
+            new Token( 0, 0, Token.Type.BASH ),
+            new Token( 1, 1, Token.Type.BRIDGE )
         };
 
         Rabbit[] rabbits = new Rabbit[]
