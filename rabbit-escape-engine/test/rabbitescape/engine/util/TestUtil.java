@@ -1086,7 +1086,7 @@ public class TestUtil
         };
 
         Rabbit[] rabbits = new Rabbit[]
-            { new Rabbit( 3, 3, Direction.LEFT, Rabbit.Type.RABBIT ) };
+            { new Rabbit( 3, 3, Direction.LEFT) };
 
         Iterable<Thing> chained = Util.chain( Arrays.asList( tokens ), Arrays.asList( rabbits ) );
 
