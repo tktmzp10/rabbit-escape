@@ -20,16 +20,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rabbitescape.engine.Block;
+import rabbitescape.engine.*;
 import rabbitescape.engine.Character;
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.Pipe;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
-import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
 import rabbitescape.engine.util.Position;
@@ -560,14 +552,14 @@ public class LineProcessor
             }
             case 't':
             {
-                Rabbit r = new Rabbit( x, y, RIGHT);
+                Rabbot r = new Rabbot( x, y, RIGHT);
                 ret = r;
                 characters.add( r );
                 break;
             }
             case 'y':
             {
-                Rabbit r = new Rabbit( x, y, LEFT);
+                Rabbot r = new Rabbot( x, y, LEFT);
                 ret = r;
                 characters.add( r );
                 break;
