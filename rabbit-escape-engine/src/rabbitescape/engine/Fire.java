@@ -51,7 +51,7 @@ public class Fire extends Thing
         // or sitting on the flat
         boolean flatBelow = BehaviourTools.s_isFlat( blockBelow );
 
-        if ( isStill(world, flatBelow); )
+        if ( isStill(world, flatBelow) )
         {
             Block onBlock = world.getBlockAt( x, y );
             if ( BehaviourTools.isLeftRiseSlope( onBlock ) )
