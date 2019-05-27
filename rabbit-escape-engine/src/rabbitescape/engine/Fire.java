@@ -50,12 +50,8 @@ public class Fire extends Thing
         // Note: when flatBelow is true may be on a slope with a flat below,
         // or sitting on the flat
         boolean flatBelow = BehaviourTools.s_isFlat( blockBelow );
-        boolean still = (
-                   flatBelow
-                || ( world.getBlockAt( x, y ) != null )
-                || BridgeTools.someoneIsBridgingAt( world, x, y )
-            );
-        if ( still )
+
+        if ( isStill(world, flatBelow); )
         {
             Block onBlock = world.getBlockAt( x, y );
             if ( BehaviourTools.isLeftRiseSlope( onBlock ) )
@@ -118,6 +114,12 @@ public class Fire extends Thing
             return;
         }
     }
+
+	private boolean isStill(World world, boolean flatBelow) {
+		return flatBelow
+		|| ( world.getBlockAt( x, y ) != null )
+		|| BridgeTools.someoneIsBridgingAt( world, x, y );
+	}
    
 
     private State baseVariantSwitch( State a, State b, State c, State d )
