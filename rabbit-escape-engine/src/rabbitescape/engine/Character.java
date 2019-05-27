@@ -24,8 +24,8 @@ public abstract class Character extends Thing implements Comparable<Character>
     public Character( int x, int y, State state )
     {
         super( x, y, state );
-        behaviours = new ArrayList<>();
-        behavioursTriggerOrder = new ArrayList<>();
+        behaviours = new ArrayList<Behaviour>();
+        behavioursTriggerOrder = new ArrayList<Behaviour>();
         createBehaviours();
     }
 
@@ -47,37 +47,26 @@ public abstract class Character extends Thing implements Comparable<Character>
         RabbotCrash rabbotCrash = new RabbotCrash();
         RabbotWait rabbotWait = new RabbotWait();
 
-        behavioursTriggerOrder.add( exploding );
-        behavioursTriggerOrder.add( outOfBounds );
-        behavioursTriggerOrder.add( burning );
-        behavioursTriggerOrder.add( drowning );
-        behavioursTriggerOrder.add( rabbotCrash );
-        behavioursTriggerOrder.add( falling );
-        behavioursTriggerOrder.add( exiting );
-        behavioursTriggerOrder.add( brollychuting );
-        behavioursTriggerOrder.add( climbing );
-        behavioursTriggerOrder.add( bashing );
-        behavioursTriggerOrder.add( digging );
-        behavioursTriggerOrder.add( bridging );
-        behavioursTriggerOrder.add( blocking );
-        behavioursTriggerOrder.add( rabbotWait );
-        behavioursTriggerOrder.add( walking );
+        List<Behaviour> behavioursList = new ArrayList<Behaviour>();
 
-        behaviours.add( exploding );
-        behaviours.add( outOfBounds );
-        behaviours.add( burning );
-        behaviours.add( drowning );
-        behaviours.add( rabbotCrash );
-        behaviours.add( falling );
-        behaviours.add( exiting );
-        behaviours.add( brollychuting );
-        behaviours.add( bashing );
-        behaviours.add( digging );
-        behaviours.add( bridging );
-        behaviours.add( blocking );
-        behaviours.add( climbing );
-        behaviours.add( rabbotWait );
-        behaviours.add( walking );
+        behavioursList.add( exploding );
+        behavioursList.add( outOfBounds );
+        behavioursList.add( burning );
+        behavioursList.add( drowning );
+        behavioursList.add( rabbotCrash );
+        behavioursList.add( falling );
+        behavioursList.add( exiting );
+        behavioursList.add( brollychuting );
+        behavioursList.add( climbing );
+        behavioursList.add( bashing );
+        behavioursList.add( digging );
+        behavioursList.add( bridging );
+        behavioursList.add( blocking );
+        behavioursList.add( rabbotWait );
+        behavioursList.add( walking );
+
+        behavioursTriggerOrder.addAll( behavioursList );
+        behaviours.addAll( behavioursList );
 
         assert behavioursTriggerOrder.size() == behaviours.size();
     }
@@ -86,6 +75,7 @@ public abstract class Character extends Thing implements Comparable<Character>
     {
         return falling.isFallingToDeath();
     }
+    
     abstract int getFatalHeight();
 
     private void cancelAllBehavioursExcept( Behaviour exception )
