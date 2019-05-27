@@ -37,15 +37,16 @@ public class Fire extends Thing
             "Variant outside expected range (0 - 3):" + variant );
     }
 
+
     @Override
     public void calcNewState( World world )
     {
-        // Check if being extinguished.
+
         if (isFireExtinguished(world)) {
         	state = FIRE_EXTINGUISHING;
         	return;
         }
-
+        
         Block blockBelow = world.getBlockAt( x, y + 1 );
         // Note: when flatBelow is true may be on a slope with a flat below,
         // or sitting on the flat
@@ -56,22 +57,12 @@ public class Fire extends Thing
             Block onBlock = world.getBlockAt( x, y );
             if ( BehaviourTools.isLeftRiseSlope( onBlock ) )
             {
-                state = baseVariantSwitch( 
-                    FIRE_A_RISE_LEFT, 
-                    FIRE_B_RISE_LEFT,     
-                    FIRE_C_RISE_LEFT, 
-                    FIRE_D_RISE_LEFT 
-                );
+                changeStateRiseLeft();
                 return;
             }
             if ( BehaviourTools.isRightRiseSlope( onBlock ) )
             {
-                state = baseVariantSwitch( 
-                    FIRE_A_RISE_RIGHT, 
-                    FIRE_B_RISE_RIGHT,
-                    FIRE_C_RISE_RIGHT, 
-                    FIRE_D_RISE_RIGHT 
-                );
+                changeStateRiseRight();
                 return;
             }
             // TODO: check here for fire falling on a bridger.
@@ -87,33 +78,88 @@ public class Fire extends Thing
         {
             if ( BehaviourTools.isLeftRiseSlope( blockBelow ) )
             {
-                state = baseVariantSwitch( 
-                    FIRE_A_FALL_TO_RISE_LEFT,
-                    FIRE_B_FALL_TO_RISE_LEFT,
-                    FIRE_C_FALL_TO_RISE_LEFT,
-                    FIRE_D_FALL_TO_RISE_LEFT 
-                );
+                changeStateFallToRiseLeft();
                 return;
             }
             if ( BehaviourTools.isRightRiseSlope( blockBelow ) )
             {
-                state = baseVariantSwitch( 
-                    FIRE_A_FALL_TO_RISE_RIGHT,
-                    FIRE_B_FALL_TO_RISE_RIGHT,
-                    FIRE_C_FALL_TO_RISE_RIGHT,
-                    FIRE_D_FALL_TO_RISE_RIGHT 
-                );
+                changeStateFallToRiseRight();
                 return;
             }
-            state = baseVariantSwitch( 
-                FIRE_A_FALLING, 
-                FIRE_B_FALLING,       
-                FIRE_C_FALLING, 
-                FIRE_D_FALLING 
-            );
+            changeStateFalling();
             return;
         }
     }
+    
+    private boolean isFireExtinguished(World world) {
+        // Check if being extinguished.
+        for ( WaterRegion waterRegion : world.waterTable.getItemsAt( x, y ) )
+        {
+            if ( waterRegion.getContents() > 0 )
+            {
+                
+                return true;
+            }
+        }
+		return false;
+	}
+
+	private void changeStateRiseLeft() {
+		state = baseVariantSwitch( 
+		    FIRE_A_RISE_LEFT, 
+		    FIRE_B_RISE_LEFT,     
+		    FIRE_C_RISE_LEFT, 
+		    FIRE_D_RISE_LEFT 
+		);
+	}
+
+
+
+
+	private void changeStateRiseRight() {
+		state = baseVariantSwitch( 
+		    FIRE_A_RISE_RIGHT, 
+		    FIRE_B_RISE_RIGHT,
+		    FIRE_C_RISE_RIGHT, 
+		    FIRE_D_RISE_RIGHT 
+		);
+	}
+
+
+
+
+	private void changeStateFalling() {
+		state = baseVariantSwitch( 
+		    FIRE_A_FALLING, 
+		    FIRE_B_FALLING,       
+		    FIRE_C_FALLING, 
+		    FIRE_D_FALLING 
+		);
+	}
+
+
+
+
+	private void changeStateFallToRiseRight() {
+		state = baseVariantSwitch( 
+		    FIRE_A_FALL_TO_RISE_RIGHT,
+		    FIRE_B_FALL_TO_RISE_RIGHT,
+		    FIRE_C_FALL_TO_RISE_RIGHT,
+		    FIRE_D_FALL_TO_RISE_RIGHT 
+		);
+	}
+
+
+
+
+	private void changeStateFallToRiseLeft() {
+		state = baseVariantSwitch( 
+		    FIRE_A_FALL_TO_RISE_LEFT,
+		    FIRE_B_FALL_TO_RISE_LEFT,
+		    FIRE_C_FALL_TO_RISE_LEFT,
+		    FIRE_D_FALL_TO_RISE_LEFT 
+		);
+	}
 
 	private boolean isStill(World world, boolean flatBelow) {
 		return flatBelow
@@ -172,18 +218,7 @@ public class Fire extends Thing
 
     }
     
-    private boolean isFireExtinguished(World world) {
-        // Check if being extinguished.
-        for ( WaterRegion waterRegion : world.waterTable.getItemsAt( x, y ) )
-        {
-            if ( waterRegion.getContents() > 0 )
-            {
-                
-                return true;
-            }
-        }
-		return false;
-	}
+
 
     @Override
     public Map<String, String> saveState( boolean runtimeMeta )
