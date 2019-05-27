@@ -1,44 +1,47 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.HashMap;
 import java.util.Map;
 
-public class Exit extends Environment
+public abstract class Environment extends Thing
 {
-    World world;
-
-    public Exit( int x, int y )
+    public Environment( int x, int y, ChangeDescription.State state )
     {
-        super( x, y, EXIT );
+        super( x, y, state );
     }
 
     @Override
     public void calcNewState( World world )
     {
+
     }
 
     @Override
     public void step( World world )
     {
-        this.world = world;
+
     }
 
     @Override
     public Map<String, String> saveState( boolean runtimeMeta )
     {
-        return new HashMap<String, String>();
+        return null;
     }
 
     @Override
     public void restoreFromState( Map<String, String> state )
     {
+
+    }
+
+    @Override
+    public String stateName()
+    {
+        return super.stateName();
     }
 
     @Override
     public String overlayText()
     {
-        return world == null ? "Exit" : "Exit\n" + world.num_saved + " saved";
+        return null;
     }
 }
