@@ -8,6 +8,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Character;
 
 public class Climbing extends Behaviour
 {
@@ -21,9 +22,9 @@ public class Climbing extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        BehaviourTools t = new BehaviourTools( rabbit, world );
+        BehaviourTools t = new BehaviourTools( character, world );
 
         return !hasAbility && t.pickUpToken( climb, true );
     }
@@ -41,7 +42,7 @@ public class Climbing extends Behaviour
             return null;
         }
 
-        switch ( t.rabbit.state )
+        switch ( t.character.state )
         {
             case RABBIT_CLIMBING_RIGHT_START:
             case RABBIT_CLIMBING_LEFT_START:
@@ -121,7 +122,7 @@ public class Climbing extends Behaviour
         int nextX = t.nextX();
         int nextY = t.nextY();
         Block nextBlock = t.world.getBlockAt( nextX, nextY );
-        Block aboveBlock = t.world.getBlockAt( t.rabbit.x, t.rabbit.y - 1 );
+        Block aboveBlock = t.world.getBlockAt( t.character.x, t.character.y - 1 );
 
         if ( !t.isRoof( aboveBlock ) && t.isWall( nextBlock ) )
         {
@@ -135,13 +136,13 @@ public class Climbing extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
-        BehaviourTools t = new BehaviourTools( rabbit, world );
+        BehaviourTools t = new BehaviourTools( character, world );
 
         if( t.rabbitIsClimbing() )
         { // Can't be both on a wall and on a slope.
-            rabbit.onSlope = false;
+            character.onSlope = false;
         }
 
         switch ( state )
@@ -155,11 +156,11 @@ public class Climbing extends Behaviour
             case RABBIT_CLIMBING_RIGHT_END:
             case RABBIT_CLIMBING_LEFT_END:
             {
-                rabbit.x = t.nextX();
-                --rabbit.y;
+                character.x = t.nextX();
+                --character.y;
                 if ( t.hereIsUpSlope() )
                 {
-                    rabbit.onSlope = true;
+                    character.onSlope = true;
                 }
                 abilityActive = false;
                 return true;
@@ -174,13 +175,13 @@ public class Climbing extends Behaviour
             case RABBIT_CLIMBING_LEFT_CONTINUE_2:
             {
                 abilityActive = true;
-                --rabbit.y;
+                --character.y;
                 return true;
             }
             case RABBIT_CLIMBING_RIGHT_BANG_HEAD:
             case RABBIT_CLIMBING_LEFT_BANG_HEAD:
             {
-                rabbit.dir = opposite( rabbit.dir );
+                character.dir = opposite( character.dir );
                 return true;
             }
             default:

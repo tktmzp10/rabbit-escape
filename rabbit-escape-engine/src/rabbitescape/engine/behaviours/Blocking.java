@@ -7,6 +7,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Character;
 
 public class Blocking extends Behaviour
 {
@@ -19,9 +20,9 @@ public class Blocking extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        BehaviourTools t = new BehaviourTools( rabbit, world );
+        BehaviourTools t = new BehaviourTools( character, world );
         return t.pickUpToken( block );
     }
 
@@ -30,7 +31,7 @@ public class Blocking extends Behaviour
     {
         if ( abilityActive || triggered )
         {
-            t.rabbit.possiblyUndoSlopeBashHop( t.world );
+            t.character.possiblyUndoSlopeBashHop( t.world );
             abilityActive = true;
             Block here = t.blockHere();
             if( BehaviourTools.isRightRiseSlope( here ) )
@@ -51,7 +52,7 @@ public class Blocking extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
         return isBlocking( state );
     }
@@ -74,8 +75,8 @@ public class Blocking extends Behaviour
 
     public static boolean blockerAt( World world, int nextX, int nextY )
     {
-        Rabbit[] rabbits = world.getRabbitsAt( nextX, nextY );
-        for ( Rabbit r : rabbits )
+        Character[] characters = world.getCharactersAt( nextX, nextY );
+        for ( Character r : characters )
         {
             if ( isBlocking( r.state ) )
             {
