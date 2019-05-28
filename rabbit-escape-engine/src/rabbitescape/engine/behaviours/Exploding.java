@@ -17,7 +17,7 @@ public class Exploding extends Behaviour
     public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
-        return t.pickUpToken( EXPLODE, true );
+        return t.pickUpToken( explode, true );
     }
 
     @Override

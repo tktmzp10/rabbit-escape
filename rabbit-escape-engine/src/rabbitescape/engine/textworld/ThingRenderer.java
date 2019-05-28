@@ -75,13 +75,13 @@ public class ThingRenderer
     {
         switch ( thing.type )
         {
-            case BASH:    return 'b';
-            case DIG:     return 'd';
-            case BRIDGE:  return 'i';
-            case BLOCK:   return 'k';
-            case CLIMB:   return 'c';
-            case EXPLODE: return 'p';
-            case BROLLY:  return 'l';
+            case bash:    return 'b';
+            case dig:     return 'd';
+            case bridge:  return 'i';
+            case block:   return 'k';
+            case climb:   return 'c';
+            case explode: return 'p';
+            case brolly:  return 'l';
             default: throw new UnknownTokenType( thing.type );
         }
     }

@@ -252,7 +252,7 @@ public class TestWorld
                 "###"
         );
 
-        assertThat( world.abilities.get( Token.Type.BASH ), equalTo( 5 ) );
+        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 5 ) );
     }
 
     @Test
@@ -267,17 +267,17 @@ public class TestWorld
         );
 
         // This is what we are testing
-        world.changes.addToken( 0, 0, Token.Type.BASH );
+        world.changes.addToken( 0, 0, Token.Type.bash );
         world.step();
 
         // There should be one less bash
-        assertThat( world.abilities.get( Token.Type.BASH ), equalTo( 4 ) );
+        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 4 ) );
 
         // The dig ability was unaffected
-        assertThat( world.abilities.get( Token.Type.DIG ), equalTo( 3 ) );
+        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 3 ) );
 
         // The bridge ability was unaffected
-        assertThat( world.abilities.get( Token.Type.BRIDGE ), equalTo( 2 ) );
+        assertThat( world.abilities.get( Token.Type.bridge ), equalTo( 2 ) );
     }
 
     @Test
@@ -290,17 +290,17 @@ public class TestWorld
         );
 
         // Use up the last bash
-        world.changes.addToken( 0, 0, Token.Type.BASH );
+        world.changes.addToken( 0, 0, Token.Type.bash );
         world.step();
 
         // Sanity
-        assertThat( world.abilities.get( Token.Type.BASH ), equalTo( 0 ) );
+        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 0 ) );
 
         // This is what we are testing: can't add another
         World.UnableToAddToken caughtException = null;
         try
         {
-            world.changes.addToken( 1, 0, Token.Type.BASH );
+            world.changes.addToken( 1, 0, Token.Type.bash );
         }
         catch ( World.UnableToAddToken e )
         {
@@ -342,7 +342,7 @@ public class TestWorld
             "###"
         );
 
-        world.things.add( new Token( 1, 0, Token.Type.BRIDGE ) );
+        world.things.add( new Token( 1, 0, Token.Type.bridge ) );
 
         Token token = world.getTokenAt( 1, 0 );
 

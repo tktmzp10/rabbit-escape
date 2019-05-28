@@ -113,7 +113,7 @@ public class TestSolutionParser
             equalTo(
                 new Solution(
                     new SolutionCommand(
-                        new SelectAction( Token.Type.BASH ),
+                        new SelectAction( Token.Type.bash ),
                         new PlaceTokenAction( 1, 1 ) ),
                     new SolutionCommand(
                         new AssertStateAction( World.CompletionState.WON ) )
@@ -130,7 +130,7 @@ public class TestSolutionParser
             equalTo(
                 new Solution(
                     new SolutionCommand(
-                        new SelectAction( Token.Type.BRIDGE )
+                        new SelectAction( Token.Type.bridge )
                     ),
                     new SolutionCommand(
                         new AssertStateAction( World.CompletionState.LOST ) )
@@ -162,7 +162,7 @@ public class TestSolutionParser
             equalTo(
                 new Solution(
                     new SolutionCommand(
-                        new SelectAction( Token.Type.BRIDGE )
+                        new SelectAction( Token.Type.bridge )
                     ),
                     new SolutionCommand(
                         new PlaceTokenAction( 22, 40 )
@@ -179,7 +179,7 @@ public class TestSolutionParser
             SolutionParser.parseCommand( "bash" ),
             equalTo(
                 new SolutionCommand(
-                    new SelectAction( Token.Type.BASH ) )
+                    new SelectAction( Token.Type.bash ) )
             )
         );
     }
@@ -191,7 +191,7 @@ public class TestSolutionParser
             SolutionParser.parseCommand( "bash&(1,2)" ),
             equalTo(
                 new SolutionCommand(
-                      new SelectAction( Token.Type.BASH )
+                      new SelectAction( Token.Type.bash )
                     , new PlaceTokenAction( 1, 2 )
                 )
             )

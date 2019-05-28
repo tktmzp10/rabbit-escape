@@ -1,7 +1,7 @@
 package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.Token.Type.BROLLY;
+import static rabbitescape.engine.Token.Type.brolly;
 
 import java.util.Map;
 
@@ -100,7 +100,7 @@ public class Brollychuting extends Behaviour
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
-        if ( !hasAbility && t.pickUpToken( BROLLY, true ) )
+        if ( !hasAbility && t.pickUpToken( brolly, true ) )
         {
             return true;
         }

@@ -22,7 +22,7 @@ public class Digging extends Behaviour
     public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
-        return t.pickUpToken( DIG );
+        return t.pickUpToken( dig );
     }
 
     @Override

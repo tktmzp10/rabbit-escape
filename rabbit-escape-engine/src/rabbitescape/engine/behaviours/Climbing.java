@@ -25,7 +25,7 @@ public class Climbing extends Behaviour
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
-        return !hasAbility && t.pickUpToken( CLIMB, true );
+        return !hasAbility && t.pickUpToken( climb, true );
     }
 
     @Override

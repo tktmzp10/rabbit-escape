@@ -55,7 +55,7 @@ public class TestSolution
         return new Solution(
               new SolutionCommand( new WaitAction( waitTime ) )
             , new SolutionCommand( new PlaceTokenAction( 3, 2 ) )
-            , new SolutionCommand( new SelectAction( Token.Type.BLOCK ) )
+            , new SolutionCommand( new SelectAction( Token.Type.block ) )
             , new SolutionCommand(
                 new AssertStateAction( World.CompletionState.RUNNING ) )
         );
@@ -66,7 +66,7 @@ public class TestSolution
         return new Solution(
               new SolutionCommand( new WaitAction( waitTime ) )
             , new SolutionCommand( new PlaceTokenAction( 3, 2 ) )
-            , new SolutionCommand( new SelectAction( Token.Type.BLOCK ) )
+            , new SolutionCommand( new SelectAction( Token.Type.block ) )
         );
     }
 }

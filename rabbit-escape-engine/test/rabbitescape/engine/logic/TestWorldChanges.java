@@ -29,7 +29,7 @@ public class TestWorldChanges
         {
             for ( int i = 0; i < 100; ++i )
             {
-                world.changes.addToken( 3, 0, Token.Type.BASH );
+                world.changes.addToken( 3, 0, Token.Type.bash );
             }
         }
     }
@@ -70,7 +70,7 @@ public class TestWorldChanges
             "####"
         );
 
-        world.abilities.put( Token.Type.BASH, 201 );
+        world.abilities.put( Token.Type.bash, 201 );
 
         // This is what we're testing: add tokens in 2 simultaneous threads
         Thread t1 = new Thread( new AddTokens( world ) );
@@ -91,7 +91,7 @@ public class TestWorldChanges
         world.step();
 
         // All 200 adds should have worked
-        assertThat( world.abilities.get( Token.Type.BASH ), equalTo( 1 ) );
+        assertThat( world.abilities.get( Token.Type.bash ), equalTo( 1 ) );
         assertThat( world.things.size(), equalTo( 200 ) );
     }
 
@@ -141,7 +141,7 @@ public class TestWorldChanges
         world.changes.killRabbit( rabbit0 );
         world.changes.saveRabbit( rabbit1 );
         world.changes.killRabbit( rabbit2 );
-        world.changes.addToken( 2, 1, Token.Type.BASH );
+        world.changes.addToken( 2, 1, Token.Type.bash );
         world.changes.removeToken( tok0 );
         world.changes.addBlock( new Block( 1, 1, Block.Material.EARTH, Shape.FLAT, 0 ) );
         world.changes.removeBlockAt( 0, 0 );

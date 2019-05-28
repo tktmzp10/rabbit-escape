@@ -77,7 +77,7 @@ public class TestSolutionCommand
     {
         return new SolutionCommand(
               new PlaceTokenAction( placeX, placeY )
-            , new SelectAction( Token.Type.BLOCK )
+            , new SelectAction( Token.Type.block )
             , new AssertStateAction( World.CompletionState.RUNNING )
         );
     }
@@ -86,7 +86,7 @@ public class TestSolutionCommand
     {
         return new SolutionCommand(
               new PlaceTokenAction( 3, 2 )
-            , new SelectAction( Token.Type.BLOCK )
+            , new SelectAction( Token.Type.block )
         );
     }
 }
