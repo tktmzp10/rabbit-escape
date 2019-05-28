@@ -114,8 +114,6 @@ public class Fire extends Thing
 	}
 
 
-
-
 	private void changeStateRiseRight() {
 		state = baseVariantSwitch( 
 		    FIRE_A_RISE_RIGHT, 
@@ -124,8 +122,6 @@ public class Fire extends Thing
 		    FIRE_D_RISE_RIGHT 
 		);
 	}
-
-
 
 
 	private void changeStateFalling() {

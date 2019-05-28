@@ -24,13 +24,13 @@ public class Token extends Thing
 
     public static enum Type
     {
-        BASH,
-        DIG,
-        BRIDGE,
-        BLOCK,
-        CLIMB,
-        EXPLODE,
-        BROLLY
+        bash,
+        dig,
+        bridge,
+        block,
+        climb,
+        explode,
+        brolly
     }
 
     public final Type type;
@@ -59,7 +59,7 @@ public class Token extends Thing
     {
         switch( type )
         {
-            case BASH:   return chooseState( 
+            case bash:   return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -69,7 +69,7 @@ public class Token extends Thing
                 TOKEN_BASH_ON_SLOPE
                 );
 
-            case DIG:    return chooseState( 
+            case dig:    return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -79,7 +79,7 @@ public class Token extends Thing
                 TOKEN_DIG_ON_SLOPE
                 );
 
-            case BRIDGE: return chooseState( 
+            case bridge: return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -89,7 +89,7 @@ public class Token extends Thing
                 TOKEN_BRIDGE_ON_SLOPE
                 );
 
-            case BLOCK: return chooseState( 
+            case block: return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -99,7 +99,7 @@ public class Token extends Thing
                 TOKEN_BLOCK_ON_SLOPE
                 );
 
-            case CLIMB: return chooseState( 
+            case climb: return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -109,7 +109,7 @@ public class Token extends Thing
                 TOKEN_CLIMB_ON_SLOPE
                 );
 
-            case EXPLODE: return chooseState( 
+            case explode: return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,
@@ -119,7 +119,7 @@ public class Token extends Thing
                 TOKEN_EXPLODE_ON_SLOPE)
                 ;
 
-            case BROLLY: return chooseState( 
+            case brolly: return chooseState( 
                 moving, 
                 slopeBelow, 
                 onSlope,

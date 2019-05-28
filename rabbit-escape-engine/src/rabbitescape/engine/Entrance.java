@@ -6,7 +6,7 @@ import static rabbitescape.engine.Direction.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Entrance extends Thing
+public class Entrance extends Environment
 {
     private int[] delay = new int[1];
 
