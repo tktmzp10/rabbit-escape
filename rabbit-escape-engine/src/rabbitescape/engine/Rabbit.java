@@ -22,6 +22,9 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     private final List<Behaviour> behaviours;
     private final List<Behaviour> behavioursTriggerOrder;
 
+    //For refactoring tests
+    private final List<Behaviour> ref_behaviours;
+
     public int index;
 
     private Falling falling;
@@ -43,6 +46,8 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         behavioursTriggerOrder = new ArrayList<>();
         createBehaviours();
         index = NOT_INDEXED;
+
+        ref_behaviours = new ArrayList<>();
     }
 
     private void createBehaviours()
@@ -81,7 +86,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
 
         behaviours.add( exploding );
         behaviours.add( outOfBounds );
-        behaviours.add( burning );
         behaviours.add( drowning );
         behaviours.add( rabbotCrash );
         behaviours.add( falling );
@@ -95,7 +99,9 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         behaviours.add( rabbotWait );
         behaviours.add( walking );
 
-        assert behavioursTriggerOrder.size() == behaviours.size();
+        ref_behaviours.add( burning );
+
+        assert behavioursTriggerOrder.size() == (behaviours.size() + 1);
     }
 
     public boolean isFallingToDeath()
@@ -145,6 +151,14 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
                 behaviour.cancel();
             }
         }
+
+        for ( Behaviour behaviour : ref_behaviours )
+        {
+            if ( behaviour != exception )
+            {
+                behaviour.cancel();
+            }
+        }
     }
 
     public void possiblyUndoSlopeBashHop( World world )
@@ -174,6 +188,15 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
                 break;
             }
         }
+
+        for ( Behaviour behaviour : ref_behaviours )
+        {
+            boolean handled = behaviour.behave( world, this, state );
+            if ( handled )
+            {
+                break;
+            }
+        }
     }
 
     @Override
@@ -193,6 +216,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             behaviour.saveState( ret );
         }
 
+        for ( Behaviour behaviour : ref_behaviours )
+        {
+            behaviour.saveState( ret );
+        }
+
         return ret;
     }
 
@@ -206,6 +234,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         );
 
         for ( Behaviour behaviour : behaviours )
+        {
+            behaviour.restoreFromState( state );
+        }
+
+        for ( Behaviour behaviour : ref_behaviours )
         {
             behaviour.restoreFromState( state );
         }
