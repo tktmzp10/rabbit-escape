@@ -57,4 +57,10 @@ public class RabbotCrash extends Behaviour
 
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return "RabbotCrash";
+    }
 }

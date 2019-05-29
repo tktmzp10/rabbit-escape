@@ -612,4 +612,10 @@ public class Bridging extends Behaviour
             ++smallSteps;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "Bridging";
+    }
 }

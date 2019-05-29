@@ -58,4 +58,10 @@ public class Burning extends Behaviour
         }
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "Burning";
+    }
 }

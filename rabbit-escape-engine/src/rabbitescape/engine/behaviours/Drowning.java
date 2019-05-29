@@ -71,4 +71,10 @@ public class Drowning extends Behaviour
             return false;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "Drowning";
+    }
 }

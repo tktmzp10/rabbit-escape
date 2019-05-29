@@ -271,4 +271,10 @@ public class Falling extends Behaviour
             saveState, "Falling.heightFallen", heightFallen
         );
     }
+
+    @Override
+    public String toString()
+    {
+        return "Falling";
+    }
 }

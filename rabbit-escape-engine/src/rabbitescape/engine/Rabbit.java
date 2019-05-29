@@ -22,9 +22,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     private final List<Behaviour> behaviours;
     private final List<Behaviour> behavioursTriggerOrder;
 
-    //For refactoring tests
-    private final List<Behaviour> ref_behaviours;
-
     public int index;
 
     private Falling falling;
@@ -46,8 +43,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         behavioursTriggerOrder = new ArrayList<>();
         createBehaviours();
         index = NOT_INDEXED;
-
-        ref_behaviours = new ArrayList<>();
     }
 
     private void createBehaviours()
@@ -86,6 +81,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
 
         behaviours.add( exploding );
         behaviours.add( outOfBounds );
+        behaviours.add( burning );
         behaviours.add( drowning );
         behaviours.add( rabbotCrash );
         behaviours.add( falling );
@@ -98,8 +94,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         behaviours.add( climbing );
         behaviours.add( rabbotWait );
         behaviours.add( walking );
-
-        ref_behaviours.add( burning );
 
         assert behavioursTriggerOrder.size() == (behaviours.size() + 1);
     }
@@ -129,18 +123,10 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         boolean done = false;
         for ( Behaviour behaviour : behaviours )
         {
-
-            State thisState = behaviour.newState(
-                new BehaviourTools( this, world ), behaviour.triggered );
-
-            if ( thisState != null && !done )
-            {
-                state = thisState;
+            if ( behaviour.toString().equals( "Burning" ) ) {
+                calcNewStateSP(world, behaviour);
+                continue;
             }
-        }
-
-        for ( Behaviour behaviour : ref_behaviours )
-        {
 
             State thisState = behaviour.newState(
                 new BehaviourTools( this, world ), behaviour.triggered );
@@ -151,20 +137,16 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
                 done = true;
             }
         }
+    }
 
+    private void calcNewStateSP( World world, Behaviour behaviour )
+    {
+        state = behaviour.newState( new BehaviourTools( this, world ), behaviour.triggered );
     }
 
     private void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
-        {
-            if ( behaviour != exception )
-            {
-                behaviour.cancel();
-            }
-        }
-
-        for ( Behaviour behaviour : ref_behaviours )
         {
             if ( behaviour != exception )
             {
@@ -200,15 +182,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
                 break;
             }
         }
-
-        for ( Behaviour behaviour : ref_behaviours )
-        {
-            boolean handled = behaviour.behave( world, this, state );
-            if ( handled )
-            {
-                break;
-            }
-        }
     }
 
     @Override
@@ -228,11 +201,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             behaviour.saveState( ret );
         }
 
-        for ( Behaviour behaviour : ref_behaviours )
-        {
-            behaviour.saveState( ret );
-        }
-
         return ret;
     }
 
@@ -246,11 +214,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         );
 
         for ( Behaviour behaviour : behaviours )
-        {
-            behaviour.restoreFromState( state );
-        }
-
-        for ( Behaviour behaviour : ref_behaviours )
         {
             behaviour.restoreFromState( state );
         }
