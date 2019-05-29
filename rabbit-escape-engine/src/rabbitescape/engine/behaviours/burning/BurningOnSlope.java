@@ -1,8 +1,9 @@
 package rabbitescape.engine.behaviours.burning;
 
-import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.World;
+import rabbitescape.engine.textworld.Chars;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BURNING_ON_SLOPE;
 
@@ -23,5 +24,8 @@ public class BurningOnSlope implements IBurningState
         return false;
     }
 
-
+    public static void setChars( Change change, Chars chars )
+    {
+        chars.set( change.x, change.y, 'X' );
+    }
 }
