@@ -136,6 +136,18 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             if ( thisState != null && !done )
             {
                 state = thisState;
+            }
+        }
+
+        for ( Behaviour behaviour : ref_behaviours )
+        {
+
+            State thisState = behaviour.newState(
+                new BehaviourTools( this, world ), behaviour.triggered );
+
+            if ( thisState != null && !done )
+            {
+                state = thisState;
                 done = true;
             }
         }
