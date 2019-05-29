@@ -8,6 +8,7 @@ import rabbitescape.engine.World;
 import rabbitescape.engine.behaviours.burning.BurningNormal;
 import rabbitescape.engine.behaviours.burning.BurningOnSlope;
 import rabbitescape.engine.behaviours.burning.IBurningState;
+import rabbitescape.engine.behaviours.burning.NotBurning;
 
 public class Burning extends Behaviour
 {
@@ -15,7 +16,7 @@ public class Burning extends Behaviour
 
     public Burning()
     {
-        this.burningState = new BurningNormal();
+        this.burningState = new NotBurning();
     }
 
     public void setBurningState(IBurningState burningState) {
@@ -36,37 +37,22 @@ public class Burning extends Behaviour
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        State state = null;
+        if ( triggered ) {
+            setBurningState( new BurningNormal() );
 
-        if (t.rabbit.onSlope)
-        {
-            setBurningState( new BurningOnSlope() );
+            if (t.rabbit.onSlope)
+            {
+                setBurningState( new BurningOnSlope() );
+            }
         }
 
-        if ( triggered )
-        {
-            state = burningState.newState();
-        }
-
-        return state;
+        return burningState.newState();
     }
 
     @Override
     public boolean behave( World world, Rabbit rabbit, State state )
     {
-        switch ( state )
-        {
-        case RABBIT_BURNING:
-        case RABBIT_BURNING_ON_SLOPE:
-        {
-            world.changes.killRabbit( rabbit );
-            return true;
-        }
-        default:
-        {
-            return false;
-        }
-        }
+        return burningState.behave( world, rabbit );
     }
 
     @Override
