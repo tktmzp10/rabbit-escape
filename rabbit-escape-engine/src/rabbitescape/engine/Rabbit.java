@@ -124,7 +124,13 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         for ( Behaviour behaviour : behaviours )
         {
             if ( behaviour.toString().equals( "Burning" ) ) {
-                calcNewStateSP(world, behaviour);
+                State temp_state = calcNewStateSP(world, behaviour);
+
+                if ( temp_state != null && !done )
+                {
+                    state = temp_state;
+                    done = true;
+                }
                 continue;
             }
 
@@ -139,9 +145,9 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         }
     }
 
-    private void calcNewStateSP( World world, Behaviour behaviour )
+    private State calcNewStateSP( World world, Behaviour behaviour )
     {
-        state = behaviour.newState( new BehaviourTools( this, world ), behaviour.triggered );
+        return behaviour.newState( new BehaviourTools( this, world ), behaviour.triggered );
     }
 
     private void cancelAllBehavioursExcept( Behaviour exception )
