@@ -69,4 +69,10 @@ public class Exiting extends Behaviour
             return false;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "Exiting";
+    }
 }

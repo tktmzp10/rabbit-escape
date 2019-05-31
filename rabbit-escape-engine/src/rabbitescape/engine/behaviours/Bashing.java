@@ -164,4 +164,10 @@ public class Bashing extends Behaviour
             ++stepsOfBashing;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "bashing";
+    }
 }

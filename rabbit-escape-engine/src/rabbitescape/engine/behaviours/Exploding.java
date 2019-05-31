@@ -42,4 +42,10 @@ public class Exploding extends Behaviour
 
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Exploding";
+    }
 }

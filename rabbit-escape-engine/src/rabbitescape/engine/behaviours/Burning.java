@@ -1,16 +1,27 @@
 package rabbitescape.engine.behaviours;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import rabbitescape.engine.Behaviour;
-import rabbitescape.engine.BehaviourTools;
+import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Character;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.World;
+import rabbitescape.engine.behaviours.burning.BurningNormal;
+import rabbitescape.engine.behaviours.burning.BurningOnSlope;
+import rabbitescape.engine.behaviours.burning.IBurningState;
+import rabbitescape.engine.behaviours.burning.NotBurning;
 
 public class Burning extends Behaviour
 {
+
+    private IBurningState burningState;
+
+    public Burning()
+    {
+        this.burningState = new NotBurning();
+    }
+
+    public void setBurningState( IBurningState burningState) {
+        this.burningState = burningState;
+    }
+
     @Override
     public void cancel()
     {
@@ -23,40 +34,31 @@ public class Burning extends Behaviour
     }
 
     @Override
-    public State newState(
-        BehaviourTools t, boolean triggered
-        )
+    public State newState( BehaviourTools t, boolean triggered )
     {
-        if ( triggered )
-        {
-            if ( t.character.onSlope )
+        if ( triggered ) {
+            setBurningState( new BurningNormal() );
+
+            if (t.character.onSlope)
             {
-                return RABBIT_BURNING_ON_SLOPE;
-            }
-            else
-            {
-                return RABBIT_BURNING;
+                setBurningState( new BurningOnSlope() );
             }
         }
 
-        return null;
+        return burningState.newState();
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
+    public boolean behave(
+        World world, Character character, State state
+    )
     {
-        switch ( state )
-        {
-        case RABBIT_BURNING:
-        case RABBIT_BURNING_ON_SLOPE:
-        {
-            world.changes.killRabbit( character );
-            return true;
-        }
-        default:
-        {
-            return false;
-        }
-        }
+        return burningState.behave( world, character );
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Burning";
     }
 }

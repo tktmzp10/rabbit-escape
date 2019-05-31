@@ -4,6 +4,9 @@ import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.ChangeDescription.Change;
 import rabbitescape.engine.RabbitStates;
 import rabbitescape.engine.StateAndPosition;
+import rabbitescape.engine.behaviours.burning.BurningNormal;
+import rabbitescape.engine.behaviours.burning.BurningOnSlope;
+import rabbitescape.engine.behaviours.burning.IBurningState;
 import rabbitescape.engine.util.Position;
 
 public class ChangeRenderer
@@ -69,10 +72,14 @@ public class ChangeRenderer
             case PIPE:
                 chars.set( change.x, change.y, 'P' );
                 break;
+            //==================================================================
             case RABBIT_BURNING:
-            case RABBIT_BURNING_ON_SLOPE:
-                chars.set(  change.x, change.y, 'X' );
+                BurningNormal.setChars(change, chars);
                 break;
+            case RABBIT_BURNING_ON_SLOPE:
+                BurningOnSlope.setChars(change, chars);
+                break;
+            //==================================================================
             case RABBIT_WALKING_LEFT:
                 chars.set( change.x-1, change.y, '<' );
                 break;

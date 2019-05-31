@@ -94,4 +94,10 @@ public class RabbotWait extends Behaviour
 
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return "RabbotWait";
+    }
 }

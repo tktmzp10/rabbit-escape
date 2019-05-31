@@ -128,4 +128,9 @@ public class Digging extends Behaviour
         }
     }
 
+    @Override
+    public String toString()
+    {
+        return "Digging";
+    }
 }

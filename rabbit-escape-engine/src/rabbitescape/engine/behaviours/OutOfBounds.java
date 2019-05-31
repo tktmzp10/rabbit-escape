@@ -76,4 +76,10 @@ public class OutOfBounds extends Behaviour
             TapTimer.setMars();
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "OutOfBounds";
+    }
 }

@@ -97,4 +97,10 @@ public class Blocking extends Behaviour
             return false;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "Bashing";
+    }
 }

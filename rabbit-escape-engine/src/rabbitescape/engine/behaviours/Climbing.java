@@ -214,4 +214,10 @@ public class Climbing extends Behaviour
             saveState, "Climbing.abilityActive", abilityActive
         );
     }
+
+    @Override
+    public String toString()
+    {
+        return "Climbing";
+    }
 }

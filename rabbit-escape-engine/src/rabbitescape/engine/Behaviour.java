@@ -41,4 +41,6 @@ public abstract class Behaviour
     public void restoreFromState( Map<String, String> saveState )
     {
     }
+
+    public abstract String toString();
 }

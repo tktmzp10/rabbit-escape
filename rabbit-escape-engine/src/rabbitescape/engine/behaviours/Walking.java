@@ -337,4 +337,10 @@ public class Walking extends Behaviour
             )
         );
     }
+
+    @Override
+    public String toString()
+    {
+        return "Walking";
+    }
 }
