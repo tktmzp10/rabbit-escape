@@ -349,8 +349,10 @@ public class ChangeRenderer
                 break;
             case ENTRANCE:
                 break;
+            //==================================================================
             case EXIT:
                 break;
+            //==================================================================
             default:
                 throw new AssertionError(
                     "Unknown Change state: " + change.state.name() );
