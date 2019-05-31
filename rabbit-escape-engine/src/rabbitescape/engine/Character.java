@@ -8,6 +8,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 import rabbitescape.engine.behaviours.states.Burning;
 import rabbitescape.engine.behaviours.states.Drowning;
+import rabbitescape.engine.behaviours.states.Exiting;
 import rabbitescape.engine.behaviours.states.OutOfBounds;
 
 public abstract class Character extends Thing implements Comparable<Character>
