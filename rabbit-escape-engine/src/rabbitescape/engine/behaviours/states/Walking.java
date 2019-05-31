@@ -28,6 +28,7 @@ public class Walking extends Behaviour
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
+        //TODO: Another pattern here?
         if ( t.isOnUpSlope() )
         {
             setWalkingState( new WalkingOnUpSlope().newState( t, triggered ) );
