@@ -19,6 +19,9 @@ public class RisingRightEnd implements IWalkingState
         World world, Character character
     )
     {
-        return false;
+        --character.y;
+        ++character.x;
+        character.onSlope = false;
+        return true;
     }
 }

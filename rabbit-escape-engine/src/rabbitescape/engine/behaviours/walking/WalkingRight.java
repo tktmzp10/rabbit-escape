@@ -19,6 +19,8 @@ public class WalkingRight implements IWalkingState
         World world, Character character
     )
     {
-        return false;
+        ++character.x;
+        character.onSlope = false;
+        return true;
     }
 }

@@ -19,6 +19,8 @@ public class LoweringAndRisingLeft implements IWalkingState
         World world, Character character
     )
     {
-        return false;
+        --character.x;
+        character.onSlope = true;
+        return true;
     }
 }
