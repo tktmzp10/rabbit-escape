@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours.walking;
+package rabbitescape.engine.behaviours.states.walking;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
