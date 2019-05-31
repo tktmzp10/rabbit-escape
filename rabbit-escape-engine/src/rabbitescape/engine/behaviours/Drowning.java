@@ -3,13 +3,9 @@ package rabbitescape.engine.behaviours;
 import static rabbitescape.engine.CellularDirection.DOWN;
 import static rabbitescape.engine.CellularDirection.UP;
 
-import rabbitescape.engine.Behaviour;
-import rabbitescape.engine.BehaviourTools;
-import rabbitescape.engine.CellularDirection;
+import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.WaterRegion;
-import rabbitescape.engine.World;
+import rabbitescape.engine.Character;
 
 public class Drowning extends Behaviour
 {
@@ -19,29 +15,29 @@ public class Drowning extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        if ( rabbit.type == Rabbit.Type.RABBOT )
+        if ( character instanceof Rabbot )
         {
             return false;  // Rabbots don't drown
         }
 
-        int yCoordinate = rabbit.y;
+        int yCoordinate = character.y;
         CellularDirection directionToCheck = UP;
-        if ( rabbit.onSlope )
+        if ( character.onSlope )
         {
-            // The rabbit's head is at the bottom of the cell above.
-            yCoordinate = rabbit.y - 1;
+            // The character's head is at the bottom of the cell above.
+            yCoordinate = character.y - 1;
             directionToCheck = DOWN;
         }
-        // TODO Find out why the rabbit's y coordinate is allowed to be
+        // TODO Find out why the character's y coordinate is allowed to be
         // larger than the size of the world (see solution for easy-12).
         if ( yCoordinate < 0 || yCoordinate >= world.size.height )
         {
             return false;
         }
         for ( WaterRegion waterRegion :
-              world.waterTable.getItemsAt( rabbit.x, yCoordinate ) )
+              world.waterTable.getItemsAt( character.x, yCoordinate ) )
         {
             if ( waterRegion.isConnected( directionToCheck ) )
             {
@@ -60,12 +56,12 @@ public class Drowning extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
         switch ( state )
         {
         case RABBIT_DROWNING:
-            world.changes.killRabbit( rabbit );
+            world.changes.killRabbit( character );
             return true;
         default:
             return false;

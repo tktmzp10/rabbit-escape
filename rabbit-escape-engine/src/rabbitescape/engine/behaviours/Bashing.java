@@ -8,6 +8,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Character;
 
 public class Bashing extends Behaviour
 {
@@ -20,9 +21,9 @@ public class Bashing extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        BehaviourTools t = new BehaviourTools( rabbit, world );
+        BehaviourTools t = new BehaviourTools( character, world );
 
         return t.pickUpToken( bash );
     }
@@ -97,7 +98,7 @@ public class Bashing extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
 
         switch ( state )
@@ -105,42 +106,42 @@ public class Bashing extends Behaviour
             case RABBIT_BASHING_RIGHT:
             case RABBIT_BASHING_LEFT:
             {
-                rabbit.slopeBashHop = false;
-                world.changes.removeBlockAt( destX( rabbit ), rabbit.y );
+                character.slopeBashHop = false;
+                world.changes.removeBlockAt( destX( character ), character.y );
                 return true;
             }
             case RABBIT_BASHING_UP_RIGHT:
             case RABBIT_BASHING_UP_LEFT:
             {
-                world.changes.removeBlockAt( destX( rabbit ), rabbit.y - 1 );
-                rabbit.slopeBashHop = true;
-                rabbit.y -= 1;
+                world.changes.removeBlockAt( destX( character ), character.y - 1 );
+                character.slopeBashHop = true;
+                character.y -= 1;
                 return true;
             }
             case RABBIT_BASHING_USELESSLY_RIGHT:
             case RABBIT_BASHING_USELESSLY_LEFT:
             {
-                rabbit.slopeBashHop = false;
+                character.slopeBashHop = false;
                 return true;
             }
             case RABBIT_BASHING_USELESSLY_RIGHT_UP:
             case RABBIT_BASHING_USELESSLY_LEFT_UP:
             {
-                rabbit.slopeBashHop = true;
-                rabbit.y -= 1;
+                character.slopeBashHop = true;
+                character.y -= 1;
                 return true;
             }
             default:
             {
-                rabbit.slopeBashHop = false;
+                character.slopeBashHop = false;
                 return false;
             }
         }
     }
 
-    private int destX( Rabbit rabbit )
+    private int destX( Character character )
     {
-        return ( rabbit.dir == RIGHT ) ? rabbit.x + 1 : rabbit.x - 1;
+        return ( character.dir == RIGHT ) ? character.x + 1 : character.x - 1;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import rabbitescape.engine.Character;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.WaterRegion;
@@ -32,17 +33,17 @@ public class Overlay
     {
         List<WaterRegion> waterRegions = waterRegionsAt( x, y );
         List<Thing> things = world.getThingsAt( x, y );
-        Rabbit[] rabbits = world.getRabbitsAt( x, y );
+        Character[] characters = world.getCharactersAt( x, y );
 
         if ( waterRegions.size() == 0 &&
              things.size() == 0  &&
-             rabbits.length == 0 )
+             characters.length == 0 )
         {
             return "";
         }
 
         Iterable<Thing> thingsHere =
-            Util.chain( waterRegions, things, Arrays.asList( rabbits ) );
+            Util.chain( waterRegions, things, Arrays.asList( characters ) );
 
         Function<Thing,String> textF = new Function<Thing,String>()
         {

@@ -4,6 +4,7 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Character;
 
 public class Exiting extends Behaviour
 {
@@ -13,9 +14,9 @@ public class Exiting extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        if ( rabbit.type == Rabbit.Type.RABBOT )
+        if ( character instanceof Rabbot)
         {
             return false;  // Rabbots ignore exits
         }
@@ -24,7 +25,7 @@ public class Exiting extends Behaviour
         {
             if (
                    ( thing instanceof Exit )
-                && ( thing.x == rabbit.x && thing.y == rabbit.y )
+                && ( thing.x == character.x && thing.y == character.y )
             )
             {
                 return true;
@@ -38,11 +39,11 @@ public class Exiting extends Behaviour
     {
         if ( triggered )
         {
-            if ( t.rabbit.state == RABBIT_CLIMBING_LEFT_CONTINUE_2 )
+            if ( t.character.state == RABBIT_CLIMBING_LEFT_CONTINUE_2 )
             {
                 return RABBIT_ENTERING_EXIT_CLIMBING_LEFT;
             }
-            if ( t.rabbit.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
+            if ( t.character.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
             {
                 return RABBIT_ENTERING_EXIT_CLIMBING_RIGHT;
             }
@@ -52,7 +53,7 @@ public class Exiting extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
         if (
                state == RABBIT_ENTERING_EXIT
@@ -60,7 +61,7 @@ public class Exiting extends Behaviour
             || state == RABBIT_ENTERING_EXIT_CLIMBING_LEFT
            )
         {
-            world.changes.saveRabbit( rabbit );
+            world.changes.saveRabbit( character );
             return true;
         }
         else

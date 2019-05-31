@@ -10,6 +10,7 @@ import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Character;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.World;
 
@@ -51,7 +52,7 @@ public class Brollychuting extends Behaviour
         }
 
         if (
-            t.rabbit.onSlope
+            t.character.onSlope
          && !t.blockHereJustRemoved()
         )
         {
@@ -80,11 +81,11 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, Character character, State state )
     {
         if ( state == RABBIT_BROLLYCHUTING )
         {
-            rabbit.y = rabbit.y + 1;
+            character.y = character.y + 1;
             return true;
         }
         return false;
@@ -96,9 +97,9 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( Character character, World world )
     {
-        BehaviourTools t = new BehaviourTools( rabbit, world );
+        BehaviourTools t = new BehaviourTools( character, world );
 
         if ( !hasAbility && t.pickUpToken( brolly, true ) )
         {
@@ -121,7 +122,7 @@ public class Brollychuting extends Behaviour
         }
 
         if (
-               rabbit.onSlope
+               character.onSlope
             && !t.blockHereJustRemoved()
         )
         {

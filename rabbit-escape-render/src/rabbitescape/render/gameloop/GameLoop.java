@@ -2,6 +2,7 @@ package rabbitescape.render.gameloop;
 
 import java.io.PrintStream;
 
+import rabbitescape.engine.Character;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigKeys;
@@ -142,11 +143,11 @@ public class GameLoop
         }
         if ( ConfigTools.getBool( config, ConfigKeys.CFG_DEBUG_PRINT_STATES ) )
         {
-            for ( Rabbit rabbit : physics.world().rabbits )
+            for ( Character character : physics.world().rabbits )
             {
-                debugout.println( " " + rabbit.toString() + ":" +
-                                  rabbit.state.name() + " onSlope:" +
-                                  rabbit.onSlope );
+                debugout.println( " " + character.toString() + ":" +
+                                  character.state.name() + " onSlope:" +
+                                  character.onSlope );
             }
         }
     }
