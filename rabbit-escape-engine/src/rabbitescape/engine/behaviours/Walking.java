@@ -6,175 +6,37 @@ import static rabbitescape.engine.Block.Shape.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.behaviours.walking.*;
 import rabbitescape.engine.things.Character;
 
 public class Walking extends Behaviour
 {
+    private IWalkingState walkingState, rightState, leftState;
+
+    public void setWalkingState( IWalkingState walkingState )
+    {
+        this.walkingState = walkingState;
+    }
+
+    public void setRightState( IWalkingState rightState )
+    {
+        this.rightState = rightState;
+    }
+
+    public void setLeftState( IWalkingState leftState )
+    {
+        this.leftState = leftState;
+    }
+
+    public void setBothStates( IWalkingState rightState, IWalkingState leftState )
+    {
+        setRightState( rightState );
+        setLeftState( leftState );
+    }
+
     @Override
     public void cancel()
     {
-    }
-
-    private static class StateCalc
-    {
-        private final BehaviourTools t;
-
-        StateCalc( BehaviourTools t )
-        {
-            this.t = t;
-        }
-
-        public State newState()
-        {
-            if ( t.isOnUpSlope() )
-            {
-                Block aboveNext = t.blockAboveNext();
-                Block above = t.blockAbove();
-                int nextX = t.nextX();
-                int nextY = t.character.y - 1;
-
-                if
-                    (
-                       t.isWall( aboveNext )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-                    || t.isRoof( above )
-                    || ( t.isCresting() &&
-                         Blocking.blockerAt( t.world, nextX, t.character.y ) )
-                    )
-                {
-                    return rl(
-                        RABBIT_TURNING_RIGHT_TO_LEFT_RISING,
-                        RABBIT_TURNING_LEFT_TO_RIGHT_RISING
-                    );
-                }
-                else if ( t.isUpSlope( aboveNext ) )
-                {
-                    return rl(
-                        RABBIT_RISING_RIGHT_CONTINUE,
-                        RABBIT_RISING_LEFT_CONTINUE
-                    );
-                }
-                else if ( t.isDownSlope( t.blockNext() ) )
-                {
-                    return rl(
-                        RABBIT_RISING_AND_LOWERING_RIGHT,
-                        RABBIT_RISING_AND_LOWERING_LEFT
-                    );
-                }
-                else
-                {
-                    return rl(
-                        RABBIT_RISING_RIGHT_END,
-                        RABBIT_RISING_LEFT_END
-                    );
-                }
-            }
-            else if ( t.isOnDownSlope() )
-            {
-                int nextX = t.nextX();
-                int nextY = t.character.y + 1;
-                Block next = t.blockNext();
-                Block belowNext = t.blockBelowNext();
-
-                if (
-                       t.isWall( next )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-                    || ( t.isValleying() &&
-                         Blocking.blockerAt( t.world, nextX, t.character.y ) )
-                    )
-                {
-                    return rl(
-                        RABBIT_TURNING_RIGHT_TO_LEFT_LOWERING,
-                        RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING
-                    );
-                }
-                else if ( t.isUpSlope( next ) )
-                {
-                    return rl(
-                        RABBIT_LOWERING_AND_RISING_RIGHT,
-                        RABBIT_LOWERING_AND_RISING_LEFT
-                    );
-                }
-                else if ( t.isDownSlope( belowNext ) )
-                {
-                    return rl(
-                        RABBIT_LOWERING_RIGHT_CONTINUE,
-                        RABBIT_LOWERING_LEFT_CONTINUE
-                    );
-                }
-                else
-                {
-                    if ( Blocking.blockerAt( t.world, nextX, t.character.y ) )
-                    {
-                        return rl(
-                            RABBIT_TURNING_RIGHT_TO_LEFT_LOWERING,
-                            RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING
-                        );
-                    }
-                    else
-                    {
-                        return rl(
-                            RABBIT_LOWERING_RIGHT_END,
-                            RABBIT_LOWERING_LEFT_END
-                        );
-                    }
-                }
-            }
-            else  // On flat ground now
-            {
-                int nextX = t.nextX();
-                int nextY = t.character.y;
-                Block next = t.blockNext();
-
-                if
-                    (
-                       t.isWall( next )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-                    )
-                {
-                    return rl(
-                        RABBIT_TURNING_RIGHT_TO_LEFT,
-                        RABBIT_TURNING_LEFT_TO_RIGHT
-                    );
-                }
-                else if ( t.isUpSlope( next ) )
-                {
-                    return rl(
-                        RABBIT_RISING_RIGHT_START,
-                        RABBIT_RISING_LEFT_START
-                    );
-                }
-                else if ( t.isDownSlope( t.blockBelowNext() ) )
-                {
-                    if ( Blocking.blockerAt( t.world, nextX, t.character.y + 1 ) )
-                    {
-                        return rl(
-                            RABBIT_TURNING_RIGHT_TO_LEFT,
-                            RABBIT_TURNING_LEFT_TO_RIGHT
-                        );
-                    }
-                    else
-                    {
-                        return rl(
-                            RABBIT_LOWERING_RIGHT_START,
-                            RABBIT_LOWERING_LEFT_START
-                        );
-                    }
-                }
-                else
-                {
-                    return rl(
-                        RABBIT_WALKING_RIGHT,
-                        RABBIT_WALKING_LEFT
-                    );
-                }
-            }
-        }
-
-        private State rl( State rightState, State leftState )
-        {
-            return t.rl( rightState, leftState );
-        }
     }
 
     @Override
@@ -186,7 +48,109 @@ public class Walking extends Behaviour
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        return new StateCalc( t ).newState();
+        if ( t.isOnUpSlope() )
+        {
+            Block aboveNext = t.blockAboveNext();
+            Block above = t.blockAbove();
+            int nextX = t.nextX();
+            int nextY = t.character.y - 1;
+
+            if
+            (
+                t.isWall( aboveNext )
+                    || Blocking.blockerAt( t.world, nextX, nextY )
+                    || t.isRoof( above )
+                    || ( t.isCresting() &&
+                             Blocking.blockerAt( t.world, nextX, t.character.y ) )
+            )
+            {
+                setBothStates( new TurningRightToLeftRising(), new TurningLeftToRightRising() );
+            }
+            else if ( t.isUpSlope( aboveNext ) )
+            {
+                setBothStates( new RisingRightContinue(), new RisingLeftContinue() );
+            }
+            else if ( t.isDownSlope( t.blockNext() ) )
+            {
+                setBothStates( new RisingAndLoweringRight(), new RisingAndLoweringLeft() );
+            }
+            else
+            {
+                setBothStates( new RisingRightEnd(), new RisingLeftEnd() );
+            }
+        }
+        else if ( t.isOnDownSlope() )
+        {
+            int nextX = t.nextX();
+            int nextY = t.character.y + 1;
+            Block next = t.blockNext();
+            Block belowNext = t.blockBelowNext();
+
+            if (
+                t.isWall( next )
+                    || Blocking.blockerAt( t.world, nextX, nextY )
+                    || ( t.isValleying() &&
+                             Blocking.blockerAt( t.world, nextX, t.character.y ) )
+            )
+            {
+                setBothStates( new TurningRightToLeftLowering(), new TurningLeftToRightLowering() );
+            }
+            else if ( t.isUpSlope( next ) )
+            {
+                setBothStates( new LoweringAndRisingRight(), new LoweringAndRisingLeft() );
+            }
+            else if ( t.isDownSlope( belowNext ) )
+            {
+                setBothStates( new LoweringRightContinue(), new LoweringLeftContinue() );
+            }
+            else
+            {
+                if ( Blocking.blockerAt( t.world, nextX, t.character.y ) )
+                {
+                    setBothStates( new TurningRightToLeftLowering(), new TurningLeftToRightLowering() );
+                }
+                else
+                {
+                    setBothStates( new LoweringRightEnd(), new LoweringLeftEnd() );
+                }
+            }
+        }
+        else  // On flat ground now
+        {
+            int nextX = t.nextX();
+            int nextY = t.character.y;
+            Block next = t.blockNext();
+
+            if
+            (
+                t.isWall( next )
+                    || Blocking.blockerAt( t.world, nextX, nextY )
+            )
+            {
+                setBothStates( new TurningRightToLeft(), new TurningLeftToRight() );
+            }
+            else if ( t.isUpSlope( next ) )
+            {
+                setBothStates( new RisingRightEnd(), new RisingLeftEnd() );
+            }
+            else if ( t.isDownSlope( t.blockBelowNext() ) )
+            {
+                if ( Blocking.blockerAt( t.world, nextX, t.character.y + 1 ) )
+                {
+                    setBothStates( new TurningRightToLeft(), new TurningLeftToRight() );
+                }
+                else
+                {
+                    setBothStates( new LoweringRightStart(), new LoweringLeftStart() );
+                }
+            }
+            else
+            {
+                setBothStates( new WalkingRight(), new WalkingLeft() );
+            }
+        }
+
+        return t.rl( rightState.newState(), leftState.newState() );
     }
 
     @Override
@@ -301,7 +265,7 @@ public class Walking extends Behaviour
             {
                 throw new AssertionError(
                     "Should have handled all states in Walking or before,"
-                    + " but we are in state " + state.name()
+                    + " but we are in walkingState " + state.name()
                 );
             }
         }
