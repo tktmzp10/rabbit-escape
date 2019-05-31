@@ -1,10 +1,10 @@
-package rabbitescape.engine.behaviours.burning;
+package rabbitescape.engine.behaviours.states.drowning;
 
 import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.Character;
 import rabbitescape.engine.World;
 
-public class NotBurning implements IBurningState
+public class NotDrowning implements IDrowningState
 {
     @Override
     public State newState()

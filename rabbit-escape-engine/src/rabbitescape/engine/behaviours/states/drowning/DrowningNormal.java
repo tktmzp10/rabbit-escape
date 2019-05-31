@@ -1,18 +1,18 @@
-package rabbitescape.engine.behaviours.burning;
+package rabbitescape.engine.behaviours.states.drowning;
 
 import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.Character;
 import rabbitescape.engine.World;
 import rabbitescape.engine.textworld.Chars;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BURNING_ON_SLOPE;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_DROWNING;
 
-public class BurningOnSlope implements IBurningState
+public class DrowningNormal implements IDrowningState
 {
     @Override
     public State newState()
     {
-        return RABBIT_BURNING_ON_SLOPE;
+        return RABBIT_DROWNING;
     }
 
     @Override
@@ -21,11 +21,11 @@ public class BurningOnSlope implements IBurningState
     )
     {
         world.changes.killRabbit( character );
-        return false;
+        return true;
     }
 
     public static void setChars( Change change, Chars chars )
     {
-        chars.set( change.x, change.y, 'X' );
+        chars.set( change.x, change.y, 'R' );
     }
 }

@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours.burning;
+package rabbitescape.engine.behaviours.states.burning;
 
 import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.Character;

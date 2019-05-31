@@ -4,9 +4,9 @@ import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.ChangeDescription.Change;
 import rabbitescape.engine.RabbitStates;
 import rabbitescape.engine.StateAndPosition;
-import rabbitescape.engine.behaviours.burning.BurningNormal;
-import rabbitescape.engine.behaviours.burning.BurningOnSlope;
-import rabbitescape.engine.behaviours.burning.IBurningState;
+import rabbitescape.engine.behaviours.states.burning.BurningNormal;
+import rabbitescape.engine.behaviours.states.burning.BurningOnSlope;
+import rabbitescape.engine.behaviours.states.drowning.DrowningNormal;
 import rabbitescape.engine.util.Position;
 
 public class ChangeRenderer
@@ -289,9 +289,11 @@ public class ChangeRenderer
             case RABBIT_EXPLODING:
                 chars.set( change.x, change.y, 'P' );
                 break;
+            //==================================================================
             case RABBIT_DROWNING:
-                chars.set( change.x, change.y, 'R' );
+                DrowningNormal.setChars( change, chars );
                 break;
+            //==================================================================
             case RABBIT_CRASHING:
                 chars.set( change.x, change.y, 'Z' );
                 break;
@@ -299,8 +301,10 @@ public class ChangeRenderer
             case RABBIT_WAITING_RIGHT:
                 chars.set( change.x, change.y, 'z' );
                 break;
+            //==================================================================
             case RABBIT_OUT_OF_BOUNDS:
                 break;
+            //==================================================================
             case TOKEN_BASH_STILL:
             case TOKEN_BASH_ON_SLOPE:
             case TOKEN_DIG_STILL:

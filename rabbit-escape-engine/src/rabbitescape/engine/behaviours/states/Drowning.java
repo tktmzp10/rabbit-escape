@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours;
+package rabbitescape.engine.behaviours.states;
 
 import static rabbitescape.engine.CellularDirection.DOWN;
 import static rabbitescape.engine.CellularDirection.UP;
@@ -6,9 +6,24 @@ import static rabbitescape.engine.CellularDirection.UP;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Character;
+import rabbitescape.engine.behaviours.states.drowning.DrowningNormal;
+import rabbitescape.engine.behaviours.states.drowning.IDrowningState;
+import rabbitescape.engine.behaviours.states.drowning.NotDrowning;
 
 public class Drowning extends Behaviour
 {
+    private IDrowningState drowningState;
+
+    public Drowning()
+    {
+        this.drowningState = new NotDrowning();
+    }
+
+    public void setDrowningState( IDrowningState drowningState )
+    {
+        this.drowningState = drowningState;
+    }
+
     @Override
     public void cancel()
     {
@@ -52,20 +67,17 @@ public class Drowning extends Behaviour
         BehaviourTools t,
         boolean triggered )
     {
-        return ( triggered ? State.RABBIT_DROWNING : null );
+        if ( triggered ) {
+            setDrowningState( new DrowningNormal() );
+        }
+
+        return drowningState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        switch ( state )
-        {
-        case RABBIT_DROWNING:
-            world.changes.killRabbit( character );
-            return true;
-        default:
-            return false;
-        }
+        return drowningState.behave( world, character );
     }
 
     @Override

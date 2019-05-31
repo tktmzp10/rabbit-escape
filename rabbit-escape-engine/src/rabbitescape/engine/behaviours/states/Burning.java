@@ -1,12 +1,12 @@
-package rabbitescape.engine.behaviours;
+package rabbitescape.engine.behaviours.states;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Character;
-import rabbitescape.engine.behaviours.burning.BurningNormal;
-import rabbitescape.engine.behaviours.burning.BurningOnSlope;
-import rabbitescape.engine.behaviours.burning.IBurningState;
-import rabbitescape.engine.behaviours.burning.NotBurning;
+import rabbitescape.engine.behaviours.states.burning.BurningNormal;
+import rabbitescape.engine.behaviours.states.burning.BurningOnSlope;
+import rabbitescape.engine.behaviours.states.burning.IBurningState;
+import rabbitescape.engine.behaviours.states.burning.NotBurning;
 
 public class Burning extends Behaviour
 {

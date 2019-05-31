@@ -1,10 +1,10 @@
-package rabbitescape.engine.behaviours.burning;
+package rabbitescape.engine.behaviours.states.outofbounds;
 
-import rabbitescape.engine.ChangeDescription.*;
+import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Character;
 import rabbitescape.engine.World;
 
-public interface IBurningState
+public interface IOutOfBoundsState
 {
     public State newState();
 
