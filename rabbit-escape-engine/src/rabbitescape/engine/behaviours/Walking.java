@@ -131,7 +131,7 @@ public class Walking extends Behaviour
             }
             else if ( t.isUpSlope( next ) )
             {
-                setBothStates( new RisingRightEnd(), new RisingLeftEnd() );
+                setBothStates( new RisingRightStart(), new RisingLeftStart() );
             }
             else if ( t.isDownSlope( t.blockBelowNext() ) )
             {
