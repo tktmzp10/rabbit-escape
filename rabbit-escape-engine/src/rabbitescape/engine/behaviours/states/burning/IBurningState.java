@@ -1,7 +1,7 @@
 package rabbitescape.engine.behaviours.states.burning;
 
 import rabbitescape.engine.ChangeDescription.*;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
 public interface IBurningState

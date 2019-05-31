@@ -9,7 +9,7 @@ import static rabbitescape.engine.Tools.*;
 import org.junit.Test;
 
 import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.World;
 
 public class TestBridging

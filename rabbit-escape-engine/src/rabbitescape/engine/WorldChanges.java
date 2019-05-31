@@ -9,6 +9,8 @@ import rabbitescape.engine.World.NoBlockFound;
 import rabbitescape.engine.World.NoSuchAbilityInThisWorld;
 import rabbitescape.engine.World.NoneOfThisAbilityLeft;
 import rabbitescape.engine.World.UnableToAddToken;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.util.Position;
 
 public class WorldChanges

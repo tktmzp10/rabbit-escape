@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rabbitescape.engine.*;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Util;
 
 public class SpriteAnimator

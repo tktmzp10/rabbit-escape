@@ -4,8 +4,9 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.behaviours.states.exiting.*;
+import rabbitescape.engine.things.characters.Rabbot;
 
 public class Exiting extends Behaviour
 {
@@ -29,7 +30,7 @@ public class Exiting extends Behaviour
     @Override
     public boolean checkTriggered( Character character, World world )
     {
-        if ( character instanceof Rabbot)
+        if ( character instanceof Rabbot )
         {
             return false;  // Rabbots ignore exits
         }

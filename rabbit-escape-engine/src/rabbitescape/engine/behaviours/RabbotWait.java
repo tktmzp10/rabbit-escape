@@ -2,7 +2,9 @@ package rabbitescape.engine.behaviours;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
+import rabbitescape.engine.things.characters.Rabbot;
 
 public class RabbotWait extends Behaviour
 {

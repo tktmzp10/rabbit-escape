@@ -20,8 +20,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Character;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.DontStepAfterFinish;

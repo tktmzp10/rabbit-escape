@@ -1,5 +1,7 @@
 package rabbitescape.engine;
 
+import rabbitescape.engine.things.characters.Rabbit;
+
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
 

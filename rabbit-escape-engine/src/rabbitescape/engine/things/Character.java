@@ -1,9 +1,11 @@
-package rabbitescape.engine;
+package rabbitescape.engine.things;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 import rabbitescape.engine.behaviours.states.Burning;
@@ -80,7 +82,7 @@ public abstract class Character extends Thing implements Comparable<Character>
         return falling.isFallingToDeath();
     }
     
-    abstract int getFatalHeight();
+    public abstract int getFatalHeight();
 
     private void cancelAllBehavioursExcept( Behaviour exception )
     {

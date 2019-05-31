@@ -8,7 +8,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 
 public class Bashing extends Behaviour
 {

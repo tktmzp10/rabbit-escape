@@ -5,8 +5,8 @@ import static rabbitescape.engine.Direction.*;
 import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
 
 public class CharacterRenderer
 {

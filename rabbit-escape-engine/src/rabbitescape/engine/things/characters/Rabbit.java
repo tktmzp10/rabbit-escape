@@ -1,4 +1,7 @@
-package rabbitescape.engine;
+package rabbitescape.engine.things.characters;
+
+import rabbitescape.engine.Direction;
+import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
@@ -6,14 +9,14 @@ public class Rabbit extends Character
 {
     String name = "character";
 
-    public Rabbit(int x,int y,Direction dir)
+    public Rabbit(int x,int y, Direction dir)
     {
         super( x, y, RABBIT_WALKING_LEFT );
         this.dir = dir;
     }
 
     @Override
-    int getFatalHeight() { return 4; }
+    public int getFatalHeight() { return 4; }
 
     @Override
     public String stateName()

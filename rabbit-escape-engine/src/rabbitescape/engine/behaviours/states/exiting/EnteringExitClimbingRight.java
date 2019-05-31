@@ -1,7 +1,7 @@
 package rabbitescape.engine.behaviours.states.exiting;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_ENTERING_EXIT_CLIMBING_RIGHT;

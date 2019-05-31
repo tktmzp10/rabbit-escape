@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import rabbitescape.engine.Character;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.WaterRegion;
 import rabbitescape.engine.World;

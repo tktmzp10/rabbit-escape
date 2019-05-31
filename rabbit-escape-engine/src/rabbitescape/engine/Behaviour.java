@@ -3,6 +3,7 @@ package rabbitescape.engine;
 import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.things.Character;
 
 public abstract class Behaviour
 {

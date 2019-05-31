@@ -3,7 +3,7 @@ package rabbitescape.engine.behaviours.states;
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 import rabbitescape.engine.behaviours.states.outofbounds.IOutOfBoundsState;
 import rabbitescape.engine.behaviours.states.outofbounds.NotOutOfBounds;

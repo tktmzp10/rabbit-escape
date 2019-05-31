@@ -2,7 +2,7 @@ package rabbitescape.engine.behaviours.states;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.behaviours.states.burning.BurningNormal;
 import rabbitescape.engine.behaviours.states.burning.BurningOnSlope;
 import rabbitescape.engine.behaviours.states.burning.IBurningState;

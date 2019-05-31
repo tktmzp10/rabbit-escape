@@ -10,7 +10,7 @@ import static rabbitescape.engine.util.Util.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.render.AnimationLoader;
+import rabbitescape.engine.things.characters.Rabbot;
 
 public class TestAnimations
 {

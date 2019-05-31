@@ -1,9 +1,8 @@
 package rabbitescape.engine.behaviours.states.exiting;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
-import rabbitescape.engine.behaviours.states.drowning.IDrowningState;
 
 public class NotExiting implements IExitingState
 {

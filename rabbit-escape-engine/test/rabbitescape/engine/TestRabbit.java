@@ -5,6 +5,8 @@ import static org.hamcrest.MatcherAssert.*;
 import static rabbitescape.engine.ChangeDescription.State.*;
 
 import org.junit.Test;
+import rabbitescape.engine.things.characters.Rabbit;
+import rabbitescape.engine.things.characters.Rabbot;
 
 public class TestRabbit
 {

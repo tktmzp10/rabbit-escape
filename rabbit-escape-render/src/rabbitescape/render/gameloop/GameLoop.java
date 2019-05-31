@@ -2,8 +2,7 @@ package rabbitescape.render.gameloop;
 
 import java.io.PrintStream;
 
-import rabbitescape.engine.Character;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigKeys;
 import rabbitescape.engine.config.ConfigTools;

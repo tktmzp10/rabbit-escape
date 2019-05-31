@@ -1,5 +1,6 @@
 package rabbitescape.engine;
 
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Position;
 
 public class BridgeTools

@@ -13,9 +13,8 @@ import java.util.Map;
 
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;

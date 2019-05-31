@@ -21,7 +21,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rabbitescape.engine.*;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
+import rabbitescape.engine.things.characters.Rabbot;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
 import rabbitescape.engine.util.Position;

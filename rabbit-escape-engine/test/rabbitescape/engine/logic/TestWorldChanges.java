@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.*;
 
 import rabbitescape.engine.Block;
-import rabbitescape.engine.Character;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.Block.Shape;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
