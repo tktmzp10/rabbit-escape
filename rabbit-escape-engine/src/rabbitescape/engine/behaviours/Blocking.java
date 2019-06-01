@@ -7,11 +7,31 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.behaviours.states.blocking.*;
 import rabbitescape.engine.things.Character;
 
 public class Blocking extends Behaviour
 {
+    private IBlockingState blockingState;
+    //TODO: Think of ways to not using this variable "behave".
+    private static boolean behave;
     public boolean abilityActive = false;
+
+    public Blocking()
+    {
+        this.blockingState = new NotBlocking();
+    }
+
+    public void setBlockingState( IBlockingState blockingState )
+    {
+        this.blockingState = blockingState;
+        this.behave = blockingState.behave();
+    }
+
+    public static boolean getBehave()
+    {
+        return behave;
+    }
 
     @Override
     public void cancel()
@@ -34,27 +54,28 @@ public class Blocking extends Behaviour
             t.character.possiblyUndoSlopeBashHop( t.world );
             abilityActive = true;
             Block here = t.blockHere();
+
             if( BehaviourTools.isRightRiseSlope( here ) )
             {
-                return RABBIT_BLOCKING_RISE_RIGHT;
+                setBlockingState( new BlockingRiseRight() );
             }
             else if ( BehaviourTools.isLeftRiseSlope( here ) )
             {
-                return RABBIT_BLOCKING_RISE_LEFT;
+                setBlockingState( new BlockingRiseLeft() );
             }
             else
             {
-                return RABBIT_BLOCKING;
+                setBlockingState( new BlockingNormal() );
             }
         }
 
-        return null;
+        return blockingState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return isBlocking( state );
+        return this.behave;
     }
 
     @Override
@@ -78,7 +99,7 @@ public class Blocking extends Behaviour
         Character[] characters = world.getCharactersAt( nextX, nextY );
         for ( Character r : characters )
         {
-            if ( isBlocking( r.state ) )
+            if ( behave )
             {
                 return true;
             }
@@ -86,21 +107,21 @@ public class Blocking extends Behaviour
         return false;
     }
 
-    static boolean isBlocking( State s )
-    {
-        switch ( s ) {
-        case RABBIT_BLOCKING:
-        case RABBIT_BLOCKING_RISE_RIGHT:
-        case RABBIT_BLOCKING_RISE_LEFT:
-            return true;
-        default:
-            return false;
-        }
-    }
-
     @Override
     public String toString()
     {
         return "Bashing";
+    }
+
+    static boolean isBlocking( State s )
+    {
+        switch ( s ) {
+            case RABBIT_BLOCKING:
+            case RABBIT_BLOCKING_RISE_RIGHT:
+            case RABBIT_BLOCKING_RISE_LEFT:
+                return true;
+            default:
+                return false;
+        }
     }
 }
