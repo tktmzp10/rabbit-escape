@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours;
+package rabbitescape.engine.behaviours.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Token.Type.*;
@@ -14,7 +14,7 @@ import rabbitescape.engine.things.Character;
 public class Digging extends Behaviour
 {
     private IDiggingState diggingState;
-    int stepsOfDigging;
+    public int stepsOfDigging;
 
     public Digging()
     {

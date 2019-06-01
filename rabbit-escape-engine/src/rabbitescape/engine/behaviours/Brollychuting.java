@@ -11,6 +11,7 @@ import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.actions.Climbing;
+import rabbitescape.engine.behaviours.actions.Digging;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
