@@ -102,10 +102,11 @@ public class Bashing extends Behaviour
             {
                 setBothStates( new BashingUselesslyRight(), new BashingUselesslyLeft() );
             }
+            setBashingState( t.character.dir == RIGHT ? rightState : leftState );
+        } else
+        {
+            --stepsOfBashing;
         }
-        --stepsOfBashing;
-
-        setBashingState( t.character.dir == RIGHT ? rightState : leftState );
 
         return bashingState.newState();
     }
