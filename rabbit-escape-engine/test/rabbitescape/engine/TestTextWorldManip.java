@@ -15,6 +15,9 @@ import org.junit.Test;
 import static rabbitescape.engine.util.Util.*;
 
 import rabbitescape.engine.World.CompletionState;
+import rabbitescape.engine.items.BashItem;
+import rabbitescape.engine.items.BridgeItem;
+import rabbitescape.engine.items.DigItem;
 import rabbitescape.engine.solution.Solution;
 import rabbitescape.engine.solution.SolutionExceptions;
 import rabbitescape.engine.solution.SolutionParser;
@@ -535,8 +538,8 @@ public class TestTextWorldManip
         // put 2 rabbits and 2 items all in the same place, on top of a block
         world.rabbits.add( new Rabbit( 2, 2, Direction.RIGHT) );
         world.rabbits.add( new Rabbit( 2, 2, Direction.LEFT) );
-        world.things.add( new Token( 2, 2, Token.Type.bash ) );
-        world.things.add( new Token( 2, 2, Token.Type.bridge ) );
+        world.things.add( new BashItem( 2, 2 ) );
+        world.things.add( new BridgeItem( 2, 2 ) );
 
         assertThat(
             renderCompleteWorld( world, false ),
@@ -566,12 +569,12 @@ public class TestTextWorldManip
         world.rabbits.add( new Rabbit( 1, 1, Direction.LEFT) );
 
         // bash and bridge in top right
-        world.things.add( new Token( 2, 1, Token.Type.bash ) );
-        world.things.add( new Token( 2, 1, Token.Type.bridge ) );
+        world.things.add( new BashItem( 2, 1 ) );
+        world.things.add( new BridgeItem( 2, 1 ) );
 
         // dig in bottom left and bottom right
-        world.things.add( new Token( 1, 2, Token.Type.dig ) );
-        world.things.add( new Token( 2, 2, Token.Type.dig ) );
+        world.things.add( new DigItem( 1, 2 ) );
+        world.things.add( new DigItem( 2, 2 ) );
 
         assertThat(
             renderCompleteWorld( world, false ),

@@ -5,8 +5,8 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.*;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
+import rabbitescape.engine.items.ItemType;
 
 public class TestSolution
 {
@@ -55,7 +55,7 @@ public class TestSolution
         return new Solution(
               new SolutionCommand( new WaitAction( waitTime ) )
             , new SolutionCommand( new PlaceTokenAction( 3, 2 ) )
-            , new SolutionCommand( new SelectAction( Token.Type.block ) )
+            , new SolutionCommand( new SelectAction( ItemType.block ) )
             , new SolutionCommand(
                 new AssertStateAction( World.CompletionState.RUNNING ) )
         );
@@ -66,7 +66,7 @@ public class TestSolution
         return new Solution(
               new SolutionCommand( new WaitAction( waitTime ) )
             , new SolutionCommand( new PlaceTokenAction( 3, 2 ) )
-            , new SolutionCommand( new SelectAction( Token.Type.block ) )
+            , new SolutionCommand( new SelectAction( ItemType.block ) )
         );
     }
 }

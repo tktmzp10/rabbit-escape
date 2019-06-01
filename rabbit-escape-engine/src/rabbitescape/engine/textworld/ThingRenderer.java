@@ -7,17 +7,17 @@ import rabbitescape.engine.Exit;
 import rabbitescape.engine.Fire;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
-import rabbitescape.engine.Token.Type;
+import rabbitescape.engine.items.Item;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.err.RabbitEscapeException;
 
 public class ThingRenderer
 {
     public static class UnknownTokenType extends RabbitEscapeException
     {
-        public final Type type;
+        public final ItemType type;
 
-        public UnknownTokenType( Type type )
+        public UnknownTokenType( ItemType type )
         {
             this.type = type;
         }
@@ -25,19 +25,19 @@ public class ThingRenderer
         private static final long serialVersionUID = 1L;
     }
 
-    public static void render( 
-        Chars chars, 
+    public static void render(
+        Chars chars,
         List<Thing> things,
-        boolean runtimeMeta 
+        boolean runtimeMeta
     )
     {
         for ( Thing thing : things )
         {
-            chars.set( 
-                thing.x, 
-                thing.y, 
+            chars.set(
+                thing.x,
+                thing.y,
                 charForThing( thing ),
-                thing.saveState( runtimeMeta ) 
+                thing.saveState( runtimeMeta )
             );
         }
     }
@@ -52,9 +52,9 @@ public class ThingRenderer
         {
             return 'O';
         }
-        else if ( thing instanceof Token )
+        else if ( thing instanceof Item )
         {
-            return charForToken( (Token)thing );
+            return ( ( Item )thing ).getCharRepresentation();
         }
         else if ( thing instanceof Fire )
         {
@@ -68,21 +68,6 @@ public class ThingRenderer
         {
             throw new AssertionError(
                 "Unknown Thing type: " + thing.getClass() );
-        }
-    }
-
-    private static char charForToken( Token thing )
-    {
-        switch ( thing.type )
-        {
-            case bash:    return 'b';
-            case dig:     return 'd';
-            case bridge:  return 'i';
-            case block:   return 'k';
-            case climb:   return 'c';
-            case explode: return 'p';
-            case brolly:  return 'l';
-            default: throw new UnknownTokenType( thing.type );
         }
     }
 }

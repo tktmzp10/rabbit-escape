@@ -16,10 +16,10 @@ import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.IgnoreWorldStatsListener;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
 import rabbitescape.engine.WorldStatsListener;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.Position;
 import rabbitescape.engine.util.Util;
@@ -87,7 +87,7 @@ public class TextWorldManip
     private static List<String> abilitiesList()
     {
         List<String> ret = new ArrayList<>();
-        for ( Token.Type type : Token.Type.values() )
+        for ( ItemType type : ItemType.values() )
         {
             ret.add( type.name() );
         }
@@ -107,9 +107,6 @@ public class TextWorldManip
         return createWorldWithName( "", statsListener, lines );
     }
 
-    /**
-     * @param encode if true, create a world with obfuscated hints and solutions
-     */
     public static World createWorldWithName(
         String nameIfNoneSupplied,
         WorldStatsListener statsListener,
@@ -120,7 +117,7 @@ public class TextWorldManip
         List<Character> rabbits = new ArrayList<>();
         List<Thing> things = new ArrayList<>();
         Map<Position, Integer> waterAmounts = new HashMap<>();
-        Map<Token.Type, Integer> abilities = new HashMap<>();
+        Map<ItemType, Integer> abilities = new HashMap<>();
 
         int variantSeed = 0; // TODO: world property for the seed?
 
@@ -160,7 +157,7 @@ public class TextWorldManip
         List<Character> characters,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
-        Map<Token.Type, Integer> abilities,
+        Map<ItemType, Integer> abilities,
         LineProcessor processor,
         int num_rabs 
     )
@@ -202,7 +199,7 @@ public class TextWorldManip
             new ArrayList<Character>(),
             new ArrayList<Thing>(),
             new HashMap<Position, Integer>(),
-            new HashMap<Token.Type, Integer>(),
+            new HashMap<ItemType, Integer>(),
             "Empty World",   //name
             "",              //description
             "",              //author_name
@@ -425,20 +422,20 @@ public class TextWorldManip
 
     private static void abilityMetaLines( World world, List<String> ret )
     {
-        List<Token.Type> abilityNames = new ArrayList<Token.Type>(
+        List<ItemType> abilityNames = new ArrayList<ItemType>(
             world.abilities.keySet() );
 
-        Comparator<Token.Type> alphabetical = new Comparator<Token.Type>()
+        Comparator<ItemType> alphabetical = new Comparator<ItemType>()
         {
             @Override
-            public int compare( Token.Type o1, Token.Type o2 )
+            public int compare( ItemType o1, ItemType o2 )
             {
                 return o1.name().compareTo( o2.name() );
             }
         };
         Collections.sort( abilityNames, alphabetical );
 
-        for ( Token.Type t : abilityNames )
+        for ( ItemType t : abilityNames )
         {
             addMeta( ret, t.name(),
                      Integer.toString( world.abilities.get( t ) ),

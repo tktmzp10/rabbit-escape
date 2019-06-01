@@ -10,6 +10,7 @@ import static rabbitescape.engine.util.Util.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.items.BlockItem;
 import rabbitescape.engine.things.characters.Rabbot;
 
 public class TestAnimations
@@ -17,7 +18,7 @@ public class TestAnimations
     @Test
     public void States_must_have_animations_and_frames_must_have_images()
     {
-        Thing token = new Token( 2, 1, Token.Type.block );
+        Thing token = new BlockItem( 2, 1 );
         for ( State s: State.values() )
         {
             token.state = s;

@@ -13,9 +13,10 @@ import rabbitescape.engine.IgnoreWorldStatsListener;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.Item;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.textworld.Comment;
 
 /**
@@ -28,7 +29,7 @@ public class SandboxGame
      * The token type that is currently 'selected' by whatever is interacting
      * with the sandbox.
      */
-    private Token.Type selectedType = null;
+    private ItemType selectedType = null;
     /** The world object that is contained in the game. */
     private final World world;
 
@@ -95,10 +96,10 @@ public class SandboxGame
                 Rabbit rabbit = (Rabbit)thing;
                 clonedThings.add( cloneRabbit( rabbit ) );
             }
-            else if ( thing instanceof Token )
+            else if ( thing instanceof Item )
             {
-                Token token = (Token)thing;
-                clonedThings.add( new Token( token.x, token.y, token.type ) );
+                Item item = (Item)thing;
+                clonedThings.add( item.copyWithoutState() );
             }
             else if ( thing instanceof Fire )
             {
@@ -155,7 +156,7 @@ public class SandboxGame
      *
      * @return The token type selected.
      */
-    public Token.Type getSelectedType()
+    public ItemType getSelectedType()
     {
         return selectedType;
     }
@@ -166,7 +167,7 @@ public class SandboxGame
      * @param selectedType
      *            The type to select.
      */
-    public void setSelectedType( Token.Type selectedType )
+    public void setSelectedType( ItemType selectedType )
     {
         this.selectedType = selectedType;
     }

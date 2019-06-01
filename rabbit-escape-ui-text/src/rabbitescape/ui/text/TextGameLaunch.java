@@ -6,9 +6,9 @@ import static rabbitescape.engine.util.Util.*;
 import java.util.Map;
 
 import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.solution.SandboxGame;
 import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.util.MegaCoder;
@@ -120,7 +120,7 @@ public class TextGameLaunch implements GameLaunch
         terminal.out.println();
 
         for (
-            Map.Entry<Token.Type, Integer> entry :
+            Map.Entry<ItemType, Integer> entry :
                 sandboxGame.getWorld().abilities.entrySet()
         )
         {
@@ -139,7 +139,7 @@ public class TextGameLaunch implements GameLaunch
         terminal.out.println();
     }
 
-    private boolean isSelected( Token.Type ability )
+    private boolean isSelected( ItemType ability )
     {
         return ability.equals( sandboxGame.getSelectedType() );
     }

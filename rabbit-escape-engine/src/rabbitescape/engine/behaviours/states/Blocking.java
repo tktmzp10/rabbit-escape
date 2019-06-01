@@ -1,7 +1,6 @@
 package rabbitescape.engine.behaviours.states;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.Token.Type.*;
+import static rabbitescape.engine.items.ItemType.*;
 
 import java.util.Map;
 

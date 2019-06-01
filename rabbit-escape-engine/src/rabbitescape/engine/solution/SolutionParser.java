@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import static rabbitescape.engine.util.Util.*;
 
-import rabbitescape.engine.Token.Type;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.util.Util.Function;
 
@@ -26,7 +26,7 @@ public class SolutionParser
         toStringList( CompletionState.values() );
 
     private static final List<String> TOKEN_TYPES =
-        toStringList( Type.values() );
+        toStringList( ItemType.values() );
 
     public static Solution parse( String solution )
     {
@@ -101,7 +101,7 @@ public class SolutionParser
         }
         else if ( TOKEN_TYPES.contains( actionString ) )
         {
-            return new SelectAction( Type.valueOf( actionString ) );
+            return new SelectAction( ItemType.valueOf( actionString ) );
         }
         else
         {

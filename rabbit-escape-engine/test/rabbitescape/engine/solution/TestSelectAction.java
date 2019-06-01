@@ -5,15 +5,15 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.ItemType;
 
 public class TestSelectAction
 {
     @Test
     public void Equal_actions_are_equal()
     {
-        SelectAction a1 = new SelectAction( Token.Type.bridge );
-        SelectAction a2 = new SelectAction( Token.Type.bridge );
+        SelectAction a1 = new SelectAction( ItemType.bridge );
+        SelectAction a2 = new SelectAction( ItemType.bridge );
 
         assertThat( a1, equalTo( a2 ) );
         assertThat( a1.hashCode(), equalTo( a2.hashCode() ) );
@@ -22,8 +22,8 @@ public class TestSelectAction
     @Test
     public void Different_actions_are_unequal()
     {
-        SelectAction a1 = new SelectAction( Token.Type.bridge );
-        SelectAction a2 = new SelectAction( Token.Type.bash );
+        SelectAction a1 = new SelectAction( ItemType.bridge );
+        SelectAction a2 = new SelectAction( ItemType.bash );
 
         assertThat( a1, not( equalTo( a2 ) ) );
 

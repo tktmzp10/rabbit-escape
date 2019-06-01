@@ -4,6 +4,8 @@ import static rabbitescape.engine.Block.Shape.*;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.Direction.opposite;
 
+import rabbitescape.engine.items.Item;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Position;
 
@@ -26,7 +28,7 @@ public class BehaviourTools
         return character.dir == RIGHT ? rightState : leftState;
     }
 
-    public boolean pickUpToken( Token.Type type )
+    public boolean pickUpToken( ItemType type )
     {
         return pickUpToken( type, false );
     }
@@ -106,7 +108,7 @@ public class BehaviourTools
      * Checks for the presence of a token. Removes token from the world
      * and returns true if a token is being picked up.
      */
-    public boolean pickUpToken( Token.Type type, boolean evenIfNotOnGround )
+    public boolean pickUpToken( ItemType type, boolean evenIfNotOnGround )
     {
         if ( rabbitIsFalling() && character.isFallingToDeath() )
         {
@@ -115,10 +117,10 @@ public class BehaviourTools
 
         if ( evenIfNotOnGround || onGround() )
         {
-            Token token = world.getTokenAt( character.x, character.y );
-            if ( token != null && token.type == type )
+            Item item = world.getTokenAt( character.x, character.y );
+            if ( item != null && item.getType() == type )
             {
-                world.changes.removeToken( token );
+                world.changes.removeToken( item );
                 return true;
             }
         }
