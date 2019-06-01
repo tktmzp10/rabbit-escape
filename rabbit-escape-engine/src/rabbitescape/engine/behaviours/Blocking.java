@@ -25,7 +25,7 @@ public class Blocking extends Behaviour
     public void setBlockingState( IBlockingState blockingState )
     {
         this.blockingState = blockingState;
-        this.behave = blockingState.behave();
+        behave = blockingState.behave();
     }
 
     public static boolean getBehave()
@@ -75,7 +75,7 @@ public class Blocking extends Behaviour
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return this.behave;
+        return behave;
     }
 
     @Override
