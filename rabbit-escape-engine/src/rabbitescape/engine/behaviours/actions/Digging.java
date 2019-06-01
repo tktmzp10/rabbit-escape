@@ -88,7 +88,30 @@ public class Digging extends Behaviour
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return diggingState.behave( world, character );
+        switch ( state )
+        {
+            case RABBIT_DIGGING:
+            {
+                world.changes.removeBlockAt( character.x, character.y + 1 );
+                ++character.y;
+                return true;
+            }
+            case RABBIT_DIGGING_ON_SLOPE:
+            {
+                world.changes.removeBlockAt( character.x, character.y );
+                character.onSlope = false;
+                return true;
+            }
+            case RABBIT_DIGGING_2:
+            case RABBIT_DIGGING_USELESSLY:
+            {
+                return true;
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     @Override
