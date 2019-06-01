@@ -9,6 +9,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.behaviours.states.Blocking;
 import rabbitescape.engine.things.Character;
 
 public class Bridging extends Behaviour
@@ -109,7 +110,7 @@ public class Bridging extends Behaviour
                    nextBlock != null
                 && nextBlock.riseDir() != character.dir
             ) || (
-                   Blocking.blockerAt( t.world, nx, ny )
+                Blocking.blockerAt( t.world, nx, ny )
             ) || (
                    // Clip land
                    belowNextBlock != null

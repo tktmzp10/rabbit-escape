@@ -1,17 +1,17 @@
-package rabbitescape.engine.behaviours.states.bashing;
+package rabbitescape.engine.behaviours.actions.digging;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_USELESSLY_RIGHT;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING_USELESSLY;
 
-public class BashingUselesslyRight implements IBashingState
+public class DiggingUselessly implements IDiggingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_BASHING_USELESSLY_RIGHT;
+        return RABBIT_DIGGING_USELESSLY;
     }
 
     @Override
@@ -19,7 +19,6 @@ public class BashingUselesslyRight implements IBashingState
         World world, Character character
     )
     {
-        character.slopeBashHop = false;
         return true;
     }
 }

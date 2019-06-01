@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours.states.bashing;
+package rabbitescape.engine.behaviours.actions.bashing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;

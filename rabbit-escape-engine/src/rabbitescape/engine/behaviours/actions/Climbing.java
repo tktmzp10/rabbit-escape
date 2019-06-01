@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours;
+package rabbitescape.engine.behaviours.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
@@ -8,12 +8,40 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.behaviours.actions.climbing.*;
 import rabbitescape.engine.things.Character;
 
 public class Climbing extends Behaviour
 {
+    private IClimbingState climbingState, rightState, leftState;
     boolean hasAbility = false;
     public boolean abilityActive = false;
+
+    public Climbing()
+    {
+        setClimbingState( new NotClimbing() );
+    }
+
+    public void setClimbingState( IClimbingState climbingState )
+    {
+        this.climbingState = climbingState;
+    }
+
+    public void setRightState( IClimbingState rightState )
+    {
+        this.rightState = rightState;
+    }
+
+    public void setLeftState( IClimbingState leftState )
+    {
+        this.leftState = leftState;
+    }
+
+    public void setBothStates( IClimbingState rightState, IClimbingState leftState )
+    {
+        setRightState( rightState );
+        setLeftState( leftState );
+    }
 
     @Override
     public void cancel()
@@ -64,57 +92,46 @@ public class Climbing extends Behaviour
 
         if ( t.isWall( endBlock ) )
         {
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_CONTINUE_2,
-                RABBIT_CLIMBING_LEFT_CONTINUE_2
-            );
+            setBothStates( new ClimbingRightContinue2(), new ClimbingLeftContinue2() );
         }
         else
         {
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_END,
-                RABBIT_CLIMBING_LEFT_END
-            );
+            setBothStates( new ClimbingRightEnd(), new ClimbingLeftEnd() );
         }
+        setClimbingState( t.character.dir == RIGHT ? rightState : leftState );
+
+        return climbingState.newState();
     }
 
     private State newStateCont1( BehaviourTools t )
     {
-        return t.rl(
-            RABBIT_CLIMBING_RIGHT_CONTINUE_2,
-            RABBIT_CLIMBING_LEFT_CONTINUE_2
-        );
+        setBothStates( new ClimbingRightContinue2(), new ClimbingLeftContinue2() );
+        setClimbingState( t.character.dir == RIGHT ? rightState : leftState );
+
+        return climbingState.newState();
     }
 
     private State newStateCont2( BehaviourTools t )
     {
         Block aboveBlock = t.blockAbove();
+        Block endBlock = t.blockAboveNext();
 
         if ( t.isRoof( aboveBlock ) )
         {
             abilityActive = false;
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_BANG_HEAD,
-                RABBIT_CLIMBING_LEFT_BANG_HEAD
-            );
+            setBothStates( new ClimbingRightBangHead(), new ClimbingLeftBangHead() );
         }
-
-        Block endBlock = t.blockAboveNext();
-
-        if ( t.isWall( endBlock ) )
+        else if ( t.isWall( endBlock ) )
         {
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_CONTINUE_1,
-                RABBIT_CLIMBING_LEFT_CONTINUE_1
-            );
+            setBothStates( new ClimbingRightContinue1(), new ClimbingLeftContinue1() );
         }
         else
         {
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_END,
-                RABBIT_CLIMBING_LEFT_END
-            );
+            setBothStates( new ClimbingRightEnd(), new ClimbingLeftEnd() );
         }
+        setClimbingState( t.character.dir == RIGHT ? rightState : leftState );
+
+        return climbingState.newState();
     }
 
     private State newStateNotClimbing( BehaviourTools t )
@@ -126,13 +143,11 @@ public class Climbing extends Behaviour
 
         if ( !t.isRoof( aboveBlock ) && t.isWall( nextBlock ) )
         {
-            return t.rl(
-                RABBIT_CLIMBING_RIGHT_START,
-                RABBIT_CLIMBING_LEFT_START
-            );
+            setBothStates( new ClimbingRightStart(), new ClimbingLeftStart() );
+            setClimbingState( t.character.dir == RIGHT ? rightState : leftState );
         }
 
-        return null;
+        return climbingState.newState();
     }
 
     @Override
@@ -145,50 +160,7 @@ public class Climbing extends Behaviour
             character.onSlope = false;
         }
 
-        switch ( state )
-        {
-            case RABBIT_CLIMBING_RIGHT_START:
-            case RABBIT_CLIMBING_LEFT_START:
-            {
-                abilityActive = true;
-                return true;
-            }
-            case RABBIT_CLIMBING_RIGHT_END:
-            case RABBIT_CLIMBING_LEFT_END:
-            {
-                character.x = t.nextX();
-                --character.y;
-                if ( t.hereIsUpSlope() )
-                {
-                    character.onSlope = true;
-                }
-                abilityActive = false;
-                return true;
-            }
-            case RABBIT_CLIMBING_RIGHT_CONTINUE_1:
-            case RABBIT_CLIMBING_LEFT_CONTINUE_1:
-            {
-                abilityActive = true;
-                return true;
-            }
-            case RABBIT_CLIMBING_RIGHT_CONTINUE_2:
-            case RABBIT_CLIMBING_LEFT_CONTINUE_2:
-            {
-                abilityActive = true;
-                --character.y;
-                return true;
-            }
-            case RABBIT_CLIMBING_RIGHT_BANG_HEAD:
-            case RABBIT_CLIMBING_LEFT_BANG_HEAD:
-            {
-                character.dir = opposite( character.dir );
-                return true;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return climbingState.behave( world, character, abilityActive );
     }
 
     @Override

@@ -10,6 +10,7 @@ import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.behaviours.actions.Climbing;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 

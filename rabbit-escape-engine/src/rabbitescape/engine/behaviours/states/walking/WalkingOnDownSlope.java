@@ -2,7 +2,7 @@ package rabbitescape.engine.behaviours.states.walking;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
-import rabbitescape.engine.behaviours.Blocking;
+import rabbitescape.engine.behaviours.states.Blocking;
 import rabbitescape.engine.behaviours.states.walking.walkingondownslope.*;
 
 import static rabbitescape.engine.Direction.RIGHT;

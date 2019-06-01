@@ -1,18 +1,18 @@
-package rabbitescape.engine.behaviours.states.bashing;
+package rabbitescape.engine.behaviours.actions.bashing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_UP_RIGHT;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_LEFT;
 import static rabbitescape.engine.Direction.RIGHT;
 
-public class BashingUpRight implements IBashingState
+public class BashingLeft implements IBashingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_BASHING_UP_RIGHT;
+        return RABBIT_BASHING_LEFT;
     }
 
     @Override
@@ -20,9 +20,8 @@ public class BashingUpRight implements IBashingState
         World world, Character character
     )
     {
-        world.changes.removeBlockAt( destX( character ), character.y - 1 );
-        character.slopeBashHop = true;
-        character.y -= 1;
+        character.slopeBashHop = false;
+        world.changes.removeBlockAt( destX( character ), character.y );
         return true;
     }
 

@@ -1,13 +1,11 @@
-package rabbitescape.engine.behaviours.states.bashing;
+package rabbitescape.engine.behaviours.actions.digging;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.behaviours.actions.climbing.IClimbingState;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_LEFT;
-import static rabbitescape.engine.Direction.RIGHT;
-
-public class NotBashing implements IBashingState
+public class NotDigging implements IDiggingState
 {
     @Override
     public State newState()
@@ -20,7 +18,6 @@ public class NotBashing implements IBashingState
         World world, Character character
     )
     {
-        character.slopeBashHop = false;
         return false;
     }
 }

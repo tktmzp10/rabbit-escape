@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours;
+package rabbitescape.engine.behaviours.states;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Token.Type.*;
@@ -113,7 +113,7 @@ public class Blocking extends Behaviour
         return "Bashing";
     }
 
-    static boolean isBlocking( State s )
+    public static boolean isBlocking( State s )
     {
         switch ( s ) {
             case RABBIT_BLOCKING:

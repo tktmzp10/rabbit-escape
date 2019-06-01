@@ -1,6 +1,5 @@
-package rabbitescape.engine.behaviours.states;
+package rabbitescape.engine.behaviours.actions;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
 import static rabbitescape.engine.Token.Type.*;
 
@@ -8,7 +7,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.states.bashing.*;
+import rabbitescape.engine.behaviours.actions.bashing.*;
 import rabbitescape.engine.things.Character;
 
 public class Bashing extends Behaviour
@@ -102,6 +101,7 @@ public class Bashing extends Behaviour
             {
                 setBothStates( new BashingUselesslyRight(), new BashingUselesslyLeft() );
             }
+
             setBashingState( t.character.dir == RIGHT ? rightState : leftState );
         } else
         {
