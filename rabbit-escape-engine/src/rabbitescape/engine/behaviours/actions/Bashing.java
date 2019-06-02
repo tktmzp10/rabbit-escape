@@ -1,5 +1,6 @@
 package rabbitescape.engine.behaviours.actions;
 
+import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
 import static rabbitescape.engine.items.ItemType.*;
 
@@ -61,54 +62,67 @@ public class Bashing extends Behaviour
         if ( triggered || stepsOfBashing > 0 )
         {
             if (
-                   t.isOnUpSlope()
-                && t.blockAboveNext() != null
+                t.isOnUpSlope()
+                    && t.blockAboveNext() != null
             )
             {
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
-                    setBothStates( new BashingUselesslyRightUp(), new BashingUselesslyLeftUp() );
+                    return t.rl(
+                        RABBIT_BASHING_USELESSLY_RIGHT_UP,
+                        RABBIT_BASHING_USELESSLY_LEFT_UP
+                    );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    setBothStates( new BashingUpRight(), new BashingUpLeft() );
+                    return t.rl(
+                        RABBIT_BASHING_UP_RIGHT,
+                        RABBIT_BASHING_UP_LEFT
+                    );
                 }
             }
             else if (
                 t.isOnUpSlope()
-             && t.blockAboveNext() == null
-             && triggered
+                    && t.blockAboveNext() == null
+                    && triggered
             )
             {
-                setBothStates( new BashingUselesslyRightUp(), new BashingUselesslyLeftUp() );
+                return t.rl(
+                    RABBIT_BASHING_USELESSLY_RIGHT_UP,
+                    RABBIT_BASHING_USELESSLY_LEFT_UP
+                );
             }
             else if ( t.blockNext() != null )
             {
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
-                    setBothStates( new BashingUselesslyRight(), new BashingUselesslyLeft() );
+                    return t.rl(
+                        RABBIT_BASHING_USELESSLY_RIGHT,
+                        RABBIT_BASHING_USELESSLY_LEFT
+                    );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    setBothStates( new BashingRight(), new BashingLeft() );
+                    return t.rl(
+                        RABBIT_BASHING_RIGHT,
+                        RABBIT_BASHING_LEFT
+                    );
                 }
             }
             else if ( triggered )
             {
-                setBothStates( new BashingUselesslyRight(), new BashingUselesslyLeft() );
+                return t.rl(
+                    RABBIT_BASHING_USELESSLY_RIGHT,
+                    RABBIT_BASHING_USELESSLY_LEFT
+                );
             }
-
-            setBashingState( t.character.dir == RIGHT ? rightState : leftState );
-        } else
-        {
-            --stepsOfBashing;
         }
-
-        return bashingState.newState();
+        --stepsOfBashing;
+        return null;
     }
 
     @Override
