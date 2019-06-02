@@ -160,7 +160,50 @@ public class Climbing extends Behaviour
             character.onSlope = false;
         }
 
-        return climbingState.behave( world, character, abilityActive );
+        switch ( state )
+        {
+            case RABBIT_CLIMBING_RIGHT_START:
+            case RABBIT_CLIMBING_LEFT_START:
+            {
+                abilityActive = true;
+                return true;
+            }
+            case RABBIT_CLIMBING_RIGHT_END:
+            case RABBIT_CLIMBING_LEFT_END:
+            {
+                character.x = t.nextX();
+                --character.y;
+                if ( t.hereIsUpSlope() )
+                {
+                    character.onSlope = true;
+                }
+                abilityActive = false;
+                return true;
+            }
+            case RABBIT_CLIMBING_RIGHT_CONTINUE_1:
+            case RABBIT_CLIMBING_LEFT_CONTINUE_1:
+            {
+                abilityActive = true;
+                return true;
+            }
+            case RABBIT_CLIMBING_RIGHT_CONTINUE_2:
+            case RABBIT_CLIMBING_LEFT_CONTINUE_2:
+            {
+                abilityActive = true;
+                --character.y;
+                return true;
+            }
+            case RABBIT_CLIMBING_RIGHT_BANG_HEAD:
+            case RABBIT_CLIMBING_LEFT_BANG_HEAD:
+            {
+                character.dir = opposite( character.dir );
+                return true;
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     @Override

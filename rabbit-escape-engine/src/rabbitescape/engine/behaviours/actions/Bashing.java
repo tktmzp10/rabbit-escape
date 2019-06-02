@@ -114,8 +114,42 @@ public class Bashing extends Behaviour
     @Override
     public boolean behave( World world, Character character, State state )
     {
-
-        return bashingState.behave( world, character );
+        switch ( state )
+        {
+            case RABBIT_BASHING_RIGHT:
+            case RABBIT_BASHING_LEFT:
+            {
+                character.slopeBashHop = false;
+                world.changes.removeBlockAt( destX( character ), character.y );
+                return true;
+            }
+            case RABBIT_BASHING_UP_RIGHT:
+            case RABBIT_BASHING_UP_LEFT:
+            {
+                world.changes.removeBlockAt( destX( character ), character.y - 1 );
+                character.slopeBashHop = true;
+                character.y -= 1;
+                return true;
+            }
+            case RABBIT_BASHING_USELESSLY_RIGHT:
+            case RABBIT_BASHING_USELESSLY_LEFT:
+            {
+                character.slopeBashHop = false;
+                return true;
+            }
+            case RABBIT_BASHING_USELESSLY_RIGHT_UP:
+            case RABBIT_BASHING_USELESSLY_LEFT_UP:
+            {
+                character.slopeBashHop = true;
+                character.y -= 1;
+                return true;
+            }
+            default:
+            {
+                character.slopeBashHop = false;
+                return false;
+            }
+        }
     }
 
     private int destX( Character character )
