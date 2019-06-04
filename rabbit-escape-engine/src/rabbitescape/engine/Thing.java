@@ -10,13 +10,24 @@ public abstract class Thing implements ShownOnOverlay
     public int x;
     public int y;
     public State state;
-    private NewStates newState;
+    public NewStates newState;
 
     public Thing( int x, int y, State state )
     {
         this.x = x;
         this.y = y;
         this.state = state;
+    }
+
+    public void setState( State state )
+    {
+        this.state = state;
+    }
+
+    public void setNewState( NewStates newState )
+    {
+        this.newState = newState;
+        setState( newState.setState() );
     }
 
     public abstract void calcNewState( World world );
