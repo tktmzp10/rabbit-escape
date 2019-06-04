@@ -24,6 +24,6 @@ public class BurningNormal implements IBurningState
 
     public static void setChars( Change change, Chars chars )
     {
-        chars.set( change.x, change.y, 'X' );
+        //chars.set( change.x, change.y, 'X' );
     }
 }
