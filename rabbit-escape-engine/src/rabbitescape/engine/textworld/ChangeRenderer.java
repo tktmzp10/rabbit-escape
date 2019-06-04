@@ -35,6 +35,10 @@ public class ChangeRenderer
             return;
         }
 
+        /* TODO: Ultimate goal code
+         * change.setChars( state, chars );
+         */
+
         // Everything else is relatively simple
         switch( change.state )
         {

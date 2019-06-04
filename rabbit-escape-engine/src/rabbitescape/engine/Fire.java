@@ -64,7 +64,8 @@ public class Fire extends Environment
             Block onBlock = world.getBlockAt( x, y );
             if ( BehaviourTools.isLeftRiseSlope( onBlock ) )
             {
-                state = baseVariantSwitch( 
+
+                state = baseVariantSwitch(
                     FIRE_A_RISE_LEFT, 
                     FIRE_B_RISE_LEFT,     
                     FIRE_C_RISE_LEFT, 
