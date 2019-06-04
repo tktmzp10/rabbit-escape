@@ -5,7 +5,6 @@ import rabbitescape.engine.ChangeDescription.State;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class Item extends Thing
 {
@@ -102,34 +101,5 @@ public abstract class Item extends Thing
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-    }
-
-    @Override
-    public String overlayText()
-    {
-        return type.toString();
-    }
-
-    @Override
-    public boolean equals( Object o )
-    {
-        if ( this == o )
-        {
-            return true;
-        }
-        if ( o == null || getClass() != o.getClass() )
-        {
-            return false;
-        }
-
-        Item item = ( Item )o;
-        return x == item.x && y == item.y && state == item.state
-            && type == item.type;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash( x, y, state, type );
     }
 }
