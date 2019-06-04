@@ -11,18 +11,6 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 public class Burning extends CharacterBehaviourStates
 {
-
-    private IBurningState burningState;
-
-    public Burning()
-    {
-        this.burningState = new NotBurning();
-    }
-
-    public void setBurningState( IBurningState burningState) {
-        this.burningState = burningState;
-    }
-
     @Override
     public void cancel()
     {

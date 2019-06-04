@@ -16,18 +16,6 @@ import rabbitescape.engine.things.environment.WaterRegion;
 
 public class Drowning extends CharacterBehaviourStates
 {
-    private IDrowningState drowningState;
-
-    public Drowning()
-    {
-        this.drowningState = new NotDrowning();
-    }
-
-    public void setDrowningState( IDrowningState drowningState )
-    {
-        this.drowningState = drowningState;
-    }
-
     @Override
     public void cancel()
     {

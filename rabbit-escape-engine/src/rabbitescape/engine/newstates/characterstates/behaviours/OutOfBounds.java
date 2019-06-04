@@ -12,20 +12,10 @@ import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.IOut
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.NotOutOfBounds;
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.OutOfBoundsNormal;
 
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_OUT_OF_BOUNDS;
+
 public class OutOfBounds extends CharacterBehaviourStates
 {
-    private IOutOfBoundsState outOfBoundsState;
-
-    public OutOfBounds()
-    {
-        this.outOfBoundsState = new NotOutOfBounds();
-    }
-
-    public void setOutOfBoundsState( IOutOfBoundsState outOfBoundsState )
-    {
-        this.outOfBoundsState = outOfBoundsState;
-    }
-
     @Override
     public void cancel()
     {
@@ -55,10 +45,10 @@ public class OutOfBounds extends CharacterBehaviourStates
     {
         if ( triggered )
         {
-            setOutOfBoundsState( new OutOfBoundsNormal() );
+            return RABBIT_OUT_OF_BOUNDS;
         }
 
-        return outOfBoundsState.getState();
+        return null;
     }
 
     @Override

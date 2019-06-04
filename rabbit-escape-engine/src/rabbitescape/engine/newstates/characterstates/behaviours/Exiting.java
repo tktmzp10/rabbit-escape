@@ -13,18 +13,6 @@ import rabbitescape.engine.things.environment.Exit;
 
 public class Exiting extends CharacterBehaviourStates
 {
-    private IExitingState exitingState;
-
-    public Exiting()
-    {
-        this.exitingState = new NotExiting();
-    }
-
-    public void setExitingState( IExitingState exitingState )
-    {
-        this.exitingState = exitingState;
-    }
-
     @Override
     public void cancel()
     {

@@ -18,14 +18,7 @@ public class Walking extends CharacterBehaviourStates
     @Override
     public State getState()
     {
-        return walkingState.getState();
-    }
-
-    private IWalkingState walkingState, rightState, leftState;
-
-    public void setWalkingState( IWalkingState walkingState )
-    {
-        this.walkingState = walkingState;
+        return null;
     }
 
     @Override
@@ -194,20 +187,16 @@ public class Walking extends CharacterBehaviourStates
         switch ( state )
         {
             case RABBIT_WALKING_LEFT:
+            case RABBIT_LOWERING_LEFT_END:
             {
                 --character.x;
                 character.onSlope = false;
                 return true;
             }
             case RABBIT_WALKING_RIGHT:
+            case RABBIT_LOWERING_RIGHT_END:
             {
                 ++character.x;
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_LOWERING_LEFT_END:
-            {
-                --character.x;
                 character.onSlope = false;
                 return true;
             }
@@ -217,12 +206,6 @@ public class Walking extends CharacterBehaviourStates
             {
                 --character.x;
                 character.onSlope = true;
-                return true;
-            }
-            case RABBIT_LOWERING_RIGHT_END:
-            {
-                ++character.x;
-                character.onSlope = false;
                 return true;
             }
             case RABBIT_RISING_RIGHT_START:
