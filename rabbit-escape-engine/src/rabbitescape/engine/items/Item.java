@@ -102,4 +102,10 @@ public abstract class Item extends Thing
     public void restoreFromState( Map<String, String> state )
     {
     }
+
+    @Override
+    public String overlayText()
+    {
+        return type.toString();
+    }
 }
