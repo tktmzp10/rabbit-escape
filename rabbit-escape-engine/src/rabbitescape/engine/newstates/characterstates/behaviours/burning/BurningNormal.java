@@ -21,9 +21,4 @@ public class BurningNormal implements IBurningState
         world.changes.killRabbit( character );
         return true;
     }
-
-    public static void setChars( Change change, Chars chars )
-    {
-        //chars.set( change.x, change.y, 'X' );
-    }
 }

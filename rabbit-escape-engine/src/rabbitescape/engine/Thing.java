@@ -19,6 +19,38 @@ public abstract class Thing implements ShownOnOverlay
         this.state = state;
     }
 
+    public Thing( int x, int y, NewStates newState )
+    {
+        this.x = x;
+        this.y = y;
+        this.newState = newState;
+        setState( newState );
+    }
+
+    public Thing(
+        int x,
+        int y,
+        State state,
+        NewStates newState
+    )
+    {
+        this.x = x;
+        this.y = y;
+        this.state = state;
+        this.newState = newState;
+    }
+
+    public void setState( NewStates newState )
+    {
+        this.state = newState.getState();
+    }
+
+    public void setNewState( NewStates newState )
+    {
+        this.newState = newState;
+        setState( newState );
+    }
+
     public abstract void calcNewState( World world );
 
     public abstract void step( World world );

@@ -77,10 +77,10 @@ public class ChangeRenderer
                 chars.set( change.x, change.y, 'P' );
                 break;
             case RABBIT_BURNING:
-                BurningNormal.setChars(change, chars);
+                chars.set( change.x, change.y, 'x' );
                 break;
             case RABBIT_BURNING_ON_SLOPE:
-                BurningOnSlope.setChars(change, chars);
+                chars.set( change.x, change.y, 'x' );
                 break;
             case RABBIT_WALKING_LEFT:
                 chars.set( change.x-1, change.y, '<' );

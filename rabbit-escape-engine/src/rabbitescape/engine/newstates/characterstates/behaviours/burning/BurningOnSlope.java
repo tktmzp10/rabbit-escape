@@ -23,9 +23,4 @@ public class BurningOnSlope implements IBurningState
         world.changes.killRabbit( character );
         return false;
     }
-
-    public static void setChars( Change change, Chars chars )
-    {
-        //chars.set( change.x, change.y, 'X' );
-    }
 }
