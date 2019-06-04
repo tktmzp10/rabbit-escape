@@ -1,14 +1,15 @@
-package rabbitescape.engine.behaviours.actions;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
-import static rabbitescape.engine.items.ItemType.*;
+import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.actions.bashing.*;
+import rabbitescape.engine.newstates.characterstates.actions.bashing.IBashingState;
+import rabbitescape.engine.newstates.characterstates.actions.bashing.NotBashing;
 import rabbitescape.engine.things.Character;
 
 public class Bashing extends Behaviour

@@ -1,11 +1,10 @@
-package rabbitescape.engine.behaviours.actions.climbing;
+package rabbitescape.engine.newstates.characterstates.actions.climbing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_LEFT_BANG_HEAD;
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_RIGHT_BANG_HEAD;
 import static rabbitescape.engine.Direction.opposite;
 
 public class ClimbingLeftBangHead implements IClimbingState

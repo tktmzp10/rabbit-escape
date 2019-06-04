@@ -1,17 +1,17 @@
-package rabbitescape.engine.behaviours.actions.falling;
+package rabbitescape.engine.newstates.characterstates.actions.crashing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_WAITING_LEFT;
 
-public class DyingOfFallingSlopeRiseRight2 implements IFallingState
+public class CrashingNormal implements ICrashingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2;
+        return RABBIT_WAITING_LEFT;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours.actions;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Block.Shape.*;
@@ -7,8 +7,6 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.actions.Brollychuting;
-import rabbitescape.engine.behaviours.actions.Climbing;
 import rabbitescape.engine.things.Character;
 
 public class Falling extends Behaviour

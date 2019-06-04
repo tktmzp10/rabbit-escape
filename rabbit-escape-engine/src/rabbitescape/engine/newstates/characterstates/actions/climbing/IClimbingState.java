@@ -1,4 +1,4 @@
-package rabbitescape.engine.behaviours.actions.climbing;
+package rabbitescape.engine.newstates.characterstates.actions.climbing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;

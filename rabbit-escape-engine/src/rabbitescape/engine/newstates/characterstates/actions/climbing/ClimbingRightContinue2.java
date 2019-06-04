@@ -1,18 +1,17 @@
-package rabbitescape.engine.behaviours.actions.climbing;
+package rabbitescape.engine.newstates.characterstates.actions.climbing;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_LEFT_START;
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_RIGHT_START;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_RIGHT_CONTINUE_2;
 
-public class ClimbingLeftStart implements IClimbingState
+public class ClimbingRightContinue2 implements IClimbingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_CLIMBING_LEFT_START;
+        return RABBIT_CLIMBING_RIGHT_CONTINUE_2;
     }
 
     @Override
@@ -21,6 +20,7 @@ public class ClimbingLeftStart implements IClimbingState
     )
     {
         abilityActive = true;
+        --character.y;
         return true;
     }
 }

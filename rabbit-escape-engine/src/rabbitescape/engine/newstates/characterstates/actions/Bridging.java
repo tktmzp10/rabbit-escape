@@ -1,7 +1,7 @@
-package rabbitescape.engine.behaviours.actions;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.items.ItemType.*;
+import static rabbitescape.engine.things.items.ItemType.*;
 import static rabbitescape.engine.Block.Material.*;
 import static rabbitescape.engine.Block.Shape.*;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.states.Blocking;
+import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
 import rabbitescape.engine.things.Character;
 
 public class Bridging extends Behaviour

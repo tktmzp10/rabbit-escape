@@ -1,9 +1,8 @@
-package rabbitescape.engine.behaviours.actions;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.actions.Digging;
-import rabbitescape.engine.behaviours.states.Blocking;
+import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;

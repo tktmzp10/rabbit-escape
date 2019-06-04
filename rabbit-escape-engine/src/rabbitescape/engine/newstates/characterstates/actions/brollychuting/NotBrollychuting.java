@@ -1,18 +1,15 @@
-package rabbitescape.engine.behaviours.actions.brollychuting;
+package rabbitescape.engine.newstates.characterstates.actions.brollychuting;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
-import rabbitescape.engine.behaviours.actions.waiting.IWaitingState;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BROLLYCHUTING;
-
-public class BrollychutingNormal implements IBrollychutingState
+public class NotBrollychuting implements IBrollychutingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_BROLLYCHUTING;
+        return null;
     }
 
     @Override

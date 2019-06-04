@@ -1,14 +1,14 @@
-package rabbitescape.engine.behaviours.actions;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.items.ItemType.*;
+import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.actions.digging.IDiggingState;
-import rabbitescape.engine.behaviours.actions.digging.NotDigging;
+import rabbitescape.engine.newstates.characterstates.actions.digging.IDiggingState;
+import rabbitescape.engine.newstates.characterstates.actions.digging.NotDigging;
 import rabbitescape.engine.things.Character;
 
 public class Digging extends Behaviour
