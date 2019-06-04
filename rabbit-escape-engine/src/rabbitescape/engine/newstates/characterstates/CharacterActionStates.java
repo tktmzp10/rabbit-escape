@@ -20,7 +20,7 @@ public abstract class CharacterActionStates extends CharacterStates
         World world, Character character, State state, NewStates newState
     )
     {
-        return false;
+        return behave( world, character, state );
     }
 
     public abstract State getState();

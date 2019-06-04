@@ -144,7 +144,7 @@ public abstract class Character extends Thing implements Comparable<Character>
     {
         for ( CharacterStates characterStates : this.characterStates )
         {
-            boolean handled = characterStates.behave( world, this, state );
+            boolean handled = characterStates.behave( world, this, state, newState );
             if ( handled )
             {
                 break;
