@@ -292,7 +292,7 @@ public class ChangeRenderer
                 chars.set( change.x, change.y, 'P' );
                 break;
             case RABBIT_DROWNING:
-                DrowningNormal.setChars( change, chars );
+                chars.set( change.x, change.y, 'R' );
                 break;
             case RABBIT_CRASHING:
                 chars.set( change.x, change.y, 'Z' );

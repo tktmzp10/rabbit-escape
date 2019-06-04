@@ -23,9 +23,4 @@ public class DrowningNormal implements IDrowningState
         world.changes.killRabbit( character );
         return true;
     }
-
-    public static void setChars( Change change, Chars chars )
-    {
-        chars.set( change.x, change.y, 'R' );
-    }
 }

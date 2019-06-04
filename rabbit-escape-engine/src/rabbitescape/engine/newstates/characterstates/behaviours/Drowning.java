@@ -16,6 +16,18 @@ import rabbitescape.engine.things.environment.WaterRegion;
 
 public class Drowning extends CharacterBehaviourStates
 {
+    private IDrowningState drowningState;
+
+    public Drowning()
+    {
+        setDrowningState( new NotDrowning() );
+    }
+
+    public void setDrowningState( IDrowningState drowningState )
+    {
+        this.drowningState = drowningState;
+    }
+
     @Override
     public void cancel()
     {
@@ -55,24 +67,20 @@ public class Drowning extends CharacterBehaviourStates
     }
 
     @Override
-    public State newState(
-        BehaviourTools t,
-        boolean triggered )
+    public State newState( BehaviourTools t, boolean triggered )
     {
-        return ( triggered ? State.RABBIT_DROWNING : null );
+        if (triggered)
+        {
+            setDrowningState( new DrowningNormal() );
+        }
+
+        return drowningState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        switch ( state )
-        {
-            case RABBIT_DROWNING:
-                world.changes.killRabbit( character );
-                return true;
-            default:
-                return false;
-        }
+        return drowningState.behave( world, character );
     }
 
     @Override
