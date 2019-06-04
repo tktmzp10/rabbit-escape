@@ -1,17 +1,15 @@
 package rabbitescape.engine.newstates.characterstates.behaviours.exploding;
 
-import rabbitescape.engine.ChangeDescription.*;
+import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_EXPLODING;
-
-public class ExplodingNormal implements IExplodingState
+public class NotExploding implements IExplodingState
 {
     @Override
     public State getState()
     {
-        return RABBIT_EXPLODING;
+        return null;
     }
 
     @Override
@@ -19,7 +17,6 @@ public class ExplodingNormal implements IExplodingState
         World world, Character character
     )
     {
-        world.changes.killRabbit( character );
-        return true;
+        return false;
     }
 }

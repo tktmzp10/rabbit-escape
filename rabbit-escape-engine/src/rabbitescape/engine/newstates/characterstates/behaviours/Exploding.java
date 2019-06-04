@@ -7,10 +7,25 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
+import rabbitescape.engine.newstates.characterstates.behaviours.exploding.ExplodingNormal;
+import rabbitescape.engine.newstates.characterstates.behaviours.exploding.IExplodingState;
+import rabbitescape.engine.newstates.characterstates.behaviours.exploding.NotExploding;
 import rabbitescape.engine.things.Character;
 
 public class Exploding extends CharacterBehaviourStates
 {
+    private IExplodingState explodingState;
+
+    public Exploding()
+    {
+        setExplodingState( new NotExploding() );
+    }
+
+    public void setExplodingState( IExplodingState explodingState )
+    {
+        this.explodingState = explodingState;
+    }
+
     @Override
     public void cancel()
     {
@@ -34,21 +49,16 @@ public class Exploding extends CharacterBehaviourStates
     {
         if ( triggered )
         {
-            return RABBIT_EXPLODING;
+            setExplodingState( new ExplodingNormal() );
         }
-        return null;
+
+        return explodingState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        if ( state == RABBIT_EXPLODING )
-        {
-            world.changes.killRabbit( character );
-            return true;
-        }
-
-        return false;
+        return explodingState.behave( world, character );
     }
 
     @Override

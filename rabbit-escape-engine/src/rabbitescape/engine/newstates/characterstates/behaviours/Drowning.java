@@ -36,6 +36,7 @@ public class Drowning extends CharacterBehaviourStates
     @Override
     public boolean checkTriggered( Character character, World world )
     {
+        //TODO: Don't include Exiting to Rabbot.
         if ( character instanceof Rabbot )
         {
             return false;  // Rabbots don't drown
