@@ -8,7 +8,7 @@ import java.util.Map;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
-import rabbitescape.engine.newstates.characterstates.behaviours.blocking.*;
+import rabbitescape.engine.newstates.characterstates.actions.blocking.*;
 import rabbitescape.engine.things.Character;
 
 public class Blocking extends CharacterActionStates

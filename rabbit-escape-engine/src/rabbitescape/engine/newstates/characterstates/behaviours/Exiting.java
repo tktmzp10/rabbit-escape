@@ -13,6 +13,18 @@ import rabbitescape.engine.things.environment.Exit;
 
 public class Exiting extends CharacterBehaviourStates
 {
+    private IExitingState exitingState;
+
+    public Exiting()
+    {
+        setExitingState( new NotExiting() );
+    }
+
+    public void setExitingState( IExitingState exitingState )
+    {
+        this.exitingState = exitingState;
+    }
+
     @Override
     public void cancel()
     {
@@ -52,33 +64,24 @@ public class Exiting extends CharacterBehaviourStates
         {
             if ( t.character.state == RABBIT_CLIMBING_LEFT_CONTINUE_2 )
             {
-                return RABBIT_ENTERING_EXIT_CLIMBING_LEFT;
+                setExitingState( new EnteringExitClimbingLeft() );
             }
-            if ( t.character.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
+            else if ( t.character.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
             {
-                return RABBIT_ENTERING_EXIT_CLIMBING_RIGHT;
+                setExitingState( new EnteringExitClimbingRight() );
             }
-            return RABBIT_ENTERING_EXIT;
+            else {
+                setExitingState( new EnteringExit() );
+            }
         }
-        return null;
+
+        return exitingState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        if (
-            state == RABBIT_ENTERING_EXIT
-                || state == RABBIT_ENTERING_EXIT_CLIMBING_RIGHT
-                || state == RABBIT_ENTERING_EXIT_CLIMBING_LEFT
-        )
-        {
-            world.changes.saveRabbit( character );
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return exitingState.behave( world, character );
     }
 
     @Override

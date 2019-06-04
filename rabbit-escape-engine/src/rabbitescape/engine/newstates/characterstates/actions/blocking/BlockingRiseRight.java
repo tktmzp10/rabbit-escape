@@ -1,4 +1,4 @@
-package rabbitescape.engine.newstates.characterstates.behaviours.blocking;
+package rabbitescape.engine.newstates.characterstates.actions.blocking;
 
 import rabbitescape.engine.ChangeDescription.State;
 
