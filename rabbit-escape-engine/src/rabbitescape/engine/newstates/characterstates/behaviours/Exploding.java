@@ -43,10 +43,4 @@ public class Exploding extends CharacterStates
 
         return false;
     }
-
-    @Override
-    public String toString()
-    {
-        return "Exploding";
-    }
 }

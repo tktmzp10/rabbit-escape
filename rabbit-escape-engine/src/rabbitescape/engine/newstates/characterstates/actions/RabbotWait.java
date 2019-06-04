@@ -98,10 +98,4 @@ public class RabbotWait extends CharacterStates
 
         return false;
     }
-
-    @Override
-    public String toString()
-    {
-        return "RabbotWait";
-    }
 }

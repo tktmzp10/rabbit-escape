@@ -57,10 +57,4 @@ public class OutOfBounds extends CharacterStates
     {
         return outOfBoundsState.behave( world, character );
     }
-
-    @Override
-    public String toString()
-    {
-        return "OutOfBounds";
-    }
 }

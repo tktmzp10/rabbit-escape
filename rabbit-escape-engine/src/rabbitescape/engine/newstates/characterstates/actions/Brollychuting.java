@@ -153,10 +153,4 @@ public class Brollychuting extends CharacterStates
         );
 
     }
-
-    @Override
-    public String toString()
-    {
-        return "Brollychuting";
-    }
 }

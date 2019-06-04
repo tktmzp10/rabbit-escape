@@ -74,10 +74,4 @@ public class Exiting extends CharacterStates
     {
         return exitingState.behave( world, character );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Exiting";
-    }
 }

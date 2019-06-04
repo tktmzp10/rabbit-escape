@@ -38,16 +38,44 @@ public class ChangeRenderer
         /* TODO: Ultimate goal code
          * change.setChars( state, chars );
          */
-        /* Step 1(?):
-         * change.newState.setChars( change, chars );
-         */
 
         // Everything else is relatively simple
         switch( change.state )
         {
-            //==================================================================
-            //=======================CharacterStates Only=======================
-            //==================================================================
+            case NOTHING:
+                break;
+            case FIRE_A:
+            case FIRE_B:
+            case FIRE_C:
+            case FIRE_D:
+            case FIRE_A_RISE_RIGHT:
+            case FIRE_B_RISE_RIGHT:
+            case FIRE_C_RISE_RIGHT:
+            case FIRE_D_RISE_RIGHT:
+            case FIRE_A_RISE_LEFT:
+            case FIRE_B_RISE_LEFT:
+            case FIRE_C_RISE_LEFT:
+            case FIRE_D_RISE_LEFT:
+                break;
+            case FIRE_A_FALLING:
+            case FIRE_B_FALLING:
+            case FIRE_C_FALLING:
+            case FIRE_D_FALLING:
+            case FIRE_A_FALL_TO_RISE_RIGHT:
+            case FIRE_B_FALL_TO_RISE_RIGHT:
+            case FIRE_C_FALL_TO_RISE_RIGHT:
+            case FIRE_D_FALL_TO_RISE_RIGHT:
+            case FIRE_A_FALL_TO_RISE_LEFT:
+            case FIRE_B_FALL_TO_RISE_LEFT:
+            case FIRE_C_FALL_TO_RISE_LEFT:
+            case FIRE_D_FALL_TO_RISE_LEFT:
+                chars.set(  change.x, change.y + 1, 'g' );
+                break;
+            case FIRE_EXTINGUISHING:
+                break;
+            case PIPE:
+                chars.set( change.x, change.y, 'P' );
+                break;
             case RABBIT_BURNING:
                 BurningNormal.setChars(change, chars);
                 break;
@@ -275,47 +303,6 @@ public class ChangeRenderer
                 break;
             case RABBIT_OUT_OF_BOUNDS:
                 break;
-            case EXIT:
-                break;
-
-            //==================================================================
-            //==================================================================
-            //==================================================================
-
-            case NOTHING:
-                break;
-            case FIRE_A:
-            case FIRE_B:
-            case FIRE_C:
-            case FIRE_D:
-            case FIRE_A_RISE_RIGHT:
-            case FIRE_B_RISE_RIGHT:
-            case FIRE_C_RISE_RIGHT:
-            case FIRE_D_RISE_RIGHT:
-            case FIRE_A_RISE_LEFT:
-            case FIRE_B_RISE_LEFT:
-            case FIRE_C_RISE_LEFT:
-            case FIRE_D_RISE_LEFT:
-                break;
-            case FIRE_A_FALLING:
-            case FIRE_B_FALLING:
-            case FIRE_C_FALLING:
-            case FIRE_D_FALLING:
-            case FIRE_A_FALL_TO_RISE_RIGHT:
-            case FIRE_B_FALL_TO_RISE_RIGHT:
-            case FIRE_C_FALL_TO_RISE_RIGHT:
-            case FIRE_D_FALL_TO_RISE_RIGHT:
-            case FIRE_A_FALL_TO_RISE_LEFT:
-            case FIRE_B_FALL_TO_RISE_LEFT:
-            case FIRE_C_FALL_TO_RISE_LEFT:
-            case FIRE_D_FALL_TO_RISE_LEFT:
-                chars.set(  change.x, change.y + 1, 'g' );
-                break;
-            case FIRE_EXTINGUISHING:
-                break;
-            case PIPE:
-                chars.set( change.x, change.y, 'P' );
-                break;
             case TOKEN_BASH_STILL:
             case TOKEN_BASH_ON_SLOPE:
             case TOKEN_DIG_STILL:
@@ -359,6 +346,8 @@ public class ChangeRenderer
             case WATER_REGION_EMPTY:
                 break;
             case ENTRANCE:
+                break;
+            case EXIT:
                 break;
             default:
                 throw new AssertionError(

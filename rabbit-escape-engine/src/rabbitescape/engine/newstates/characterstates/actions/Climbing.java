@@ -244,10 +244,4 @@ public class Climbing extends CharacterStates
             saveState, "Climbing.abilityActive", abilityActive
         );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Climbing";
-    }
 }

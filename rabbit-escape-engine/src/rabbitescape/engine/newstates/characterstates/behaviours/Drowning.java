@@ -82,10 +82,4 @@ public class Drowning extends CharacterStates
     {
         return drowningState.behave( world, character );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Drowning";
-    }
 }

@@ -63,10 +63,4 @@ public class Walking extends CharacterStates
         //TODO: Must deal with duplicate code of checkJumpOntoSlope() and isBridge()
         return walkingState.behave( world, character );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Walking";
-    }
 }

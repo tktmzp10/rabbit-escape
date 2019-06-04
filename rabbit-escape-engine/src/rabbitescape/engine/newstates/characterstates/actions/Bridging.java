@@ -615,10 +615,4 @@ public class Bridging extends CharacterStates
             ++smallSteps;
         }
     }
-
-    @Override
-    public String toString()
-    {
-        return "Bridging";
-    }
 }

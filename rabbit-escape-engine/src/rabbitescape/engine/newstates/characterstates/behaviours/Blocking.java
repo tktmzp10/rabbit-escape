@@ -107,12 +107,6 @@ public class Blocking extends CharacterStates
         return false;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Bashing";
-    }
-
     public static boolean isBlocking( State s )
     {
         switch ( s ) {

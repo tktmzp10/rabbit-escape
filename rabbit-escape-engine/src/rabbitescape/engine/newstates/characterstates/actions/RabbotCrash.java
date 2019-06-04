@@ -58,10 +58,4 @@ public class RabbotCrash extends CharacterStates
 
         return false;
     }
-
-    @Override
-    public String toString()
-    {
-        return "RabbotCrash";
-    }
 }

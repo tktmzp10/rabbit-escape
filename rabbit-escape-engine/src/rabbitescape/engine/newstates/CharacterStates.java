@@ -44,6 +44,4 @@ public abstract class CharacterStates
     public void restoreFromState( Map<String, String> saveState )
     {
     }
-
-    public abstract String toString();
 }

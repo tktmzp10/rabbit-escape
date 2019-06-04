@@ -273,10 +273,4 @@ public class Falling extends CharacterStates
             saveState, "Falling.heightFallen", heightFallen
         );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Falling";
-    }
 }

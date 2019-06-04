@@ -193,10 +193,4 @@ public class Bashing extends CharacterStates
             ++stepsOfBashing;
         }
     }
-
-    @Override
-    public String toString()
-    {
-        return "bashing";
-    }
 }

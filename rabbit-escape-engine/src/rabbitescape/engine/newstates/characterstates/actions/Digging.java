@@ -142,10 +142,4 @@ public class Digging extends CharacterStates
                 return false;
         }
     }
-
-    @Override
-    public String toString()
-    {
-        return "Digging";
-    }
 }

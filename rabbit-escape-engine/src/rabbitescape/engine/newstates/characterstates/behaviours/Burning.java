@@ -56,10 +56,4 @@ public class Burning extends CharacterStates
     {
         return burningState.behave( world, character );
     }
-
-    @Override
-    public String toString()
-    {
-        return "Burning";
-    }
 }
