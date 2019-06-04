@@ -3,11 +3,18 @@ package rabbitescape.engine.newstates.characterstates.behaviours;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.walking.*;
 import rabbitescape.engine.things.Character;
 
-public class Walking extends CharacterStates
+public class Walking extends CharacterBehaviourStates
 {
+    @Override
+    public State getState()
+    {
+        return walkingState.getState();
+    }
+
     private IWalkingState walkingState, rightState, leftState;
 
     public void setWalkingState( IWalkingState walkingState )
@@ -43,7 +50,7 @@ public class Walking extends CharacterStates
             setWalkingState( new WalkingOnFlat().newState( t, triggered ) );
         }
 
-        return walkingState.newState();
+        return walkingState.getState();
     }
 
     @Override
@@ -62,5 +69,13 @@ public class Walking extends CharacterStates
 
         //TODO: Must deal with duplicate code of checkJumpOntoSlope() and isBridge()
         return walkingState.behave( world, character );
+    }
+
+    @Override
+    public boolean behave(
+        World world, Character character, State state, NewStates newState
+    )
+    {
+        return behave( world, character, state );
     }
 }

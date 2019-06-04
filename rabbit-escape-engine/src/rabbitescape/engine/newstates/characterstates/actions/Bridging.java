@@ -10,11 +10,17 @@ import java.util.Map;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
-import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 
-public class Bridging extends CharacterStates
+public class Bridging extends CharacterActionStates
 {
+    @Override
+    public State getState()
+    {
+        return null;
+    }
+
     enum BridgeType
     {
         ALONG,

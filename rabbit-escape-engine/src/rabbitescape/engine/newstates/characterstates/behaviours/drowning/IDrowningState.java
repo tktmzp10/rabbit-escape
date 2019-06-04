@@ -6,7 +6,7 @@ import rabbitescape.engine.World;
 
 public interface IDrowningState
 {
-    public State newState();
+    public State getState();
 
     public boolean behave( World world, Character character );
 }

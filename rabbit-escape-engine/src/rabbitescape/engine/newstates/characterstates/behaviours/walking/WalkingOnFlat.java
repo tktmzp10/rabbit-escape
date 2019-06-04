@@ -2,7 +2,7 @@ package rabbitescape.engine.newstates.characterstates.behaviours.walking;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
-import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
+import rabbitescape.engine.newstates.characterstates.actions.Blocking;
 import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.*;
 
 import static rabbitescape.engine.Direction.RIGHT;

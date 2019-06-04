@@ -7,7 +7,7 @@ import rabbitescape.engine.World;
 public class NotBurning implements IBurningState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return null;
     }

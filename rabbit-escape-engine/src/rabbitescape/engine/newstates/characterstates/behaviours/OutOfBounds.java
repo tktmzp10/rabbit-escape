@@ -1,15 +1,17 @@
 package rabbitescape.engine.newstates.characterstates.behaviours;
 
+import rabbitescape.engine.NewStates;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.IOutOfBoundsState;
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.NotOutOfBounds;
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.OutOfBoundsNormal;
 
-public class OutOfBounds extends CharacterStates
+public class OutOfBounds extends CharacterBehaviourStates
 {
     private IOutOfBoundsState outOfBoundsState;
 
@@ -40,6 +42,12 @@ public class OutOfBounds extends CharacterStates
     }
 
     @Override
+    public State getState()
+    {
+        return null;
+    }
+
+    @Override
     public State newState(
         BehaviourTools t, boolean triggered
     )
@@ -49,12 +57,20 @@ public class OutOfBounds extends CharacterStates
             setOutOfBoundsState( new OutOfBoundsNormal() );
         }
 
-        return outOfBoundsState.newState();
+        return outOfBoundsState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
         return outOfBoundsState.behave( world, character );
+    }
+
+    @Override
+    public boolean behave(
+        World world, Character character, State state, NewStates newState
+    )
+    {
+        return behave( world, character, state );
     }
 }

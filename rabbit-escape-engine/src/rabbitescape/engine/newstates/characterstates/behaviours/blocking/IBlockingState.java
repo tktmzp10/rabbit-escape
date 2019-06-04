@@ -4,7 +4,7 @@ import rabbitescape.engine.ChangeDescription.State;
 
 public interface IBlockingState
 {
-    public State newState();
+    public State getState();
 
     public boolean behave();
 }

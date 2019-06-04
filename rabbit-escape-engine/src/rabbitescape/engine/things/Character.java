@@ -115,14 +115,6 @@ public abstract class Character extends Thing implements Comparable<Character>
     @Override
     public void calcNewState( World world )
     {
-        /*
-        for ( CharacterStates characterStates : behavioursTriggerOrder )
-        {
-            characterStates.triggered = false;
-        }
-
-         */
-
         for ( CharacterStates characterStates : behavioursTriggerOrder )
         {
             characterStates.triggered = characterStates.checkTriggered( this, world );
@@ -145,7 +137,6 @@ public abstract class Character extends Thing implements Comparable<Character>
                 done = true;
             }
         }
-
     }
 
     @Override

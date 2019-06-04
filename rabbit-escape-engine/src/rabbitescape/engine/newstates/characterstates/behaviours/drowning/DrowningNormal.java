@@ -10,7 +10,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_DROWNING;
 public class DrowningNormal implements IDrowningState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return RABBIT_DROWNING;
     }

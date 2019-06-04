@@ -6,7 +6,7 @@ import rabbitescape.engine.World;
 
 public interface IBurningState
 {
-    public State newState();
+    public State getState();
 
     public boolean behave( World world, Character character );
 }

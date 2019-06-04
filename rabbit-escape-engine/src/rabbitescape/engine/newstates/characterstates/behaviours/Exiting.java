@@ -5,12 +5,13 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.exiting.*;
 import rabbitescape.engine.things.characters.Rabbot;
 import rabbitescape.engine.things.environment.Exit;
 
-public class Exiting extends CharacterStates
+public class Exiting extends CharacterBehaviourStates
 {
     private IExitingState exitingState;
 
@@ -51,6 +52,12 @@ public class Exiting extends CharacterStates
     }
 
     @Override
+    public State getState()
+    {
+        return null;
+    }
+
+    @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
         if ( triggered )
@@ -66,12 +73,20 @@ public class Exiting extends CharacterStates
             }
         }
 
-        return exitingState.newState();
+        return exitingState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
         return exitingState.behave( world, character );
+    }
+
+    @Override
+    public boolean behave(
+        World world, Character character, State state, NewStates newState
+    )
+    {
+        return behave( world, character, state );
     }
 }

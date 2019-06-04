@@ -10,10 +10,11 @@ import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public class Brollychuting extends CharacterStates
+public class Brollychuting extends CharacterActionStates
 {
     boolean hasAbility = false;
     private final Climbing climbing;
@@ -152,5 +153,11 @@ public class Brollychuting extends CharacterStates
             saveState, "Brollychuting.hasAbility", hasAbility
         );
 
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 }

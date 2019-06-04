@@ -1,4 +1,4 @@
-package rabbitescape.engine.newstates.characterstates.behaviours;
+package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.things.items.ItemType.*;
 
@@ -7,10 +7,11 @@ import java.util.Map;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.blocking.*;
 import rabbitescape.engine.things.Character;
 
-public class Blocking extends CharacterStates
+public class Blocking extends CharacterActionStates
 {
     private IBlockingState blockingState;
     //TODO: Think of ways to not using this variable "behave".
@@ -47,6 +48,12 @@ public class Blocking extends CharacterStates
     }
 
     @Override
+    public State getState()
+    {
+        return null;
+    }
+
+    @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
         if ( abilityActive || triggered )
@@ -69,7 +76,7 @@ public class Blocking extends CharacterStates
             }
         }
 
-        return blockingState.newState();
+        return blockingState.getState();
     }
 
     @Override

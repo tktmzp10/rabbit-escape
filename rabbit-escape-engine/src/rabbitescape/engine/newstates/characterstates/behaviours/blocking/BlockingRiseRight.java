@@ -7,7 +7,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BLOCKING_RISE_R
 public class BlockingRiseRight implements IBlockingState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return RABBIT_BLOCKING_RISE_RIGHT;
     }

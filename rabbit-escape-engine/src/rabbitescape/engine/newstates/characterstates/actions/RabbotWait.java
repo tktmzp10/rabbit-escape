@@ -3,12 +3,12 @@ package rabbitescape.engine.newstates.characterstates.actions;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
-import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
-public class RabbotWait extends CharacterStates
+public class RabbotWait extends CharacterActionStates
 {
     private boolean within1Vertically( Character otherRabbit, Character rabbit )
     {
@@ -83,6 +83,12 @@ public class RabbotWait extends CharacterStates
         {
             return null;
         }
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 
     @Override

@@ -14,7 +14,7 @@ import static rabbitescape.engine.Direction.RIGHT;
 public class TurningLeftToRightLowering implements IWalkingState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING;
     }

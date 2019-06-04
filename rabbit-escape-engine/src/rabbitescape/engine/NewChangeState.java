@@ -15,15 +15,4 @@ public class NewChangeState
         this.y = y;
         this.state = state;
     }
-
-    public void setState( State state )
-    {
-        this.state = state;
-    }
-
-    public void setNewState( NewStates newState )
-    {
-        this.newState = newState;
-        setState( newState.setState() );
-    }
 }

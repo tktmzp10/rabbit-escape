@@ -10,7 +10,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_LOWERING_RIGHT_
 public class LoweringRightStart implements IWalkingState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return RABBIT_LOWERING_RIGHT_START;
     }

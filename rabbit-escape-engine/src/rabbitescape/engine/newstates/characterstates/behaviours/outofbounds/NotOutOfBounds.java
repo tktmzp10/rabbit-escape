@@ -7,7 +7,7 @@ import rabbitescape.engine.World;
 public class NotOutOfBounds implements IOutOfBoundsState
 {
     @Override
-    public ChangeDescription.State newState()
+    public ChangeDescription.State getState()
     {
         return null;
     }

@@ -8,9 +8,10 @@ import java.util.Map;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 
-public class Falling extends CharacterStates
+public class Falling extends CharacterActionStates
 {
     private int heightFallen = 0;
 
@@ -135,6 +136,12 @@ public class Falling extends CharacterStates
         }
 
         return true;
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 
     @Override

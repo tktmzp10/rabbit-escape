@@ -3,13 +3,14 @@ package rabbitescape.engine.newstates.characterstates.behaviours;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningNormal;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningOnSlope;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.IBurningState;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.NotBurning;
 
-public class Burning extends CharacterStates
+public class Burning extends CharacterBehaviourStates
 {
 
     private IBurningState burningState;
@@ -46,7 +47,7 @@ public class Burning extends CharacterStates
             }
         }
 
-        return burningState.newState();
+        return burningState.getState();
     }
 
     @Override
@@ -55,5 +56,19 @@ public class Burning extends CharacterStates
     )
     {
         return burningState.behave( world, character );
+    }
+
+    @Override
+    public boolean behave(
+        World world, Character character, State state, NewStates newState
+    )
+    {
+        return behave( world, character, state );
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 }

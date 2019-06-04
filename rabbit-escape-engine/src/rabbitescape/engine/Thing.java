@@ -19,17 +19,6 @@ public abstract class Thing implements ShownOnOverlay
         this.state = state;
     }
 
-    public void setState( State state )
-    {
-        this.state = state;
-    }
-
-    public void setNewState( NewStates newState )
-    {
-        this.newState = newState;
-        setState( newState.setState() );
-    }
-
     public abstract void calcNewState( World world );
 
     public abstract void step( World world );

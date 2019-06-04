@@ -7,7 +7,7 @@ import rabbitescape.engine.World;
 public class NotDrowning implements IDrowningState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return null;
     }

@@ -3,11 +3,12 @@ package rabbitescape.engine.newstates.characterstates.actions;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
-public class RabbotCrash extends CharacterStates
+public class RabbotCrash extends CharacterActionStates
 {
     @Override
     public void cancel()
@@ -57,5 +58,11 @@ public class RabbotCrash extends CharacterStates
         }
 
         return false;
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 }

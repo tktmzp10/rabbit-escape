@@ -8,11 +8,12 @@ import java.util.Map;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.digging.IDiggingState;
 import rabbitescape.engine.newstates.characterstates.actions.digging.NotDigging;
 import rabbitescape.engine.things.Character;
 
-public class Digging extends CharacterStates
+public class Digging extends CharacterActionStates
 {
     private IDiggingState diggingState;
     public int stepsOfDigging;
@@ -141,5 +142,11 @@ public class Digging extends CharacterStates
             default:
                 return false;
         }
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 }

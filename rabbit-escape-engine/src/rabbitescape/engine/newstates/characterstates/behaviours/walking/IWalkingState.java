@@ -6,7 +6,7 @@ import rabbitescape.engine.things.Character;
 
 public interface IWalkingState
 {
-    public State newState();
+    public State getState();
 
     public boolean behave( World world, Character character );
 }

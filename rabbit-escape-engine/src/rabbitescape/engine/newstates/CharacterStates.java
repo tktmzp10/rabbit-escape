@@ -4,12 +4,15 @@ import java.util.Map;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.NewStates;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-public abstract class CharacterStates
+public abstract class CharacterStates extends NewStates
 {
     public boolean triggered = false;
+
+    public abstract State getState();
 
     /**
      * Subclasses examine the character's situation using BehaviourTools and
@@ -28,6 +31,8 @@ public abstract class CharacterStates
      *         this time step
      */
     public abstract boolean behave( World world, Character character, State state );
+
+    public abstract boolean behave( World world, Character character, State state, NewStates newState );
 
     /**
      * Examine the character's situation and return true if this CharacterStates must

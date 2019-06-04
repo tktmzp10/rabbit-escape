@@ -10,7 +10,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_OUT_OF_BOUNDS;
 public class OutOfBoundsNormal implements IOutOfBoundsState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return RABBIT_OUT_OF_BOUNDS;
     }

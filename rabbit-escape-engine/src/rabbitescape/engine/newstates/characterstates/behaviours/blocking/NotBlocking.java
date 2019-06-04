@@ -5,7 +5,7 @@ import rabbitescape.engine.ChangeDescription.State;
 public class NotBlocking implements IBlockingState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return null;
     }

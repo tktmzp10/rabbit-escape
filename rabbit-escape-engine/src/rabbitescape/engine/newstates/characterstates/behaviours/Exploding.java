@@ -6,9 +6,10 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
+import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
 
-public class Exploding extends CharacterStates
+public class Exploding extends CharacterBehaviourStates
 {
     @Override
     public void cancel()
@@ -20,6 +21,12 @@ public class Exploding extends CharacterStates
     {
         BehaviourTools t = new BehaviourTools( character, world );
         return t.pickUpToken( explode, true );
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 
     @Override
@@ -42,5 +49,13 @@ public class Exploding extends CharacterStates
         }
 
         return false;
+    }
+
+    @Override
+    public boolean behave(
+        World world, Character character, State state, NewStates newState
+    )
+    {
+        return behave( world, character, state );
     }
 }

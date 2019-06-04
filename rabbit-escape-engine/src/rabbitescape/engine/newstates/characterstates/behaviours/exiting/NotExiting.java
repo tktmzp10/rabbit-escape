@@ -7,7 +7,7 @@ import rabbitescape.engine.World;
 public class NotExiting implements IExitingState
 {
     @Override
-    public State newState()
+    public State getState()
     {
         return null;
     }
