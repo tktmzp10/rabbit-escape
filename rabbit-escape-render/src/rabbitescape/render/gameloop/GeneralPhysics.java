@@ -3,6 +3,7 @@ package rabbitescape.render.gameloop;
 import java.util.ArrayList;
 import java.util.List;
 
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.solution.PlaceTokenAction;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.engine.solution.SolutionIgnorer;
@@ -12,7 +13,6 @@ import rabbitescape.engine.solution.SolutionTimeStep;
 import rabbitescape.engine.solution.TimeStepAction;
 import rabbitescape.engine.solution.UiPlayback;
 import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
 
@@ -45,7 +45,7 @@ public class GeneralPhysics implements Physics
         }
 
         public synchronized void addToken(
-            int tileX, int tileY, Token.Type type )
+            int tileX, int tileY, ItemType type )
         {
             world.changes.addToken( tileX, tileY, type );
         }
@@ -200,7 +200,7 @@ public class GeneralPhysics implements Physics
         }
     }
 
-    public int addToken( int tileX, int tileY, Token.Type ability )
+    public int addToken( int tileX, int tileY, ItemType ability )
     {
         if (
                gameRunning()

@@ -5,8 +5,8 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
+import rabbitescape.engine.items.ItemType;
 
 public class TestSolutionTimeStep
 {
@@ -27,13 +27,13 @@ public class TestSolutionTimeStep
         SolutionTimeStep ts1 = new SolutionTimeStep(
             2,
             new PlaceTokenAction( 2, 2 ),
-            new SelectAction( Token.Type.bridge )
+            new SelectAction( ItemType.bridge )
         );
 
         SolutionTimeStep ts2 = new SolutionTimeStep(
             2,
             new PlaceTokenAction( 2, 2 ),
-            new SelectAction( Token.Type.bridge )
+            new SelectAction( ItemType.bridge )
         );
 
         assertThat( ts1, equalTo( ts2 ) );
@@ -89,7 +89,7 @@ public class TestSolutionTimeStep
         return new SolutionTimeStep(
               commandIndex
             , new PlaceTokenAction( 3, yCoord )
-            , new SelectAction( Token.Type.block )
+            , new SelectAction( ItemType.block )
             , new AssertStateAction( World.CompletionState.RUNNING )
         );
     }
@@ -100,7 +100,7 @@ public class TestSolutionTimeStep
         return new SolutionTimeStep(
               commandIndex
             , new PlaceTokenAction( 3, yCoord )
-            , new SelectAction( Token.Type.block )
+            , new SelectAction( ItemType.block )
         );
     }
 }

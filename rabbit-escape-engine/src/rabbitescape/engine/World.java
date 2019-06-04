@@ -8,10 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import rabbitescape.engine.Rabbit.Type;
-import rabbitescape.engine.WaterRegion;
 import rabbitescape.engine.err.RabbitEscapeException;
+import rabbitescape.engine.items.Item;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.textworld.Comment;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;
@@ -48,9 +50,9 @@ public class World
     {
         private static final long serialVersionUID = 1L;
 
-        public final Token.Type ability;
+        public final ItemType ability;
 
-        public UnableToAddToken( Token.Type ability )
+        public UnableToAddToken( ItemType ability )
         {
             this.ability = ability;
         }
@@ -60,7 +62,7 @@ public class World
     {
         private static final long serialVersionUID = 1L;
 
-        public NoSuchAbilityInThisWorld( Token.Type ability )
+        public NoSuchAbilityInThisWorld( ItemType ability )
         {
             super( ability );
         }
@@ -70,7 +72,7 @@ public class World
     {
         private static final long serialVersionUID = 1L;
 
-        public NoneOfThisAbilityLeft( Token.Type ability )
+        public NoneOfThisAbilityLeft( ItemType ability )
         {
             super( ability );
         }
@@ -85,7 +87,7 @@ public class World
         public final Dimension worldSize;
 
         public CantAddTokenOutsideWorld(
-            Token.Type ability, int x, int y, Dimension worldSize )
+            ItemType ability, int x, int y, Dimension worldSize )
         {
             super( ability );
             this.x = x;
@@ -107,9 +109,9 @@ public class World
     /** A grid of water. Only one water object
      * should be stored in each location. */
     public final LookupTable2D<WaterRegion> waterTable;
-    public final List<Rabbit> rabbits;
+    public final List<Character> rabbits;
     public final List<Thing> things;
-    public final Map<Token.Type, Integer> abilities;
+    public final Map<ItemType, Integer> abilities;
     public final String name;
     public final String description;
     public final String author_name;
@@ -135,10 +137,10 @@ public class World
     public World(
         Dimension size,
         List<Block> blocks,
-        List<Rabbit> rabbits,
+        List<Character> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
-        Map<Token.Type, Integer> abilities,
+        Map<ItemType, Integer> abilities,
         String name,
         String description,
         String author_name,
@@ -202,10 +204,10 @@ public class World
     public World(
         Dimension size,
         LookupTable2D<Block> blockTable,
-        List<Rabbit> rabbits,
+        List<Character> rabbits,
         List<Thing> things,
         LookupTable2D<WaterRegion> waterTable,
-        Map<rabbitescape.engine.Token.Type, Integer> abilities,
+        Map<ItemType, Integer> abilities,
         String name,
         String description,
         String author_name,
@@ -257,7 +259,7 @@ public class World
     private void init()
     {
         // Number the rabbits if necessary
-        for ( Rabbit r: rabbits )
+        for ( Character r: rabbits )
         {
             rabbitIndex( r );
         }
@@ -272,7 +274,7 @@ public class World
         }
     }
 
-    public void rabbitIndex( Rabbit r )
+    public void rabbitIndex( Character r )
     {
         r.index = ( r.index == Rabbit.NOT_INDEXED )
                 ? ++rabbit_index_count
@@ -292,7 +294,7 @@ public class World
     {
         rabbit_index_count = rabbit_index_count == 0 ?
             rabbits.size() : rabbit_index_count;
-        for ( Rabbit r:rabbits )
+        for ( Character r:rabbits )
         {
             rabbit_index_count = rabbit_index_count > r.index ?
                 rabbit_index_count : r.index;
@@ -376,7 +378,7 @@ public class World
         }
     }
 
-    public Token getTokenAt( int x, int y )
+    public Item getTokenAt( int x, int y )
     {
         // Note it is not worth using LookupTable2D for things.
         // Handling their movement would complicate the code.
@@ -385,11 +387,11 @@ public class World
         // consuming.
         for ( Thing thing : things )
         {
-            if ( thing.x == x && thing.y == y && thing instanceof Token )
+            if ( thing.x == x && thing.y == y && thing instanceof Item )
             {
                 if ( !changes.tokensToRemove.contains( thing ) )
                 {
-                    return (Token)thing;
+                    return (Item)thing;
                 }
             }
         }
@@ -429,11 +431,11 @@ public class World
         return false;
     }
 
-    public Rabbit[] getRabbitsAt( int x, int y )
+    public Character[] getCharactersAt( int x, int y )
     {
-        List<Rabbit> ret = new ArrayList<Rabbit>();
+        List<Character> ret = new ArrayList<Character>();
 
-        for ( Rabbit rabbit : rabbits )
+        for ( Character rabbit : rabbits )
         {
             if ( rabbit.x == x && rabbit.y == y )
             {
@@ -447,8 +449,8 @@ public class World
     public int numRabbitsOut()
     {
         int count = 0;
-        for ( Rabbit r : rabbits ) {
-            if ( r.type == Type.RABBIT ) {
+        for ( Character r : rabbits ) {
+            if ( r instanceof Rabbit ) {
                 ++count;
             }
         }

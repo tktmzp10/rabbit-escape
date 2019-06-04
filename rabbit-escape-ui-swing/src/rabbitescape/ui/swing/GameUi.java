@@ -24,10 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.KeyStroke;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 import rabbitescape.engine.config.TapTimer;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.render.BitmapCache;
 import rabbitescape.render.gameloop.Physics.StatsChangedListener;
@@ -209,7 +209,7 @@ public class GameUi implements StatsChangedListener
     private GameMenu menu;
     private TopBar topBar;
 
-    private Token.Type chosenAbility;
+    private ItemType chosenAbility;
     private SwingGameLaunch gameLaunch;
 
     // Modified in Swing event thread, read in game loop thread
@@ -341,7 +341,7 @@ public class GameUi implements StatsChangedListener
         menu.addAbilitiesListener( new GameMenu.AbilityChangedListener()
         {
             @Override
-            public void abilityChosen( Token.Type ability )
+            public void abilityChosen( ItemType ability )
             {
                 chooseAbility( ability );
                 gameLaunch.solutionRecorder.append(
@@ -654,7 +654,7 @@ public class GameUi implements StatsChangedListener
         updateChosenAbility();
     }
 
-    protected void chooseAbility( Token.Type ability )
+    protected void chooseAbility( ItemType ability )
     {
         chosenAbility = ability;
 

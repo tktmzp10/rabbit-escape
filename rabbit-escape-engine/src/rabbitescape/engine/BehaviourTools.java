@@ -3,16 +3,20 @@ package rabbitescape.engine;
 import static rabbitescape.engine.Block.Shape.*;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.Direction.opposite;
+
+import rabbitescape.engine.items.Item;
+import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Position;
 
 public class BehaviourTools
 {
-    public final Rabbit rabbit;
+    public final Character character;
     public final World world;
 
-    public BehaviourTools( Rabbit rabbit, World world )
+    public BehaviourTools( Character rabbit, World world )
     {
-        this.rabbit = rabbit;
+        this.character = rabbit;
         this.world = world;
     }
 
@@ -21,17 +25,17 @@ public class BehaviourTools
         ChangeDescription.State leftState
     )
     {
-        return rabbit.dir == RIGHT ? rightState : leftState;
+        return character.dir == RIGHT ? rightState : leftState;
     }
 
-    public boolean pickUpToken( Token.Type type )
+    public boolean pickUpToken( ItemType type )
     {
         return pickUpToken( type, false );
     }
 
     public boolean rabbitIsFalling()
     {
-        switch (rabbit.state)
+        switch ( character.state)
         {
         case RABBIT_FALLING:
         case RABBIT_FALLING_1:
@@ -62,7 +66,7 @@ public class BehaviourTools
 
     public boolean rabbitIsClimbing()
     {
-        switch( rabbit.state)
+        switch( character.state)
         {
         case RABBIT_ENTERING_EXIT_CLIMBING_RIGHT:
         case RABBIT_ENTERING_EXIT_CLIMBING_LEFT:
@@ -84,7 +88,7 @@ public class BehaviourTools
 
     public boolean rabbitIsBashing()
     {
-        switch( rabbit.state)
+        switch( character.state)
         {
         case RABBIT_BASHING_RIGHT:
         case RABBIT_BASHING_LEFT:
@@ -104,19 +108,19 @@ public class BehaviourTools
      * Checks for the presence of a token. Removes token from the world
      * and returns true if a token is being picked up.
      */
-    public boolean pickUpToken( Token.Type type, boolean evenIfNotOnGround )
+    public boolean pickUpToken( ItemType type, boolean evenIfNotOnGround )
     {
-        if ( rabbitIsFalling() && rabbit.isFallingToDeath() )
+        if ( rabbitIsFalling() && character.isFallingToDeath() )
         {
             return false; // Dying rabbits not allowed to consume tokens
         }
 
         if ( evenIfNotOnGround || onGround() )
         {
-            Token token = world.getTokenAt( rabbit.x, rabbit.y );
-            if ( token != null && token.type == type )
+            Item item = world.getTokenAt( character.x, character.y );
+            if ( item != null && item.getType() == type )
             {
-                world.changes.removeToken( token );
+                world.changes.removeToken( item );
                 return true;
             }
         }
@@ -125,42 +129,42 @@ public class BehaviourTools
 
     public Block blockHere()
     {
-        return world.getBlockAt( rabbit.x, rabbit.y );
+        return world.getBlockAt( character.x, character.y );
     }
 
     public Block blockNext()
     {
-        return world.getBlockAt( nextX(), rabbit.y );
+        return world.getBlockAt( nextX(), character.y );
     }
 
     public Block blockBelow()
     {
-        return world.getBlockAt( rabbit.x, rabbit.y + 1 );
+        return world.getBlockAt( character.x, character.y + 1 );
     }
 
     public Block block2Below()
     {
-        return world.getBlockAt( rabbit.x, rabbit.y + 2 );
+        return world.getBlockAt( character.x, character.y + 2 );
     }
 
     public Block blockBelowNext()
     {
-        return world.getBlockAt( nextX(), rabbit.y + 1 );
+        return world.getBlockAt( nextX(), character.y + 1 );
     }
 
     public Block blockAbove()
     {
-        return world.getBlockAt( rabbit.x, rabbit.y - 1 );
+        return world.getBlockAt( character.x, character.y - 1 );
     }
 
     public Block blockAboveNext()
     {
-        return world.getBlockAt( nextX(), rabbit.y - 1 );
+        return world.getBlockAt( nextX(), character.y - 1 );
     }
 
     private boolean onGround()
     {
-        return ( rabbit.onSlope || blockBelow() != null );
+        return ( character.onSlope || blockBelow() != null );
     }
 
     public boolean isWall( Block block )
@@ -170,7 +174,7 @@ public class BehaviourTools
             && (
                    block.shape == FLAT
                 || (
-                    block.riseDir() == opposite( rabbit.dir )
+                    block.riseDir() == opposite( character.dir )
                     && isSolid( block )
                 )
             )
@@ -275,7 +279,7 @@ public class BehaviourTools
 
     private boolean goingUpSlope()
     {
-        if ( rabbit.onSlope )
+        if ( character.onSlope )
         {
             if( isOnUpSlope() )
             {
@@ -287,11 +291,11 @@ public class BehaviourTools
 
     public boolean isOnUpSlope()
     {
-        return rabbit.onSlope && hereIsUpSlope();
+        return character.onSlope && hereIsUpSlope();
     }
 
     /**
-     * Check if rabbit is changing from an up slope directly to a down slope.
+     * Check if character is changing from an up slope directly to a down slope.
      */
     public boolean isCresting()
     {
@@ -305,12 +309,12 @@ public class BehaviourTools
     }
 
     /**
-     * Check if rabbit is changing from a down slope directly to an up slope.
+     * Check if character is changing from a down slope directly to an up slope.
      */
     public boolean isValleying()
     {
         // block where slope would be if it continues
-        Block alongBlock = world.getBlockAt( nextX(), rabbit.y );
+        Block alongBlock = world.getBlockAt( nextX(), character.y );
 
         return isOnDownSlope() &&
                isUpSlope( alongBlock );
@@ -323,12 +327,12 @@ public class BehaviourTools
 
     public boolean isUpSlope( Block block )
     {
-        return ( block != null && block.riseDir() == rabbit.dir );
+        return ( block != null && block.riseDir() == character.dir );
     }
 
     public boolean isOnDownSlope()
     {
-        return rabbit.onSlope && hereIsDownSlope();
+        return character.onSlope && hereIsDownSlope();
     }
 
     private boolean hereIsDownSlope()
@@ -338,7 +342,7 @@ public class BehaviourTools
 
     public boolean isDownSlope( Block block )
     {
-        return ( block != null && block.riseDir() == opposite( rabbit.dir ) );
+        return ( block != null && block.riseDir() == opposite( character.dir ) );
     }
 
     public static boolean isSlopeNotBridge( Block b )
@@ -360,8 +364,8 @@ public class BehaviourTools
     public int nextX()
     {
         return
-            rabbit.x + (
-                rabbit.dir == RIGHT ? 1 : -1
+            character.x + (
+                character.dir == RIGHT ? 1 : -1
             );
     }
 
@@ -369,16 +373,16 @@ public class BehaviourTools
     {
         if ( goingUpSlope() )
         {
-            return rabbit.y - 1;
+            return character.y - 1;
         }
         else
         {
-            return rabbit.y;
+            return character.y;
         }
     }
 
     /**
-     * @brief A rabbit may be on a slope block as a digger
+     * @brief A character may be on a slope block as a digger
      *        or basher removes it. This is here to make sure
      *        they fall.
      */
@@ -386,7 +390,7 @@ public class BehaviourTools
     {
         for ( Position p : world.changes.blocksJustRemoved )
         {
-            if ( rabbit.x == p.x && rabbit.y == p.y )
+            if ( character.x == p.x && character.y == p.y )
             {
                 return true;
             }

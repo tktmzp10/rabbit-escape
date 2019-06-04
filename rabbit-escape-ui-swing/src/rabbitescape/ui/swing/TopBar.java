@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.render.gameloop.Physics;
 
 import static rabbitescape.engine.i18n.Translation.t;
@@ -82,7 +82,7 @@ public class TopBar implements Physics.StatsChangedListener
         setCountText( this.saved,   savedText,   saved, numToSave );
     }
 
-    public void abilityChanged( Token.Type ability, int numLeft )
+    public void abilityChanged( ItemType ability, int numLeft )
     {
         setAbilityText( this.ability, abilityText, ability.name(), numLeft );
     }

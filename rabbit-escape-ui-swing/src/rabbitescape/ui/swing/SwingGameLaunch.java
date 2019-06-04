@@ -11,9 +11,9 @@ import static rabbitescape.engine.i18n.Translation.t;
 import static rabbitescape.engine.util.Util.map;
 
 import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.menu.LevelMenuItem;
 import rabbitescape.engine.menu.LevelsMenu;
 import rabbitescape.engine.solution.PlaceTokenAction;
@@ -511,7 +511,7 @@ public class SwingGameLaunch implements GameLaunch
         }
     }
 
-    public int addToken( int tileX, int tileY, Token.Type ability )
+    public int addToken( int tileX, int tileY, ItemType ability )
     {
         int prev = world.abilities.get( ability );
         int now = physics.addToken( tileX, tileY, ability );
@@ -526,7 +526,7 @@ public class SwingGameLaunch implements GameLaunch
         return now;
     }
 
-    public Map<Token.Type, Integer> getAbilities()
+    public Map<ItemType, Integer> getAbilities()
     {
         return world.abilities;
     }

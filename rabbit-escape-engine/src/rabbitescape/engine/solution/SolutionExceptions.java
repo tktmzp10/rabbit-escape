@@ -1,9 +1,9 @@
 package rabbitescape.engine.solution;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.err.RabbitEscapeException;
+import rabbitescape.engine.items.ItemType;
 
 public class SolutionExceptions
 {
@@ -88,9 +88,9 @@ public class SolutionExceptions
     {
         private static final long serialVersionUID = 1L;
 
-        public final Token.Type ability;
+        public final ItemType ability;
 
-        public UsedRunOutAbility( Token.Type ability )
+        public UsedRunOutAbility( ItemType ability )
         {
             this.ability = ability;
         }
@@ -103,9 +103,9 @@ public class SolutionExceptions
     {
         private static final long serialVersionUID = 1L;
 
-        public final Token.Type ability;
+        public final ItemType ability;
 
-        public UsedMissingAbility( Token.Type ability )
+        public UsedMissingAbility( ItemType ability )
         {
             this.ability = ability;
         }
@@ -147,12 +147,12 @@ public class SolutionExceptions
 
         public final int x;
         public final int y;
-        public final Token.Type type;
+        public final ItemType type;
 
         public FailedToPlaceToken(
             int x,
             int y,
-            Token.Type type
+            ItemType type
         )
         {
             this.x = x;

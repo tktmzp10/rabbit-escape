@@ -1,5 +1,7 @@
 package rabbitescape.engine;
 
+import rabbitescape.engine.things.characters.Rabbit;
+
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
 
@@ -60,7 +62,7 @@ public class Entrance extends Environment
 
         timeToNextRabbit = delay[delayIndex];
 
-        Rabbit r = new Rabbit( x, y + 1, RIGHT, Rabbit.Type.RABBIT );
+        Rabbit r = new Rabbit( x, y + 1, RIGHT);
 
         world.changes.enterRabbit( r );
 

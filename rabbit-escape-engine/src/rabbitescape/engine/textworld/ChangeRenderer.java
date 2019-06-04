@@ -4,6 +4,9 @@ import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.ChangeDescription.Change;
 import rabbitescape.engine.RabbitStates;
 import rabbitescape.engine.StateAndPosition;
+import rabbitescape.engine.behaviours.states.burning.BurningNormal;
+import rabbitescape.engine.behaviours.states.burning.BurningOnSlope;
+import rabbitescape.engine.behaviours.states.drowning.DrowningNormal;
 import rabbitescape.engine.util.Position;
 
 public class ChangeRenderer
@@ -69,10 +72,14 @@ public class ChangeRenderer
             case PIPE:
                 chars.set( change.x, change.y, 'P' );
                 break;
+            //==================================================================
             case RABBIT_BURNING:
-            case RABBIT_BURNING_ON_SLOPE:
-                chars.set(  change.x, change.y, 'X' );
+                BurningNormal.setChars(change, chars);
                 break;
+            case RABBIT_BURNING_ON_SLOPE:
+                BurningOnSlope.setChars(change, chars);
+                break;
+            //==================================================================
             case RABBIT_WALKING_LEFT:
                 chars.set( change.x-1, change.y, '<' );
                 break;
@@ -282,9 +289,11 @@ public class ChangeRenderer
             case RABBIT_EXPLODING:
                 chars.set( change.x, change.y, 'P' );
                 break;
+            //==================================================================
             case RABBIT_DROWNING:
-                chars.set( change.x, change.y, 'R' );
+                DrowningNormal.setChars( change, chars );
                 break;
+            //==================================================================
             case RABBIT_CRASHING:
                 chars.set( change.x, change.y, 'Z' );
                 break;
@@ -292,8 +301,10 @@ public class ChangeRenderer
             case RABBIT_WAITING_RIGHT:
                 chars.set( change.x, change.y, 'z' );
                 break;
+            //==================================================================
             case RABBIT_OUT_OF_BOUNDS:
                 break;
+            //==================================================================
             case TOKEN_BASH_STILL:
             case TOKEN_BASH_ON_SLOPE:
             case TOKEN_DIG_STILL:
@@ -308,6 +319,8 @@ public class ChangeRenderer
             case TOKEN_EXPLODE_ON_SLOPE:
             case TOKEN_BROLLY_STILL:
             case TOKEN_BROLLY_ON_SLOPE:
+//            case ITEM_STILL:
+//            case ITEM_ON_SLOPE:
                 break;
             case TOKEN_BASH_FALLING:
             case TOKEN_BASH_FALL_TO_SLOPE:
@@ -323,6 +336,8 @@ public class ChangeRenderer
             case TOKEN_EXPLODE_FALL_TO_SLOPE:
             case TOKEN_BROLLY_FALLING:
             case TOKEN_BROLLY_FALL_TO_SLOPE:
+//            case ITEM_FALLING:
+//            case ITEM_FALL_TO_SLOPE:
                 chars.set( change.x, change.y + 1, 'f' );
                 break;
             case WATER_REGION:
@@ -338,8 +353,10 @@ public class ChangeRenderer
                 break;
             case ENTRANCE:
                 break;
+            //==================================================================
             case EXIT:
                 break;
+            //==================================================================
             default:
                 throw new AssertionError(
                     "Unknown Change state: " + change.state.name() );

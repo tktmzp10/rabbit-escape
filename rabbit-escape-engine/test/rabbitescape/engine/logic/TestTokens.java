@@ -9,8 +9,11 @@ import static rabbitescape.engine.util.WorldAssertions.*;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Token;
+import rabbitescape.engine.items.BashItem;
+import rabbitescape.engine.items.BrollyItem;
+import rabbitescape.engine.items.Item;
 import rabbitescape.engine.World;
+import rabbitescape.engine.items.ItemType;
 
 public class TestTokens
 {
@@ -19,7 +22,7 @@ public class TestTokens
     @Test
     public void Tokens_return_their_state_names_lowercase()
     {
-        Token t = new Token( 1, 2, Token.Type.bash );
+        Item t = new BashItem( 1, 2 );
         t.state = TOKEN_BASH_FALLING;
         assertThat(t.stateName(), equalTo("token_bash_falling"));
     }
@@ -93,19 +96,19 @@ public class TestTokens
 
         // Sanity - no tokens yet
         assertThat( world.things.size(), equalTo( 0 ) );
-        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 5 ) );
+        assertThat( world.abilities.get( ItemType.dig ), equalTo( 5 ) );
 
         // This is what we are testing: add tokens on slopes, bridges, space
-        world.changes.addToken( 0, 0, Token.Type.dig );
-        world.changes.addToken( 1, 0, Token.Type.dig );
-        world.changes.addToken( 2, 0, Token.Type.dig );
-        world.changes.addToken( 3, 0, Token.Type.dig );
-        world.changes.addToken( 4, 0, Token.Type.dig );
+        world.changes.addToken( 0, 0, ItemType.dig );
+        world.changes.addToken( 1, 0, ItemType.dig );
+        world.changes.addToken( 2, 0, ItemType.dig );
+        world.changes.addToken( 3, 0, ItemType.dig );
+        world.changes.addToken( 4, 0, ItemType.dig );
         world.step();
 
         // All 4 tokens were added
         assertThat( world.things.size(), equalTo( 5 ) );
-        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 0 ) );
+        assertThat( world.abilities.get( ItemType.dig ), equalTo( 0 ) );
     }
 
     @Test
@@ -119,19 +122,19 @@ public class TestTokens
 
         // Sanity - no tokens yet
         assertThat( world.things.size(), equalTo( 0 ) );
-        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 5 ) );
+        assertThat( world.abilities.get( ItemType.dig ), equalTo( 5 ) );
 
         // This is what we are testing: add tokens on solid blocks
-        world.changes.addToken( 0, 1, Token.Type.dig );
-        world.changes.addToken( 1, 1, Token.Type.dig );
-        world.changes.addToken( 2, 1, Token.Type.dig );
-        world.changes.addToken( 3, 1, Token.Type.dig );
-        world.changes.addToken( 4, 1, Token.Type.dig );
+        world.changes.addToken( 0, 1, ItemType.dig );
+        world.changes.addToken( 1, 1, ItemType.dig );
+        world.changes.addToken( 2, 1, ItemType.dig );
+        world.changes.addToken( 3, 1, ItemType.dig );
+        world.changes.addToken( 4, 1, ItemType.dig );
         world.step();
 
         // None of them were were added
         assertThat( world.things.size(), equalTo( 0 ) );
-        assertThat( world.abilities.get( Token.Type.dig ), equalTo( 5 ) );
+        assertThat( world.abilities.get( ItemType.dig ), equalTo( 5 ) );
     }
 
     @Test
@@ -249,8 +252,8 @@ public class TestTokens
     @Test
     public void Tokens_falling_onto_bridgers_in_corner_take_effect()
     {
-        // This looks like the rabbit catches it when it's off to the side,
-        // because really the rabbit is stuck in a hole, so it's not too
+        // This looks like the character catches it when it's off to the side,
+        // because really the character is stuck in a hole, so it's not too
         // bad, but inconsistent with
         // Tokens_do_not_fall_through_half_built_bridges_in_tight_corners
 
@@ -267,7 +270,7 @@ public class TestTokens
 
             "  #" + "\n" +
             "  #" + "\n" +
-            " r#" + "\n" + // Dig token hits bridge and converts rabbit
+            " r#" + "\n" + // Dig token hits bridge and converts character
             "#D#"
         );
     }
@@ -355,8 +358,8 @@ public class TestTokens
             "##"
         );
 
-        Token inAir = new Token( 0, 0, Token.Type.brolly, world );
-        Token onSlope = new Token( 1, 1, Token.Type.brolly, world );
+        Item inAir = new BrollyItem( 0, 0, world );
+        Item onSlope = new BrollyItem( 1, 1, world );
 
         // Until a time step passes, these are in non-moving states
         assertThat( inAir.state, is( TOKEN_BROLLY_STILL ) );

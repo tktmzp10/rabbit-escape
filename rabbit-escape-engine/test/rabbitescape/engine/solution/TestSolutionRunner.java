@@ -10,9 +10,9 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
+import rabbitescape.engine.items.ItemType;
 import rabbitescape.engine.textworld.TextWorldManip;
 
 public class TestSolutionRunner
@@ -540,7 +540,7 @@ public class TestSolutionRunner
             new SolutionCommand( new WaitAction( 1 ) ),
             new SolutionCommand( new WaitAction( 2 ) ),
             new SolutionCommand( new WaitAction( 1 ) ),
-            new SolutionCommand( new SelectAction( Token.Type.bash ) )
+            new SolutionCommand( new SelectAction( ItemType.bash ) )
         );
     }
 
@@ -555,7 +555,7 @@ public class TestSolutionRunner
     private Solution useBash30Solution()
     {
         return new Solution(
-            new SolutionCommand( new SelectAction( Token.Type.bash ) ),
+            new SolutionCommand( new SelectAction( ItemType.bash ) ),
             new SolutionCommand( new PlaceTokenAction( 1, 0 ) ),
             new SolutionCommand( new WaitAction( 1 ) ),
             new SolutionCommand( new PlaceTokenAction( 3, 0 ) )
@@ -565,7 +565,7 @@ public class TestSolutionRunner
     private Solution useBash100Solution()
     {
         return new Solution(
-            new SolutionCommand( new SelectAction( Token.Type.bash ) ),
+            new SolutionCommand( new SelectAction( ItemType.bash ) ),
             new SolutionCommand( new PlaceTokenAction( 10, 0 ) )
         );
     }

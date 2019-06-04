@@ -9,6 +9,11 @@ import rabbitescape.engine.World.NoBlockFound;
 import rabbitescape.engine.World.NoSuchAbilityInThisWorld;
 import rabbitescape.engine.World.NoneOfThisAbilityLeft;
 import rabbitescape.engine.World.UnableToAddToken;
+import rabbitescape.engine.items.Item;
+import rabbitescape.engine.items.ItemFactory;
+import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.util.Position;
 
 public class WorldChanges
@@ -17,11 +22,11 @@ public class WorldChanges
     private final World world;
     public final WorldStatsListener statsListener;
 
-    private final List<Rabbit> rabbitsToEnter = new ArrayList<Rabbit>();
-    private final List<Rabbit> rabbitsToKill  = new ArrayList<Rabbit>();
-    private final List<Rabbit> rabbitsToSave  = new ArrayList<Rabbit>();
-    private final List<Token>  tokensToAdd    = new ArrayList<Token>();
-    public  final List<Token>  tokensToRemove = new ArrayList<Token>();
+    private final List<Character> charactersToEnter = new ArrayList<Character>();
+    private final List<Character> charactersToKill = new ArrayList<Character>();
+    private final List<Character> charactersToSave = new ArrayList<Character>();
+    private final List<Item>  tokensToAdd    = new ArrayList<Item>();
+    public  final List<Item>  tokensToRemove = new ArrayList<Item>();
     public  final List<Fire>   fireToRemove   = new ArrayList<Fire>();
     private final List<Block>  blocksToAdd    = new ArrayList<Block>();
     private final List<Block>  blocksToRemove = new ArrayList<Block>();
@@ -30,7 +35,7 @@ public class WorldChanges
 
     private boolean explodeAll = false;
 
-    private List<Rabbit> rabbitsJustEntered = new ArrayList<Rabbit>();
+    private List<Character> rabbitsJustEntered = new ArrayList<Character>();
 
     public WorldChanges( World world, WorldStatsListener statsListener )
     {
@@ -42,17 +47,17 @@ public class WorldChanges
     public synchronized void apply()
     {
         // Add any new things
-        for ( Rabbit rabbit : rabbitsToEnter )
+        for ( Character rabbit : charactersToEnter )
         {
             rabbit.calcNewState( world );
         }
-        world.rabbits.addAll( rabbitsToEnter );
+        world.rabbits.addAll( charactersToEnter );
         world.things.addAll( tokensToAdd );
         world.blockTable.addAll( blocksToAdd );
 
         // Remove dead/saved rabbits, used tokens, dug out blocks
-        world.rabbits.removeAll( rabbitsToKill );
-        world.rabbits.removeAll( rabbitsToSave );
+        world.rabbits.removeAll( charactersToKill );
+        world.rabbits.removeAll( charactersToSave );
         world.things.removeAll(  tokensToRemove );
         world.things.removeAll( fireToRemove );
         world.blockTable.removeAll(  blocksToRemove );
@@ -62,14 +67,14 @@ public class WorldChanges
             world.recalculateWaterRegions( point );
         }
 
-        if ( rabbitsToSave.size() > 0 )
+        if ( charactersToSave.size() > 0 )
         {
             updateStats();
         }
 
-        rabbitsToEnter.clear();
-        rabbitsToKill.clear();
-        rabbitsToSave.clear();
+        charactersToEnter.clear();
+        charactersToKill.clear();
+        charactersToSave.clear();
         tokensToAdd.clear();
         tokensToRemove.clear();
         fireToRemove.clear();
@@ -91,7 +96,7 @@ public class WorldChanges
     private void doExplodeAll()
     {
         world.num_waiting = 0;
-        for ( Rabbit rabbit : world.rabbits )
+        for ( Character rabbit : world.rabbits )
         {
             rabbit.state = State.RABBIT_EXPLODING;
         }
@@ -111,59 +116,59 @@ public class WorldChanges
 
     private synchronized void revertEnterRabbits()
     {
-        world.num_waiting += rabbitsToEnter.size();
-        rabbitsToEnter.clear();
+        world.num_waiting += charactersToEnter.size();
+        charactersToEnter.clear();
     }
 
-    public synchronized void enterRabbit( Rabbit rabbit )
+    public synchronized void enterRabbit( Character character )
     {
         --world.num_waiting;
-        rabbitsToEnter.add( rabbit );
+        charactersToEnter.add( character );
     }
 
     private synchronized void revertKillRabbits()
     {
-        for ( Rabbit rabbit : rabbitsToKill )
+        for ( Character character : charactersToKill )
         {
-            if ( rabbit.type == Rabbit.Type.RABBIT )
+            if ( character instanceof Rabbit )
             {
                 --world.num_killed;
             }
         }
-        rabbitsToKill.clear();
+        charactersToKill.clear();
     }
 
-    public synchronized void killRabbit( Rabbit rabbit )
+    public synchronized void killRabbit( Character character )
     {
-        if ( rabbit.type == Rabbit.Type.RABBIT )
+        if ( character instanceof Rabbit )
         {
             ++world.num_killed;
         }
-        rabbitsToKill.add( rabbit );
+        charactersToKill.add( character );
     }
 
     private void revertSaveRabbits()
     {
-        world.num_saved -= rabbitsToSave.size();
-        rabbitsToSave.clear();
+        world.num_saved -= charactersToSave.size();
+        charactersToSave.clear();
     }
 
-    public synchronized void saveRabbit( Rabbit rabbit )
+    public synchronized void saveRabbit( Character character )
     {
         ++world.num_saved;
-        rabbitsToSave.add( rabbit );
+        charactersToSave.add( character );
     }
 
     private synchronized void revertAddTokens()
     {
-        for ( Token t : tokensToAdd )
+        for ( Item t : tokensToAdd )
         {
-            world.abilities.put( t.type, world.abilities.get( t.type ) + 1 );
+            world.abilities.put( t.getType(), world.abilities.get( t.getType() ) + 1 );
         }
         tokensToAdd.clear();
     }
 
-    public synchronized void addToken( int x, int y, Token.Type type )
+    public synchronized void addToken( int x, int y, ItemType type )
     throws UnableToAddToken
     {
         Integer numLeft = world.abilities.get( type );
@@ -189,11 +194,11 @@ public class WorldChanges
             return;
         }
 
-        tokensToAdd.add( new Token( x, y, type, world ) );
+        tokensToAdd.add( ItemFactory.createItem( x, y, type, world ) );
         world.abilities.put( type, numLeft - 1 );
     }
 
-    public synchronized void removeToken( Token thing )
+    public synchronized void removeToken( Item thing )
     {
         tokensToRemove.add( thing );
     }
@@ -231,13 +236,13 @@ public class WorldChanges
         explodeAll = true;
     }
 
-    public List<Rabbit> rabbitsJustEntered()
+    public List<Character> rabbitsJustEntered()
     {
         return rabbitsJustEntered;
     }
 
     public void rememberWhatWillHappen()
     {
-        rabbitsJustEntered = new ArrayList<Rabbit>( rabbitsToEnter );
+        rabbitsJustEntered = new ArrayList<Character>( charactersToEnter );
     }
 }
