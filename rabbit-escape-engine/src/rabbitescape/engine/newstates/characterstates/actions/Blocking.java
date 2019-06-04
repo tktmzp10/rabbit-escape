@@ -1,12 +1,12 @@
 package rabbitescape.engine.newstates.characterstates.actions;
 
+import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.blocking.*;
 import rabbitescape.engine.things.Character;
@@ -14,8 +14,6 @@ import rabbitescape.engine.things.Character;
 public class Blocking extends CharacterActionStates
 {
     private IBlockingState blockingState;
-    //TODO: Think of ways to not using this variable "behave".
-    private static boolean behave;
     public boolean abilityActive = false;
 
     public Blocking()
@@ -26,12 +24,6 @@ public class Blocking extends CharacterActionStates
     public void setBlockingState( IBlockingState blockingState )
     {
         this.blockingState = blockingState;
-        behave = blockingState.behave();
-    }
-
-    public static boolean getBehave()
-    {
-        return behave;
     }
 
     @Override
@@ -61,28 +53,27 @@ public class Blocking extends CharacterActionStates
             t.character.possiblyUndoSlopeBashHop( t.world );
             abilityActive = true;
             Block here = t.blockHere();
-
             if( BehaviourTools.isRightRiseSlope( here ) )
             {
-                setBlockingState( new BlockingRiseRight() );
+                return RABBIT_BLOCKING_RISE_RIGHT;
             }
             else if ( BehaviourTools.isLeftRiseSlope( here ) )
             {
-                setBlockingState( new BlockingRiseLeft() );
+                return RABBIT_BLOCKING_RISE_LEFT;
             }
             else
             {
-                setBlockingState( new BlockingNormal() );
+                return RABBIT_BLOCKING;
             }
         }
 
-        return blockingState.getState();
+        return null;
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return behave;
+        return isBlocking( state );
     }
 
     @Override
@@ -106,7 +97,7 @@ public class Blocking extends CharacterActionStates
         Character[] characters = world.getCharactersAt( nextX, nextY );
         for ( Character r : characters )
         {
-            if ( behave )
+            if ( isBlocking( r.state ) )
             {
                 return true;
             }
