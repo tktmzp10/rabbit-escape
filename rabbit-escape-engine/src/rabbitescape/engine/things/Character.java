@@ -112,15 +112,16 @@ public abstract class Character extends Thing implements Comparable<Character>
         slopeBashHop = false;
     }
 
-
-
     @Override
     public void calcNewState( World world )
     {
+        /*
         for ( CharacterStates characterStates : behavioursTriggerOrder )
         {
             characterStates.triggered = false;
         }
+
+         */
 
         for ( CharacterStates characterStates : behavioursTriggerOrder )
         {
@@ -234,5 +235,4 @@ public abstract class Character extends Thing implements Comparable<Character>
     {
         return index;
     }
-
 }

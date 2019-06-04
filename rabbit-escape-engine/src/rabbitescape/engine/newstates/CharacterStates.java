@@ -9,7 +9,7 @@ import rabbitescape.engine.things.Character;
 
 public abstract class CharacterStates
 {
-    public boolean triggered;
+    public boolean triggered = false;
 
     /**
      * Subclasses examine the character's situation using BehaviourTools and
