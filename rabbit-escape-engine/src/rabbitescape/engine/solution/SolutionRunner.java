@@ -5,7 +5,7 @@ import static rabbitescape.engine.util.Util.*;
 import java.io.PrintStream;
 
 import rabbitescape.engine.World;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.World.CantAddTokenOutsideWorld;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.World.DontStepAfterFinish;

@@ -1,6 +1,6 @@
 package rabbitescape.render.gameloop;
 
-import rabbitescape.engine.WaterRegion;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigKeys;

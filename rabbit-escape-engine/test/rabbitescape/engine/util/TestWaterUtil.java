@@ -17,7 +17,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import rabbitescape.engine.CellularDirection;
-import rabbitescape.engine.WaterRegion;
+import rabbitescape.engine.things.environment.WaterRegion;
 
 public class TestWaterUtil
 {

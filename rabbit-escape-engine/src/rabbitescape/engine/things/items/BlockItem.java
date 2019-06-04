@@ -1,0 +1,56 @@
+package rabbitescape.engine.things.items;
+
+import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.World;
+import rabbitescape.engine.things.Item;
+
+public class BlockItem extends Item
+{
+    private static final ItemType type = ItemType.block;
+
+    public BlockItem( int x, int y )
+    {
+        super( x, y, State.TOKEN_BLOCK_FALL_TO_SLOPE, type );
+    }
+
+    public BlockItem( int x, int y, World world )
+    {
+        super( x, y, State.TOKEN_BLOCK_FALL_TO_SLOPE, type, world );
+    }
+
+    @Override
+    public char getCharRepresentation()
+    {
+        return 'k';
+    }
+
+    @Override
+    public State getStillState()
+    {
+        return State.TOKEN_BLOCK_STILL;
+    }
+
+    @Override
+    public State getFallingState()
+    {
+        return State.TOKEN_BLOCK_FALLING;
+    }
+
+    @Override
+    public State getFallToSlopState()
+    {
+        return State.TOKEN_BLOCK_FALL_TO_SLOPE;
+    }
+
+    @Override
+    public State getOnSlopeState()
+    {
+        return State.TOKEN_BLOCK_ON_SLOPE;
+    }
+
+    @Override
+    public Item copyWithoutState()
+    {
+        return new BlockItem( this.x, this.y );
+    }
+}

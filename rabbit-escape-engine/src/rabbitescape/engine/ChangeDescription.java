@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains the monolothic enum of rabbit and token states.
+ * This class contains the monolothic enum of rabbit and token behaviours.
  */
 public class ChangeDescription
 {

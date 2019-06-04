@@ -25,10 +25,9 @@ import org.junit.Test;
 
 import rabbitescape.engine.Direction;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.items.BashItem;
-import rabbitescape.engine.items.BridgeItem;
-import rabbitescape.engine.items.Item;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.BashItem;
+import rabbitescape.engine.things.items.BridgeItem;
+import rabbitescape.engine.things.Item;
 import rabbitescape.engine.things.characters.Rabbit;
 
 public class TestUtil

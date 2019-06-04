@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.*;
 
 import rabbitescape.engine.World;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 
 public class TestSolution
 {

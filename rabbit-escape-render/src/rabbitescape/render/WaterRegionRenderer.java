@@ -2,6 +2,8 @@ package rabbitescape.render;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.textworld.BlockRenderer;
+import rabbitescape.engine.things.environment.Pipe;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.util.*;
 import rabbitescape.render.gameloop.WaterAnimation;
 

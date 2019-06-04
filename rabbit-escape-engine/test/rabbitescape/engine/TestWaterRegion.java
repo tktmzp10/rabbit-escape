@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.util.Util;
 
 public class TestWaterRegion

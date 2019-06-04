@@ -8,7 +8,7 @@ import java.util.Map;
 import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.solution.SandboxGame;
 import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.util.MegaCoder;

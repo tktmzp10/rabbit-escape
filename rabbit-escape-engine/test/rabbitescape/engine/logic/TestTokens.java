@@ -9,11 +9,11 @@ import static rabbitescape.engine.util.WorldAssertions.*;
 
 import org.junit.Test;
 
-import rabbitescape.engine.items.BashItem;
-import rabbitescape.engine.items.BrollyItem;
-import rabbitescape.engine.items.Item;
+import rabbitescape.engine.things.items.BashItem;
+import rabbitescape.engine.things.items.BrollyItem;
+import rabbitescape.engine.things.Item;
 import rabbitescape.engine.World;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 
 public class TestTokens
 {
@@ -361,7 +361,7 @@ public class TestTokens
         Item inAir = new BrollyItem( 0, 0, world );
         Item onSlope = new BrollyItem( 1, 1, world );
 
-        // Until a time step passes, these are in non-moving states
+        // Until a time step passes, these are in non-moving behaviours
         assertThat( inAir.state, is( TOKEN_BROLLY_STILL ) );
         assertThat( onSlope.state, is( TOKEN_BROLLY_ON_SLOPE ) );
     }

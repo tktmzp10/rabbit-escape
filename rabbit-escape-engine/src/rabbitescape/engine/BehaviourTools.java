@@ -4,8 +4,8 @@ import static rabbitescape.engine.Block.Shape.*;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.Direction.opposite;
 
-import rabbitescape.engine.items.Item;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Item;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Position;
 

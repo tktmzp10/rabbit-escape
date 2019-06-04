@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.textworld.TextWorldManip;
 
 public class TestSolutionRunner

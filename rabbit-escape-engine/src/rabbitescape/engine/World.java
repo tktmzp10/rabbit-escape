@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.err.RabbitEscapeException;
-import rabbitescape.engine.items.Item;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Item;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.textworld.Comment;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
+import rabbitescape.engine.things.environment.Fire;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;

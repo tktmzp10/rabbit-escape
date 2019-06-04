@@ -21,10 +21,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rabbitescape.engine.*;
-import rabbitescape.engine.items.*;
+import rabbitescape.engine.things.items.*;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
+import rabbitescape.engine.things.environment.Entrance;
+import rabbitescape.engine.things.environment.Exit;
+import rabbitescape.engine.things.environment.Fire;
+import rabbitescape.engine.things.environment.Pipe;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
 import rabbitescape.engine.util.Position;

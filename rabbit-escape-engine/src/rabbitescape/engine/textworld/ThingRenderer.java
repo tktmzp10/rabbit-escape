@@ -2,13 +2,13 @@ package rabbitescape.engine.textworld;
 
 import java.util.List;
 
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.Pipe;
+import rabbitescape.engine.things.environment.Entrance;
+import rabbitescape.engine.things.environment.Exit;
+import rabbitescape.engine.things.environment.Fire;
+import rabbitescape.engine.things.environment.Pipe;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.items.Item;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Item;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.err.RabbitEscapeException;
 
 public class ThingRenderer

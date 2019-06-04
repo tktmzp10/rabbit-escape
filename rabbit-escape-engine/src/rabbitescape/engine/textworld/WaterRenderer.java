@@ -1,6 +1,6 @@
 package rabbitescape.engine.textworld;
 
-import rabbitescape.engine.WaterRegion;
+import rabbitescape.engine.things.environment.WaterRegion;
 
 public class WaterRenderer
 {

@@ -6,7 +6,7 @@ import java.util.List;
 
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.WaterRegion;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.World;
 import rabbitescape.engine.util.DupeStringCounter;
 import rabbitescape.engine.util.Util;

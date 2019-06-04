@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import rabbitescape.engine.Block.Material;
 import rabbitescape.engine.Block.Shape;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;

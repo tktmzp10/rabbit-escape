@@ -15,7 +15,7 @@ import javax.swing.*;
 
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.render.BitmapCache;
 
 class GameMenu

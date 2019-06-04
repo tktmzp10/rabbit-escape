@@ -1,0 +1,20 @@
+package rabbitescape.engine.newstates.characterstates.behaviours.blocking;
+
+import rabbitescape.engine.ChangeDescription.State;
+
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_BLOCKING_RISE_RIGHT;
+
+public class BlockingRiseRight implements IBlockingState
+{
+    @Override
+    public State newState()
+    {
+        return RABBIT_BLOCKING_RISE_RIGHT;
+    }
+
+    @Override
+    public boolean behave()
+    {
+        return true;
+    }
+}

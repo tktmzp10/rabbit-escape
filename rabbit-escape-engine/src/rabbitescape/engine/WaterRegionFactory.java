@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import rabbitescape.engine.Block.Shape;
+import rabbitescape.engine.things.environment.WaterRegion;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;
 import rabbitescape.engine.util.WaterUtil;

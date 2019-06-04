@@ -20,12 +20,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import rabbitescape.engine.items.BridgeItem;
-import rabbitescape.engine.items.Item;
+import rabbitescape.engine.things.items.BridgeItem;
+import rabbitescape.engine.things.Item;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.DontStepAfterFinish;
 import rabbitescape.engine.WorldStatsListener;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.util.Position;

@@ -13,7 +13,7 @@ import static rabbitescape.engine.util.Util.map;
 import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.menu.LevelMenuItem;
 import rabbitescape.engine.menu.LevelsMenu;
 import rabbitescape.engine.solution.PlaceTokenAction;

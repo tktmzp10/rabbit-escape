@@ -19,7 +19,7 @@ import rabbitescape.engine.Thing;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
 import rabbitescape.engine.WorldStatsListener;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.Position;
 import rabbitescape.engine.util.Util;

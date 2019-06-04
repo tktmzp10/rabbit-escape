@@ -9,11 +9,12 @@ import rabbitescape.engine.World.NoBlockFound;
 import rabbitescape.engine.World.NoSuchAbilityInThisWorld;
 import rabbitescape.engine.World.NoneOfThisAbilityLeft;
 import rabbitescape.engine.World.UnableToAddToken;
-import rabbitescape.engine.items.Item;
-import rabbitescape.engine.items.ItemFactory;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.Item;
+import rabbitescape.engine.things.items.ItemFactory;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
+import rabbitescape.engine.things.environment.Fire;
 import rabbitescape.engine.util.Position;
 
 public class WorldChanges

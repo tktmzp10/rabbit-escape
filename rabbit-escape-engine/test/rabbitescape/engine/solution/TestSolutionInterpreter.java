@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import rabbitescape.engine.World.CompletionState;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 
 public class TestSolutionInterpreter
 {

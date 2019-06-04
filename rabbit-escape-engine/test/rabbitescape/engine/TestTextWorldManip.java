@@ -15,9 +15,9 @@ import org.junit.Test;
 import static rabbitescape.engine.util.Util.*;
 
 import rabbitescape.engine.World.CompletionState;
-import rabbitescape.engine.items.BashItem;
-import rabbitescape.engine.items.BridgeItem;
-import rabbitescape.engine.items.DigItem;
+import rabbitescape.engine.things.items.BashItem;
+import rabbitescape.engine.things.items.BridgeItem;
+import rabbitescape.engine.things.items.DigItem;
 import rabbitescape.engine.solution.Solution;
 import rabbitescape.engine.solution.SolutionExceptions;
 import rabbitescape.engine.solution.SolutionParser;
@@ -50,7 +50,7 @@ public class TestTextWorldManip
             equalTo( lines )
         );
 
-        // Also, shouldn't throw if we render this with states
+        // Also, shouldn't throw if we render this with behaviours
         renderWorld( createWorld( lines ), true, false );
     }
 

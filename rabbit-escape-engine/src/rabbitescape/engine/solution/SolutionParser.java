@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import static rabbitescape.engine.util.Util.*;
 
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.util.Util.Function;
 

@@ -7,8 +7,8 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.actions.*;
-import rabbitescape.engine.behaviours.states.*;
+import rabbitescape.engine.newstates.characterstates.actions.*;
+import rabbitescape.engine.newstates.characterstates.behaviours.*;
 
 public abstract class Character extends Thing implements Comparable<Character>
 {

@@ -3,7 +3,7 @@ package rabbitescape.engine.solution;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.err.RabbitEscapeException;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 
 public class SolutionExceptions
 {

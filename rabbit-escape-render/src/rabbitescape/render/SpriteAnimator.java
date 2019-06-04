@@ -5,6 +5,7 @@ import java.util.List;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.environment.Fire;
 import rabbitescape.engine.util.Util;
 
 public class SpriteAnimator

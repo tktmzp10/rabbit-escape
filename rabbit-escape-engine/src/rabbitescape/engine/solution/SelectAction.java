@@ -1,6 +1,6 @@
 package rabbitescape.engine.solution;
 
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 
 public class SelectAction implements CommandAction, TimeStepAction
 {

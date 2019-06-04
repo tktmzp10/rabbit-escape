@@ -27,7 +27,7 @@ import javax.swing.KeyStroke;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 import rabbitescape.engine.config.TapTimer;
-import rabbitescape.engine.items.ItemType;
+import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.render.BitmapCache;
 import rabbitescape.render.gameloop.Physics.StatsChangedListener;

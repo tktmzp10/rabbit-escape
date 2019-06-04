@@ -10,6 +10,7 @@ public abstract class Thing implements ShownOnOverlay
     public int x;
     public int y;
     public State state;
+    private NewStates newState;
 
     public Thing( int x, int y, State state )
     {
@@ -26,10 +27,10 @@ public abstract class Thing implements ShownOnOverlay
 
     public abstract void restoreFromState( Map<String, String> state );
 
+    public abstract String overlayText();
+
     public String stateName()
     {
         return state.name().toLowerCase( Locale.ENGLISH );
     }
-
-    public abstract String overlayText();
 }
