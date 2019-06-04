@@ -20,6 +20,26 @@ public class OutOfBoundsNormal implements IOutOfBoundsState
         World world, Character character
     )
     {
-        return false;
+        checkMars( world, character );
+        world.changes.killRabbit( character );
+        return true;
+    }
+
+    /**
+     * Test if mars mode has been triggered
+     */
+    private void checkMars( World world, Character character)
+    {
+        /* The character must leave the world at the correct coordinates,
+         * the index count is likely to only be correct if this is the
+         * first character out of the entrance, and it must be the correct
+         * level.
+         */
+        if ( 12 == character.x && -1 == character.y &&
+            world.getRabbitIndexCount() == 2 &&
+            world.name.equals( "Ghost versus pie" ) )
+        {
+            TapTimer.setMars();
+        }
     }
 }

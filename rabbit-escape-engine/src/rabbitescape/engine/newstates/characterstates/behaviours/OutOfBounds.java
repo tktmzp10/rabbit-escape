@@ -16,6 +16,18 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_OUT_OF_BOUNDS;
 
 public class OutOfBounds extends CharacterBehaviourStates
 {
+    private IOutOfBoundsState outOfBoundsState;
+
+    public OutOfBounds()
+    {
+        setOutOfBoundsState( new NotOutOfBounds() );
+    }
+
+    public void setOutOfBoundsState( IOutOfBoundsState outOfBoundsState )
+    {
+        this.outOfBoundsState = outOfBoundsState;
+    }
+
     @Override
     public void cancel()
     {
@@ -45,28 +57,16 @@ public class OutOfBounds extends CharacterBehaviourStates
     {
         if ( triggered )
         {
-            return RABBIT_OUT_OF_BOUNDS;
+            setOutOfBoundsState( new OutOfBoundsNormal() );
         }
 
-        return null;
+        return outOfBoundsState.getState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        switch( state )
-        {
-            case RABBIT_OUT_OF_BOUNDS:
-            {
-                checkMars( world, character );
-                world.changes.killRabbit( character );
-                return true;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return outOfBoundsState.behave( world, character );
     }
 
     @Override
@@ -75,23 +75,5 @@ public class OutOfBounds extends CharacterBehaviourStates
     )
     {
         return behave( world, character, state );
-    }
-
-    /**
-     * Test if mars mode has been triggered
-     */
-    private void checkMars( World world, Character character)
-    {
-        /* The character must leave the world at the correct coordinates,
-         * the index count is likely to only be correct if this is the
-         * first character out of the entrance, and it must be the correct
-         * level.
-         */
-        if ( 12 == character.x && -1 == character.y &&
-            world.getRabbitIndexCount() == 2 &&
-            world.name.equals( "Ghost versus pie" ) )
-        {
-            TapTimer.setMars();
-        }
     }
 }
