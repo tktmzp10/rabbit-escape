@@ -1,6 +1,6 @@
 package rabbitescape.engine.newstates.characterstates.behaviours;
 
-import rabbitescape.engine.Behaviour;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.things.Character;
@@ -9,7 +9,7 @@ import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.IOut
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.NotOutOfBounds;
 import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.OutOfBoundsNormal;
 
-public class OutOfBounds extends Behaviour
+public class OutOfBounds extends CharacterStates
 {
     private IOutOfBoundsState outOfBoundsState;
 

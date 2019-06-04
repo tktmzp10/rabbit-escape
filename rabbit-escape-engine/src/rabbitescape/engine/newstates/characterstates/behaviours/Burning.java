@@ -2,13 +2,14 @@ package rabbitescape.engine.newstates.characterstates.behaviours;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningNormal;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningOnSlope;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.IBurningState;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.NotBurning;
 
-public class Burning extends Behaviour
+public class Burning extends CharacterStates
 {
 
     private IBurningState burningState;

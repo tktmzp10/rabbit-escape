@@ -18,7 +18,7 @@ public class StandardConfigSchema
         definition.set(
             CFG_DEBUG_PRINT_STATES,
             String.valueOf( false ),
-            "Rabbit behaviours are printed to System.out."
+            "Rabbit characterStates are printed to System.out."
         );
 
         definition.set(

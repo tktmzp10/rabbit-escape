@@ -2,12 +2,13 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.Blocking;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
-public class RabbotWait extends Behaviour
+public class RabbotWait extends CharacterStates
 {
     private boolean within1Vertically( Character otherRabbit, Character rabbit )
     {

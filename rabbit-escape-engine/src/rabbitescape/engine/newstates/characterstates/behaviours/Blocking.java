@@ -6,10 +6,11 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.blocking.*;
 import rabbitescape.engine.things.Character;
 
-public class Blocking extends Behaviour
+public class Blocking extends CharacterStates
 {
     private IBlockingState blockingState;
     //TODO: Think of ways to not using this variable "behave".

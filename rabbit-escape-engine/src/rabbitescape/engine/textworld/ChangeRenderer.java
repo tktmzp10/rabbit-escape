@@ -38,6 +38,7 @@ public class ChangeRenderer
         /* TODO: Ultimate goal code
          * change.setChars( state, chars );
          */
+        change.newState.setChars( change, chars );
 
         // Everything else is relatively simple
         switch( change.state )

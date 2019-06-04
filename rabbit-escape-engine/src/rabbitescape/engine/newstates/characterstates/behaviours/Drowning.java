@@ -5,6 +5,7 @@ import static rabbitescape.engine.CellularDirection.UP;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.drowning.DrowningNormal;
 import rabbitescape.engine.newstates.characterstates.behaviours.drowning.IDrowningState;
@@ -12,7 +13,7 @@ import rabbitescape.engine.newstates.characterstates.behaviours.drowning.NotDrow
 import rabbitescape.engine.things.characters.Rabbot;
 import rabbitescape.engine.things.environment.WaterRegion;
 
-public class Drowning extends Behaviour
+public class Drowning extends CharacterStates
 {
     private IDrowningState drowningState;
 

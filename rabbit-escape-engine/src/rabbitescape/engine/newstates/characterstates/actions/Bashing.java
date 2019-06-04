@@ -8,11 +8,12 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.actions.bashing.IBashingState;
 import rabbitescape.engine.newstates.characterstates.actions.bashing.NotBashing;
 import rabbitescape.engine.things.Character;
 
-public class Bashing extends Behaviour
+public class Bashing extends CharacterStates
 {
     private IBashingState bashingState, rightState, leftState;
     private int stepsOfBashing;

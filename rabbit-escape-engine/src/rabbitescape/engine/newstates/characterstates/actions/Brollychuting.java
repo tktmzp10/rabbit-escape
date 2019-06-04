@@ -5,7 +5,7 @@ import static rabbitescape.engine.things.items.ItemType.brolly;
 
 import java.util.Map;
 
-import rabbitescape.engine.Behaviour;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
@@ -13,7 +13,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public class Brollychuting extends Behaviour
+public class Brollychuting extends CharacterStates
 {
     boolean hasAbility = false;
     private final Climbing climbing;

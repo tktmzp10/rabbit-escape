@@ -4,12 +4,13 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.exiting.*;
 import rabbitescape.engine.things.characters.Rabbot;
 import rabbitescape.engine.things.environment.Exit;
 
-public class Exiting extends Behaviour
+public class Exiting extends CharacterStates
 {
     private IExitingState exitingState;
 

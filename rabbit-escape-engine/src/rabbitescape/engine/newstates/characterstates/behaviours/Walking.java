@@ -2,10 +2,11 @@ package rabbitescape.engine.newstates.characterstates.behaviours;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.behaviours.walking.*;
 import rabbitescape.engine.things.Character;
 
-public class Walking extends Behaviour
+public class Walking extends CharacterStates
 {
     private IWalkingState walkingState, rightState, leftState;
 
@@ -53,7 +54,7 @@ public class Walking extends Behaviour
         default:
         {
             throw new AssertionError(
-                "Should have handled all behaviours in Walking or before,"
+                "Should have handled all characterStates in Walking or before,"
                 + " but we are in walkingState " + state.name()
             );
         }

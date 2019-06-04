@@ -7,6 +7,7 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.actions.*;
 import rabbitescape.engine.newstates.characterstates.behaviours.*;
 
@@ -14,8 +15,8 @@ public abstract class Character extends Thing implements Comparable<Character>
 {
 
     public final static int NOT_INDEXED = 0;
-    protected final List<Behaviour> behaviours;
-    protected final List<Behaviour> behavioursTriggerOrder;
+    protected final List<CharacterStates> characterStates;
+    protected final List<CharacterStates> behavioursTriggerOrder;
 
     public int index = NOT_INDEXED;
     public boolean onSlope = false;
@@ -27,8 +28,8 @@ public abstract class Character extends Thing implements Comparable<Character>
     public Character( int x, int y, State state )
     {
         super( x, y, state );
-        behaviours = new ArrayList<Behaviour>();
-        behavioursTriggerOrder = new ArrayList<Behaviour>();
+        characterStates = new ArrayList<CharacterStates>();
+        behavioursTriggerOrder = new ArrayList<CharacterStates>();
         createBehaviours();
     }
 
@@ -50,7 +51,7 @@ public abstract class Character extends Thing implements Comparable<Character>
         RabbotCrash rabbotCrash = new RabbotCrash();
         RabbotWait rabbotWait = new RabbotWait();
 
-        List<Behaviour> behavioursList = new ArrayList<Behaviour>();
+        List<CharacterStates> behavioursList = new ArrayList<CharacterStates>();
 
         behavioursList.add( exploding );
         behavioursList.add( outOfBounds );
@@ -69,9 +70,9 @@ public abstract class Character extends Thing implements Comparable<Character>
         behavioursList.add( walking );
 
         behavioursTriggerOrder.addAll( behavioursList );
-        behaviours.addAll( behavioursList );
+        characterStates.addAll( behavioursList );
 
-        assert behavioursTriggerOrder.size() == behaviours.size();
+        assert behavioursTriggerOrder.size() == characterStates.size();
     }
 
     public boolean isFallingToDeath()
@@ -81,13 +82,13 @@ public abstract class Character extends Thing implements Comparable<Character>
     
     public abstract int getFatalHeight();
 
-    private void cancelAllBehavioursExcept( Behaviour exception )
+    private void cancelAllBehavioursExcept( CharacterStates exception )
     {
-        for ( Behaviour behaviour : behaviours )
+        for ( CharacterStates characterStates : this.characterStates )
         {
-            if ( behaviour != exception )
+            if ( characterStates != exception )
             {
-                behaviour.cancel();
+                characterStates.cancel();
             }
         }
     }
@@ -116,26 +117,26 @@ public abstract class Character extends Thing implements Comparable<Character>
     @Override
     public void calcNewState( World world )
     {
-        for ( Behaviour behaviour : behavioursTriggerOrder )
+        for ( CharacterStates characterStates : behavioursTriggerOrder )
         {
-            behaviour.triggered = false;
+            characterStates.triggered = false;
         }
 
-        for ( Behaviour behaviour : behavioursTriggerOrder )
+        for ( CharacterStates characterStates : behavioursTriggerOrder )
         {
-            behaviour.triggered = behaviour.checkTriggered( this, world );
-            if ( behaviour.triggered )
+            characterStates.triggered = characterStates.checkTriggered( this, world );
+            if ( characterStates.triggered )
             {
-                cancelAllBehavioursExcept( behaviour );
+                cancelAllBehavioursExcept( characterStates );
             }
         }
 
         boolean done = false;
-        for ( Behaviour behaviour : behaviours )
+        for ( CharacterStates characterStates : this.characterStates )
         {
 
-            State thisState = behaviour.newState(
-                new BehaviourTools( this, world ), behaviour.triggered );
+            State thisState = characterStates.newState(
+                new BehaviourTools( this, world ), characterStates.triggered );
 
             if ( thisState != null && !done )
             {
@@ -149,9 +150,9 @@ public abstract class Character extends Thing implements Comparable<Character>
     @Override
     public void step( World world )
     {
-        for ( Behaviour behaviour : behaviours )
+        for ( CharacterStates characterStates : this.characterStates )
         {
-            boolean handled = behaviour.behave( world, this, state );
+            boolean handled = characterStates.behave( world, this, state );
             if ( handled )
             {
                 break;
@@ -171,9 +172,9 @@ public abstract class Character extends Thing implements Comparable<Character>
         BehaviourState.addToStateIfGtZero( ret, "index", index );
         BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
 
-        for ( Behaviour behaviour : behaviours )
+        for ( CharacterStates characterStates : this.characterStates )
         {
-            behaviour.saveState( ret );
+            characterStates.saveState( ret );
         }
 
         return ret;
@@ -188,9 +189,9 @@ public abstract class Character extends Thing implements Comparable<Character>
             state, "onSlope", false
         );
 
-        for ( Behaviour behaviour : behaviours )
+        for ( CharacterStates characterStates : this.characterStates )
         {
-            behaviour.restoreFromState( state );
+            characterStates.restoreFromState( state );
         }
     }
 

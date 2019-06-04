@@ -2,11 +2,12 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
-public class RabbotCrash extends Behaviour
+public class RabbotCrash extends CharacterStates
 {
     @Override
     public void cancel()

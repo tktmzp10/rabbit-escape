@@ -8,11 +8,12 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.actions.climbing.IClimbingState;
 import rabbitescape.engine.newstates.characterstates.actions.climbing.NotClimbing;
 import rabbitescape.engine.things.Character;
 
-public class Climbing extends Behaviour
+public class Climbing extends CharacterStates
 {
     private IClimbingState climbingState, rightState, leftState;
     boolean hasAbility = false;

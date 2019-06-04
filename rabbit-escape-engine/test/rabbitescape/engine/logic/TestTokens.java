@@ -361,7 +361,7 @@ public class TestTokens
         Item inAir = new BrollyItem( 0, 0, world );
         Item onSlope = new BrollyItem( 1, 1, world );
 
-        // Until a time step passes, these are in non-moving behaviours
+        // Until a time step passes, these are in non-moving characterStates
         assertThat( inAir.state, is( TOKEN_BROLLY_STILL ) );
         assertThat( onSlope.state, is( TOKEN_BROLLY_ON_SLOPE ) );
     }

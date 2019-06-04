@@ -7,11 +7,12 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.actions.digging.IDiggingState;
 import rabbitescape.engine.newstates.characterstates.actions.digging.NotDigging;
 import rabbitescape.engine.things.Character;
 
-public class Digging extends Behaviour
+public class Digging extends CharacterStates
 {
     private IDiggingState diggingState;
     public int stepsOfDigging;

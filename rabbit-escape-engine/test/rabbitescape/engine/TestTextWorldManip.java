@@ -50,7 +50,7 @@ public class TestTextWorldManip
             equalTo( lines )
         );
 
-        // Also, shouldn't throw if we render this with behaviours
+        // Also, shouldn't throw if we render this with characterStates
         renderWorld( createWorld( lines ), true, false );
     }
 

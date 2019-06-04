@@ -5,9 +5,10 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.things.Character;
 
-public class Exploding extends Behaviour
+public class Exploding extends CharacterStates
 {
     @Override
     public void cancel()
