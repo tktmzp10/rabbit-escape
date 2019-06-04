@@ -2,13 +2,12 @@ package rabbitescape.engine.newstates.characterstates.behaviours;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
-import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningNormal;
-import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningOnSlope;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.IBurningState;
 import rabbitescape.engine.newstates.characterstates.behaviours.burning.NotBurning;
+
+import static rabbitescape.engine.ChangeDescription.State.*;
 
 public class Burning extends CharacterBehaviourStates
 {
@@ -38,16 +37,19 @@ public class Burning extends CharacterBehaviourStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        if ( triggered ) {
-            setBurningState( new BurningNormal() );
-
-            if (t.character.onSlope)
+        if ( triggered )
+        {
+            if ( t.character.onSlope )
             {
-                setBurningState( new BurningOnSlope() );
+                return RABBIT_BURNING_ON_SLOPE;
+            }
+            else
+            {
+                return RABBIT_BURNING;
             }
         }
 
-        return burningState.getState();
+        return null;
     }
 
     @Override
@@ -55,7 +57,19 @@ public class Burning extends CharacterBehaviourStates
         World world, Character character, State state
     )
     {
-        return burningState.behave( world, character );
+        switch ( state )
+        {
+            case RABBIT_BURNING:
+            case RABBIT_BURNING_ON_SLOPE:
+            {
+                world.changes.killRabbit( character );
+                return true;
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package rabbitescape.engine.newstates.characterstates.behaviours;
 
 import rabbitescape.engine.NewStates;
+import rabbitescape.engine.config.TapTimer;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
@@ -63,7 +64,19 @@ public class OutOfBounds extends CharacterBehaviourStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return outOfBoundsState.behave( world, character );
+        switch( state )
+        {
+            case RABBIT_OUT_OF_BOUNDS:
+            {
+                checkMars( world, character );
+                world.changes.killRabbit( character );
+                return true;
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     @Override
@@ -72,5 +85,23 @@ public class OutOfBounds extends CharacterBehaviourStates
     )
     {
         return behave( world, character, state );
+    }
+
+    /**
+     * Test if mars mode has been triggered
+     */
+    private void checkMars( World world, Character character)
+    {
+        /* The character must leave the world at the correct coordinates,
+         * the index count is likely to only be correct if this is the
+         * first character out of the entrance, and it must be the correct
+         * level.
+         */
+        if ( 12 == character.x && -1 == character.y &&
+            world.getRabbitIndexCount() == 2 &&
+            world.name.equals( "Ghost versus pie" ) )
+        {
+            TapTimer.setMars();
+        }
     }
 }

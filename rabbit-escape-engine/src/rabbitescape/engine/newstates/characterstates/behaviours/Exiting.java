@@ -64,22 +64,33 @@ public class Exiting extends CharacterBehaviourStates
         {
             if ( t.character.state == RABBIT_CLIMBING_LEFT_CONTINUE_2 )
             {
-                setExitingState( new EnteringExitClimbingLeft() );
-            } else if ( t.character.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
-            {
-                setExitingState( new EnteringExitClimbingRight() );
-            } else {
-                setExitingState( new EnteringExit() );
+                return RABBIT_ENTERING_EXIT_CLIMBING_LEFT;
             }
+            if ( t.character.state == RABBIT_CLIMBING_RIGHT_CONTINUE_2 )
+            {
+                return RABBIT_ENTERING_EXIT_CLIMBING_RIGHT;
+            }
+            return RABBIT_ENTERING_EXIT;
         }
-
-        return exitingState.getState();
+        return null;
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return exitingState.behave( world, character );
+        if (
+            state == RABBIT_ENTERING_EXIT
+                || state == RABBIT_ENTERING_EXIT_CLIMBING_RIGHT
+                || state == RABBIT_ENTERING_EXIT_CLIMBING_LEFT
+        )
+        {
+            world.changes.saveRabbit( character );
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override

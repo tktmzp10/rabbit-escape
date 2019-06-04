@@ -71,17 +71,20 @@ public class Drowning extends CharacterBehaviourStates
         BehaviourTools t,
         boolean triggered )
     {
-        if ( triggered ) {
-            setDrowningState( new DrowningNormal() );
-        }
-
-        return drowningState.getState();
+        return ( triggered ? State.RABBIT_DROWNING : null );
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        return drowningState.behave( world, character );
+        switch ( state )
+        {
+            case RABBIT_DROWNING:
+                world.changes.killRabbit( character );
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
