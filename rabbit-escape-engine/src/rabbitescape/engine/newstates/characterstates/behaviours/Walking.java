@@ -241,6 +241,7 @@ public class Walking extends CharacterBehaviourStates
         }
          */
 
+        //TODO: Deal with duplicate of checkJumpOntoSlope().
         return walkingState.behave( world, character );
     }
 

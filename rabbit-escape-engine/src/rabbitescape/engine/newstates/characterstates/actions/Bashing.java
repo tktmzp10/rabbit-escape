@@ -10,13 +10,12 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
-import rabbitescape.engine.newstates.characterstates.actions.bashing.IBashingState;
-import rabbitescape.engine.newstates.characterstates.actions.bashing.NotBashing;
+import rabbitescape.engine.newstates.characterstates.actions.bashing.*;
 import rabbitescape.engine.things.Character;
 
 public class Bashing extends CharacterActionStates
 {
-    private IBashingState bashingState, rightState, leftState;
+    private IBashingState bashingState;
     private int stepsOfBashing;
 
     public Bashing()
@@ -24,31 +23,25 @@ public class Bashing extends CharacterActionStates
         this.bashingState = new NotBashing();
     }
 
-    @Override
-    public State getState()
-    {
-        return null;
-    }
-
     public void setBashingState( IBashingState bashingState )
     {
         this.bashingState = bashingState;
     }
 
-    public void setRightState( IBashingState rightState )
+    public void setBashingState(
+        IBashingState right,
+        IBashingState left,
+        Character character
+    )
     {
-        this.rightState = rightState;
-    }
-
-    public void setLeftState( IBashingState leftState )
-    {
-        this.leftState = leftState;
-    }
-
-    public void setBothStates( IBashingState rightState, IBashingState leftState )
-    {
-        setRightState( rightState );
-        setLeftState( leftState );
+        if ( character.dir == RIGHT )
+        {
+            setBashingState( right );
+        }
+        else
+        {
+            setBashingState( left );
+        }
     }
 
     @Override
@@ -78,17 +71,19 @@ public class Bashing extends CharacterActionStates
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
-                    return t.rl(
-                        RABBIT_BASHING_USELESSLY_RIGHT_UP,
-                        RABBIT_BASHING_USELESSLY_LEFT_UP
+                    setBashingState(
+                        new BashingUselesslyRightUp(),
+                        new BashingUselesslyLeftUp(),
+                        t.character
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    return t.rl(
-                        RABBIT_BASHING_UP_RIGHT,
-                        RABBIT_BASHING_UP_LEFT
+                    setBashingState(
+                        new BashingUpRight(),
+                        new BashingUpLeft(),
+                        t.character
                     );
                 }
             }
@@ -98,9 +93,10 @@ public class Bashing extends CharacterActionStates
                     && triggered
             )
             {
-                return t.rl(
-                    RABBIT_BASHING_USELESSLY_RIGHT_UP,
-                    RABBIT_BASHING_USELESSLY_LEFT_UP
+                setBashingState(
+                    new BashingUselesslyRightUp(),
+                    new BashingUselesslyLeftUp(),
+                    t.character
                 );
             }
             else if ( t.blockNext() != null )
@@ -108,76 +104,43 @@ public class Bashing extends CharacterActionStates
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
-                    return t.rl(
-                        RABBIT_BASHING_USELESSLY_RIGHT,
-                        RABBIT_BASHING_USELESSLY_LEFT
+                    setBashingState(
+                        new BashingUselesslyRight(),
+                        new BashingUselesslyLeft(),
+                        t.character
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    return t.rl(
-                        RABBIT_BASHING_RIGHT,
-                        RABBIT_BASHING_LEFT
+                    setBashingState(
+                        new BashingRight(),
+                        new BashingLeft(),
+                        t.character
                     );
                 }
             }
             else if ( triggered )
             {
-                return t.rl(
-                    RABBIT_BASHING_USELESSLY_RIGHT,
-                    RABBIT_BASHING_USELESSLY_LEFT
+                setBashingState(
+                    new BashingUselesslyRight(),
+                    new BashingUselesslyLeft(),
+                    t.character
                 );
             }
         }
-        --stepsOfBashing;
-        return null;
+        else {
+            --stepsOfBashing;
+        }
+
+        return bashingState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        switch ( state )
-        {
-            case RABBIT_BASHING_RIGHT:
-            case RABBIT_BASHING_LEFT:
-            {
-                character.slopeBashHop = false;
-                world.changes.removeBlockAt( destX( character ), character.y );
-                return true;
-            }
-            case RABBIT_BASHING_UP_RIGHT:
-            case RABBIT_BASHING_UP_LEFT:
-            {
-                world.changes.removeBlockAt( destX( character ), character.y - 1 );
-                character.slopeBashHop = true;
-                character.y -= 1;
-                return true;
-            }
-            case RABBIT_BASHING_USELESSLY_RIGHT:
-            case RABBIT_BASHING_USELESSLY_LEFT:
-            {
-                character.slopeBashHop = false;
-                return true;
-            }
-            case RABBIT_BASHING_USELESSLY_RIGHT_UP:
-            case RABBIT_BASHING_USELESSLY_LEFT_UP:
-            {
-                character.slopeBashHop = true;
-                character.y -= 1;
-                return true;
-            }
-            default:
-            {
-                character.slopeBashHop = false;
-                return false;
-            }
-        }
-    }
-
-    private int destX( Character character )
-    {
-        return ( character.dir == RIGHT ) ? character.x + 1 : character.x - 1;
+        //TODO: Deal with duplicate code of destX().
+        return bashingState.behave( world, character );
     }
 
     @Override
@@ -199,5 +162,12 @@ public class Bashing extends CharacterActionStates
         {
             ++stepsOfBashing;
         }
+    }
+
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 }
