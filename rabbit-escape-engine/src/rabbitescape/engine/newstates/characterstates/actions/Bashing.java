@@ -61,33 +61,27 @@ public class Bashing extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        System.out.println( "//newState()" );
         if ( triggered || stepsOfBashing > 0 )
         {
-            System.out.println( "triggered || stepsOfBashing > 0" );
             if (
                 t.isOnUpSlope()
                     && t.blockAboveNext() != null
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() != null" );
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
-                    setBashingState(
-                        new BashingUselesslyRightUp(),
-                        new BashingUselesslyLeftUp(),
-                        t.character
+                    return t.rl(
+                        RABBIT_BASHING_USELESSLY_RIGHT_UP,
+                        RABBIT_BASHING_USELESSLY_LEFT_UP
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    setBashingState(
-                        new BashingUpRight(),
-                        new BashingUpLeft(),
-                        t.character
+                    return t.rl(
+                        RABBIT_BASHING_UP_RIGHT,
+                        RABBIT_BASHING_UP_LEFT
                     );
                 }
             }
@@ -97,65 +91,45 @@ public class Bashing extends CharacterActionStates
                     && triggered
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() == null\n" +
-                    "                    && triggered" );
-                setBashingState(
-                    new BashingUselesslyRightUp(),
-                    new BashingUselesslyLeftUp(),
-                    t.character
+                return t.rl(
+                    RABBIT_BASHING_USELESSLY_RIGHT_UP,
+                    RABBIT_BASHING_USELESSLY_LEFT_UP
                 );
             }
             else if ( t.blockNext() != null )
             {
-                System.out.println( "t.blockNext() != null" );
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
-                    setBashingState(
-                        new BashingUselesslyRight(),
-                        new BashingUselesslyLeft(),
-                        t.character
+                    return t.rl(
+                        RABBIT_BASHING_USELESSLY_RIGHT,
+                        RABBIT_BASHING_USELESSLY_LEFT
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    setBashingState(
-                        new BashingRight(),
-                        new BashingLeft(),
-                        t.character
+                    return t.rl(
+                        RABBIT_BASHING_RIGHT,
+                        RABBIT_BASHING_LEFT
                     );
                 }
             }
             else if ( triggered )
             {
-                System.out.println( "triggered" );
-                setBashingState(
-                    new BashingUselesslyRight(),
-                    new BashingUselesslyLeft(),
-                    t.character
+                return t.rl(
+                    RABBIT_BASHING_USELESSLY_RIGHT,
+                    RABBIT_BASHING_USELESSLY_LEFT
                 );
             }
-            else
-            {
-                System.out.println( "--stepsOfBashing" );
-                --stepsOfBashing;
-            }
         }
-        else
-        {
-            System.out.println( "--stepsOfBashing" );
-            --stepsOfBashing;
-        }
-
-        return bashingState.newState();
+        --stepsOfBashing;
+        return null;
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        System.out.println( "//behave()" );
         switch ( state )
         {
             case RABBIT_BASHING_RIGHT:
