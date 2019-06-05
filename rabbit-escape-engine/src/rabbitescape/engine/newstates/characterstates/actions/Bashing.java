@@ -61,7 +61,7 @@ public class Bashing extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        System.out.println( "--newState()--" );
+        System.out.println( "//newState()" );
         if ( triggered || stepsOfBashing > 0 )
         {
             System.out.println( "triggered || stepsOfBashing > 0" );
@@ -137,11 +137,11 @@ public class Bashing extends CharacterActionStates
                     t.character
                 );
             }
-        }
-        else
-        {
-            System.out.println( "--stepsOfBashing" );
-            --stepsOfBashing;
+            else
+            {
+                System.out.println( "--stepsOfBashing" );
+                --stepsOfBashing;
+            }
         }
 
         return bashingState.newState();
@@ -150,6 +150,7 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
+        System.out.println( "//behave()" );
         //TODO: Deal with duplicate code of destX().
         return bashingState.behave( world, character );
     }
