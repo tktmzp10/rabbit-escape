@@ -5,8 +5,9 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.newstates.characterstates.actions.Blocking;
 import rabbitescape.engine.newstates.characterstates.behaviours.walking.*;
-import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.WalkingLeft;
-import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.WalkingRight;
+import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingondownslope.*;
+import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.*;
+import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonupslope.*;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
@@ -22,6 +23,22 @@ public class Walking extends CharacterBehaviourStates
     public Walking()
     {
         setWalkingState( new WalkingRight() );
+    }
+
+    public void setWalkingState (
+        IWalkingState right,
+        IWalkingState left,
+        Character character
+    )
+    {
+        if ( character.dir == RIGHT )
+        {
+            setWalkingState( right );
+        }
+        else
+        {
+            setWalkingState( left );
+        }
     }
 
     public void setWalkingState( IWalkingState walkingState )
@@ -65,30 +82,34 @@ public class Walking extends CharacterBehaviourStates
                              Blocking.blockerAt( t.world, nextX, t.character.y ) )
             )
             {
-                return t.rl(
-                    RABBIT_TURNING_RIGHT_TO_LEFT_RISING,
-                    RABBIT_TURNING_LEFT_TO_RIGHT_RISING
+                setWalkingState(
+                    new TurningRightToLeftRising(),
+                    new TurningLeftToRightRising(),
+                    t.character
                 );
             }
             else if ( t.isUpSlope( aboveNext ) )
             {
-                return t.rl(
-                    RABBIT_RISING_RIGHT_CONTINUE,
-                    RABBIT_RISING_LEFT_CONTINUE
+                setWalkingState(
+                    new RisingRightContinue(),
+                    new RisingLeftContinue(),
+                    t.character
                 );
             }
             else if ( t.isDownSlope( t.blockNext() ) )
             {
-                return t.rl(
-                    RABBIT_RISING_AND_LOWERING_RIGHT,
-                    RABBIT_RISING_AND_LOWERING_LEFT
+                setWalkingState(
+                    new RisingAndLoweringRight(),
+                    new RisingAndLoweringLeft(),
+                    t.character
                 );
             }
             else
             {
-                return t.rl(
-                    RABBIT_RISING_RIGHT_END,
-                    RABBIT_RISING_LEFT_END
+                setWalkingState(
+                    new RisingRightEnd(),
+                    new RisingLeftEnd(),
+                    t.character
                 );
             }
         }
@@ -106,39 +127,44 @@ public class Walking extends CharacterBehaviourStates
                              Blocking.blockerAt( t.world, nextX, t.character.y ) )
             )
             {
-                return t.rl(
-                    RABBIT_TURNING_RIGHT_TO_LEFT_LOWERING,
-                    RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING
+                setWalkingState(
+                    new TurningRightToLeftLowering(),
+                    new TurningLeftToRightLowering(),
+                    t.character
                 );
             }
             else if ( t.isUpSlope( next ) )
             {
-                return t.rl(
-                    RABBIT_LOWERING_AND_RISING_RIGHT,
-                    RABBIT_LOWERING_AND_RISING_LEFT
+                setWalkingState(
+                    new LoweringAndRisingRight(),
+                    new LoweringAndRisingLeft(),
+                    t.character
                 );
             }
             else if ( t.isDownSlope( belowNext ) )
             {
-                return t.rl(
-                    RABBIT_LOWERING_RIGHT_CONTINUE,
-                    RABBIT_LOWERING_LEFT_CONTINUE
+                setWalkingState(
+                    new LoweringRightContinue(),
+                    new LoweringLeftContinue(),
+                    t.character
                 );
             }
             else
             {
                 if ( Blocking.blockerAt( t.world, nextX, t.character.y ) )
                 {
-                    return t.rl(
-                        RABBIT_TURNING_RIGHT_TO_LEFT_LOWERING,
-                        RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING
+                    setWalkingState(
+                        new TurningRightToLeftLowering(),
+                        new TurningLeftToRightLowering(),
+                        t.character
                     );
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_LOWERING_RIGHT_END,
-                        RABBIT_LOWERING_LEFT_END
+                    setWalkingState(
+                        new LoweringRightEnd(),
+                        new LoweringLeftEnd(),
+                        t.character
                     );
                 }
             }
@@ -155,43 +181,50 @@ public class Walking extends CharacterBehaviourStates
                     || Blocking.blockerAt( t.world, nextX, nextY )
             )
             {
-                return t.rl(
-                    RABBIT_TURNING_RIGHT_TO_LEFT,
-                    RABBIT_TURNING_LEFT_TO_RIGHT
+                setWalkingState(
+                    new TurningRightToLeft(),
+                    new TurningLeftToRight(),
+                    t.character
                 );
             }
             else if ( t.isUpSlope( next ) )
             {
-                return t.rl(
-                    RABBIT_RISING_RIGHT_START,
-                    RABBIT_RISING_LEFT_START
+                setWalkingState(
+                    new RisingRightStart(),
+                    new RisingLeftStart(),
+                    t.character
                 );
             }
             else if ( t.isDownSlope( t.blockBelowNext() ) )
             {
                 if ( Blocking.blockerAt( t.world, nextX, t.character.y + 1 ) )
                 {
-                    return t.rl(
-                        RABBIT_TURNING_RIGHT_TO_LEFT,
-                        RABBIT_TURNING_LEFT_TO_RIGHT
+                    setWalkingState(
+                        new TurningRightToLeft(),
+                        new TurningLeftToRight(),
+                        t.character
                     );
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_LOWERING_RIGHT_START,
-                        RABBIT_LOWERING_LEFT_START
+                    setWalkingState(
+                        new LoweringRightStart(),
+                        new LoweringLeftStart(),
+                        t.character
                     );
                 }
             }
             else
             {
-                return t.rl(
-                    RABBIT_WALKING_RIGHT,
-                    RABBIT_WALKING_LEFT
+                setWalkingState(
+                    new WalkingRight(),
+                    new WalkingLeft(),
+                    t.character
                 );
             }
         }
+
+        return walkingState.getState();
     }
 
     @Override
