@@ -137,6 +137,7 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
+        System.out.println( "behave" );
         switch ( state )
         {
             case RABBIT_BASHING_RIGHT:
