@@ -143,6 +143,11 @@ public class Bashing extends CharacterActionStates
                 --stepsOfBashing;
             }
         }
+        else
+        {
+            System.out.println( "--stepsOfBashing" );
+            --stepsOfBashing;
+        }
 
         return bashingState.newState();
     }
