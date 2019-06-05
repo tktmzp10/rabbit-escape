@@ -5,6 +5,8 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.newstates.characterstates.actions.Blocking;
 import rabbitescape.engine.newstates.characterstates.behaviours.walking.*;
+import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.WalkingLeft;
+import rabbitescape.engine.newstates.characterstates.behaviours.walking.walkingonflat.WalkingRight;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
@@ -15,6 +17,18 @@ import static rabbitescape.engine.Direction.RIGHT;
 
 public class Walking extends CharacterBehaviourStates
 {
+    private IWalkingState walkingState;
+
+    public Walking()
+    {
+        setWalkingState( new WalkingRight() );
+    }
+
+    public void setWalkingState( IWalkingState walkingState )
+    {
+        this.walkingState = walkingState;
+    }
+
     @Override
     public State getState()
     {
@@ -184,139 +198,17 @@ public class Walking extends CharacterBehaviourStates
     @SuppressWarnings("fallthrough")
     public boolean behave( World world, Character character, State state )
     {
-        switch ( state )
+        /*
+        default:
         {
-            case RABBIT_WALKING_LEFT:
-            case RABBIT_LOWERING_LEFT_END:
-            {
-                --character.x;
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_WALKING_RIGHT:
-            case RABBIT_LOWERING_RIGHT_END:
-            {
-                ++character.x;
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_RISING_LEFT_START:
-            case RABBIT_LOWERING_AND_RISING_LEFT:
-            case RABBIT_RISING_AND_LOWERING_LEFT:
-            {
-                --character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_RISING_RIGHT_START:
-            case RABBIT_LOWERING_AND_RISING_RIGHT:
-            case RABBIT_RISING_AND_LOWERING_RIGHT:
-            {
-                ++character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_RISING_LEFT_END:
-            {
-                --character.y;
-                --character.x;
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_RISING_LEFT_CONTINUE:
-            {
-                --character.y;
-                --character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_RISING_RIGHT_END:
-            {
-                --character.y;
-                ++character.x;
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_RISING_RIGHT_CONTINUE:
-            {
-                --character.y;
-                ++character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_LOWERING_LEFT_CONTINUE:
-            case RABBIT_LOWERING_LEFT_START:
-            {
-                ++character.y;
-                --character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_LOWERING_RIGHT_CONTINUE:
-            case RABBIT_LOWERING_RIGHT_START:
-            {
-                ++character.y;
-                ++character.x;
-                character.onSlope = true;
-                return true;
-            }
-            case RABBIT_TURNING_LEFT_TO_RIGHT:
-                character.onSlope = false; // Intentional fall-through
-            case RABBIT_TURNING_LEFT_TO_RIGHT_RISING:
-            case RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING:
-            {
-                character.dir = RIGHT;
-                checkJumpOntoSlope( world, character );
-                return true;
-            }
-            case RABBIT_TURNING_RIGHT_TO_LEFT:
-                character.onSlope = false; // Intentional fall-through
-            case RABBIT_TURNING_RIGHT_TO_LEFT_RISING:
-            case RABBIT_TURNING_RIGHT_TO_LEFT_LOWERING:
-            {
-                character.dir = LEFT;
-                checkJumpOntoSlope( world, character );
-                return true;
-            }
-            default:
-            {
-                throw new AssertionError(
-                    "Should have handled all states in Walking or before,"
-                        + " but we are in state " + state.name()
-                );
-            }
+            throw new AssertionError(
+                "Should have handled all states in Walking or before,"
+                    + " but we are in state " + state.name()
+            );
         }
-    }
+         */
 
-    /**
-     * If we turn around near a slope, we jump onto it
-     */
-    public void checkJumpOntoSlope( World world, Character character )
-    {
-        Block thisBlock = world.getBlockAt( character.x, character.y );
-        if ( isBridge( thisBlock ) )
-        {
-            Block aboveBlock = world.getBlockAt( character.x, character.y - 1 );
-            if ( character.onSlope && isBridge( aboveBlock ) )
-            {
-                character.y--;
-            }
-            else
-            {
-                character.onSlope = true;
-            }
-        }
-    }
-
-    private boolean isBridge( Block block )
-    {
-        return (
-            block != null
-                && (
-                block.shape == BRIDGE_UP_LEFT
-                    || block.shape == BRIDGE_UP_RIGHT
-            )
-        );
+        return walkingState.behave( world, character );
     }
 
     @Override
