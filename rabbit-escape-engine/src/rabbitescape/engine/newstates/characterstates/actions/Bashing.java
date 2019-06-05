@@ -129,9 +129,7 @@ public class Bashing extends CharacterActionStates
                 );
             }
         }
-        else {
-            --stepsOfBashing;
-        }
+        --stepsOfBashing;
 
         return bashingState.newState();
     }
