@@ -66,11 +66,13 @@ public class Climbing extends CharacterActionStates
         System.out.println( "\tnewState()" );
         if ( triggered )
         {
+            System.out.println( "\t\ttriggered" );
             hasAbility = true;
         }
 
         if ( !hasAbility )
         {
+            System.out.println( "\t\t!hasAbility" );
             setClimbingState( new NotClimbing() );
             return null;
         }

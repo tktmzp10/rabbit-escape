@@ -15,6 +15,7 @@ public class NotClimbing implements IClimbingState
     @Override
     public State newState( BehaviourTools t, boolean abilityActive, IClimbingState climbingState )
     {
+        System.out.println( "\t\tNotClimbing.newState()" );
         int nextX = t.nextX();
         int nextY = t.nextY();
         Block nextBlock = t.world.getBlockAt( nextX, nextY );
@@ -24,16 +25,19 @@ public class NotClimbing implements IClimbingState
         {
             if ( t.character.dir == RIGHT )
             {
+                System.out.println( "\t\t\tRABBIT_CLIMBING_RIGHT_START" );
                 climbingState = new ClimbingRightStart();
                 return RABBIT_CLIMBING_RIGHT_START;
             }
             else
             {
+                System.out.println( "\t\t\tRABBIT_CLIMBING_LEFT_START" );
                 climbingState = new ClimbingLeftStart();
                 return RABBIT_CLIMBING_LEFT_START;
             }
         }
 
+        System.out.println( "\t\t\tNotClimbing()" );
         climbingState = new NotClimbing();
         return null;
     }
