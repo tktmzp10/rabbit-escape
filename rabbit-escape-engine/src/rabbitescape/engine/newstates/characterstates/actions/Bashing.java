@@ -160,53 +160,9 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        System.out.println( "/behave()" );
-        switch ( state )
-        {
-            case RABBIT_BASHING_RIGHT:
-            case RABBIT_BASHING_LEFT:
-            {
-                System.out.println( "//RABBIT_BASHING_RIGHT, RABBIT_BASHING_LEFT" );
-                character.slopeBashHop = false;
-                world.changes.removeBlockAt( destX( character ), character.y );
-                return true;
-            }
-            case RABBIT_BASHING_UP_RIGHT:
-            case RABBIT_BASHING_UP_LEFT:
-            {
-                System.out.println( "//RABBIT_BASHING_UP_RIGHT, RABBIT_BASHING_UP_LEFT" );
-                world.changes.removeBlockAt( destX( character ), character.y - 1 );
-                character.slopeBashHop = true;
-                character.y -= 1;
-                return true;
-            }
-            case RABBIT_BASHING_USELESSLY_RIGHT:
-            case RABBIT_BASHING_USELESSLY_LEFT:
-            {
-                System.out.println( "//RABBIT_BASHING_USELESSLY_RIGHT, RABBIT_BASHING_USELESSLY_LEFT" );
-                character.slopeBashHop = false;
-                return true;
-            }
-            case RABBIT_BASHING_USELESSLY_RIGHT_UP:
-            case RABBIT_BASHING_USELESSLY_LEFT_UP:
-            {
-                System.out.println( "//RABBIT_BASHING_USELESSLY_RIGHT_UP, RABBIT_BASHING_USELESSLY_LEFT_UP" );
-                character.slopeBashHop = true;
-                character.y -= 1;
-                return true;
-            }
-            default:
-            {
-                System.out.println( "//default" );
-                character.slopeBashHop = false;
-                return false;
-            }
-        }
-    }
-
-    private int destX( Character character )
-    {
-        return ( character.dir == RIGHT ) ? character.x + 1 : character.x - 1;
+        System.out.println( "//behave()" );
+        //TODO: Deal with duplicate code of destX().
+        return bashingState.behave( world, character );
     }
 
     @Override
