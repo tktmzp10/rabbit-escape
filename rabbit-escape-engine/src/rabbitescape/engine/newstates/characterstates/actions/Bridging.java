@@ -114,7 +114,6 @@ public class Bridging extends CharacterActionStates
         return ret;
     }
 
-    @SuppressWarnings("fallthrough")
     private static State bridgingState(
         BehaviourTools t,
         int bs,
@@ -184,6 +183,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingUpLeft1(),
                         character
                     );
+                    break;
                 }
                 else if ( slopeDown )
                 {
@@ -192,6 +192,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingDownUpLeft1(),
                         character
                     );
+                    break;
                 }
                 else
                 {
@@ -200,6 +201,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingLeft1(),
                         character
                     );
+                    break;
                 }
             }
             case 2:
@@ -213,6 +215,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingLeft2(),
                             character
                         );
+                        break;
                     }
                     case UP:
                     {
@@ -221,6 +224,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingUpLeft2(),
                             character
                         );
+                        break;
                     }
                     case DOWN_UP:
                     {
@@ -229,6 +233,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingDownUpLeft2(),
                             character
                         );
+                        break;
                     }
                     default:
                     {
@@ -248,6 +253,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingLeft3(),
                             character
                         );
+                        break;
                     }
                     case UP:
                     {
@@ -256,6 +262,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingUpLeft3(),
                             character
                         );
+                        break;
                     }
                     case DOWN_UP:
                     {
@@ -264,6 +271,7 @@ public class Bridging extends CharacterActionStates
                             new BridgingDownUpLeft3(),
                             character
                         );
+                        break;
                     }
                     default:
                     {
@@ -281,7 +289,6 @@ public class Bridging extends CharacterActionStates
         return bridgingState.newState();
     }
 
-    @SuppressWarnings("fallthrough")
     private static State stateIntoWall(
         BehaviourTools t, Character character, World world, int ss )
     {
@@ -317,11 +324,13 @@ public class Bridging extends CharacterActionStates
                             new BridgingInCornerUpLeft1(),
                             character
                         );
+                        break;
                     }
                     else
                     {
                         // We would hit our head, so don't bridge.
                         setBridgingState( new NotBridging() );
+                        break;
                     }
                 }
                 else
@@ -331,6 +340,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingInCornerLeft1(),
                         character
                     );
+                    break;
                 }
             }
             case 2:
@@ -342,6 +352,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingInCornerUpLeft2(),
                         character
                     );
+                    break;
                 }
                 else
                 {
@@ -350,6 +361,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingInCornerLeft2(),
                         character
                     );
+                    break;
                 }
             }
             case 1:
@@ -361,6 +373,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingInCornerUpLeft3(),
                         character
                     );
+                    break;
                 }
                 else
                 {
@@ -369,6 +382,7 @@ public class Bridging extends CharacterActionStates
                         new BridgingInCornerLeft3(),
                         character
                     );
+                    break;
                 }
             }
             default:
