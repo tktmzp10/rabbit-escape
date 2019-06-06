@@ -72,6 +72,7 @@ public class Climbing extends CharacterActionStates
         if ( !hasAbility )
         {
             setClimbingState( new NotClimbing() );
+            return null;
         }
 
         return climbingState.newState( t, abilityActive );
