@@ -10,8 +10,7 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
-import rabbitescape.engine.newstates.characterstates.actions.bashing.IBashingState;
-import rabbitescape.engine.newstates.characterstates.actions.bashing.NotBashing;
+import rabbitescape.engine.newstates.characterstates.actions.bashing.*;
 import rabbitescape.engine.things.Character;
 
 public class Bashing extends CharacterActionStates
@@ -82,17 +81,19 @@ public class Bashing extends CharacterActionStates
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
-                    return t.rl(
-                        RABBIT_BASHING_USELESSLY_RIGHT_UP,
-                        RABBIT_BASHING_USELESSLY_LEFT_UP
+                    setBashingState(
+                        new BashingUselesslyRightUp(),
+                        new BashingUselesslyLeftUp(),
+                        t.character
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    return t.rl(
-                        RABBIT_BASHING_UP_RIGHT,
-                        RABBIT_BASHING_UP_LEFT
+                    setBashingState(
+                        new BashingUpRight(),
+                        new BashingUpLeft(),
+                        t.character
                     );
                 }
             }
@@ -103,9 +104,10 @@ public class Bashing extends CharacterActionStates
             )
             {
                 System.out.println( "///t.isOnUpSlope() && t.blockAboveNext() == null && triggered" );
-                return t.rl(
-                    RABBIT_BASHING_USELESSLY_RIGHT_UP,
-                    RABBIT_BASHING_USELESSLY_LEFT_UP
+                setBashingState(
+                    new BashingUselesslyRightUp(),
+                    new BashingUselesslyLeftUp(),
+                    t.character
                 );
             }
             else if ( t.blockNext() != null )
@@ -114,32 +116,44 @@ public class Bashing extends CharacterActionStates
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
-                    return t.rl(
-                        RABBIT_BASHING_USELESSLY_RIGHT,
-                        RABBIT_BASHING_USELESSLY_LEFT
+                    setBashingState(
+                        new BashingUselesslyRight(),
+                        new BashingUselesslyLeft(),
+                        t.character
                     );
                 }
                 else
                 {
                     stepsOfBashing = 2;
-                    return t.rl(
-                        RABBIT_BASHING_RIGHT,
-                        RABBIT_BASHING_LEFT
+                    setBashingState(
+                        new BashingRight(),
+                        new BashingLeft(),
+                        t.character
                     );
                 }
             }
             else if ( triggered )
             {
                 System.out.println( "///triggered" );
-                return t.rl(
-                    RABBIT_BASHING_USELESSLY_RIGHT,
-                    RABBIT_BASHING_USELESSLY_LEFT
+                setBashingState(
+                    new BashingUselesslyRight(),
+                    new BashingUselesslyLeft(),
+                    t.character
                 );
             }
+            else
+            {
+                System.out.println( "///stepsOfBashing" );
+                --stepsOfBashing;
+            }
         }
-        System.out.println( "/--stepsOfBashing" );
-        --stepsOfBashing;
-        return null;
+        else
+        {
+            System.out.println( "/stepsOfBashing" );
+            --stepsOfBashing;
+        }
+
+        return bashingState.newState();
     }
 
     @Override
