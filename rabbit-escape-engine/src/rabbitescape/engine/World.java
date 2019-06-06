@@ -350,7 +350,6 @@ public class World
 
     public Block getBlockAt( int x, int y)
     {
-        System.out.println( "/World.getBlockAt()" );
         if ( x <  0          || y <  0           ||
              x >= size.width || y >= size.height  )
         {

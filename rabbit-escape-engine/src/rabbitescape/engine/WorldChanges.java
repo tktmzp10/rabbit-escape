@@ -246,7 +246,6 @@ public class WorldChanges
 
     public void rememberWhatWillHappen()
     {
-        System.out.println( "/WorldChanges.rememberWhatWillHappen()" );
         rabbitsJustEntered = new ArrayList<Character>( charactersToEnter );
     }
 }
