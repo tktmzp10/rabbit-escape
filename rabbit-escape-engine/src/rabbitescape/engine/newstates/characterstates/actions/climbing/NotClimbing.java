@@ -13,7 +13,7 @@ import static rabbitescape.engine.Direction.RIGHT;
 public class NotClimbing implements IClimbingState
 {
     @Override
-    public State newState( BehaviourTools t, boolean abilityActive )
+    public State newState( BehaviourTools t, boolean abilityActive, IClimbingState climbingState )
     {
         int nextX = t.nextX();
         int nextY = t.nextY();
@@ -24,14 +24,17 @@ public class NotClimbing implements IClimbingState
         {
             if ( t.character.dir == RIGHT )
             {
+                climbingState = new ClimbingRightStart();
                 return RABBIT_CLIMBING_RIGHT_START;
             }
             else
             {
+                climbingState = new ClimbingLeftStart();
                 return RABBIT_CLIMBING_LEFT_START;
             }
         }
 
+        climbingState = new NotClimbing();
         return null;
     }
 

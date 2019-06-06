@@ -11,16 +11,18 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 public class ClimbingRightStart implements IClimbingState
 {
     @Override
-    public State newState( BehaviourTools t, boolean abilityActive )
+    public State newState( BehaviourTools t, boolean abilityActive, IClimbingState climbingState )
     {
         Block endBlock = t.blockAboveNext();
 
         if ( t.isWall( endBlock ) )
         {
+            climbingState = new ClimbingRightContinue2();
             return RABBIT_CLIMBING_RIGHT_CONTINUE_2;
         }
         else
         {
+            climbingState = new ClimbingRightEnd();
             return RABBIT_CLIMBING_RIGHT_END;
         }
     }

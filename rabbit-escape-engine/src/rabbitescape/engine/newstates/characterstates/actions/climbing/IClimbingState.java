@@ -7,7 +7,11 @@ import rabbitescape.engine.things.Character;
 
 public interface IClimbingState
 {
-    public State newState( BehaviourTools t, boolean abilityActive );
+    public State newState(
+        BehaviourTools t,
+        boolean abilityActive,
+        IClimbingState climbingState
+    );
 
     public boolean behave( World world, Character character, boolean abilityActive );
 }

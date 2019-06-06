@@ -75,7 +75,7 @@ public class Climbing extends CharacterActionStates
             return null;
         }
 
-        return climbingState.newState( t, abilityActive );
+        return climbingState.newState( t, abilityActive, climbingState );
     }
 
     @Override

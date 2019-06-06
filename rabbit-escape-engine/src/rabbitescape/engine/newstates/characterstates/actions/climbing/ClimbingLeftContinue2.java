@@ -11,13 +11,14 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 public class ClimbingLeftContinue2 implements IClimbingState
 {
     @Override
-    public State newState( BehaviourTools t, boolean abilityActive )
+    public State newState( BehaviourTools t, boolean abilityActive, IClimbingState climbingState )
     {
         Block aboveBlock = t.blockAbove();
 
         if ( t.isRoof( aboveBlock ) )
         {
             abilityActive = false;
+            climbingState = new ClimbingLeftBangHead();
             return RABBIT_CLIMBING_LEFT_BANG_HEAD;
         }
 
@@ -25,10 +26,12 @@ public class ClimbingLeftContinue2 implements IClimbingState
 
         if ( t.isWall( endBlock ) )
         {
+            climbingState = new ClimbingLeftContinue1();
             return RABBIT_CLIMBING_LEFT_CONTINUE_1;
         }
         else
         {
+            climbingState = new ClimbingLeftEnd();
             return RABBIT_CLIMBING_LEFT_END;
         }
     }
