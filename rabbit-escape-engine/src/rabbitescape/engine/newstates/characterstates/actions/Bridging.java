@@ -108,7 +108,8 @@ public class Bridging extends CharacterActionStates
         if ( bigSteps <= 0 )
         {
             smallSteps = 0;
-            return null;   // Finished bridging
+            setBridgingState( new NotBridging() );
+            return bridgingState.newState();   // Finished bridging
         }
 
         return ret;
