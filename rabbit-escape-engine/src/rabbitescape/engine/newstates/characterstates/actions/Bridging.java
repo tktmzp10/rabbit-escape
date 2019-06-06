@@ -241,6 +241,7 @@ public class Bridging extends CharacterActionStates
                             "Unexpected bridge type: " + bt );
                     }
                 }
+                break;
             }
             case 1:
             {
@@ -279,6 +280,7 @@ public class Bridging extends CharacterActionStates
                             "Unexpected bridge type: " + bt );
                     }
                 }
+                break;
             }
             default:
             {
