@@ -1,6 +1,7 @@
 package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
+import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.things.items.ItemType.*;
 import static rabbitescape.engine.Block.Material.*;
 import static rabbitescape.engine.Block.Shape.*;
@@ -11,17 +12,46 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
+import rabbitescape.engine.newstates.characterstates.actions.bridging.*;
 import rabbitescape.engine.things.Character;
 
 public class Bridging extends CharacterActionStates
 {
+    private static IBridgingState bridgingState;
+
+    public Bridging()
+    {
+        setBridgingState( new NotBridging() );
+    }
+
+    public static void setBridgingState( IBridgingState state )
+    {
+        bridgingState = state;
+    }
+
+    public static void setBridgingState(
+        IBridgingState right,
+        IBridgingState left,
+        Character character
+    )
+    {
+        if ( character.dir == RIGHT )
+        {
+            setBridgingState( right );
+        }
+        else
+        {
+            setBridgingState( left );
+        }
+    }
+
     @Override
     public State getState()
     {
         return null;
     }
 
-    enum BridgeType
+    public enum BridgeType
     {
         ALONG,
         UP,
@@ -147,23 +177,26 @@ public class Bridging extends CharacterActionStates
             {
                 if ( slopeUp )
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_UP_RIGHT_1,
-                        RABBIT_BRIDGING_UP_LEFT_1
+                    setBridgingState(
+                        new BridgingUpRight1(),
+                        new BridgingUpLeft1(),
+                        character
                     );
                 }
                 else if ( slopeDown )
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_DOWN_UP_RIGHT_1,
-                        RABBIT_BRIDGING_DOWN_UP_LEFT_1
+                    setBridgingState(
+                        new BridgingDownUpRight1(),
+                        new BridgingDownUpLeft1(),
+                        character
                     );
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_RIGHT_1,
-                        RABBIT_BRIDGING_LEFT_1
+                    setBridgingState(
+                        new BridgingRight1(),
+                        new BridgingLeft1(),
+                        character
                     );
                 }
             }
@@ -173,23 +206,26 @@ public class Bridging extends CharacterActionStates
                 {
                     case ALONG:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_RIGHT_2,
-                            RABBIT_BRIDGING_LEFT_2
+                        setBridgingState(
+                            new BridgingRight2(),
+                            new BridgingLeft2(),
+                            character
                         );
                     }
                     case UP:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_UP_RIGHT_2,
-                            RABBIT_BRIDGING_UP_LEFT_2
+                        setBridgingState(
+                            new BridgingUpRight2(),
+                            new BridgingUpLeft2(),
+                            character
                         );
                     }
                     case DOWN_UP:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_DOWN_UP_RIGHT_2,
-                            RABBIT_BRIDGING_DOWN_UP_LEFT_2
+                        setBridgingState(
+                            new BridgingDownUpRight2(),
+                            new BridgingDownUpLeft2(),
+                            character
                         );
                     }
                     default:
@@ -205,23 +241,26 @@ public class Bridging extends CharacterActionStates
                 {
                     case ALONG:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_RIGHT_3,
-                            RABBIT_BRIDGING_LEFT_3
+                        setBridgingState(
+                            new BridgingRight3(),
+                            new BridgingLeft3(),
+                            character
                         );
                     }
                     case UP:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_UP_RIGHT_3,
-                            RABBIT_BRIDGING_UP_LEFT_3
+                        setBridgingState(
+                            new BridgingUpRight3(),
+                            new BridgingUpLeft3(),
+                            character
                         );
                     }
                     case DOWN_UP:
                     {
-                        return t.rl(
-                            RABBIT_BRIDGING_DOWN_UP_RIGHT_3,
-                            RABBIT_BRIDGING_DOWN_UP_LEFT_3
+                        setBridgingState(
+                            new BridgingDownUpRight3(),
+                            new BridgingDownUpLeft3(),
+                            character
                         );
                     }
                     default:
@@ -233,9 +272,11 @@ public class Bridging extends CharacterActionStates
             }
             default:
             {
-                return null;
+                setBridgingState( new NotBridging() );
             }
         }
+
+        return bridgingState.newState();
     }
 
     private static State stateIntoWall(
@@ -267,22 +308,24 @@ public class Bridging extends CharacterActionStates
                     Block twoAbove = world.getBlockAt( character.x, character.y - 2 );
 
                     if ( twoAbove == null || twoAbove.isBridge() ) {
-                        return t.rl(
-                            RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1,
-                            RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1
+                        setBridgingState(
+                            new BridgingInCornerUpRight1(),
+                            new BridgingInCornerUpLeft1(),
+                            character
                         );
                     }
                     else
                     {
                         // We would hit our head, so don't bridge.
-                        return null;
+                        setBridgingState( new NotBridging() );
                     }
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_IN_CORNER_RIGHT_1,
-                        RABBIT_BRIDGING_IN_CORNER_LEFT_1
+                    setBridgingState(
+                        new BridgingInCornerRight1(),
+                        new BridgingInCornerLeft1(),
+                        character
                     );
                 }
             }
@@ -290,16 +333,18 @@ public class Bridging extends CharacterActionStates
             {
                 if ( isSlope( thisBlock ) )
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2,
-                        RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2
+                    setBridgingState(
+                        new BridgingInCornerUpRight2(),
+                        new BridgingInCornerUpLeft2(),
+                        character
                     );
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_IN_CORNER_RIGHT_2,
-                        RABBIT_BRIDGING_IN_CORNER_LEFT_2
+                    setBridgingState(
+                        new BridgingInCornerRight2(),
+                        new BridgingInCornerLeft2(),
+                        character
                     );
                 }
             }
@@ -307,24 +352,28 @@ public class Bridging extends CharacterActionStates
             {
                 if ( isSlope( thisBlock ) )
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_3,
-                        RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3
+                    setBridgingState(
+                        new BridgingInCornerUpRight3(),
+                        new BridgingInCornerUpLeft3(),
+                        character
                     );
                 }
                 else
                 {
-                    return t.rl(
-                        RABBIT_BRIDGING_IN_CORNER_RIGHT_3,
-                        RABBIT_BRIDGING_IN_CORNER_LEFT_3
+                    setBridgingState(
+                        new BridgingInCornerRight3(),
+                        new BridgingInCornerLeft3(),
+                        character
                     );
                 }
             }
             default:
             {
-                return null;
+                setBridgingState( new NotBridging() );
             }
         }
+
+        return bridgingState.newState();
     }
 
     private static boolean startingIntoToWall(
@@ -371,14 +420,14 @@ public class Bridging extends CharacterActionStates
     private static int nextX( Character character )
     {
         int ret = character.x;
-        ret += character.dir == Direction.RIGHT ? 1 : -1;
+        ret += character.dir == RIGHT ? 1 : -1;
         return ret;
     }
 
     private static int behindX( Character character )
     {
         int ret = character.x;
-        ret += character.dir == Direction.RIGHT ? -1 : 1;
+        ret += character.dir == RIGHT ? -1 : 1;
         return ret;
     }
 
@@ -400,184 +449,7 @@ public class Bridging extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        boolean handled = moveRabbit( world, character, state );
-
-        if ( handled )
-        {
-            // If we're bridging, we're on a slope
-            character.onSlope = true;
-        }
-
-        return handled;
-    }
-
-    private boolean moveRabbit( World world, Character character, State state )
-    {
-        switch ( state )
-        {
-            case RABBIT_BRIDGING_RIGHT_1:
-            case RABBIT_BRIDGING_RIGHT_2:
-            case RABBIT_BRIDGING_LEFT_1:
-            case RABBIT_BRIDGING_LEFT_2:
-            {
-                bridgeType = BridgeType.ALONG;
-                return true;
-            }
-            case RABBIT_BRIDGING_UP_RIGHT_1:
-            case RABBIT_BRIDGING_UP_RIGHT_2:
-            case RABBIT_BRIDGING_UP_LEFT_1:
-            case RABBIT_BRIDGING_UP_LEFT_2:
-            {
-                bridgeType = BridgeType.UP;
-                return true;
-            }
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_1:
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_2:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_2:
-            {
-                bridgeType = BridgeType.DOWN_UP;
-                return true;
-            }
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2:
-            {
-                bridgeType = BridgeType.ALONG;
-                return true;
-            }
-            case RABBIT_BRIDGING_RIGHT_3:
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_3:
-            {
-                character.x++;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
-                );
-
-                return true;
-            }
-            case RABBIT_BRIDGING_LEFT_3:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_3:
-            {
-                character.x--;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
-                );
-
-                return true;
-            }
-            case RABBIT_BRIDGING_UP_RIGHT_3:
-            {
-                character.x++;
-                character.y--;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
-                );
-
-                return true;
-            }
-            case RABBIT_BRIDGING_UP_LEFT_3:
-            {
-                character.x--;
-                character.y--;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
-                );
-
-                return true;
-            }
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_3:
-            {
-                character.onSlope = true;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
-                );
-                return true;
-            }
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_3:
-            {
-                character.onSlope = true;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
-                );
-                return true;
-            }
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_3:
-            {
-                character.onSlope = true;
-                character.y--;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
-                );
-                return true;
-            }
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3:
-            {
-                character.onSlope = true;
-                character.y--;
-                world.changes.addBlock(
-                    new Block(
-                        character.x,
-                        character.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
-                );
-                return true;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return bridgingState.behave( world, character, bridgeType );
     }
 
     @Override

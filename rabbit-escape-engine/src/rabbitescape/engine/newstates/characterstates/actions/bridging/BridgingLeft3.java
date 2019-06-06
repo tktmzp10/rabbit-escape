@@ -1,9 +1,13 @@
 package rabbitescape.engine.newstates.characterstates.actions.bridging;
 
+import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.characterstates.actions.Bridging.*;
 import rabbitescape.engine.things.Character;
 
+import static rabbitescape.engine.Block.Material.EARTH;
+import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_LEFT_3;
 
 public class BridgingLeft3 implements IBridgingState
@@ -16,9 +20,20 @@ public class BridgingLeft3 implements IBridgingState
 
     @Override
     public boolean behave(
-        World world, Character character
+        World world, Character character, BridgeType bridgeType
     )
     {
-        return false;
+        character.onSlope = true;
+        character.x--;
+        world.changes.addBlock(
+            new Block(
+                character.x,
+                character.y,
+                EARTH,
+                BRIDGE_UP_LEFT,
+                0
+            )
+        );
+        return true;
     }
 }
