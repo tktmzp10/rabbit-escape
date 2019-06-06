@@ -15,7 +15,6 @@ public class NotClimbing implements IClimbingState
     @Override
     public IClimbingState newState( BehaviourTools t, boolean abilityActive )
     {
-        System.out.println( "\t\tNotClimbing.newState()" );
         int nextX = t.nextX();
         int nextY = t.nextY();
         Block nextBlock = t.world.getBlockAt( nextX, nextY );
