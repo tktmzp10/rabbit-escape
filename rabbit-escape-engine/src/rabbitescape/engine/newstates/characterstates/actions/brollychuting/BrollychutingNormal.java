@@ -19,6 +19,7 @@ public class BrollychutingNormal implements IBrollychutingState
         World world, Character character
     )
     {
-        return false;
+        character.y = character.y + 1;
+        return true;
     }
 }

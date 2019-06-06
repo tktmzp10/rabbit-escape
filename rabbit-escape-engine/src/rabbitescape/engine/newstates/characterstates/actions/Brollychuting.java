@@ -1,6 +1,7 @@
 package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
+import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.things.items.ItemType.brolly;
 
 import java.util.Map;
@@ -11,19 +12,29 @@ import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
+import rabbitescape.engine.newstates.characterstates.actions.brollychuting.BrollychutingNormal;
+import rabbitescape.engine.newstates.characterstates.actions.brollychuting.IBrollychutingState;
+import rabbitescape.engine.newstates.characterstates.actions.brollychuting.NotBrollychuting;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
 public class Brollychuting extends CharacterActionStates
 {
+    private IBrollychutingState brollychutingState;
     boolean hasAbility = false;
     private final Climbing climbing;
     private final Digging digging;
 
     public Brollychuting( Climbing climbing, Digging digging )
     {
+        setBrollychutingState( new NotBrollychuting() );
         this.climbing = climbing;
         this.digging = digging;
+    }
+
+    public void setBrollychutingState( IBrollychutingState brollychutingState )
+    {
+        this.brollychutingState = brollychutingState;
     }
 
     @Override
@@ -36,19 +47,22 @@ public class Brollychuting extends CharacterActionStates
 
         if( !hasAbility )
         {
-            return null;
+            setBrollychutingState( new NotBrollychuting() );
+            return brollychutingState.newState();
         }
 
         if ( climbing.abilityActive )
         {
-            return null;
+            setBrollychutingState( new NotBrollychuting() );
+            return brollychutingState.newState();
         }
 
         Block below = t.blockBelow();
 
         if ( t.isFlat( below ) )
         {
-            return null;
+            setBrollychutingState( new NotBrollychuting() );
+            return brollychutingState.newState();
         }
 
         if (
@@ -56,7 +70,8 @@ public class Brollychuting extends CharacterActionStates
          && !t.blockHereJustRemoved()
         )
         {
-            return null;
+            setBrollychutingState( new NotBrollychuting() );
+            return brollychutingState.newState();
         }
 
         if ( below != null )
@@ -76,19 +91,15 @@ public class Brollychuting extends CharacterActionStates
                 );
             }
         }
+        setBrollychutingState( new BrollychutingNormal() );
 
-        return RABBIT_BROLLYCHUTING;
+        return brollychutingState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        if ( state == RABBIT_BROLLYCHUTING )
-        {
-            character.y = character.y + 1;
-            return true;
-        }
-        return false;
+        return brollychutingState.behave( world, character );
     }
 
     public boolean hasBrolly()
