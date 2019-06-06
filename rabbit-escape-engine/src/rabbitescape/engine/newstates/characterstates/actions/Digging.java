@@ -9,8 +9,7 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
-import rabbitescape.engine.newstates.characterstates.actions.digging.IDiggingState;
-import rabbitescape.engine.newstates.characterstates.actions.digging.NotDigging;
+import rabbitescape.engine.newstates.characterstates.actions.digging.*;
 import rabbitescape.engine.things.Character;
 
 public class Digging extends CharacterActionStates
@@ -46,7 +45,8 @@ public class Digging extends CharacterActionStates
     {
         if ( !triggered && stepsOfDigging == 0 )
         {
-            return null;
+            setDiggingState( new NotDigging() );
+            return diggingState.newState();
         }
 
         t.character.possiblyUndoSlopeBashHop( t.world );
@@ -54,7 +54,8 @@ public class Digging extends CharacterActionStates
         if ( t.character.state == RABBIT_DIGGING )
         {
             stepsOfDigging = 1;
-            return RABBIT_DIGGING_2;
+            setDiggingState( new Digging2() );
+            return diggingState.newState();
         }
 
         if (
@@ -65,55 +66,35 @@ public class Digging extends CharacterActionStates
             if ( t.character.onSlope && t.blockHere() != null )
             {
                 stepsOfDigging = 1;
-                return RABBIT_DIGGING_ON_SLOPE;
+                setDiggingState( new DiggingOnSlope() );
+                return diggingState.newState();
             }
             else if ( t.blockBelow() != null )
             {
                 if ( t.blockBelow().material == Block.Material.METAL )
                 {
                     stepsOfDigging = 0;
-                    return RABBIT_DIGGING_USELESSLY;
+                    setDiggingState( new DiggingUselessly() );
+                    return diggingState.newState();
                 }
                 else
                 {
                 stepsOfDigging = 2;
-                return RABBIT_DIGGING;
+                setDiggingState( new DiggingNormal() );
+                return diggingState.newState();
                 }
             }
         }
 
         --stepsOfDigging;
-
-        return null;
+        setDiggingState( new NotDigging() );
+        return diggingState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        switch ( state )
-        {
-            case RABBIT_DIGGING:
-            {
-                world.changes.removeBlockAt( character.x, character.y + 1 );
-                ++character.y;
-                return true;
-            }
-            case RABBIT_DIGGING_ON_SLOPE:
-            {
-                world.changes.removeBlockAt( character.x, character.y );
-                character.onSlope = false;
-                return true;
-            }
-            case RABBIT_DIGGING_2:
-            case RABBIT_DIGGING_USELESSLY:
-            {
-                return true;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return diggingState.behave( world, character );
     }
 
     @Override
