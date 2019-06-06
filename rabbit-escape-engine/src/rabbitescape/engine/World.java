@@ -325,6 +325,7 @@ public class World
             thing.calcNewState( this );
         }
 
+        System.out.println( "/World.changes.blockJustRemoved.clear()" );
         changes.blocksJustRemoved.clear();
 
         changes.apply();
@@ -349,6 +350,7 @@ public class World
 
     public Block getBlockAt( int x, int y)
     {
+        System.out.println( "/World.getBlockAt()" );
         if ( x <  0          || y <  0           ||
              x >= size.width || y >= size.height  )
         {

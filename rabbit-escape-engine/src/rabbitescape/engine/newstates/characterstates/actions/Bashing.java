@@ -16,7 +16,7 @@ import rabbitescape.engine.things.Character;
 
 public class Bashing extends CharacterActionStates
 {
-    private IBashingState bashingState, rightState, leftState;
+    private IBashingState bashingState;
     private int stepsOfBashing;
 
     public Bashing()
@@ -35,20 +35,20 @@ public class Bashing extends CharacterActionStates
         this.bashingState = bashingState;
     }
 
-    public void setRightState( IBashingState rightState )
+    public void setBashingState(
+        IBashingState right,
+        IBashingState left,
+        Character character
+    )
     {
-        this.rightState = rightState;
-    }
-
-    public void setLeftState( IBashingState leftState )
-    {
-        this.leftState = leftState;
-    }
-
-    public void setBothStates( IBashingState rightState, IBashingState leftState )
-    {
-        setRightState( rightState );
-        setLeftState( leftState );
+        if ( character.dir == RIGHT )
+        {
+            setBashingState( right );
+        }
+        else
+        {
+            setBashingState( left );
+        }
     }
 
     @Override
@@ -60,6 +60,7 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean checkTriggered( Character character, World world )
     {
+        System.out.println( "/checkTriggered()" );
         BehaviourTools t = new BehaviourTools( character, world );
 
         return t.pickUpToken( bash );
@@ -68,17 +69,16 @@ public class Bashing extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        System.out.println( "--newState()--" );
+        System.out.println( "/newState()" );
         if ( triggered || stepsOfBashing > 0 )
         {
-            System.out.println( "triggered || stepsOfBashing > 0" );
+            System.out.println( "//triggered || stepsOfBashing > 0" );
             if (
                 t.isOnUpSlope()
                     && t.blockAboveNext() != null
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() != null" );
+                System.out.println( "///t.isOnUpSlope() && t.blockAboveNext() != null" );
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
@@ -102,9 +102,7 @@ public class Bashing extends CharacterActionStates
                     && triggered
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() == null\n" +
-                    "                    && triggered" );
+                System.out.println( "///t.isOnUpSlope() && t.blockAboveNext() == null && triggered" );
                 return t.rl(
                     RABBIT_BASHING_USELESSLY_RIGHT_UP,
                     RABBIT_BASHING_USELESSLY_LEFT_UP
@@ -112,7 +110,7 @@ public class Bashing extends CharacterActionStates
             }
             else if ( t.blockNext() != null )
             {
-                System.out.println( "t.blockNext() != null" );
+                System.out.println( "///t.blockNext() != null" );
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
@@ -132,14 +130,14 @@ public class Bashing extends CharacterActionStates
             }
             else if ( triggered )
             {
-                System.out.println( "triggered" );
+                System.out.println( "///triggered" );
                 return t.rl(
                     RABBIT_BASHING_USELESSLY_RIGHT,
                     RABBIT_BASHING_USELESSLY_LEFT
                 );
             }
         }
-        System.out.println( "--stepsOfBashing" );
+        System.out.println( "/--stepsOfBashing" );
         --stepsOfBashing;
         return null;
     }
@@ -147,14 +145,13 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        System.out.println( "--behave()--" );
+        System.out.println( "/behave()" );
         switch ( state )
         {
             case RABBIT_BASHING_RIGHT:
             case RABBIT_BASHING_LEFT:
             {
-                System.out.println( "case RABBIT_BASHING_RIGHT:\n" +
-                    "            case RABBIT_BASHING_LEFT:" );
+                System.out.println( "//RABBIT_BASHING_RIGHT, RABBIT_BASHING_LEFT" );
                 character.slopeBashHop = false;
                 world.changes.removeBlockAt( destX( character ), character.y );
                 return true;
@@ -162,8 +159,7 @@ public class Bashing extends CharacterActionStates
             case RABBIT_BASHING_UP_RIGHT:
             case RABBIT_BASHING_UP_LEFT:
             {
-                System.out.println( "case RABBIT_BASHING_UP_RIGHT:\n" +
-                    "            case RABBIT_BASHING_UP_LEFT:" );
+                System.out.println( "//RABBIT_BASHING_UP_RIGHT, RABBIT_BASHING_UP_LEFT" );
                 world.changes.removeBlockAt( destX( character ), character.y - 1 );
                 character.slopeBashHop = true;
                 character.y -= 1;
@@ -172,24 +168,21 @@ public class Bashing extends CharacterActionStates
             case RABBIT_BASHING_USELESSLY_RIGHT:
             case RABBIT_BASHING_USELESSLY_LEFT:
             {
-                System.out.println( "case RABBIT_BASHING_USELESSLY_RIGHT:\n" +
-                    "            case RABBIT_BASHING_USELESSLY_LEFT:" );
+                System.out.println( "//RABBIT_BASHING_USELESSLY_RIGHT, RABBIT_BASHING_USELESSLY_LEFT" );
                 character.slopeBashHop = false;
                 return true;
             }
             case RABBIT_BASHING_USELESSLY_RIGHT_UP:
             case RABBIT_BASHING_USELESSLY_LEFT_UP:
             {
-                System.out.println( "case RABBIT_BASHING_USELESSLY_RIGHT_UP" +
-                    ":\n" +
-                    "            case RABBIT_BASHING_USELESSLY_LEFT_UP:" );
+                System.out.println( "//RABBIT_BASHING_USELESSLY_RIGHT_UP, RABBIT_BASHING_USELESSLY_LEFT_UP" );
                 character.slopeBashHop = true;
                 character.y -= 1;
                 return true;
             }
             default:
             {
-                System.out.println( "default" );
+                System.out.println( "//default" );
                 character.slopeBashHop = false;
                 return false;
             }
