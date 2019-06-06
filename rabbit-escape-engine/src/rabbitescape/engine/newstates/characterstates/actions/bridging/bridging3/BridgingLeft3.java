@@ -1,21 +1,22 @@
-package rabbitescape.engine.newstates.characterstates.actions.bridging;
+package rabbitescape.engine.newstates.characterstates.actions.bridging.bridging3;
 
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.newstates.characterstates.actions.Bridging.*;
+import rabbitescape.engine.newstates.characterstates.actions.bridging.IBridgingState;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
-import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3;
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_LEFT_3;
 
-public class BridgingInCornerUpLeft3 implements IBridgingState
+public class BridgingLeft3 implements IBridgingState
 {
     @Override
     public State newState()
     {
-        return RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3;
+        return RABBIT_BRIDGING_LEFT_3;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class BridgingInCornerUpLeft3 implements IBridgingState
     )
     {
         character.onSlope = true;
-        character.y--;
+        character.x--;
         world.changes.addBlock(
             new Block(
                 character.x,

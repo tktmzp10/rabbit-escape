@@ -1,18 +1,18 @@
 package rabbitescape.engine.newstates.characterstates.actions;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.things.items.ItemType.*;
-import static rabbitescape.engine.Block.Material.*;
 import static rabbitescape.engine.Block.Shape.*;
 
 import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.bridging.*;
+import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging1.*;
+import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging2.*;
+import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging3.*;
 import rabbitescape.engine.things.Character;
 
 public class Bridging extends CharacterActionStates
@@ -92,6 +92,7 @@ public class Bridging extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
+        System.out.println( "\tnewState()" );
         if ( triggered )
         {
             smallSteps = 3;
@@ -108,6 +109,7 @@ public class Bridging extends CharacterActionStates
         if ( bigSteps <= 0 )
         {
             smallSteps = 0;
+            System.out.println( "\t\tbigSteps <= 0" );
             setBridgingState( new NotBridging() );
             return bridgingState.newState();   // Finished bridging
         }
@@ -122,6 +124,7 @@ public class Bridging extends CharacterActionStates
         BridgeType bt
     )
     {
+        System.out.println( "\t\tbridgingState()" );
         Block hereBlock = t.blockHere();
 
         Character character = t.character;
@@ -164,6 +167,7 @@ public class Bridging extends CharacterActionStates
             )
         )
         {
+            System.out.println( "\t\t\tStop bridging" );
             setBridgingState( new NotBridging() );
             return bridgingState.newState(); // Stop bridging
         }
@@ -177,8 +181,10 @@ public class Bridging extends CharacterActionStates
         {
             case 3:
             {
+                System.out.println( "\t\t\tss = 3" );
                 if ( slopeUp )
                 {
+                    System.out.println( "\t\t\t\tslopeUp" );
                     setBridgingState(
                         new BridgingUpRight1(),
                         new BridgingUpLeft1(),
@@ -188,6 +194,7 @@ public class Bridging extends CharacterActionStates
                 }
                 else if ( slopeDown )
                 {
+                    System.out.println( "\t\t\t\tslopeDown" );
                     setBridgingState(
                         new BridgingDownUpRight1(),
                         new BridgingDownUpLeft1(),
@@ -197,6 +204,7 @@ public class Bridging extends CharacterActionStates
                 }
                 else
                 {
+                    System.out.println( "\t\t\t\telse" );
                     setBridgingState(
                         new BridgingRight1(),
                         new BridgingLeft1(),
@@ -207,10 +215,12 @@ public class Bridging extends CharacterActionStates
             }
             case 2:
             {
+                System.out.println( "\t\t\tss = 2" );
                 switch( bt )
                 {
                     case ALONG:
                     {
+                        System.out.println( "\t\t\t\tbt = ALONG" );
                         setBridgingState(
                             new BridgingRight2(),
                             new BridgingLeft2(),
@@ -220,6 +230,7 @@ public class Bridging extends CharacterActionStates
                     }
                     case UP:
                     {
+                        System.out.println( "\t\t\t\tbt = UP" );
                         setBridgingState(
                             new BridgingUpRight2(),
                             new BridgingUpLeft2(),
@@ -229,6 +240,7 @@ public class Bridging extends CharacterActionStates
                     }
                     case DOWN_UP:
                     {
+                        System.out.println( "\t\t\t\tbt = DOWN_UP" );
                         setBridgingState(
                             new BridgingDownUpRight2(),
                             new BridgingDownUpLeft2(),
@@ -246,10 +258,12 @@ public class Bridging extends CharacterActionStates
             }
             case 1:
             {
+                System.out.println( "\t\t\tss = 1" );
                 switch( bt )
                 {
                     case ALONG:
                     {
+                        System.out.println( "\t\t\t\tbt = ALONG" );
                         setBridgingState(
                             new BridgingRight3(),
                             new BridgingLeft3(),
@@ -259,6 +273,7 @@ public class Bridging extends CharacterActionStates
                     }
                     case UP:
                     {
+                        System.out.println( "\t\t\t\tbt = UP" );
                         setBridgingState(
                             new BridgingUpRight3(),
                             new BridgingUpLeft3(),
@@ -268,6 +283,7 @@ public class Bridging extends CharacterActionStates
                     }
                     case DOWN_UP:
                     {
+                        System.out.println( "\t\t\t\tbt = DOWN_UP" );
                         setBridgingState(
                             new BridgingDownUpRight3(),
                             new BridgingDownUpLeft3(),
@@ -285,7 +301,9 @@ public class Bridging extends CharacterActionStates
             }
             default:
             {
+                System.out.println( "\t\t\tdefault" );
                 setBridgingState( new NotBridging() );
+                break;
             }
         }
 
@@ -295,6 +313,7 @@ public class Bridging extends CharacterActionStates
     private static State stateIntoWall(
         BehaviourTools t, Character character, World world, int ss )
     {
+        System.out.println( "\t\tstateIntoWall()" );
         // We are facing a wall.  This makes us a bit keener to
         // bridge.
         Block thisBlock = world.getBlockAt( character.x, character.y );
@@ -306,6 +325,7 @@ public class Bridging extends CharacterActionStates
         // Don't bridge if there is no block behind us (we're not in a hole)
         if ( isSlope( thisBlock ) && world.getBlockAt( bx, ny ) == null )
         {
+            System.out.println( "\t\t\tDon't bridge" );
             setBridgingState( new NotBridging() );
             return bridgingState.newState();
         }
@@ -314,14 +334,17 @@ public class Bridging extends CharacterActionStates
         {
             case 3:
             {
+                System.out.println( "\t\t\tss = 3" );
                 if ( isSlope( thisBlock ) )
                 {
+                    System.out.println( "\t\t\t\tisSlope( thisBlock )" );
                     // Special behaviour where we bridge higher up because we
                     // are already on top of a slope.
 
                     Block twoAbove = world.getBlockAt( character.x, character.y - 2 );
 
                     if ( twoAbove == null || twoAbove.isBridge() ) {
+                        System.out.println( "\t\t\t\t\ttwoAbove == null || twoAbove.isBridge()" );
                         setBridgingState(
                             new BridgingInCornerUpRight1(),
                             new BridgingInCornerUpLeft1(),
@@ -331,6 +354,7 @@ public class Bridging extends CharacterActionStates
                     }
                     else
                     {
+                        System.out.println( "\t\t\t\t\telse" );
                         // We would hit our head, so don't bridge.
                         setBridgingState( new NotBridging() );
                         break;
@@ -338,6 +362,7 @@ public class Bridging extends CharacterActionStates
                 }
                 else
                 {
+                    System.out.println( "\t\t\t\telse" );
                     setBridgingState(
                         new BridgingInCornerRight1(),
                         new BridgingInCornerLeft1(),
@@ -348,8 +373,10 @@ public class Bridging extends CharacterActionStates
             }
             case 2:
             {
+                System.out.println( "\t\t\tss = 2" );
                 if ( isSlope( thisBlock ) )
                 {
+                    System.out.println( "\t\t\t\tisSlope( thisBlock )" );
                     setBridgingState(
                         new BridgingInCornerUpRight2(),
                         new BridgingInCornerUpLeft2(),
@@ -359,6 +386,7 @@ public class Bridging extends CharacterActionStates
                 }
                 else
                 {
+                    System.out.println( "\t\t\t\telse" );
                     setBridgingState(
                         new BridgingInCornerRight2(),
                         new BridgingInCornerLeft2(),
@@ -369,8 +397,10 @@ public class Bridging extends CharacterActionStates
             }
             case 1:
             {
+                System.out.println( "\t\t\tss = 1" );
                 if ( isSlope( thisBlock ) )
                 {
+                    System.out.println( "\t\t\t\tisSlope( thisBlock )" );
                     setBridgingState(
                         new BridgingInCornerUpRight3(),
                         new BridgingInCornerUpLeft3(),
@@ -380,6 +410,7 @@ public class Bridging extends CharacterActionStates
                 }
                 else
                 {
+                    System.out.println( "\t\t\t\telse" );
                     setBridgingState(
                         new BridgingInCornerRight3(),
                         new BridgingInCornerLeft3(),
@@ -390,7 +421,9 @@ public class Bridging extends CharacterActionStates
             }
             default:
             {
+                System.out.println( "\t\t\tdefault" );
                 setBridgingState( new NotBridging() );
+                break;
             }
         }
 
