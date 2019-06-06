@@ -511,6 +511,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_LEFT_1:
             case RABBIT_BRIDGING_LEFT_2:
             {
+                character.onSlope = true;
                 bridgeType = BridgeType.ALONG;
                 return true;
             }
@@ -519,6 +520,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_UP_LEFT_1:
             case RABBIT_BRIDGING_UP_LEFT_2:
             {
+                character.onSlope = true;
                 bridgeType = BridgeType.UP;
                 return true;
             }
@@ -527,6 +529,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
             case RABBIT_BRIDGING_DOWN_UP_LEFT_2:
             {
+                character.onSlope = true;
                 bridgeType = BridgeType.DOWN_UP;
                 return true;
             }
@@ -539,12 +542,14 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
             case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2:
             {
+                character.onSlope = true;
                 bridgeType = BridgeType.ALONG;
                 return true;
             }
             case RABBIT_BRIDGING_RIGHT_3:
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_3:
             {
+                character.onSlope = true;
                 character.x++;
                 world.changes.addBlock(
                     new Block(
@@ -561,6 +566,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_LEFT_3:
             case RABBIT_BRIDGING_DOWN_UP_LEFT_3:
             {
+                character.onSlope = true;
                 character.x--;
                 world.changes.addBlock(
                     new Block(
@@ -576,6 +582,7 @@ public class Bridging extends CharacterActionStates
             }
             case RABBIT_BRIDGING_UP_RIGHT_3:
             {
+                character.onSlope = true;
                 character.x++;
                 character.y--;
                 world.changes.addBlock(
@@ -592,6 +599,7 @@ public class Bridging extends CharacterActionStates
             }
             case RABBIT_BRIDGING_UP_LEFT_3:
             {
+                character.onSlope = true;
                 character.x--;
                 character.y--;
                 world.changes.addBlock(
