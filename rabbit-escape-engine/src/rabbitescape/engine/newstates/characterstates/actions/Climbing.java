@@ -63,6 +63,7 @@ public class Climbing extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
+        System.out.println( "\tnewState()" );
         if ( triggered )
         {
             hasAbility = true;
@@ -79,6 +80,7 @@ public class Climbing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
+        System.out.println( "\tbehave()" );
         BehaviourTools t = new BehaviourTools( character, world );
 
         if( t.rabbitIsClimbing() )
@@ -91,12 +93,14 @@ public class Climbing extends CharacterActionStates
             case RABBIT_CLIMBING_RIGHT_START:
             case RABBIT_CLIMBING_LEFT_START:
             {
+                System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_START, RABBIT_CLIMBING_LEFT_START" );
                 abilityActive = true;
                 return true;
             }
             case RABBIT_CLIMBING_RIGHT_END:
             case RABBIT_CLIMBING_LEFT_END:
             {
+                System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_END, RABBIT_CLIMBING_LEFT_END" );
                 character.x = t.nextX();
                 --character.y;
                 if ( t.hereIsUpSlope() )
@@ -109,12 +113,14 @@ public class Climbing extends CharacterActionStates
             case RABBIT_CLIMBING_RIGHT_CONTINUE_1:
             case RABBIT_CLIMBING_LEFT_CONTINUE_1:
             {
+                System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_CONTINUE_1, RABBIT_CLIMBING_LEFT_CONTINUE_1" );
                 abilityActive = true;
                 return true;
             }
             case RABBIT_CLIMBING_RIGHT_CONTINUE_2:
             case RABBIT_CLIMBING_LEFT_CONTINUE_2:
             {
+                System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_CONTINUE_2, RABBIT_CLIMBING_LEFT_CONTINUE_2" );
                 abilityActive = true;
                 --character.y;
                 return true;
@@ -122,11 +128,13 @@ public class Climbing extends CharacterActionStates
             case RABBIT_CLIMBING_RIGHT_BANG_HEAD:
             case RABBIT_CLIMBING_LEFT_BANG_HEAD:
             {
+                System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_BANG_HEAD, RABBIT_CLIMBING_LEFT_BANG_HEAD" );
                 character.dir = opposite( character.dir );
                 return true;
             }
             default:
             {
+                System.out.println( "\t\tdefault" );
                 return false;
             }
         }
