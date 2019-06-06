@@ -114,7 +114,6 @@ public class Bridging extends CharacterActionStates
         return ret;
     }
 
-    @SuppressWarnings("fallthrough")
     private static State bridgingState(
         BehaviourTools t,
         int bs,
@@ -164,7 +163,8 @@ public class Bridging extends CharacterActionStates
             )
         )
         {
-            return null; // Stop bridging
+            setBridgingState( new NotBridging() );
+            return bridgingState.newState(); // Stop bridging
         }
 
         boolean slopeDown = (
@@ -280,7 +280,6 @@ public class Bridging extends CharacterActionStates
         return bridgingState.newState();
     }
 
-    @SuppressWarnings("fallthrough")
     private static State stateIntoWall(
         BehaviourTools t, Character character, World world, int ss )
     {
@@ -295,7 +294,8 @@ public class Bridging extends CharacterActionStates
         // Don't bridge if there is no block behind us (we're not in a hole)
         if ( isSlope( thisBlock ) && world.getBlockAt( bx, ny ) == null )
         {
-            return null;
+            setBridgingState( new NotBridging() );
+            return bridgingState.newState();
         }
 
         switch( ss )
