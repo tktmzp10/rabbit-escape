@@ -144,6 +144,7 @@ public class Bashing extends CharacterActionStates
             else
             {
                 System.out.println( "///stepsOfBashing" );
+                setBashingState( new NotBashing() );
                 --stepsOfBashing;
             }
         }
