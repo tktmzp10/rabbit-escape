@@ -58,16 +58,12 @@ public class Digging extends CharacterActionStates
             return diggingState.newState();
         }
 
-        if (
-               triggered
-            || stepsOfDigging > 0
-        )
+        if ( triggered || stepsOfDigging > 0 )
         {
             if ( t.character.onSlope && t.blockHere() != null )
             {
                 stepsOfDigging = 1;
                 setDiggingState( new DiggingOnSlope() );
-                return diggingState.newState();
             }
             else if ( t.blockBelow() != null )
             {
@@ -75,19 +71,25 @@ public class Digging extends CharacterActionStates
                 {
                     stepsOfDigging = 0;
                     setDiggingState( new DiggingUselessly() );
-                    return diggingState.newState();
                 }
                 else
                 {
                 stepsOfDigging = 2;
                 setDiggingState( new DiggingNormal() );
-                return diggingState.newState();
                 }
             }
+            else
+            {
+                --stepsOfDigging;
+                setDiggingState( new NotDigging() );
+            }
+        }
+        else
+        {
+            --stepsOfDigging;
+            setDiggingState( new NotDigging() );
         }
 
-        --stepsOfDigging;
-        setDiggingState( new NotDigging() );
         return diggingState.newState();
     }
 
