@@ -11,10 +11,15 @@ import static rabbitescape.engine.Direction.opposite;
 public class ClimbingRightBangHead implements IClimbingState
 {
     @Override
-    public State newState( BehaviourTools t, boolean abilityActive, IClimbingState climbingState )
+    public State getState()
     {
-        climbingState = new ClimbingRightBangHead();
         return RABBIT_CLIMBING_RIGHT_BANG_HEAD;
+    }
+
+    @Override
+    public IClimbingState newState( BehaviourTools t, boolean abilityActive )
+    {
+        return new ClimbingRightBangHead();
     }
 
     @Override
