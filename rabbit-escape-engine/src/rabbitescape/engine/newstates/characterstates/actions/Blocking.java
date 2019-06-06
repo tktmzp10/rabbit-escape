@@ -53,21 +53,25 @@ public class Blocking extends CharacterActionStates
             t.character.possiblyUndoSlopeBashHop( t.world );
             abilityActive = true;
             Block here = t.blockHere();
+
             if( BehaviourTools.isRightRiseSlope( here ) )
             {
-                return RABBIT_BLOCKING_RISE_RIGHT;
+                setBlockingState( new BlockingRiseRight() );
             }
             else if ( BehaviourTools.isLeftRiseSlope( here ) )
             {
-                return RABBIT_BLOCKING_RISE_LEFT;
+                setBlockingState( new BlockingRiseLeft() );
             }
             else
             {
-                return RABBIT_BLOCKING;
+                setBlockingState( new BlockingNormal() );
             }
         }
+        else {
+            setBlockingState( new NotBlocking() );
+        }
 
-        return null;
+        return blockingState.getState();
     }
 
     @Override

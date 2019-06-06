@@ -47,6 +47,7 @@ public class WorldChanges
 
     public synchronized void apply()
     {
+        System.out.println( "/WorldChanges.apply()" );
         // Add any new things
         for ( Character rabbit : charactersToEnter )
         {
@@ -217,6 +218,7 @@ public class WorldChanges
 
     public synchronized void removeBlockAt( int x, int y )
     {
+        System.out.println( "/WorldChanges.removeBlockAt()" );
         Block block = world.getBlockAt( x, y );
         if ( block == null )
         {

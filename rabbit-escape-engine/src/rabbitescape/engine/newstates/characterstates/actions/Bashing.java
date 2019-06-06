@@ -23,6 +23,12 @@ public class Bashing extends CharacterActionStates
         this.bashingState = new NotBashing();
     }
 
+    @Override
+    public State getState()
+    {
+        return null;
+    }
+
     public void setBashingState( IBashingState bashingState )
     {
         this.bashingState = bashingState;
@@ -61,17 +67,13 @@ public class Bashing extends CharacterActionStates
     @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
-        System.out.println( "//newState()" );
         if ( triggered || stepsOfBashing > 0 )
         {
-            System.out.println( "triggered || stepsOfBashing > 0" );
             if (
                 t.isOnUpSlope()
                     && t.blockAboveNext() != null
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() != null" );
                 if (t.blockAboveNext().material == Block.Material.METAL)
                 {
                     stepsOfBashing = 0;
@@ -97,9 +99,6 @@ public class Bashing extends CharacterActionStates
                     && triggered
             )
             {
-                System.out.println( "t.isOnUpSlope()\n" +
-                    "                    && t.blockAboveNext() == null\n" +
-                    "                    && triggered" );
                 setBashingState(
                     new BashingUselesslyRightUp(),
                     new BashingUselesslyLeftUp(),
@@ -108,7 +107,6 @@ public class Bashing extends CharacterActionStates
             }
             else if ( t.blockNext() != null )
             {
-                System.out.println( "t.blockNext() != null" );
                 if ( t.blockNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
@@ -130,7 +128,6 @@ public class Bashing extends CharacterActionStates
             }
             else if ( triggered )
             {
-                System.out.println( "triggered" );
                 setBashingState(
                     new BashingUselesslyRight(),
                     new BashingUselesslyLeft(),
@@ -139,13 +136,13 @@ public class Bashing extends CharacterActionStates
             }
             else
             {
-                System.out.println( "--stepsOfBashing" );
+                setBashingState( new NotBashing() );
                 --stepsOfBashing;
             }
         }
         else
         {
-            System.out.println( "--stepsOfBashing" );
+            setBashingState( new NotBashing() );
             --stepsOfBashing;
         }
 
@@ -155,7 +152,6 @@ public class Bashing extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        System.out.println( "//behave()" );
         //TODO: Deal with duplicate code of destX().
         return bashingState.behave( world, character );
     }
@@ -179,12 +175,5 @@ public class Bashing extends CharacterActionStates
         {
             ++stepsOfBashing;
         }
-    }
-
-
-    @Override
-    public State getState()
-    {
-        return null;
     }
 }
