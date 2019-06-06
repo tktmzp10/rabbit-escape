@@ -114,6 +114,7 @@ public class Bridging extends CharacterActionStates
         return ret;
     }
 
+    @SuppressWarnings("fallthrough")
     private static State bridgingState(
         BehaviourTools t,
         int bs,
@@ -279,6 +280,7 @@ public class Bridging extends CharacterActionStates
         return bridgingState.newState();
     }
 
+    @SuppressWarnings("fallthrough")
     private static State stateIntoWall(
         BehaviourTools t, Character character, World world, int ss )
     {
