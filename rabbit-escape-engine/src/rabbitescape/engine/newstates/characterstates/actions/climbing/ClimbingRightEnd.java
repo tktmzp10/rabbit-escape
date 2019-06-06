@@ -10,7 +10,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_RIGHT_
 public class ClimbingRightEnd implements IClimbingState
 {
     @Override
-    public State newState()
+    public State newState( BehaviourTools t, boolean abilityActive )
     {
         return RABBIT_CLIMBING_RIGHT_END;
     }

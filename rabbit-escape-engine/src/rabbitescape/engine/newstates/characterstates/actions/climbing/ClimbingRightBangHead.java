@@ -1,5 +1,6 @@
 package rabbitescape.engine.newstates.characterstates.actions.climbing;
 
+import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
@@ -10,7 +11,7 @@ import static rabbitescape.engine.Direction.opposite;
 public class ClimbingRightBangHead implements IClimbingState
 {
     @Override
-    public State newState()
+    public State newState( BehaviourTools t, boolean abilityActive )
     {
         return RABBIT_CLIMBING_RIGHT_BANG_HEAD;
     }
