@@ -134,6 +134,7 @@ public class Climbing extends CharacterActionStates
             case RABBIT_CLIMBING_LEFT_BANG_HEAD:
             {
                 System.out.println( "\t\tRABBIT_CLIMBING_RIGHT_BANG_HEAD, RABBIT_CLIMBING_LEFT_BANG_HEAD" );
+                abilityActive = false;
                 character.dir = opposite( character.dir );
                 return true;
             }

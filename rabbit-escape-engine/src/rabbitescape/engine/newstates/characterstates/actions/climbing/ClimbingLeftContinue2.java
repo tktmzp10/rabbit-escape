@@ -23,7 +23,6 @@ public class ClimbingLeftContinue2 implements IClimbingState
 
         if ( t.isRoof( aboveBlock ) )
         {
-            abilityActive = false;
             return new ClimbingLeftBangHead();
         }
 
