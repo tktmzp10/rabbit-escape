@@ -4,12 +4,46 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
+import rabbitescape.engine.newstates.characterstates.actions.waiting.IWaitingState;
+import rabbitescape.engine.newstates.characterstates.actions.waiting.NotWaiting;
+import rabbitescape.engine.newstates.characterstates.actions.waiting.WaitingLeft;
+import rabbitescape.engine.newstates.characterstates.actions.waiting.WaitingRight;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
+import static rabbitescape.engine.Direction.RIGHT;
+
 public class RabbotWait extends CharacterActionStates
 {
+    private IWaitingState waitingState;
+
+    public RabbotWait()
+    {
+        setWaitingState( new NotWaiting() );
+    }
+
+    public void setWaitingState( IWaitingState waitingState )
+    {
+        this.waitingState = waitingState;
+    }
+
+    public void setWaitingState(
+        IWaitingState right,
+        IWaitingState left,
+        Character character
+    )
+    {
+        if ( character.dir == RIGHT )
+        {
+            setWaitingState( right );
+        }
+        else
+        {
+            setWaitingState( left );
+        }
+    }
+
     private boolean within1Vertically( Character otherRabbit, Character rabbit )
     {
         return ( Math.abs( otherRabbit.y - rabbit.y ) < 2 );
@@ -19,7 +53,7 @@ public class RabbotWait extends CharacterActionStates
     {
         if ( 
             otherRabbit.x == rabbit.x - 1 &&
-            otherRabbit.dir == Direction.RIGHT &&
+            otherRabbit.dir == RIGHT &&
             rabbit.dir == Direction.LEFT 
         )
         {
@@ -28,7 +62,7 @@ public class RabbotWait extends CharacterActionStates
         else if ( 
             otherRabbit.x == rabbit.x + 1 &&
             otherRabbit.dir == Direction.LEFT &&
-            rabbit.dir == Direction.RIGHT 
+            rabbit.dir == RIGHT
         )
         {
             return true;
@@ -74,15 +108,14 @@ public class RabbotWait extends CharacterActionStates
     {
         if ( triggered )
         {
-            return t.rl( 
-                State.RABBIT_WAITING_RIGHT,
-                State.RABBIT_WAITING_LEFT 
+            setWaitingState(
+                new WaitingRight(),
+                new WaitingLeft(),
+                t.character
             );
         }
-        else
-        {
-            return null;
-        }
+
+        return waitingState.newState();
     }
 
     @Override
@@ -94,14 +127,6 @@ public class RabbotWait extends CharacterActionStates
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        if ( 
-            state == State.RABBIT_WAITING_LEFT ||
-            state == State.RABBIT_WAITING_RIGHT 
-        )
-        {
-            return true;
-        }
-
-        return false;
+        return waitingState.behave( world, character );
     }
 }

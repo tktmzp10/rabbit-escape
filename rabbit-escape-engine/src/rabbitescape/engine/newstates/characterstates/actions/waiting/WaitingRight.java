@@ -19,6 +19,6 @@ public class WaitingRight implements IWaitingState
         World world, Character character
     )
     {
-        return false;
+        return true;
     }
 }
