@@ -22,7 +22,7 @@ public class Falling extends CharacterActionStates
     public Falling( 
         Climbing climbing, 
         Brollychuting brollychuting,
-        int fatalHeight 
+        int fatalHeight
     )
     {
         this.climbing = climbing;
@@ -38,75 +38,6 @@ public class Falling extends CharacterActionStates
     @Override
     public void cancel()
     {
-    }
-
-    @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        boolean handled = moveRabbit( world, character, state );
-
-        if ( handled )
-        {
-            // Whenever we fall onto a slope, we are on top of it
-            Block thisBlock = world.getBlockAt( character.x, character.y );
-            if ( thisBlock != null && thisBlock.shape != FLAT )
-            {
-                character.onSlope = true;
-            }
-            else
-            {
-                character.onSlope = false;
-            }
-        }
-
-        return handled;
-    }
-
-    private boolean moveRabbit( World world, Character character, State state )
-    {
-        switch ( state )
-        {
-            case RABBIT_DYING_OF_FALLING:
-            case RABBIT_DYING_OF_FALLING_2:
-            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT_2:
-            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT_2:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2:
-            {
-                world.changes.killRabbit( character );
-                return true;
-            }
-            case RABBIT_FALLING:
-            case RABBIT_FALLING_ONTO_LOWER_RIGHT:
-            case RABBIT_FALLING_ONTO_LOWER_LEFT:
-            case RABBIT_FALLING_ONTO_RISE_RIGHT:
-            case RABBIT_FALLING_ONTO_RISE_LEFT:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT:
-            {
-                heightFallen += 2;
-                character.y = character.y + 2;
-                return true;
-            }
-            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT:
-            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT:
-            case RABBIT_FALLING_1_TO_DEATH:
-            case RABBIT_FALLING_1:
-            case RABBIT_FALLING_1_ONTO_LOWER_RIGHT:
-            case RABBIT_FALLING_1_ONTO_LOWER_LEFT:
-            case RABBIT_FALLING_1_ONTO_RISE_RIGHT:
-            case RABBIT_FALLING_1_ONTO_RISE_LEFT:
-            {
-                heightFallen += 1;
-                character.y = character.y + 1;
-                return true;
-            }
-            default:
-            {
-                heightFallen = 0;
-                return false;
-            }
-        }
     }
 
     @Override
@@ -151,7 +82,7 @@ public class Falling extends CharacterActionStates
         if (
             ( heightFallen + 1 > fatalHeight )      // Going to die
                 && ( t.isFlat( t.block2Below() )    // during step
-                || t.blockBelow() != null
+                         || t.blockBelow() != null
             )
         )
         {
@@ -225,6 +156,75 @@ public class Falling extends CharacterActionStates
             else
             {
                 return State.RABBIT_FALLING;
+            }
+        }
+    }
+
+    @Override
+    public boolean behave( World world, Character character, State state )
+    {
+        boolean handled = moveRabbit( world, character, state );
+
+        if ( handled )
+        {
+            // Whenever we fall onto a slope, we are on top of it
+            Block thisBlock = world.getBlockAt( character.x, character.y );
+            if ( thisBlock != null && thisBlock.shape != FLAT )
+            {
+                character.onSlope = true;
+            }
+            else
+            {
+                character.onSlope = false;
+            }
+        }
+
+        return handled;
+    }
+
+    private boolean moveRabbit( World world, Character character, State state )
+    {
+        switch ( state )
+        {
+            case RABBIT_DYING_OF_FALLING:
+            case RABBIT_DYING_OF_FALLING_2:
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT_2:
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT_2:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2:
+            {
+                world.changes.killRabbit( character );
+                return true;
+            }
+            case RABBIT_FALLING:
+            case RABBIT_FALLING_ONTO_LOWER_RIGHT:
+            case RABBIT_FALLING_ONTO_LOWER_LEFT:
+            case RABBIT_FALLING_ONTO_RISE_RIGHT:
+            case RABBIT_FALLING_ONTO_RISE_LEFT:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT:
+            {
+                heightFallen += 2;
+                character.y = character.y + 2;
+                return true;
+            }
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT:
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT:
+            case RABBIT_FALLING_1_TO_DEATH:
+            case RABBIT_FALLING_1:
+            case RABBIT_FALLING_1_ONTO_LOWER_RIGHT:
+            case RABBIT_FALLING_1_ONTO_LOWER_LEFT:
+            case RABBIT_FALLING_1_ONTO_RISE_RIGHT:
+            case RABBIT_FALLING_1_ONTO_RISE_LEFT:
+            {
+                heightFallen += 1;
+                character.y = character.y + 1;
+                return true;
+            }
+            default:
+            {
+                heightFallen = 0;
+                return false;
             }
         }
     }

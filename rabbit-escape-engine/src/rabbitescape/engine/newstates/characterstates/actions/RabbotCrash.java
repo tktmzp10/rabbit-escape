@@ -4,12 +4,27 @@ import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
+import rabbitescape.engine.newstates.characterstates.actions.crashing.CrashingNormal;
+import rabbitescape.engine.newstates.characterstates.actions.crashing.ICrashingState;
+import rabbitescape.engine.newstates.characterstates.actions.crashing.NotCrashing;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.characters.Rabbot;
 
 public class RabbotCrash extends CharacterActionStates
 {
+    private ICrashingState crashingState;
+
+    public RabbotCrash()
+    {
+        setCrashingState( new NotCrashing() );
+    }
+
+    public void setCrashingState( ICrashingState crashingState )
+    {
+        this.crashingState = crashingState;
+    }
+
     @Override
     public void cancel()
     {
@@ -40,24 +55,16 @@ public class RabbotCrash extends CharacterActionStates
     {
         if ( triggered )
         {
-            return State.RABBIT_CRASHING;
+            setCrashingState( new CrashingNormal() );
         }
-        else
-        {
-            return null;
-        }
+
+        return crashingState.newState();
     }
 
     @Override
     public boolean behave( World world, Character character, State state )
     {
-        if ( state == State.RABBIT_CRASHING )
-        {
-            world.changes.killRabbit( character );
-            return true;
-        }
-
-        return false;
+        return crashingState.behave( world, character );
     }
 
     @Override

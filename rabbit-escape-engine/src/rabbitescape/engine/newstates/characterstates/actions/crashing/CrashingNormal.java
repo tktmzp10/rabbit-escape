@@ -4,6 +4,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
+import static rabbitescape.engine.ChangeDescription.State.RABBIT_CRASHING;
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_WAITING_LEFT;
 
 public class CrashingNormal implements ICrashingState
@@ -11,7 +12,7 @@ public class CrashingNormal implements ICrashingState
     @Override
     public State newState()
     {
-        return RABBIT_WAITING_LEFT;
+        return RABBIT_CRASHING;
     }
 
     @Override
@@ -19,6 +20,7 @@ public class CrashingNormal implements ICrashingState
         World world, Character character
     )
     {
-        return false;
+        world.changes.killRabbit( character );
+        return true;
     }
 }
