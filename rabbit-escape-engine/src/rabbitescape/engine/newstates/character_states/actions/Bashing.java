@@ -29,11 +29,7 @@ public class Bashing extends CharacterActionStates {
         this.bashingState = bashingState;
     }
 
-    public void setBashingState(
-        IBashingState right,
-        IBashingState left,
-        Character character
-    ) {
+    public void setBashingState(IBashingState right, IBashingState left, Character character ) {
         if (character.dir == RIGHT) {
             setBashingState(right);
         } else {
@@ -56,87 +52,69 @@ public class Bashing extends CharacterActionStates {
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
         if (triggered || stepsOfBashing > 0) {
-            if (
-                t.isOnUpSlope()
-                    && t.blockAboveNext() != null
-            ) {
-                if (t.blockAboveNext().material == Block.Material.METAL) {
-                    stepsOfBashing = 0;
-                    setBashingState(
-                        new BashingUselesslyRightUp(),
-                        new BashingUselesslyLeftUp(),
-                        t.character
-                    );
-                } else {
-                    stepsOfBashing = 2;
-                    setBashingState(
-                        new BashingUpRight(),
-                        new BashingUpLeft(),
-                        t.character
-                    );
-                }
-            } else if (
-                t.isOnUpSlope()
-                    && t.blockAboveNext() == null
-                    && triggered
-            ) {
-                setBashingState(
-                    new BashingUselesslyRightUp(),
-                    new BashingUselesslyLeftUp(),
-                    t.character
-                );
-            } else if (t.blockNext() != null) {
-                if (t.blockNext().material == Block.Material.METAL) {
-                    stepsOfBashing = 0;
-                    setBashingState(
-                        new BashingUselesslyRight(),
-                        new BashingUselesslyLeft(),
-                        t.character
-                    );
-                } else {
-                    stepsOfBashing = 2;
-                    setBashingState(
-                        new BashingRight(),
-                        new BashingLeft(),
-                        t.character
-                    );
-                }
-            } else if (triggered) {
-                setBashingState(
-                    new BashingUselesslyRight(),
-                    new BashingUselesslyLeft(),
-                    t.character
-                );
-            } else {
-                setBashingState(new NotBashing());
-                --stepsOfBashing;
-            }
-        } else {
-            setBashingState(new NotBashing());
-            --stepsOfBashing;
+            newStateWhenActive(t, triggered);
+        }
+        else {
+            newStateWhenNotActive();
         }
 
         return bashingState.newState();
     }
 
+    private void newStateWhenActive(BehaviourTools t, boolean triggered) {
+        if (t.isOnUpSlope() && t.blockAboveNext() != null ) {
+            if (t.blockAboveNext().material == Block.Material.METAL) {
+                stepsOfBashing = 0;
+                setBashingState(new BashingUselesslyRightUp(), new BashingUselesslyLeftUp(), t.character);
+            }
+            else {
+                stepsOfBashing = 2;
+                setBashingState(new BashingUpRight(), new BashingUpLeft(), t.character);
+            }
+        }
+        else if (t.isOnUpSlope() && t.blockAboveNext() == null && triggered) {
+            setBashingState(new BashingUselesslyRightUp(), new BashingUselesslyLeftUp(), t.character);
+        }
+        else if (t.blockNext() != null) {
+            if (t.blockNext().material == Block.Material.METAL) {
+                stepsOfBashing = 0;
+                setBashingState(new BashingUselesslyRight(), new BashingUselesslyLeft(), t.character);
+            }
+            else {
+                stepsOfBashing = 2;
+                setBashingState(new BashingRight(), new BashingLeft(), t.character);
+            }
+        }
+        else if (triggered) {
+            setBashingState(new BashingUselesslyRight(), new BashingUselesslyLeft(), t.character);
+        }
+        else {
+            newStateWhenNotActive();
+        }
+    }
+
+    private void newStateWhenNotActive() {
+        setBashingState(new NotBashing());
+        --stepsOfBashing;
+    }
+
     @Override
     public boolean behave(World world, Character character, State state) {
-        //TODO: Deal with duplicate code of destX().
         return bashingState.behave(world, character);
+    }
+
+    public static int destX(Character character) {
+        return (character.dir == RIGHT) ? character.x + 1 : character.x - 1;
     }
 
     @Override
     public void saveState(Map<String, String> saveState) {
-        BehaviourState.addToStateIfGtZero(
-            saveState, "Bashing.stepsOfBashing", stepsOfBashing
-        );
+        BehaviourState.addToStateIfGtZero(saveState, "Bashing.stepsOfBashing", stepsOfBashing);
     }
 
     @Override
     public void restoreFromState(Map<String, String> saveState) {
-        stepsOfBashing = BehaviourState.restoreFromState(
-            saveState, "Bashing.stepsOfBashing", stepsOfBashing
-        );
+        stepsOfBashing = BehaviourState.restoreFromState(saveState, "Bashing.stepsOfBashing", stepsOfBashing);
 
         if (stepsOfBashing > 0) {
             ++stepsOfBashing;
