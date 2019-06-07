@@ -446,7 +446,7 @@ public class World
             }
         }
 
-        return ret.toArray( new Rabbit[ret.size()] );
+        return ret.toArray( new Character[ret.size()] );
     }
 
     public int numRabbitsOut()
