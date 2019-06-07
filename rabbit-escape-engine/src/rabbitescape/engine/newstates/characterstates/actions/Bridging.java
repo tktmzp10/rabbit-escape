@@ -478,6 +478,14 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_RIGHT_2:
             case RABBIT_BRIDGING_LEFT_1:
             case RABBIT_BRIDGING_LEFT_2:
+            case RABBIT_BRIDGING_IN_CORNER_RIGHT_1:
+            case RABBIT_BRIDGING_IN_CORNER_LEFT_1:
+            case RABBIT_BRIDGING_IN_CORNER_RIGHT_2:
+            case RABBIT_BRIDGING_IN_CORNER_LEFT_2:
+            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
+            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2:
             {
                 character.onSlope = true;
                 bridgeType = BridgeType.ALONG;
@@ -501,19 +509,7 @@ public class Bridging extends CharacterActionStates
                 bridgeType = BridgeType.DOWN_UP;
                 return true;
             }
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2:
-            {
-                character.onSlope = true;
-                bridgeType = BridgeType.ALONG;
-                return true;
-            }
+
             case RABBIT_BRIDGING_RIGHT_3:
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_3:
             {

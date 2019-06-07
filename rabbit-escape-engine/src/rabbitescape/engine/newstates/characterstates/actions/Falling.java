@@ -110,41 +110,6 @@ public class Falling extends CharacterActionStates
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        if (   climbing.abilityActive
-            || character.state == RABBIT_DIGGING
-            || brollychuting.hasBrolly() )
-        {
-            return false;
-        }
-
-        BehaviourTools t = new BehaviourTools( character, world );
-
-        //noinspection RedundantIfStatement
-        if ( t.isFlat( t.blockBelow() ) )
-        {
-            return false;
-        }
-
-        if (
-               character.onSlope
-            && !t.blockHereJustRemoved()
-        )
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public State getState()
-    {
-        return null;
-    }
-
-    @Override
     public State newState( BehaviourTools t, boolean triggered )
     {
         if ( RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT == t.character.state )
@@ -184,9 +149,8 @@ public class Falling extends CharacterActionStates
         }
 
         if (
-               ( heightFallen + 1 > fatalHeight )              // Going to die
-            && (                                               // during step
-                   t.isFlat( t.block2Below() )
+            ( heightFallen + 1 > fatalHeight )      // Going to die
+                && ( t.isFlat( t.block2Below() )    // during step
                 || t.blockBelow() != null
             )
         )
@@ -263,6 +227,41 @@ public class Falling extends CharacterActionStates
                 return State.RABBIT_FALLING;
             }
         }
+    }
+
+    @Override
+    public boolean checkTriggered( Character character, World world )
+    {
+        if (   climbing.abilityActive
+            || character.state == RABBIT_DIGGING
+            || brollychuting.hasBrolly() )
+        {
+            return false;
+        }
+
+        BehaviourTools t = new BehaviourTools( character, world );
+
+        //noinspection RedundantIfStatement
+        if ( t.isFlat( t.blockBelow() ) )
+        {
+            return false;
+        }
+
+        if (
+               character.onSlope
+            && !t.blockHereJustRemoved()
+        )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public State getState()
+    {
+        return null;
     }
 
     @Override
