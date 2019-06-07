@@ -7,31 +7,29 @@ import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class Fire extends Environment
+public abstract class Fire extends Thing
 {
     public int variant;
 
     private final State baseVariant;
 
-    public Fire( int x, int y, int variant )
+    public Fire( int x, int y, State state )
     {
-        super( x, y, stateForVariant( variant ) );
-        this.variant = variant;
+        super( x, y, state);
         baseVariant = state;
     }
-
-    private static State stateForVariant( int variant )
-    {
-        switch ( variant )
+    
+    public static Fire createFire(int x, int y, int variant) {
+    	switch ( variant )
         {
         case 0:
-            return FIRE_A;
+        	return new Fire_A(x, y);
         case 1:
-            return FIRE_B;
+            return new Fire_B(x, y);
         case 2:
-            return FIRE_C;
+            return new Fire_C(x, y);
         case 3:
-            return FIRE_D;
+            return new Fire_D(x, y);
         }
         throw new RuntimeException(
             "Variant outside expected range (0 - 3):" + variant );
@@ -104,83 +102,26 @@ public class Fire extends Environment
 		return false;
 	}
 
-	private void changeStateRiseLeft() {
-		state = baseVariantSwitch( 
-		    FIRE_A_RISE_LEFT, 
-		    FIRE_B_RISE_LEFT,     
-		    FIRE_C_RISE_LEFT, 
-		    FIRE_D_RISE_LEFT 
-		);
-	}
+    abstract void changeStateRiseLeft();
 
 
-	private void changeStateRiseRight() {
-		state = baseVariantSwitch( 
-		    FIRE_A_RISE_RIGHT, 
-		    FIRE_B_RISE_RIGHT,
-		    FIRE_C_RISE_RIGHT, 
-		    FIRE_D_RISE_RIGHT 
-		);
-	}
+	abstract void changeStateRiseRight();
 
 
-	private void changeStateFalling() {
-		state = baseVariantSwitch( 
-		    FIRE_A_FALLING, 
-		    FIRE_B_FALLING,       
-		    FIRE_C_FALLING, 
-		    FIRE_D_FALLING 
-		);
-	}
+	abstract void changeStateFalling();
 
 
+	abstract void changeStateFallToRiseRight();
 
 
-	private void changeStateFallToRiseRight() {
-		state = baseVariantSwitch( 
-		    FIRE_A_FALL_TO_RISE_RIGHT,
-		    FIRE_B_FALL_TO_RISE_RIGHT,
-		    FIRE_C_FALL_TO_RISE_RIGHT,
-		    FIRE_D_FALL_TO_RISE_RIGHT 
-		);
-	}
-
-
-
-
-	private void changeStateFallToRiseLeft() {
-		state = baseVariantSwitch( 
-		    FIRE_A_FALL_TO_RISE_LEFT,
-		    FIRE_B_FALL_TO_RISE_LEFT,
-		    FIRE_C_FALL_TO_RISE_LEFT,
-		    FIRE_D_FALL_TO_RISE_LEFT 
-		);
-	}
-
+	abstract void changeStateFallToRiseLeft();
+	
 	private boolean isStill(World world, boolean flatBelow) {
 		return flatBelow
 		|| ( world.getBlockAt( x, y ) != null )
 		|| BridgeTools.someoneIsBridgingAt( world, x, y );
 	}
    
-
-    private State baseVariantSwitch( State a, State b, State c, State d )
-    {
-        switch ( baseVariant )
-        {
-        case FIRE_A:
-            return a;
-        case FIRE_B:
-            return b;
-        case FIRE_C:
-            return c;
-        case FIRE_D:
-            return d;
-        default:
-            throw new RuntimeException( "Fire not in fire state:" + state );
-        }
-    }
-
     @Override
     public void step( World world )
     {
