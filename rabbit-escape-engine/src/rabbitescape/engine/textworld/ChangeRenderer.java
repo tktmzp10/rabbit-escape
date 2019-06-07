@@ -4,9 +4,6 @@ import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.ChangeDescription.Change;
 import rabbitescape.engine.RabbitStates;
 import rabbitescape.engine.StateAndPosition;
-import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningNormal;
-import rabbitescape.engine.newstates.characterstates.behaviours.burning.BurningOnSlope;
-import rabbitescape.engine.newstates.characterstates.behaviours.drowning.DrowningNormal;
 import rabbitescape.engine.util.Position;
 
 public class ChangeRenderer {
