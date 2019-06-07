@@ -129,16 +129,18 @@ public class Falling extends CharacterActionStates
                 if ( heightFallen % 2 == 0 )
                 {
                     setFallingState( new DyingOfFalling() );
+                    return fallingState.newState();
                 }
                 else
                 {
                     setFallingState( new DyingOfFalling2() );
+                    return fallingState.newState();
                 }
             }
             else {
                 setFallingState( new NotFalling() );
+                return fallingState.newState();
             }
-            return fallingState.newState();
         }
 
         if (
@@ -151,14 +153,17 @@ public class Falling extends CharacterActionStates
             if( BehaviourTools.isRightRiseSlope( t.blockBelow() ) )
             {
                 setFallingState( new DyingOfFallingSlopeRiseRight() );
+                return fallingState.newState();
             }
             else if( BehaviourTools.isLeftRiseSlope( t.blockBelow() ) )
             {
                 setFallingState( new DyingOfFallingSlopeRiseLeft() );
+                return fallingState.newState();
             }
             else
             {
                 setFallingState( new Falling1ToDeath() );
+                return fallingState.newState();
             }
         }
         else
@@ -173,6 +178,7 @@ public class Falling extends CharacterActionStates
                         new Falling1OntoRiseLeft(),
                         t.character
                     );
+                    return fallingState.newState();
                 }
                 else // Must be a slope in the opposite direction
                 {
@@ -181,9 +187,8 @@ public class Falling extends CharacterActionStates
                         new Falling1OntoLowerLeft(),
                         t.character
                     );
+                    return fallingState.newState();
                 }
-
-                return fallingState.newState();
             }
 
             Block twoBelow = t.block2Below();
@@ -193,15 +198,18 @@ public class Falling extends CharacterActionStates
                     && BehaviourTools.isRightRiseSlope( twoBelow ) )
                 {
                     setFallingState( new DyingOfFalling2SlopeRiseRight() );
+                    return fallingState.newState();
                 }
                 if (   heightFallen + 1 > fatalHeight
                     && BehaviourTools.isLeftRiseSlope( twoBelow ) )
                 {
                     setFallingState( new DyingOfFalling2SlopeRiseLeft() );
+                    return fallingState.newState();
                 }
                 if ( t.isFlat( twoBelow ) ) // Flat block
                 {
                     setFallingState( new Falling1() );
+                    return fallingState.newState();
                 }
                 if( t.isUpSlope( twoBelow ) )
                 {
@@ -210,6 +218,7 @@ public class Falling extends CharacterActionStates
                         new FallingOntoRiseLeft(),
                         t.character
                     );
+                    return fallingState.newState();
                 }
                 else
                 {
@@ -218,16 +227,15 @@ public class Falling extends CharacterActionStates
                         new FallingOntoLowerLeft(),
                         t.character
                     );
+                    return fallingState.newState();
                 }
-                return fallingState.newState();
             }
             else
             {
                 setFallingState( new FallingNormal() );
+                return fallingState.newState();
             }
         }
-
-        return fallingState.newState();
     }
 
     @Override
