@@ -2,7 +2,6 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
-import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.bashing.*;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.items.BashItem;
 
 public class Bashing extends CharacterActionStates {
 
@@ -52,7 +52,7 @@ public class Bashing extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        return t.pickUpToken(bash);
+        return t.pickUpToken(BashItem.TYPE);
     }
 
     @Override

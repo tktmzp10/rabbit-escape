@@ -6,14 +6,14 @@ import rabbitescape.engine.things.Item;
 
 public class DigItem extends Item {
 
-    private static final ItemType type = ItemType.dig;
+    public static final ItemType TYPE = ItemType.dig;
 
     public DigItem(int x, int y) {
-        super(x, y, State.TOKEN_DIG_FALL_TO_SLOPE, type);
+        super(x, y, State.TOKEN_DIG_FALL_TO_SLOPE, TYPE );
     }
 
     public DigItem(int x, int y, World world) {
-        super(x, y, State.TOKEN_DIG_FALL_TO_SLOPE, type, world);
+        super(x, y, State.TOKEN_DIG_FALL_TO_SLOPE, TYPE, world);
     }
 
     @Override

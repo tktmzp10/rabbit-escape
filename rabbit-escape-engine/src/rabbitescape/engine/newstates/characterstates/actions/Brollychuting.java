@@ -2,7 +2,6 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.RIGHT;
-import static rabbitescape.engine.things.items.ItemType.brolly;
 
 import java.util.Map;
 
@@ -17,6 +16,7 @@ import rabbitescape.engine.newstates.characterstates.actions.brollychuting.IBrol
 import rabbitescape.engine.newstates.characterstates.actions.brollychuting.NotBrollychuting;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
+import rabbitescape.engine.things.items.BrollyItem;
 
 public class Brollychuting extends CharacterActionStates {
 
@@ -98,7 +98,7 @@ public class Brollychuting extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        if (!hasAbility && t.pickUpToken(brolly, true)) {
+        if (!hasAbility && t.pickUpToken(BrollyItem.TYPE, true)) {
             return true;
         }
 

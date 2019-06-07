@@ -2,7 +2,6 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Direction.RIGHT;
-import static rabbitescape.engine.things.items.ItemType.*;
 import static rabbitescape.engine.Block.Shape.*;
 
 import java.util.Map;
@@ -15,6 +14,7 @@ import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging1.
 import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging2.*;
 import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging3.*;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.items.BridgeItem;
 
 public class Bridging extends CharacterActionStates {
 
@@ -74,7 +74,7 @@ public class Bridging extends CharacterActionStates {
 
             if (possibleState != null) // Only pick up if we can bridge
             {
-                return t.pickUpToken(bridge);
+                return t.pickUpToken(BridgeItem.TYPE);
             }
         }
         return false;

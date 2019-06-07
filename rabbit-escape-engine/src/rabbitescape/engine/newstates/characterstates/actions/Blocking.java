@@ -1,7 +1,6 @@
 package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.blocking.*;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.items.BlockItem;
 
 public class Blocking extends CharacterActionStates {
 
@@ -32,7 +32,7 @@ public class Blocking extends CharacterActionStates {
     @Override
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
-        return t.pickUpToken(block);
+        return t.pickUpToken(BlockItem.TYPE);
     }
 
     @Override

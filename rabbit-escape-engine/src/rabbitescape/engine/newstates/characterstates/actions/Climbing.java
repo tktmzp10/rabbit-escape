@@ -2,7 +2,6 @@ package rabbitescape.engine.newstates.characterstates.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
-import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.climbing.IClimbingState;
 import rabbitescape.engine.newstates.characterstates.actions.climbing.NotClimbing;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.items.ClimbItem;
 
 public class Climbing extends CharacterActionStates {
 
@@ -49,7 +49,7 @@ public class Climbing extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        return !hasAbility && t.pickUpToken(climb, true);
+        return !hasAbility && t.pickUpToken(ClimbItem.TYPE, true);
     }
 
     @Override

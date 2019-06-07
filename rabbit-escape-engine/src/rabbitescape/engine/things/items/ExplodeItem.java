@@ -6,14 +6,14 @@ import rabbitescape.engine.things.Item;
 
 public class ExplodeItem extends Item {
 
-    private static final ItemType type = ItemType.explode;
+    public static final ItemType TYPE = ItemType.explode;
 
     public ExplodeItem(int x, int y) {
-        super(x, y, State.TOKEN_EXPLODE_FALL_TO_SLOPE, type);
+        super(x, y, State.TOKEN_EXPLODE_FALL_TO_SLOPE, TYPE );
     }
 
     public ExplodeItem(int x, int y, World world) {
-        super(x, y, State.TOKEN_EXPLODE_FALL_TO_SLOPE, type, world);
+        super(x, y, State.TOKEN_EXPLODE_FALL_TO_SLOPE, TYPE, world);
     }
 
     @Override
