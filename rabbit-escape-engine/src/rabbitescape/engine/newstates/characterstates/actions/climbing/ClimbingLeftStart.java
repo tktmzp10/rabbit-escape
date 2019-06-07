@@ -8,25 +8,20 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-public class ClimbingLeftStart implements IClimbingState
-{
+public class ClimbingLeftStart implements IClimbingState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_CLIMBING_LEFT_START;
     }
 
     @Override
-    public IClimbingState newState( BehaviourTools t, boolean abilityActive )
-    {
+    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
         Block endBlock = t.blockAboveNext();
 
-        if ( t.isWall( endBlock ) )
-        {
+        if (t.isWall(endBlock)) {
             return new ClimbingLeftContinue2();
-        }
-        else
-        {
+        } else {
             return new ClimbingLeftEnd();
         }
     }
@@ -34,8 +29,7 @@ public class ClimbingLeftStart implements IClimbingState
     @Override
     public boolean behave(
         World world, Character character, boolean abilityActive
-    )
-    {
+    ) {
         abilityActive = true;
         return true;
     }

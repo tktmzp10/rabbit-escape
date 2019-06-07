@@ -1,15 +1,15 @@
 package rabbitescape.engine.solution;
 
-public interface CommandActionTypeSwitch
-{
-    void caseWaitAction( WaitAction waitAction );
+public interface CommandActionTypeSwitch {
 
-    void caseSelectAction( SelectAction selectAction );
+    void caseWaitAction(WaitAction waitAction);
 
-    void caseAssertStateAction( AssertStateAction targetStateAction )
+    void caseSelectAction(SelectAction selectAction);
+
+    void caseAssertStateAction(AssertStateAction targetStateAction)
         throws SolutionExceptions.UnexpectedState;
 
-    void casePlaceTokenAction( PlaceTokenAction placeTokenAction );
+    void casePlaceTokenAction(PlaceTokenAction placeTokenAction);
 
-    void caseUntilAction( UntilAction untilAction );
+    void caseUntilAction(UntilAction untilAction);
 }

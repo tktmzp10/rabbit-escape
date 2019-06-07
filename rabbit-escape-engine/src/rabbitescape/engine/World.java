@@ -20,68 +20,63 @@ import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;
 
-public class World
-{
-    public static class DontStepAfterFinish extends RabbitEscapeException
-    {
+public class World {
+
+    public static class DontStepAfterFinish extends RabbitEscapeException {
+
         private static final long serialVersionUID = 1L;
 
         public final String worldName;
 
-        public DontStepAfterFinish( String worldName )
-        {
+        public DontStepAfterFinish(String worldName) {
             this.worldName = worldName;
         }
     }
 
-    public static class NoBlockFound extends RabbitEscapeException
-    {
+    public static class NoBlockFound extends RabbitEscapeException {
+
         private static final long serialVersionUID = 1L;
 
         public final int x;
         public final int y;
 
-        public NoBlockFound( int x, int y )
-        {
+        public NoBlockFound(int x, int y) {
             this.x = x;
             this.y = y;
         }
     }
 
-    public static class UnableToAddToken extends RabbitEscapeException
-    {
+    public static class UnableToAddToken extends RabbitEscapeException {
+
         private static final long serialVersionUID = 1L;
 
         public final ItemType ability;
 
-        public UnableToAddToken( ItemType ability )
-        {
+        public UnableToAddToken(ItemType ability) {
             this.ability = ability;
         }
     }
 
-    public static class NoSuchAbilityInThisWorld extends UnableToAddToken
-    {
+    public static class NoSuchAbilityInThisWorld extends UnableToAddToken {
+
         private static final long serialVersionUID = 1L;
 
-        public NoSuchAbilityInThisWorld( ItemType ability )
-        {
-            super( ability );
+        public NoSuchAbilityInThisWorld(ItemType ability) {
+            super(ability);
         }
     }
 
-    public static class NoneOfThisAbilityLeft extends UnableToAddToken
-    {
+    public static class NoneOfThisAbilityLeft extends UnableToAddToken {
+
         private static final long serialVersionUID = 1L;
 
-        public NoneOfThisAbilityLeft( ItemType ability )
-        {
-            super( ability );
+        public NoneOfThisAbilityLeft(ItemType ability) {
+            super(ability);
         }
     }
 
-    public static class CantAddTokenOutsideWorld extends UnableToAddToken
-    {
+    public static class CantAddTokenOutsideWorld extends UnableToAddToken {
+
         private static final long serialVersionUID = 1L;
 
         public final int x;
@@ -89,17 +84,15 @@ public class World
         public final Dimension worldSize;
 
         public CantAddTokenOutsideWorld(
-            ItemType ability, int x, int y, Dimension worldSize )
-        {
-            super( ability );
+            ItemType ability, int x, int y, Dimension worldSize) {
+            super(ability);
             this.x = x;
             this.y = y;
             this.worldSize = worldSize;
         }
     }
 
-    public enum CompletionState
-    {
+    public enum CompletionState {
         RUNNING,
         PAUSED,
         WON,
@@ -108,8 +101,9 @@ public class World
 
     public final Dimension size;
     public final LookupTable2D<Block> blockTable;
-    /** A grid of water. Only one water object
-     * should be stored in each location. */
+    /**
+     * A grid of water. Only one water object should be stored in each location.
+     */
     public final LookupTable2D<WaterRegion> waterTable;
     public final List<Character> rabbits;
     public final List<Thing> things;
@@ -161,8 +155,7 @@ public class World
         Comment[] comments,
         WorldStatsListener statsListener,
         VoidMarkerStyle.Style voidStyle
-    )
-    {
+    ) {
         this.size = size;
         this.rabbits = rabbits;
         this.things = things;
@@ -185,20 +178,17 @@ public class World
         this.comments = comments;
         this.voidStyle = voidStyle;
 
-        if ( -1 == size.width )
-        {
+        if (-1 == size.width) {
             // make allowance for tests with no world
             this.blockTable = null;
-            this.waterTable = new LookupTable2D<WaterRegion>( size );
-        }
-        else
-        {
-            this.blockTable = new LookupTable2D<Block>( blocks, size );
-            this.waterTable = WaterRegionFactory.generateWaterTable( blockTable,
-                waterAmounts );
+            this.waterTable = new LookupTable2D<WaterRegion>(size);
+        } else {
+            this.blockTable = new LookupTable2D<Block>(blocks, size);
+            this.waterTable = WaterRegionFactory.generateWaterTable(blockTable,
+                waterAmounts);
         }
 
-        this.changes = new WorldChanges( this, statsListener );
+        this.changes = new WorldChanges(this, statsListener);
 
         init();
     }
@@ -227,8 +217,7 @@ public class World
         boolean paused,
         Comment[] comments,
         IgnoreWorldStatsListener statsListener,
-        VoidMarkerStyle.Style voidStyle )
-    {
+        VoidMarkerStyle.Style voidStyle) {
         this.size = size;
         this.blockTable = blockTable;
         this.rabbits = rabbits;
@@ -253,180 +242,142 @@ public class World
         this.comments = comments;
         this.voidStyle = voidStyle;
 
-        this.changes = new WorldChanges( this, statsListener );
+        this.changes = new WorldChanges(this, statsListener);
 
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         // Number the rabbits if necessary
-        for ( Character r: rabbits )
-        {
-            rabbitIndex( r );
+        for (Character r : rabbits) {
+            rabbitIndex(r);
         }
 
         // Rearrange them, this may be necessary if they have been
         // restored from state.
-        Collections.sort( rabbits );
+        Collections.sort(rabbits);
 
-        for ( Thing thing : allThings() )
-        {
-            thing.calcNewState( this );
+        for (Thing thing : allThings()) {
+            thing.calcNewState(this);
         }
     }
 
-    public void rabbitIndex( Character r )
-    {
-        r.index = ( r.index == Rabbit.NOT_INDEXED )
-                ? ++rabbit_index_count
-                : r.index;
+    public void rabbitIndex(Character r) {
+        r.index = (r.index == Rabbit.NOT_INDEXED)
+            ? ++rabbit_index_count
+            : r.index;
     }
 
-    public int getRabbitIndexCount()
-    {
+    public int getRabbitIndexCount() {
         return rabbit_index_count;
     }
 
     /**
-     * For levels with some rabbits in to start with.
-     * Then entering rabbits are indexed correctly.
+     * For levels with some rabbits in to start with. Then entering rabbits are indexed correctly.
      */
-    public void countRabbitsForIndex()
-    {
+    public void countRabbitsForIndex() {
         rabbit_index_count = rabbit_index_count == 0 ?
             rabbits.size() : rabbit_index_count;
-        for ( Character r:rabbits )
-        {
+        for (Character r : rabbits) {
             rabbit_index_count = rabbit_index_count > r.index ?
                 rabbit_index_count : r.index;
         }
     }
 
-    public void step()
-    {
+    public void step() {
 
-        if ( completionState() != CompletionState.RUNNING )
-        {
-            throw new DontStepAfterFinish( name );
+        if (completionState() != CompletionState.RUNNING) {
+            throw new DontStepAfterFinish(name);
         }
 
-        for ( Thing thing : allThings() )
-        {
-            thing.step( this );
+        for (Thing thing : allThings()) {
+            thing.step(this);
         }
 
         changes.rememberWhatWillHappen();
 
         changes.apply();
 
-        for ( Thing thing : allThings() )
-        {
-            thing.calcNewState( this );
+        for (Thing thing : allThings()) {
+            thing.calcNewState(this);
         }
 
-        System.out.println( "/World.changes.blockJustRemoved.clear()" );
+        System.out.println("/World.changes.blockJustRemoved.clear()");
         changes.blocksJustRemoved.clear();
 
         changes.apply();
     }
 
-    public ChangeDescription describeChanges()
-    {
+    public ChangeDescription describeChanges() {
         ChangeDescription ret = new ChangeDescription();
 
-        for ( Thing thing : allThings() )
-        {
-            ret.add( thing.x, thing.y, thing.state );
+        for (Thing thing : allThings()) {
+            ret.add(thing.x, thing.y, thing.state);
         }
 
         return ret;
     }
 
-    private Iterable<Thing> allThings()
-    {
-        return chain( waterTable.getItems(), rabbits, things );
+    private Iterable<Thing> allThings() {
+        return chain(waterTable.getItems(), rabbits, things);
     }
 
-    public Block getBlockAt( int x, int y)
-    {
-        if ( x <  0          || y <  0           ||
-             x >= size.width || y >= size.height  )
-        {
+    public Block getBlockAt(int x, int y) {
+        if (x < 0 || y < 0 ||
+            x >= size.width || y >= size.height) {
             return null;
         }
-        return blockTable.getItemAt( x, y );
+        return blockTable.getItemAt(x, y);
     }
 
-    public CompletionState completionState()
-    {
-        if ( paused )
-        {
+    public CompletionState completionState() {
+        if (paused) {
             return CompletionState.PAUSED;
-        }
-        else if ( numRabbitsOut() == 0 && this.num_waiting <= 0 )
-        {
-            if ( num_saved >= num_to_save )
-            {
+        } else if (numRabbitsOut() == 0 && this.num_waiting <= 0) {
+            if (num_saved >= num_to_save) {
                 return CompletionState.WON;
-            }
-            else
-            {
+            } else {
                 return CompletionState.LOST;
             }
-        }
-        else
-        {
+        } else {
             return CompletionState.RUNNING;
         }
     }
 
-    public Item getTokenAt( int x, int y )
-    {
+    public Item getTokenAt(int x, int y) {
         // Note it is not worth using LookupTable2D for things.
         // Handling their movement would complicate the code.
         // There are not as many instances of Thing as Block.
         // Iterating to check through is not too time
         // consuming.
-        for ( Thing thing : things )
-        {
-            if ( thing.x == x && thing.y == y && thing instanceof Item )
-            {
-                if ( !changes.tokensToRemove.contains( thing ) )
-                {
-                    return (Item)thing;
+        for (Thing thing : things) {
+            if (thing.x == x && thing.y == y && thing instanceof Item) {
+                if (!changes.tokensToRemove.contains(thing)) {
+                    return (Item) thing;
                 }
             }
         }
         return null;
     }
 
-    public List<Thing> getThingsAt( int x, int y )
-    {
+    public List<Thing> getThingsAt(int x, int y) {
         ArrayList<Thing> ret = new ArrayList<Thing>();
-        for ( Thing thing : things )
-        {
-            if ( thing.x == x && thing.y == y )
-            {
-                if ( !changes.tokensToRemove.contains( thing ) &&
-                     !changes.fireToRemove.contains( thing ) )
-                {
-                    ret.add( thing );
+        for (Thing thing : things) {
+            if (thing.x == x && thing.y == y) {
+                if (!changes.tokensToRemove.contains(thing) &&
+                    !changes.fireToRemove.contains(thing)) {
+                    ret.add(thing);
                 }
             }
         }
         return ret;
     }
 
-    public boolean fireAt( int x, int y )
-    {
+    public boolean fireAt(int x, int y) {
         // See note for getTokenAt() about Thing storage.
-        for ( Thing thing : things )
-        {
-            if ( thing.x == x && thing.y == y && thing instanceof Fire )
-            {
-                if ( !changes.fireToRemove.contains( thing ) )
-                {
+        for (Thing thing : things) {
+            if (thing.x == x && thing.y == y && thing instanceof Fire) {
+                if (!changes.fireToRemove.contains(thing)) {
                     return true;
                 }
             }
@@ -434,71 +385,60 @@ public class World
         return false;
     }
 
-    public Character[] getCharactersAt( int x, int y )
-    {
+    public Character[] getCharactersAt(int x, int y) {
         List<Character> ret = new ArrayList<Character>();
 
-        for ( Character rabbit : rabbits )
-        {
-            if ( rabbit.x == x && rabbit.y == y )
-            {
-                ret.add( rabbit );
+        for (Character rabbit : rabbits) {
+            if (rabbit.x == x && rabbit.y == y) {
+                ret.add(rabbit);
             }
         }
 
-        return ret.toArray( new Character[ret.size()] );
+        return ret.toArray(new Character[ret.size()]);
     }
 
-    public int numRabbitsOut()
-    {
+    public int numRabbitsOut() {
         int count = 0;
-        for ( Character r : rabbits ) {
-            if ( r instanceof Rabbit ) {
+        for (Character r : rabbits) {
+            if (r instanceof Rabbit) {
                 ++count;
             }
         }
         return count;
     }
 
-    public void setPaused( boolean paused )
-    {
+    public void setPaused(boolean paused) {
         this.paused = paused;
     }
 
-    public void recalculateWaterRegions( Position point )
-    {
+    public void recalculateWaterRegions(Position point) {
         int contents = 0;
         for (WaterRegion waterRegion :
-             waterTable.getItemsAt( point.x, point.y ))
-        {
+            waterTable.getItemsAt(point.x, point.y)) {
             contents += waterRegion.getContents();
         }
-        waterTable.removeItemsAt( point.x, point.y );
+        waterTable.removeItemsAt(point.x, point.y);
         WaterRegionFactory.createWaterRegionsAtPoint(
-            blockTable, 
-            waterTable, 
-            point.x, 
-            point.y, 
-            contents 
+            blockTable,
+            waterTable,
+            point.x,
+            point.y,
+            contents
         );
     }
 
-    public Map<Position, Integer> getWaterContents()
-    {
+    public Map<Position, Integer> getWaterContents() {
         Map<Position, Integer> waterAmounts = new HashMap<>();
-        for ( WaterRegion waterRegion : waterTable )
-        {
-            if ( waterAmounts.containsKey( waterRegion.getPosition() ) )
-            {
+        for (WaterRegion waterRegion : waterTable) {
+            if (waterAmounts.containsKey(waterRegion.getPosition())) {
                 throw new IllegalStateException(
                     "There is currently no support for multiple WaterRegions "
-                        + "within a single cell." );
+                        + "within a single cell.");
             }
             int contents = waterRegion.getContents();
-            if ( contents != 0 )
-            {
-                waterAmounts.put( waterRegion.getPosition(),
-                    contents );
+            if (contents != 0) {
+                waterAmounts.put(waterRegion.getPosition(),
+                    contents);
             }
         }
         return waterAmounts;

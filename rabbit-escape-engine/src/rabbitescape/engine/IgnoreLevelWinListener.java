@@ -1,14 +1,12 @@
 package rabbitescape.engine;
 
-public class IgnoreLevelWinListener implements LevelWinListener
-{
+public class IgnoreLevelWinListener implements LevelWinListener {
+
     @Override
-    public void won()
-    {
+    public void won() {
     }
 
     @Override
-    public void lost()
-    {
+    public void lost() {
     }
 }

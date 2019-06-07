@@ -6,38 +6,33 @@ import java.util.Arrays;
 
 import rabbitescape.engine.util.Util;
 
-public class Solution
-{
+public class Solution {
+
     public final SolutionCommand[] commands;
 
-    public Solution( SolutionCommand... commands )
-    {
+    public Solution(SolutionCommand... commands) {
         this.commands = commands;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Solution( "
-            + Util.join( ", ", toStringList( commands ) )
+            + Util.join(", ", toStringList(commands))
             + " )";
     }
 
     @Override
-    public boolean equals( Object other )
-    {
-        if ( ! ( other instanceof Solution ) )
-        {
+    public boolean equals(Object other) {
+        if (!(other instanceof Solution)) {
             return false;
         }
-        Solution otherSolution = (Solution)other;
+        Solution otherSolution = (Solution) other;
 
-        return Arrays.deepEquals( commands, otherSolution.commands );
+        return Arrays.deepEquals(commands, otherSolution.commands);
     }
 
     @Override
-    public int hashCode()
-    {
-        return Arrays.deepHashCode( commands );
+    public int hashCode() {
+        return Arrays.deepHashCode(commands);
     }
 }

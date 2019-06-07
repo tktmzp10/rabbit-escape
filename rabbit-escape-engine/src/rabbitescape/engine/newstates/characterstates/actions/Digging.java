@@ -12,111 +12,88 @@ import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.digging.*;
 import rabbitescape.engine.things.Character;
 
-public class Digging extends CharacterActionStates
-{
+public class Digging extends CharacterActionStates {
+
     private IDiggingState diggingState;
     public int stepsOfDigging;
 
-    public Digging()
-    {
-        setDiggingState( new NotDigging() );
+    public Digging() {
+        setDiggingState(new NotDigging());
     }
 
-    public void setDiggingState( IDiggingState diggingState )
-    {
+    public void setDiggingState(IDiggingState diggingState) {
         this.diggingState = diggingState;
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
         stepsOfDigging = 0;
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        BehaviourTools t = new BehaviourTools( character, world );
-        return t.pickUpToken( dig );
+    public boolean checkTriggered(Character character, World world) {
+        BehaviourTools t = new BehaviourTools(character, world);
+        return t.pickUpToken(dig);
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( !triggered && stepsOfDigging == 0 )
-        {
-            setDiggingState( new NotDigging() );
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (!triggered && stepsOfDigging == 0) {
+            setDiggingState(new NotDigging());
             return diggingState.newState();
         }
 
-        t.character.possiblyUndoSlopeBashHop( t.world );
+        t.character.possiblyUndoSlopeBashHop(t.world);
 
-        if ( t.character.state == RABBIT_DIGGING )
-        {
+        if (t.character.state == RABBIT_DIGGING) {
             stepsOfDigging = 1;
-            setDiggingState( new Digging2() );
+            setDiggingState(new Digging2());
             return diggingState.newState();
         }
 
-        if ( triggered || stepsOfDigging > 0 )
-        {
-            if ( t.character.onSlope && t.blockHere() != null )
-            {
+        if (triggered || stepsOfDigging > 0) {
+            if (t.character.onSlope && t.blockHere() != null) {
                 stepsOfDigging = 1;
-                setDiggingState( new DiggingOnSlope() );
-            }
-            else if ( t.blockBelow() != null )
-            {
-                if ( t.blockBelow().material == Block.Material.METAL )
-                {
+                setDiggingState(new DiggingOnSlope());
+            } else if (t.blockBelow() != null) {
+                if (t.blockBelow().material == Block.Material.METAL) {
                     stepsOfDigging = 0;
-                    setDiggingState( new DiggingUselessly() );
+                    setDiggingState(new DiggingUselessly());
+                } else {
+                    stepsOfDigging = 2;
+                    setDiggingState(new DiggingNormal());
                 }
-                else
-                {
-                stepsOfDigging = 2;
-                setDiggingState( new DiggingNormal() );
-                }
-            }
-            else
-            {
+            } else {
                 --stepsOfDigging;
-                setDiggingState( new NotDigging() );
+                setDiggingState(new NotDigging());
             }
-        }
-        else
-        {
+        } else {
             --stepsOfDigging;
-            setDiggingState( new NotDigging() );
+            setDiggingState(new NotDigging());
         }
 
         return diggingState.newState();
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        return diggingState.behave( world, character );
+    public boolean behave(World world, Character character, State state) {
+        return diggingState.behave(world, character);
     }
 
     @Override
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
         BehaviourState.addToStateIfGtZero(
-            saveState, "Digging.stepsOfDigging", stepsOfDigging );
+            saveState, "Digging.stepsOfDigging", stepsOfDigging);
     }
 
     @Override
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
         stepsOfDigging = BehaviourState.restoreFromState(
-            saveState, "Digging.stepsOfDigging", stepsOfDigging );
+            saveState, "Digging.stepsOfDigging", stepsOfDigging);
     }
 
-    public static boolean isDigging( State state )
-    {
-        switch ( state )
-        {
+    public static boolean isDigging(State state) {
+        switch (state) {
             case RABBIT_DIGGING:
             case RABBIT_DIGGING_2:
             case RABBIT_DIGGING_ON_SLOPE:
@@ -128,8 +105,7 @@ public class Digging extends CharacterActionStates
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 }

@@ -14,17 +14,15 @@ import rabbitescape.engine.things.characters.Rabbot;
 
 import static rabbitescape.engine.Direction.RIGHT;
 
-public class RabbotWait extends CharacterActionStates
-{
+public class RabbotWait extends CharacterActionStates {
+
     private IWaitingState waitingState;
 
-    public RabbotWait()
-    {
-        setWaitingState( new NotWaiting() );
+    public RabbotWait() {
+        setWaitingState(new NotWaiting());
     }
 
-    public void setWaitingState( IWaitingState waitingState )
-    {
+    public void setWaitingState(IWaitingState waitingState) {
         this.waitingState = waitingState;
     }
 
@@ -32,70 +30,54 @@ public class RabbotWait extends CharacterActionStates
         IWaitingState right,
         IWaitingState left,
         Character character
-    )
-    {
-        if ( character.dir == RIGHT )
-        {
-            setWaitingState( right );
-        }
-        else
-        {
-            setWaitingState( left );
+    ) {
+        if (character.dir == RIGHT) {
+            setWaitingState(right);
+        } else {
+            setWaitingState(left);
         }
     }
 
-    private boolean within1Vertically( Character otherRabbit, Character rabbit )
-    {
-        return ( Math.abs( otherRabbit.y - rabbit.y ) < 2 );
+    private boolean within1Vertically(Character otherRabbit, Character rabbit) {
+        return (Math.abs(otherRabbit.y - rabbit.y) < 2);
     }
 
-    private boolean noseToNose( Character otherRabbit, Character rabbit )
-    {
-        if ( 
+    private boolean noseToNose(Character otherRabbit, Character rabbit) {
+        if (
             otherRabbit.x == rabbit.x - 1 &&
-            otherRabbit.dir == RIGHT &&
-            rabbit.dir == Direction.LEFT 
-        )
-        {
+                otherRabbit.dir == RIGHT &&
+                rabbit.dir == Direction.LEFT
+        ) {
             return true;
-        }
-        else if ( 
+        } else if (
             otherRabbit.x == rabbit.x + 1 &&
-            otherRabbit.dir == Direction.LEFT &&
-            rabbit.dir == RIGHT
-        )
-        {
+                otherRabbit.dir == Direction.LEFT &&
+                rabbit.dir == RIGHT
+        ) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
+    public boolean checkTriggered(Character character, World world) {
         if (
             character instanceof Rabbot &&
-            !Blocking.isBlocking(character.state) &&
-            !Digging.isDigging(character.state)
-        )
-        {
-            for ( Character otherCharacter : world.rabbits )
-            {
+                !Blocking.isBlocking(character.state) &&
+                !Digging.isDigging(character.state)
+        ) {
+            for (Character otherCharacter : world.rabbits) {
                 if (
                     otherCharacter instanceof Rabbit &&
-                    within1Vertically( otherCharacter, character ) &&
-                    noseToNose( otherCharacter, character ) &&
-                    !Blocking.isBlocking(otherCharacter.state)
-                )
-                {
+                        within1Vertically(otherCharacter, character) &&
+                        noseToNose(otherCharacter, character) &&
+                        !Blocking.isBlocking(otherCharacter.state)
+                ) {
                     return true;
                 }
             }
@@ -104,10 +86,8 @@ public class RabbotWait extends CharacterActionStates
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( triggered )
-        {
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (triggered) {
             setWaitingState(
                 new WaitingRight(),
                 new WaitingLeft(),
@@ -119,14 +99,12 @@ public class RabbotWait extends CharacterActionStates
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        return waitingState.behave( world, character );
+    public boolean behave(World world, Character character, State state) {
+        return waitingState.behave(world, character);
     }
 }

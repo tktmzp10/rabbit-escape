@@ -16,17 +16,15 @@ import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging2.
 import rabbitescape.engine.newstates.characterstates.actions.bridging.bridging3.*;
 import rabbitescape.engine.things.Character;
 
-public class Bridging extends CharacterActionStates
-{
+public class Bridging extends CharacterActionStates {
+
     private static IBridgingState bridgingState;
 
-    public Bridging()
-    {
-        setBridgingState( new NotBridging() );
+    public Bridging() {
+        setBridgingState(new NotBridging());
     }
 
-    public static void setBridgingState( IBridgingState state )
-    {
+    public static void setBridgingState(IBridgingState state) {
         bridgingState = state;
     }
 
@@ -34,26 +32,20 @@ public class Bridging extends CharacterActionStates
         IBridgingState right,
         IBridgingState left,
         Character character
-    )
-    {
-        if ( character.dir == RIGHT )
-        {
-            setBridgingState( right );
-        }
-        else
-        {
-            setBridgingState( left );
+    ) {
+        if (character.dir == RIGHT) {
+            setBridgingState(right);
+        } else {
+            setBridgingState(left);
         }
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
-    public enum BridgeType
-    {
+    public enum BridgeType {
         ALONG,
         UP,
         DOWN_UP
@@ -64,52 +56,46 @@ public class Bridging extends CharacterActionStates
     private BridgeType bridgeType = BridgeType.ALONG;
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
         bigSteps = 0;
         smallSteps = 0;
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
+    public boolean checkTriggered(Character character, World world) {
         nextStep();
 
-        if ( bigSteps <= 0 )
-            // Only pick up a token if we've finished, and we can bridge
+        if (bigSteps <= 0)
+        // Only pick up a token if we've finished, and we can bridge
         {
-            BehaviourTools t = new BehaviourTools( character, world );
+            BehaviourTools t = new BehaviourTools(character, world);
 
-            State possibleState = bridgingState( t, 3, 3, bridgeType );
+            State possibleState = bridgingState(t, 3, 3, bridgeType);
 
-            if ( possibleState != null ) // Only pick up if we can bridge
+            if (possibleState != null) // Only pick up if we can bridge
             {
-                return t.pickUpToken( bridge );
+                return t.pickUpToken(bridge);
             }
         }
         return false;
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( triggered )
-        {
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (triggered) {
             smallSteps = 3;
             bigSteps = 3;
         }
 
-        State ret = bridgingState( t, bigSteps, smallSteps, bridgeType );
+        State ret = bridgingState(t, bigSteps, smallSteps, bridgeType);
 
-        if ( ret == null )
-        {
+        if (ret == null) {
             bigSteps = 0;
         }
 
-        if ( bigSteps <= 0 )
-        {
+        if (bigSteps <= 0) {
             smallSteps = 0;
-            setBridgingState( new NotBridging() );
+            setBridgingState(new NotBridging());
             return bridgingState.newState();   // Finished bridging
         }
 
@@ -121,83 +107,73 @@ public class Bridging extends CharacterActionStates
         int bs,
         int ss,
         BridgeType bt
-    )
-    {
+    ) {
         Block hereBlock = t.blockHere();
 
         Character character = t.character;
         World world = t.world;
 
-        if ( startingIntoToWall( world, character, bs ) )
-        {
-            return stateIntoWall( t, character, world, ss );
+        if (startingIntoToWall(world, character, bs)) {
+            return stateIntoWall(t, character, world, ss);
         }
 
-        boolean slopeUp = isSlopeUp( character, hereBlock );
-        int nx = nextX( character );
-        int ny = nextY( character, slopeUp );
+        boolean slopeUp = isSlopeUp(character, hereBlock);
+        int nx = nextX(character);
+        int ny = nextY(character, slopeUp);
 
-        Block nextBlock = world.getBlockAt( nx, ny );
+        Block nextBlock = world.getBlockAt(nx, ny);
 
-        Block belowNextBlock = world.getBlockAt( nx, character.y );
-        Block twoAboveHereBlock = world.getBlockAt( character.x, character.y - 2 );
-        Block aboveNextBlock = world.getBlockAt( nx, ny - 1 );
+        Block belowNextBlock = world.getBlockAt(nx, character.y);
+        Block twoAboveHereBlock = world.getBlockAt(character.x, character.y - 2);
+        Block aboveNextBlock = world.getBlockAt(nx, ny - 1);
 
         if (
             (
-                   // Something in the way
-                   nextBlock != null
-                && nextBlock.riseDir() != character.dir
+                // Something in the way
+                nextBlock != null
+                    && nextBlock.riseDir() != character.dir
             ) || (
-                Blocking.blockerAt( t.world, nx, ny )
+                Blocking.blockerAt(t.world, nx, ny)
             ) || (
-                   // Clip land
-                   belowNextBlock != null
-                && belowNextBlock.riseDir() != character.dir
+                // Clip land
+                belowNextBlock != null
+                    && belowNextBlock.riseDir() != character.dir
             ) || (
-                    // Bang head next
-                    aboveNextBlock != null
-                 && BehaviourTools.isSolid( aboveNextBlock )
+                // Bang head next
+                aboveNextBlock != null
+                    && BehaviourTools.isSolid(aboveNextBlock)
             ) || (
-                    // Bang head here, mid-build
-                    bs < 3
-                 && BehaviourTools.s_isFlat( twoAboveHereBlock )
+                // Bang head here, mid-build
+                bs < 3
+                    && BehaviourTools.s_isFlat(twoAboveHereBlock)
             )
-        )
-        {
-            setBridgingState( new NotBridging() );
+        ) {
+            setBridgingState(new NotBridging());
             return bridgingState.newState(); // Stop bridging
         }
 
         boolean slopeDown = (
-               ( hereBlock != null )
-            && ( hereBlock.riseDir() == Direction.opposite( character.dir ) )
+            (hereBlock != null)
+                && (hereBlock.riseDir() == Direction.opposite(character.dir))
         );
 
-        switch( ss )
-        {
-            case 3:
-            {
-                if ( slopeUp )
-                {
+        switch (ss) {
+            case 3: {
+                if (slopeUp) {
                     setBridgingState(
                         new BridgingUpRight1(),
                         new BridgingUpLeft1(),
                         character
                     );
                     break;
-                }
-                else if ( slopeDown )
-                {
+                } else if (slopeDown) {
                     setBridgingState(
                         new BridgingDownUpRight1(),
                         new BridgingDownUpLeft1(),
                         character
                     );
                     break;
-                }
-                else
-                {
+                } else {
                     setBridgingState(
                         new BridgingRight1(),
                         new BridgingLeft1(),
@@ -206,12 +182,9 @@ public class Bridging extends CharacterActionStates
                     break;
                 }
             }
-            case 2:
-            {
-                switch( bt )
-                {
-                    case ALONG:
-                    {
+            case 2: {
+                switch (bt) {
+                    case ALONG: {
                         setBridgingState(
                             new BridgingRight2(),
                             new BridgingLeft2(),
@@ -219,8 +192,7 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    case UP:
-                    {
+                    case UP: {
                         setBridgingState(
                             new BridgingUpRight2(),
                             new BridgingUpLeft2(),
@@ -228,8 +200,7 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    case DOWN_UP:
-                    {
+                    case DOWN_UP: {
                         setBridgingState(
                             new BridgingDownUpRight2(),
                             new BridgingDownUpLeft2(),
@@ -237,20 +208,16 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    default:
-                    {
+                    default: {
                         throw new AssertionError(
-                            "Unexpected bridge type: " + bt );
+                            "Unexpected bridge type: " + bt);
                     }
                 }
                 break;
             }
-            case 1:
-            {
-                switch( bt )
-                {
-                    case ALONG:
-                    {
+            case 1: {
+                switch (bt) {
+                    case ALONG: {
                         setBridgingState(
                             new BridgingRight3(),
                             new BridgingLeft3(),
@@ -258,8 +225,7 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    case UP:
-                    {
+                    case UP: {
                         setBridgingState(
                             new BridgingUpRight3(),
                             new BridgingUpLeft3(),
@@ -267,8 +233,7 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    case DOWN_UP:
-                    {
+                    case DOWN_UP: {
                         setBridgingState(
                             new BridgingDownUpRight3(),
                             new BridgingDownUpLeft3(),
@@ -276,17 +241,15 @@ public class Bridging extends CharacterActionStates
                         );
                         break;
                     }
-                    default:
-                    {
+                    default: {
                         throw new AssertionError(
-                            "Unexpected bridge type: " + bt );
+                            "Unexpected bridge type: " + bt);
                     }
                 }
                 break;
             }
-            default:
-            {
-                setBridgingState( new NotBridging() );
+            default: {
+                setBridgingState(new NotBridging());
                 break;
             }
         }
@@ -295,50 +258,41 @@ public class Bridging extends CharacterActionStates
     }
 
     private static State stateIntoWall(
-        BehaviourTools t, Character character, World world, int ss )
-    {
+        BehaviourTools t, Character character, World world, int ss) {
         // We are facing a wall.  This makes us a bit keener to bridge.
-        Block thisBlock = world.getBlockAt( character.x, character.y );
+        Block thisBlock = world.getBlockAt(character.x, character.y);
 
-        boolean slopeUp = isSlopeUp( character, thisBlock );
-        int bx = behindX( character );
-        int ny = nextY( character, slopeUp );
+        boolean slopeUp = isSlopeUp(character, thisBlock);
+        int bx = behindX(character);
+        int ny = nextY(character, slopeUp);
 
         // Don't bridge if there is no block behind us (we're not in a hole)
-        if ( isSlope( thisBlock ) && world.getBlockAt( bx, ny ) == null )
-        {
-            setBridgingState( new NotBridging() );
+        if (isSlope(thisBlock) && world.getBlockAt(bx, ny) == null) {
+            setBridgingState(new NotBridging());
             return bridgingState.newState();
         }
 
-        switch( ss )
-        {
-            case 3:
-            {
-                if ( isSlope( thisBlock ) )
-                {
+        switch (ss) {
+            case 3: {
+                if (isSlope(thisBlock)) {
                     // Special behaviour where we bridge higher up because we
                     // are already on top of a slope.
 
-                    Block twoAbove = world.getBlockAt( character.x, character.y - 2 );
+                    Block twoAbove = world.getBlockAt(character.x, character.y - 2);
 
-                    if ( twoAbove == null || twoAbove.isBridge() ) {
+                    if (twoAbove == null || twoAbove.isBridge()) {
                         setBridgingState(
                             new BridgingInCornerUpRight1(),
                             new BridgingInCornerUpLeft1(),
                             character
                         );
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         // We would hit our head, so don't bridge.
-                        setBridgingState( new NotBridging() );
+                        setBridgingState(new NotBridging());
                         break;
                     }
-                }
-                else
-                {
+                } else {
                     setBridgingState(
                         new BridgingInCornerRight1(),
                         new BridgingInCornerLeft1(),
@@ -347,19 +301,15 @@ public class Bridging extends CharacterActionStates
                     break;
                 }
             }
-            case 2:
-            {
-                if ( isSlope( thisBlock ) )
-                {
+            case 2: {
+                if (isSlope(thisBlock)) {
                     setBridgingState(
                         new BridgingInCornerUpRight2(),
                         new BridgingInCornerUpLeft2(),
                         character
                     );
                     break;
-                }
-                else
-                {
+                } else {
                     setBridgingState(
                         new BridgingInCornerRight2(),
                         new BridgingInCornerLeft2(),
@@ -368,19 +318,15 @@ public class Bridging extends CharacterActionStates
                     break;
                 }
             }
-            case 1:
-            {
-                if ( isSlope( thisBlock ) )
-                {
+            case 1: {
+                if (isSlope(thisBlock)) {
                     setBridgingState(
                         new BridgingInCornerUpRight3(),
                         new BridgingInCornerUpLeft3(),
                         character
                     );
                     break;
-                }
-                else
-                {
+                } else {
                     setBridgingState(
                         new BridgingInCornerRight3(),
                         new BridgingInCornerLeft3(),
@@ -389,9 +335,8 @@ public class Bridging extends CharacterActionStates
                     break;
                 }
             }
-            default:
-            {
-                setBridgingState( new NotBridging() );
+            default: {
+                setBridgingState(new NotBridging());
                 break;
             }
         }
@@ -403,77 +348,67 @@ public class Bridging extends CharacterActionStates
         World world,
         Character character,
         int bs
-    )
-    {
-        Block hereBlock = world.getBlockAt( character.x, character.y );
+    ) {
+        Block hereBlock = world.getBlockAt(character.x, character.y);
 
-        boolean slopeUp = isSlopeUp( character, hereBlock );
-        int nx = nextX( character );
-        int ny = nextY( character, slopeUp );
+        boolean slopeUp = isSlopeUp(character, hereBlock);
+        int nx = nextX(character);
+        int ny = nextY(character, slopeUp);
 
-        Block nextBlock = world.getBlockAt( nx, ny );
+        Block nextBlock = world.getBlockAt(nx, ny);
 
         return (
-           bs == 3
+            bs == 3
         )
-        &&
-        (
-               nextBlock != null
             &&
             (
-                   nextBlock.riseDir() != character.dir
-                || nextBlock.shape == FLAT
-            )
-         );
+                nextBlock != null
+                    &&
+                    (
+                        nextBlock.riseDir() != character.dir
+                            || nextBlock.shape == FLAT
+                    )
+            );
     }
 
-    private static boolean isSlopeUp( Character character, Block hereBlock )
-    {
-        return ( hereBlock != null )
-          && ( hereBlock.riseDir() == character.dir );
+    private static boolean isSlopeUp(Character character, Block hereBlock) {
+        return (hereBlock != null)
+            && (hereBlock.riseDir() == character.dir);
     }
 
-    private static int nextY( Character character, boolean slopeUp )
-    {
+    private static int nextY(Character character, boolean slopeUp) {
         int ret = character.y;
         ret += slopeUp ? -1 : 0;
         return ret;
     }
 
-    private static int nextX( Character character )
-    {
+    private static int nextX(Character character) {
         int ret = character.x;
         ret += character.dir == RIGHT ? 1 : -1;
         return ret;
     }
 
-    private static int behindX( Character character )
-    {
+    private static int behindX(Character character) {
         int ret = character.x;
         ret += character.dir == RIGHT ? -1 : 1;
         return ret;
     }
 
-    private void nextStep()
-    {
+    private void nextStep() {
         --smallSteps;
-        if ( smallSteps <= 0 )
-        {
+        if (smallSteps <= 0) {
             --bigSteps;
             smallSteps = 3;
         }
     }
 
-    private static boolean isSlope( Block thisBlock )
-    {
-        return ( thisBlock != null && thisBlock.shape != FLAT );
+    private static boolean isSlope(Block thisBlock) {
+        return (thisBlock != null && thisBlock.shape != FLAT);
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        switch ( state )
-        {
+    public boolean behave(World world, Character character, State state) {
+        switch (state) {
             case RABBIT_BRIDGING_RIGHT_1:
             case RABBIT_BRIDGING_RIGHT_2:
             case RABBIT_BRIDGING_LEFT_1:
@@ -485,8 +420,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
             case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
             case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2:
-            {
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2: {
                 character.onSlope = true;
                 bridgeType = BridgeType.ALONG;
                 return true;
@@ -494,8 +428,7 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_UP_RIGHT_1:
             case RABBIT_BRIDGING_UP_RIGHT_2:
             case RABBIT_BRIDGING_UP_LEFT_1:
-            case RABBIT_BRIDGING_UP_LEFT_2:
-            {
+            case RABBIT_BRIDGING_UP_LEFT_2: {
                 character.onSlope = true;
                 bridgeType = BridgeType.UP;
                 return true;
@@ -503,16 +436,14 @@ public class Bridging extends CharacterActionStates
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_1:
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_2:
             case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_2:
-            {
+            case RABBIT_BRIDGING_DOWN_UP_LEFT_2: {
                 character.onSlope = true;
                 bridgeType = BridgeType.DOWN_UP;
                 return true;
             }
 
             case RABBIT_BRIDGING_RIGHT_3:
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_3:
-            {
+            case RABBIT_BRIDGING_DOWN_UP_RIGHT_3: {
                 character.onSlope = true;
                 character.x++;
                 world.changes.addBlock(
@@ -528,8 +459,7 @@ public class Bridging extends CharacterActionStates
                 return true;
             }
             case RABBIT_BRIDGING_LEFT_3:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_3:
-            {
+            case RABBIT_BRIDGING_DOWN_UP_LEFT_3: {
                 character.onSlope = true;
                 character.x--;
                 world.changes.addBlock(
@@ -544,8 +474,7 @@ public class Bridging extends CharacterActionStates
 
                 return true;
             }
-            case RABBIT_BRIDGING_UP_RIGHT_3:
-            {
+            case RABBIT_BRIDGING_UP_RIGHT_3: {
                 character.onSlope = true;
                 character.x++;
                 character.y--;
@@ -561,8 +490,7 @@ public class Bridging extends CharacterActionStates
 
                 return true;
             }
-            case RABBIT_BRIDGING_UP_LEFT_3:
-            {
+            case RABBIT_BRIDGING_UP_LEFT_3: {
                 character.onSlope = true;
                 character.x--;
                 character.y--;
@@ -578,8 +506,7 @@ public class Bridging extends CharacterActionStates
 
                 return true;
             }
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_3:
-            {
+            case RABBIT_BRIDGING_IN_CORNER_RIGHT_3: {
                 character.onSlope = true;
                 world.changes.addBlock(
                     new Block(
@@ -592,8 +519,7 @@ public class Bridging extends CharacterActionStates
                 );
                 return true;
             }
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_3:
-            {
+            case RABBIT_BRIDGING_IN_CORNER_LEFT_3: {
                 character.onSlope = true;
                 world.changes.addBlock(
                     new Block(
@@ -606,8 +532,7 @@ public class Bridging extends CharacterActionStates
                 );
                 return true;
             }
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_3:
-            {
+            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_3: {
                 character.onSlope = true;
                 character.y--;
                 world.changes.addBlock(
@@ -621,8 +546,7 @@ public class Bridging extends CharacterActionStates
                 );
                 return true;
             }
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3:
-            {
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_3: {
                 character.onSlope = true;
                 character.y--;
                 world.changes.addBlock(
@@ -636,16 +560,14 @@ public class Bridging extends CharacterActionStates
                 );
                 return true;
             }
-            default:
-            {
+            default: {
                 return false;
             }
         }
     }
 
     @Override
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
         BehaviourState.addToStateIfNotDefault(
             saveState,
             "Bridging.bridgeType",
@@ -663,8 +585,7 @@ public class Bridging extends CharacterActionStates
     }
 
     @Override
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
         bridgeType = BridgeType.valueOf(
             BehaviourState.restoreFromState(
                 saveState, "Bridging.bridgeType", bridgeType.toString()
@@ -679,8 +600,7 @@ public class Bridging extends CharacterActionStates
             saveState, "Bridging.smallSteps", smallSteps
         );
 
-        if ( smallSteps > 0 )
-        {
+        if (smallSteps > 0) {
             ++smallSteps;
         }
     }

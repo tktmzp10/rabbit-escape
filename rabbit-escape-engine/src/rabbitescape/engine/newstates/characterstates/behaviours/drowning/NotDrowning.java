@@ -4,19 +4,17 @@ import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public class NotDrowning implements IDrowningState
-{
+public class NotDrowning implements IDrowningState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return false;
     }
 }

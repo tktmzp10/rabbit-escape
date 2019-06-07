@@ -9,8 +9,8 @@ import rabbitescape.engine.Thing;
 import rabbitescape.engine.util.Util;
 import rabbitescape.engine.util.VariantGenerator;
 
-public class ItemsLineProcessor
-{
+public class ItemsLineProcessor {
+
     private final LineProcessor lineProcessor;
     private final int x;
     private final int y;
@@ -24,8 +24,7 @@ public class ItemsLineProcessor
         int x,
         int y,
         String value
-    )
-    {
+    ) {
         this.lineProcessor = lineProcessor;
         this.x = x;
         this.y = y;
@@ -34,59 +33,44 @@ public class ItemsLineProcessor
         this.stateString = null;
     }
 
-    public void process( VariantGenerator variantGen )
-    {
-        for ( char c : asChars( value ) )
-        {
-            if ( stateString != null )
-            {
-                if ( c == '}' )
-                {
-                    Map<String, String> mp = stateMap( stateString );
-                    if ( mp == null )
-                    {
+    public void process(VariantGenerator variantGen) {
+        for (char c : asChars(value)) {
+            if (stateString != null) {
+                if (c == '}') {
+                    Map<String, String> mp = stateMap(stateString);
+                    if (mp == null) {
                         throw new BadStateMap(
                             stateString,
                             lineProcessor.lines,
                             lineProcessor.lineNum
                         );
                     }
-                    currentThing.restoreFromState( mp );
+                    currentThing.restoreFromState(mp);
                     stateString = null;
-                }
-                else
-                {
+                } else {
                     stateString += c;
                 }
-            }
-            else if ( c == '{' )
-            {
+            } else if (c == '{') {
                 stateString = "";
-            }
-            else
-            {
-                currentThing = lineProcessor.processChar( c, x, y, variantGen );
+            } else {
+                currentThing = lineProcessor.processChar(c, x, y, variantGen);
             }
         }
     }
 
-    public static Map<String, String> stateMap( String str )
-    {
+    public static Map<String, String> stateMap(String str) {
         Map<String, String> ret = new HashMap<String, String>();
 
-        if ( Util.isEmpty( str ) )
-        {
+        if (Util.isEmpty(str)) {
             return ret;
         }
 
-        for ( String pair : split( str, "," ) )
-        {
-            String[] spl = split( pair, ":" );
-            if ( spl.length != 2 )
-            {
+        for (String pair : split(str, ",")) {
+            String[] spl = split(pair, ":");
+            if (spl.length != 2) {
                 return null;
             }
-            ret.put( spl[0], spl[1] );
+            ret.put(spl[0], spl[1]);
         }
 
         return ret;

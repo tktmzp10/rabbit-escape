@@ -1,10 +1,8 @@
 package rabbitescape.engine;
 
-public class VoidMarkerStyle
-{
+public class VoidMarkerStyle {
 
-    public enum Style
-    {
+    public enum Style {
         HIGHLIGHTER,
         TORN_PAPER
     }

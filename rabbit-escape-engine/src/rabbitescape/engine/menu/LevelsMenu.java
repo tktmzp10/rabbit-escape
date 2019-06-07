@@ -4,8 +4,8 @@ import static rabbitescape.engine.util.Util.*;
 
 import java.util.List;
 
-public class LevelsMenu extends Menu
-{
+public class LevelsMenu extends Menu {
+
     public final String name;
     private final String levelsDir;
     private final LevelsCompleted levelsCompleted;
@@ -15,13 +15,12 @@ public class LevelsMenu extends Menu
         String levelsDir,
         LevelsList levelsList,
         LevelsCompleted levelsCompleted
-    )
-    {
+    ) {
         this(
             name,
             levelsDir,
             levelsCompleted,
-            menuItems( levelsDir, levelsList )
+            menuItems(levelsDir, levelsList)
         );
     }
 
@@ -31,7 +30,7 @@ public class LevelsMenu extends Menu
         LevelsCompleted levelsCompleted,
         MenuItem[] items
     ) {
-        super( "Choose a level:", items );
+        super("Choose a level:", items);
 
         this.name = name;
         this.levelsDir = levelsDir;
@@ -43,14 +42,12 @@ public class LevelsMenu extends Menu
     private static MenuItem[] menuItems(
         String levelsDir,
         LevelsList levelsInfo
-    )
-    {
-        List<LevelsList.LevelInfo> levels = levelsInfo.inDir( levelsDir );
+    ) {
+        List<LevelsList.LevelInfo> levels = levelsInfo.inDir(levelsDir);
 
-        MenuItem[] ret = new MenuItem[ levels.size() ];
+        MenuItem[] ret = new MenuItem[levels.size()];
 
-        for ( IdxObj<LevelsList.LevelInfo> info : enumerate1( levels ) )
-        {
+        for (IdxObj<LevelsList.LevelInfo> info : enumerate1(levels)) {
             ret[info.index - 1] = new LevelMenuItem(
                 levelsDir + "/" + info.object.fileName + ".rel",
                 levelsDir,
@@ -64,14 +61,12 @@ public class LevelsMenu extends Menu
     }
 
     @Override
-    public void refresh()
-    {
+    public void refresh() {
         int lastEnabled =
-            levelsCompleted.highestLevelCompleted( levelsDir ) + 1;
+            levelsCompleted.highestLevelCompleted(levelsDir) + 1;
 
-        for ( IdxObj<MenuItem> item : enumerate1( items ) )
-        {
-            item.object.enabled = ( item.index <= lastEnabled );
+        for (IdxObj<MenuItem> item : enumerate1(items)) {
+            item.object.enabled = (item.index <= lastEnabled);
         }
     }
 }

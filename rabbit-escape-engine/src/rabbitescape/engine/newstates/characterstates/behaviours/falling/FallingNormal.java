@@ -6,19 +6,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_FALLING;
 
-public class FallingNormal implements IFallingState
-{
+public class FallingNormal implements IFallingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_FALLING;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return false;
     }
 }

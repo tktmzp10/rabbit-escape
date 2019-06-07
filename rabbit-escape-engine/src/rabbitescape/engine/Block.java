@@ -1,19 +1,18 @@
 package rabbitescape.engine;
 
 import static rabbitescape.engine.Direction.*;
+
 import rabbitescape.engine.util.LookupItem2D;
 import rabbitescape.engine.util.Position;
 
-public class Block implements LookupItem2D
-{
-    public enum Material
-    {
+public class Block implements LookupItem2D {
+
+    public enum Material {
         EARTH,
         METAL
     }
 
-    public enum Shape
-    {
+    public enum Shape {
         FLAT,
         UP_RIGHT,
         UP_LEFT,
@@ -27,8 +26,7 @@ public class Block implements LookupItem2D
     public final Shape shape;
     public final int variant;
 
-    public Block( int x, int y, Material material, Shape shape, int variant )
-    {
+    public Block(int x, int y, Material material, Shape shape, int variant) {
         this.x = x;
         this.y = y;
         this.material = material;
@@ -36,30 +34,26 @@ public class Block implements LookupItem2D
         this.variant = variant;
     }
 
-    public Direction riseDir()
-    {
-        switch ( shape )
-        {
-        case FLAT:
-            return DOWN;
+    public Direction riseDir() {
+        switch (shape) {
+            case FLAT:
+                return DOWN;
 
-        case UP_RIGHT:
-        case BRIDGE_UP_RIGHT:
-            return RIGHT;
+            case UP_RIGHT:
+            case BRIDGE_UP_RIGHT:
+                return RIGHT;
 
-        case UP_LEFT:
-        case BRIDGE_UP_LEFT:
-            return LEFT;
+            case UP_LEFT:
+            case BRIDGE_UP_LEFT:
+                return LEFT;
 
-        default:
-            throw new RuntimeException( "Unknown block shape " + shape );
+            default:
+                throw new RuntimeException("Unknown block shape " + shape);
         }
     }
 
-    public boolean isBridge()
-    {
-        switch ( shape )
-        {
+    public boolean isBridge() {
+        switch (shape) {
             case BRIDGE_UP_LEFT:
             case BRIDGE_UP_RIGHT:
                 return true;
@@ -69,8 +63,7 @@ public class Block implements LookupItem2D
     }
 
     @Override
-    public Position getPosition()
-    {
-        return new Position( x, y );
+    public Position getPosition() {
+        return new Position(x, y);
     }
 }

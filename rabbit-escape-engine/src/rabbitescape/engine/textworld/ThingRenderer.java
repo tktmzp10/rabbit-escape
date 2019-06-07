@@ -11,14 +11,13 @@ import rabbitescape.engine.things.Item;
 import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.err.RabbitEscapeException;
 
-public class ThingRenderer
-{
-    public static class UnknownTokenType extends RabbitEscapeException
-    {
+public class ThingRenderer {
+
+    public static class UnknownTokenType extends RabbitEscapeException {
+
         public final ItemType type;
 
-        public UnknownTokenType( ItemType type )
-        {
+        public UnknownTokenType(ItemType type) {
             this.type = type;
         }
 
@@ -29,45 +28,31 @@ public class ThingRenderer
         Chars chars,
         List<Thing> things,
         boolean runtimeMeta
-    )
-    {
-        for ( Thing thing : things )
-        {
+    ) {
+        for (Thing thing : things) {
             chars.set(
                 thing.x,
                 thing.y,
-                charForThing( thing ),
-                thing.saveState( runtimeMeta )
+                charForThing(thing),
+                thing.saveState(runtimeMeta)
             );
         }
     }
 
-    private static char charForThing( Thing thing )
-    {
-        if ( thing instanceof Entrance )
-        {
+    private static char charForThing(Thing thing) {
+        if (thing instanceof Entrance) {
             return 'Q';
-        }
-        else if ( thing instanceof Exit )
-        {
+        } else if (thing instanceof Exit) {
             return 'O';
-        }
-        else if ( thing instanceof Item )
-        {
-            return ( ( Item )thing ).getCharRepresentation();
-        }
-        else if ( thing instanceof Fire )
-        {
+        } else if (thing instanceof Item) {
+            return ((Item) thing).getCharRepresentation();
+        } else if (thing instanceof Fire) {
             return 'A';
-        }
-        else if ( thing instanceof Pipe )
-        {
+        } else if (thing instanceof Pipe) {
             return 'P';
-        }
-        else
-        {
+        } else {
             throw new AssertionError(
-                "Unknown Thing type: " + thing.getClass() );
+                "Unknown Thing type: " + thing.getClass());
         }
     }
 }

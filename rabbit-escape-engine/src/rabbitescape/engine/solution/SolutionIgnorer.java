@@ -1,34 +1,28 @@
 package rabbitescape.engine.solution;
 
-public class SolutionIgnorer implements SolutionRecorderTemplate
-{
-    public SolutionIgnorer()
-    {
+public class SolutionIgnorer implements SolutionRecorderTemplate {
+
+    public SolutionIgnorer() {
     }
 
     @Override
-    public void append( CommandAction a )
-    {
+    public void append(CommandAction a) {
     }
 
     @Override
-    public void append( SolutionCommand newCmd )
-    {
+    public void append(SolutionCommand newCmd) {
     }
 
     @Override
-    public void appendStepEnd()
-    {
+    public void appendStepEnd() {
     }
 
     @Override
-    public void append( Solution solution )
-    {
+    public void append(Solution solution) {
     }
 
     @Override
-    public String getRecord()
-    {
+    public String getRecord() {
         return "";
     }
 

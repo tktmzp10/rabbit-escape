@@ -16,58 +16,47 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.LEFT;
 import static rabbitescape.engine.Direction.RIGHT;
 
-public class Walking extends CharacterBehaviourStates
-{
+public class Walking extends CharacterBehaviourStates {
+
     private IWalkingState walkingState;
 
-    public Walking()
-    {
-        setWalkingState( new WalkingRight() );
+    public Walking() {
+        setWalkingState(new WalkingRight());
     }
 
-    public void setWalkingState (
+    public void setWalkingState(
         IWalkingState right,
         IWalkingState left,
         Character character
-    )
-    {
-        if ( character.dir == RIGHT )
-        {
-            setWalkingState( right );
-        }
-        else
-        {
-            setWalkingState( left );
+    ) {
+        if (character.dir == RIGHT) {
+            setWalkingState(right);
+        } else {
+            setWalkingState(left);
         }
     }
 
-    public void setWalkingState( IWalkingState walkingState )
-    {
+    public void setWalkingState(IWalkingState walkingState) {
         this.walkingState = walkingState;
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
+    public boolean checkTriggered(Character character, World world) {
         return false; // To avoid cancelling other actions, return false
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( t.isOnUpSlope() )
-        {
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (t.isOnUpSlope()) {
             Block aboveNext = t.blockAboveNext();
             Block above = t.blockAbove();
             int nextX = t.nextX();
@@ -75,92 +64,73 @@ public class Walking extends CharacterBehaviourStates
 
             if
             (
-                t.isWall( aboveNext )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-                    || t.isRoof( above )
-                    || ( t.isCresting() &&
-                             Blocking.blockerAt( t.world, nextX, t.character.y ) )
-            )
-            {
+                t.isWall(aboveNext)
+                    || Blocking.blockerAt(t.world, nextX, nextY)
+                    || t.isRoof(above)
+                    || (t.isCresting() &&
+                    Blocking.blockerAt(t.world, nextX, t.character.y))
+            ) {
                 setWalkingState(
                     new TurningRightToLeftRising(),
                     new TurningLeftToRightRising(),
                     t.character
                 );
-            }
-            else if ( t.isUpSlope( aboveNext ) )
-            {
+            } else if (t.isUpSlope(aboveNext)) {
                 setWalkingState(
                     new RisingRightContinue(),
                     new RisingLeftContinue(),
                     t.character
                 );
-            }
-            else if ( t.isDownSlope( t.blockNext() ) )
-            {
+            } else if (t.isDownSlope(t.blockNext())) {
                 setWalkingState(
                     new RisingAndLoweringRight(),
                     new RisingAndLoweringLeft(),
                     t.character
                 );
-            }
-            else
-            {
+            } else {
                 setWalkingState(
                     new RisingRightEnd(),
                     new RisingLeftEnd(),
                     t.character
                 );
             }
-        }
-        else if ( t.isOnDownSlope() )
-        {
+        } else if (t.isOnDownSlope()) {
             int nextX = t.nextX();
             int nextY = t.character.y + 1;
             Block next = t.blockNext();
             Block belowNext = t.blockBelowNext();
 
             if (
-                t.isWall( next )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-                    || ( t.isValleying() &&
-                             Blocking.blockerAt( t.world, nextX, t.character.y ) )
-            )
-            {
+                t.isWall(next)
+                    || Blocking.blockerAt(t.world, nextX, nextY)
+                    || (t.isValleying() &&
+                    Blocking.blockerAt(t.world, nextX, t.character.y))
+            ) {
                 setWalkingState(
                     new TurningRightToLeftLowering(),
                     new TurningLeftToRightLowering(),
                     t.character
                 );
-            }
-            else if ( t.isUpSlope( next ) )
-            {
+            } else if (t.isUpSlope(next)) {
                 setWalkingState(
                     new LoweringAndRisingRight(),
                     new LoweringAndRisingLeft(),
                     t.character
                 );
-            }
-            else if ( t.isDownSlope( belowNext ) )
-            {
+            } else if (t.isDownSlope(belowNext)) {
                 setWalkingState(
                     new LoweringRightContinue(),
                     new LoweringLeftContinue(),
                     t.character
                 );
-            }
-            else
-            {
-                if ( Blocking.blockerAt( t.world, nextX, t.character.y ) )
-                {
+            } else {
+                if (Blocking.blockerAt(t.world, nextX, t.character.y)) {
                     setWalkingState(
                         new TurningRightToLeftLowering(),
                         new TurningLeftToRightLowering(),
                         t.character
                     );
-                }
-                else
-                {
+                } else {
                     setWalkingState(
                         new LoweringRightEnd(),
                         new LoweringLeftEnd(),
@@ -168,8 +138,7 @@ public class Walking extends CharacterBehaviourStates
                     );
                 }
             }
-        }
-        else  // On flat ground now
+        } else  // On flat ground now
         {
             int nextX = t.nextX();
             int nextY = t.character.y;
@@ -177,45 +146,35 @@ public class Walking extends CharacterBehaviourStates
 
             if
             (
-                t.isWall( next )
-                    || Blocking.blockerAt( t.world, nextX, nextY )
-            )
-            {
+                t.isWall(next)
+                    || Blocking.blockerAt(t.world, nextX, nextY)
+            ) {
                 setWalkingState(
                     new TurningRightToLeft(),
                     new TurningLeftToRight(),
                     t.character
                 );
-            }
-            else if ( t.isUpSlope( next ) )
-            {
+            } else if (t.isUpSlope(next)) {
                 setWalkingState(
                     new RisingRightStart(),
                     new RisingLeftStart(),
                     t.character
                 );
-            }
-            else if ( t.isDownSlope( t.blockBelowNext() ) )
-            {
-                if ( Blocking.blockerAt( t.world, nextX, t.character.y + 1 ) )
-                {
+            } else if (t.isDownSlope(t.blockBelowNext())) {
+                if (Blocking.blockerAt(t.world, nextX, t.character.y + 1)) {
                     setWalkingState(
                         new TurningRightToLeft(),
                         new TurningLeftToRight(),
                         t.character
                     );
-                }
-                else
-                {
+                } else {
                     setWalkingState(
                         new LoweringRightStart(),
                         new LoweringLeftStart(),
                         t.character
                     );
                 }
-            }
-            else
-            {
+            } else {
                 setWalkingState(
                     new WalkingRight(),
                     new WalkingLeft(),
@@ -229,8 +188,7 @@ public class Walking extends CharacterBehaviourStates
 
     @Override
     @SuppressWarnings("fallthrough")
-    public boolean behave( World world, Character character, State state )
-    {
+    public boolean behave(World world, Character character, State state) {
         /*
         default:
         {
@@ -242,14 +200,13 @@ public class Walking extends CharacterBehaviourStates
          */
 
         //TODO: Deal with duplicate of checkJumpOntoSlope().
-        return walkingState.behave( world, character );
+        return walkingState.behave(world, character);
     }
 
     @Override
     public boolean behave(
         World world, Character character, State state, NewStates newState
-    )
-    {
-        return behave( world, character, state );
+    ) {
+        return behave(world, character, state);
     }
 }

@@ -6,19 +6,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT;
 
-public class DyingOfFalling2SlopeRiseRight implements IFallingState
-{
+public class DyingOfFalling2SlopeRiseRight implements IFallingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return false;
     }
 }

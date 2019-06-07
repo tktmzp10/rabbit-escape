@@ -6,19 +6,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_WAITING_LEFT;
 
-public class WaitingLeft implements IWaitingState
-{
+public class WaitingLeft implements IWaitingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_WAITING_LEFT;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return true;
     }
 }

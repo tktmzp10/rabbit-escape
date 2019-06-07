@@ -11,68 +11,58 @@ import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.things.Character;
 
-public class Falling extends CharacterActionStates
-{
+public class Falling extends CharacterActionStates {
+
     private int heightFallen = 0;
 
     private final Climbing climbing;
     private final Brollychuting brollychuting;
     private final int fatalHeight;
 
-    public Falling( 
-        Climbing climbing, 
+    public Falling(
+        Climbing climbing,
         Brollychuting brollychuting,
         int fatalHeight
-    )
-    {
+    ) {
         this.climbing = climbing;
         this.brollychuting = brollychuting;
         this.fatalHeight = fatalHeight;
     }
 
-    public boolean isFallingToDeath()
-    {
-        return heightFallen > fatalHeight ;
+    public boolean isFallingToDeath() {
+        return heightFallen > fatalHeight;
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT == t.character.state )
-        { // part 2 of animation always comes next
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT
+            == t.character.state) { // part 2 of animation always comes next
             return RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT_2;
         }
 
-        if ( RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT == t.character.state )
-        { // part 2 of animation always comes next
+        if (RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT
+            == t.character.state) { // part 2 of animation always comes next
             return RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2;
         }
 
-        if ( RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT == t.character.state )
-        { // part 2 of animation always comes next
+        if (RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT
+            == t.character.state) { // part 2 of animation always comes next
             return RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2;
         }
 
-        if ( RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT == t.character.state )
-        {
+        if (RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT == t.character.state) {
             return RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT_2;
         }
 
-        if ( !triggered )
-        {
-            if ( heightFallen > fatalHeight )
-            {
-                if ( heightFallen % 2 == 0 )
-                {
+        if (!triggered) {
+            if (heightFallen > fatalHeight) {
+                if (heightFallen % 2 == 0) {
                     return RABBIT_DYING_OF_FALLING;
-                }
-                else
-                {
+                } else {
                     return RABBIT_DYING_OF_FALLING_2;
                 }
             }
@@ -80,39 +70,28 @@ public class Falling extends CharacterActionStates
         }
 
         if (
-            ( heightFallen + 1 > fatalHeight )      // Going to die
-                && ( t.isFlat( t.block2Below() )    // during step
-                         || t.blockBelow() != null
+            (heightFallen + 1 > fatalHeight)      // Going to die
+                && (t.isFlat(t.block2Below())    // during step
+                || t.blockBelow() != null
             )
-        )
-        {
-            if( BehaviourTools.isRightRiseSlope( t.blockBelow() ) )
-            {
+        ) {
+            if (BehaviourTools.isRightRiseSlope(t.blockBelow())) {
                 return RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT;
-            }
-            else if( BehaviourTools.isLeftRiseSlope( t.blockBelow() ) )
-            {
+            } else if (BehaviourTools.isLeftRiseSlope(t.blockBelow())) {
                 return RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT;
-            }
-            else
-            {
+            } else {
                 return State.RABBIT_FALLING_1_TO_DEATH;
             }
-        }
-        else
-        {
+        } else {
             Block below = t.blockBelow();
 
-            if ( below != null )
-            {
-                if ( t.isUpSlope( below ) )
-                {
+            if (below != null) {
+                if (t.isUpSlope(below)) {
                     return t.rl(
                         RABBIT_FALLING_1_ONTO_RISE_RIGHT,
                         RABBIT_FALLING_1_ONTO_RISE_LEFT
                     );
-                }
-                else // Must be a slope in the opposite direction
+                } else // Must be a slope in the opposite direction
                 {
                     return t.rl(
                         RABBIT_FALLING_1_ONTO_LOWER_RIGHT,
@@ -122,59 +101,46 @@ public class Falling extends CharacterActionStates
             }
 
             Block twoBelow = t.block2Below();
-            if ( twoBelow != null )
-            {
-                if (   heightFallen + 1 > fatalHeight
-                    && BehaviourTools.isRightRiseSlope( twoBelow ) )
-                {
+            if (twoBelow != null) {
+                if (heightFallen + 1 > fatalHeight
+                    && BehaviourTools.isRightRiseSlope(twoBelow)) {
                     return RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT;
                 }
-                if (   heightFallen + 1 > fatalHeight
-                    && BehaviourTools.isLeftRiseSlope( twoBelow ) )
-                {
+                if (heightFallen + 1 > fatalHeight
+                    && BehaviourTools.isLeftRiseSlope(twoBelow)) {
                     return RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT;
                 }
-                if ( t.isFlat( twoBelow ) ) // Flat block
+                if (t.isFlat(twoBelow)) // Flat block
                 {
                     return State.RABBIT_FALLING_1;
                 }
-                if( t.isUpSlope( twoBelow ) )
-                {
+                if (t.isUpSlope(twoBelow)) {
                     return t.rl(
                         RABBIT_FALLING_ONTO_RISE_RIGHT,
                         RABBIT_FALLING_ONTO_RISE_LEFT
                     );
-                }
-                else
-                {
+                } else {
                     return t.rl(
                         RABBIT_FALLING_ONTO_LOWER_RIGHT,
                         RABBIT_FALLING_ONTO_LOWER_LEFT
                     );
                 }
-            }
-            else
-            {
+            } else {
                 return State.RABBIT_FALLING;
             }
         }
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        boolean handled = moveRabbit( world, character, state );
+    public boolean behave(World world, Character character, State state) {
+        boolean handled = moveRabbit(world, character, state);
 
-        if ( handled )
-        {
+        if (handled) {
             // Whenever we fall onto a slope, we are on top of it
-            Block thisBlock = world.getBlockAt( character.x, character.y );
-            if ( thisBlock != null && thisBlock.shape != FLAT )
-            {
+            Block thisBlock = world.getBlockAt(character.x, character.y);
+            if (thisBlock != null && thisBlock.shape != FLAT) {
                 character.onSlope = true;
-            }
-            else
-            {
+            } else {
                 character.onSlope = false;
             }
         }
@@ -182,18 +148,15 @@ public class Falling extends CharacterActionStates
         return handled;
     }
 
-    private boolean moveRabbit( World world, Character character, State state )
-    {
-        switch ( state )
-        {
+    private boolean moveRabbit(World world, Character character, State state) {
+        switch (state) {
             case RABBIT_DYING_OF_FALLING:
             case RABBIT_DYING_OF_FALLING_2:
             case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2:
             case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT_2:
             case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT_2:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2:
-            {
-                world.changes.killRabbit( character );
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2: {
+                world.changes.killRabbit(character);
                 return true;
             }
             case RABBIT_FALLING:
@@ -202,8 +165,7 @@ public class Falling extends CharacterActionStates
             case RABBIT_FALLING_ONTO_RISE_RIGHT:
             case RABBIT_FALLING_ONTO_RISE_LEFT:
             case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT:
-            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT:
-            {
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT: {
                 heightFallen += 2;
                 character.y = character.y + 2;
                 return true;
@@ -215,14 +177,12 @@ public class Falling extends CharacterActionStates
             case RABBIT_FALLING_1_ONTO_LOWER_RIGHT:
             case RABBIT_FALLING_1_ONTO_LOWER_LEFT:
             case RABBIT_FALLING_1_ONTO_RISE_RIGHT:
-            case RABBIT_FALLING_1_ONTO_RISE_LEFT:
-            {
+            case RABBIT_FALLING_1_ONTO_RISE_LEFT: {
                 heightFallen += 1;
                 character.y = character.y + 1;
                 return true;
             }
-            default:
-            {
+            default: {
                 heightFallen = 0;
                 return false;
             }
@@ -230,28 +190,24 @@ public class Falling extends CharacterActionStates
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        if (   climbing.abilityActive
+    public boolean checkTriggered(Character character, World world) {
+        if (climbing.abilityActive
             || character.state == RABBIT_DIGGING
-            || brollychuting.hasBrolly() )
-        {
+            || brollychuting.hasBrolly()) {
             return false;
         }
 
-        BehaviourTools t = new BehaviourTools( character, world );
+        BehaviourTools t = new BehaviourTools(character, world);
 
         //noinspection RedundantIfStatement
-        if ( t.isFlat( t.blockBelow() ) )
-        {
+        if (t.isFlat(t.blockBelow())) {
             return false;
         }
 
         if (
-               character.onSlope
-            && !t.blockHereJustRemoved()
-        )
-        {
+            character.onSlope
+                && !t.blockHereJustRemoved()
+        ) {
             return false;
         }
 
@@ -259,22 +215,19 @@ public class Falling extends CharacterActionStates
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
         BehaviourState.addToStateIfGtZero(
             saveState, "Falling.heightFallen", heightFallen
         );
     }
 
     @Override
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
         heightFallen = BehaviourState.restoreFromState(
             saveState, "Falling.heightFallen", heightFallen
         );

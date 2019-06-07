@@ -4,19 +4,17 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.Character;
 
-public class NotWaiting implements IWaitingState
-{
+public class NotWaiting implements IWaitingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return null;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return false;
     }
 }

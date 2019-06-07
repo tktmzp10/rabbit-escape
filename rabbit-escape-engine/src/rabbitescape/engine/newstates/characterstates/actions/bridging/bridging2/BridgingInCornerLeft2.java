@@ -8,19 +8,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_IN_CORNER_LEFT_2;
 
-public class BridgingInCornerLeft2 implements IBridgingState
-{
+public class BridgingInCornerLeft2 implements IBridgingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_BRIDGING_IN_CORNER_LEFT_2;
     }
 
     @Override
     public boolean behave(
         World world, Character character, BridgeType bridgeType
-    )
-    {
+    ) {
         character.onSlope = true;
         bridgeType = BridgeType.ALONG;
         return true;

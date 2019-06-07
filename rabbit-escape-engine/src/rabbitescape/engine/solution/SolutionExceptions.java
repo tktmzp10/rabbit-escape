@@ -5,16 +5,16 @@ import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.err.RabbitEscapeException;
 import rabbitescape.engine.things.items.ItemType;
 
-public class SolutionExceptions
-{
+public class SolutionExceptions {
+
     /**
-     * Base class for everything that can go wrong when running a solution.
-     * The member variables get filled in as we roll up the stack through
-     * the command we are on, and the solution we are running.
+     * Base class for everything that can go wrong when running a solution. The member variables get
+     * filled in as we roll up the stack through the command we are on, and the solution we are
+     * running.
      */
     public static abstract class ProblemRunningSolution
-        extends RabbitEscapeException
-    {
+        extends RabbitEscapeException {
+
         private static final long serialVersionUID = 1L;
 
         public int solutionId = -1;
@@ -22,61 +22,54 @@ public class SolutionExceptions
         public String level = "<>";
         public String world = "";
 
-        public ProblemRunningSolution()
-        {
+        public ProblemRunningSolution() {
         }
 
-        public ProblemRunningSolution( Throwable cause )
-        {
-            super( cause );
+        public ProblemRunningSolution(Throwable cause) {
+            super(cause);
         }
     }
 
     /**
-     * Indicates that a world was not in the state we asserted it should
-     * be in, in our solution.
+     * Indicates that a world was not in the state we asserted it should be in, in our solution.
      */
-    public static class UnexpectedState extends ProblemRunningSolution
-    {
+    public static class UnexpectedState extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final CompletionState expected;
         public final CompletionState actual;
 
         public UnexpectedState(
-            CompletionState expected, CompletionState actual )
-        {
+            CompletionState expected, CompletionState actual) {
             this.expected = expected;
             this.actual = actual;
         }
     }
 
     /**
-     * Special subclass of UnexpectedState for when the expected state
-     * was "WON" - a separate exception so we can give a clearer error message
-     * in this common case.
+     * Special subclass of UnexpectedState for when the expected state was "WON" - a separate
+     * exception so we can give a clearer error message in this common case.
      */
-    public static class DidNotWin extends UnexpectedState
-    {
+    public static class DidNotWin extends UnexpectedState {
+
         private static final long serialVersionUID = 1L;
 
-        public DidNotWin( CompletionState actualState )
-        {
-            super( CompletionState.WON, actualState );
+        public DidNotWin(CompletionState actualState) {
+            super(CompletionState.WON, actualState);
         }
     }
 
     /**
      * The solution went on longer, but the world was at WON or LOST.
      */
-    public static class RanPastEnd extends ProblemRunningSolution
-    {
+    public static class RanPastEnd extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final CompletionState worldState;
 
-        public RanPastEnd( CompletionState worldState )
-        {
+        public RanPastEnd(CompletionState worldState) {
             this.worldState = worldState;
         }
     }
@@ -84,14 +77,13 @@ public class SolutionExceptions
     /**
      * We used a token that we've already used up.
      */
-    public static class UsedRunOutAbility extends ProblemRunningSolution
-    {
+    public static class UsedRunOutAbility extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final ItemType ability;
 
-        public UsedRunOutAbility( ItemType ability )
-        {
+        public UsedRunOutAbility(ItemType ability) {
             this.ability = ability;
         }
     }
@@ -99,14 +91,13 @@ public class SolutionExceptions
     /**
      * We used a token that was not available in this world.
      */
-    public static class UsedMissingAbility extends ProblemRunningSolution
-    {
+    public static class UsedMissingAbility extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final ItemType ability;
 
-        public UsedMissingAbility( ItemType ability )
-        {
+        public UsedMissingAbility(ItemType ability) {
             this.ability = ability;
         }
     }
@@ -114,8 +105,8 @@ public class SolutionExceptions
     /**
      * We placed a token outside the size of this world.
      */
-    public static class PlacedTokenOutsideWorld extends ProblemRunningSolution
-    {
+    public static class PlacedTokenOutsideWorld extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final int x;
@@ -128,8 +119,7 @@ public class SolutionExceptions
             int y,
             int worldWidth,
             int worldHeight
-        )
-        {
+        ) {
             this.x = x;
             this.y = y;
             this.worldWidth = worldWidth;
@@ -138,11 +128,11 @@ public class SolutionExceptions
     }
 
     /**
-     * We placed a token but the world wouldn't accept it (presumably because
-     * there was a block at that position).
+     * We placed a token but the world wouldn't accept it (presumably because there was a block at
+     * that position).
      */
-    public static class FailedToPlaceToken extends ProblemRunningSolution
-    {
+    public static class FailedToPlaceToken extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final int x;
@@ -153,8 +143,7 @@ public class SolutionExceptions
             int x,
             int y,
             ItemType type
-        )
-        {
+        ) {
             this.x = x;
             this.y = y;
             this.type = type;
@@ -164,14 +153,13 @@ public class SolutionExceptions
     /**
      * We had an until action, but the level never ended.
      */
-    public static class UntilActionNeverEnded extends ProblemRunningSolution
-    {
+    public static class UntilActionNeverEnded extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
         public final World.CompletionState expectedState;
 
-        public UntilActionNeverEnded( World.CompletionState expectedState )
-        {
+        public UntilActionNeverEnded(World.CompletionState expectedState) {
             this.expectedState = expectedState;
         }
     }
@@ -179,13 +167,12 @@ public class SolutionExceptions
     /**
      * Some other exception was thrown.
      */
-    public static class UnknownProblem extends ProblemRunningSolution
-    {
+    public static class UnknownProblem extends ProblemRunningSolution {
+
         private static final long serialVersionUID = 1L;
 
-        public UnknownProblem( Throwable cause )
-        {
-            super( cause );
+        public UnknownProblem(Throwable cause) {
+            super(cause);
         }
     }
 }

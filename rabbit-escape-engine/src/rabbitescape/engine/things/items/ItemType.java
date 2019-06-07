@@ -1,7 +1,6 @@
 package rabbitescape.engine.things.items;
 
-public enum ItemType
-{
+public enum ItemType {
     bash,
     dig,
     bridge,
@@ -10,9 +9,8 @@ public enum ItemType
     explode,
     brolly;
 
-    public static String name( ItemType ability )
-    {
+    public static String name(ItemType ability) {
         String n = ability.name();
-        return n.substring( 0, 1 ).toUpperCase() + n.substring( 1 );
+        return n.substring(0, 1).toUpperCase() + n.substring(1);
     }
 }

@@ -7,20 +7,18 @@ import rabbitescape.engine.textworld.Chars;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_DROWNING;
 
-public class DrowningNormal implements IDrowningState
-{
+public class DrowningNormal implements IDrowningState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_DROWNING;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
-        world.changes.killRabbit( character );
+    ) {
+        world.changes.killRabbit(character);
         return true;
     }
 }

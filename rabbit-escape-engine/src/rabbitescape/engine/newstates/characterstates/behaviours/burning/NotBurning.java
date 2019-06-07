@@ -4,19 +4,17 @@ import rabbitescape.engine.ChangeDescription.*;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public class NotBurning implements IBurningState
-{
+public class NotBurning implements IBurningState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         return false;
     }
 }

@@ -2,42 +2,36 @@ package rabbitescape.engine.solution;
 
 import rabbitescape.engine.World.CompletionState;
 
-public class UntilAction implements CommandAction
-{
+public class UntilAction implements CommandAction {
+
     public final CompletionState targetState;
 
-    public UntilAction( CompletionState targetState )
-    {
+    public UntilAction(CompletionState targetState) {
         this.targetState = targetState;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "UntilAction( " + targetState.name() + " )";
     }
 
     @Override
-    public boolean equals( Object otherObj )
-    {
-        if ( ! ( otherObj instanceof UntilAction ) )
-        {
+    public boolean equals(Object otherObj) {
+        if (!(otherObj instanceof UntilAction)) {
             return false;
         }
-        UntilAction other = (UntilAction)otherObj;
+        UntilAction other = (UntilAction) otherObj;
 
-        return ( targetState == other.targetState );
+        return (targetState == other.targetState);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return targetState.hashCode();
     }
 
     @Override
-    public void typeSwitch( CommandActionTypeSwitch actionTypeSwitch )
-    {
-        actionTypeSwitch.caseUntilAction( this );
+    public void typeSwitch(CommandActionTypeSwitch actionTypeSwitch) {
+        actionTypeSwitch.caseUntilAction(this);
     }
 }

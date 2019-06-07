@@ -6,19 +6,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_USELESSLY_RIGHT_UP;
 
-public class BashingUselesslyRightUp implements IBashingState
-{
+public class BashingUselesslyRightUp implements IBashingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_BASHING_USELESSLY_RIGHT_UP;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         character.slopeBashHop = true;
         character.y -= 1;
         return true;

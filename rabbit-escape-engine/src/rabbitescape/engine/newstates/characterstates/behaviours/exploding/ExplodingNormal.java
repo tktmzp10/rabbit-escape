@@ -6,20 +6,18 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_EXPLODING;
 
-public class ExplodingNormal implements IExplodingState
-{
+public class ExplodingNormal implements IExplodingState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_EXPLODING;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
-        world.changes.killRabbit( character );
+    ) {
+        world.changes.killRabbit(character);
         return true;
     }
 }

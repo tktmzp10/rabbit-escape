@@ -1,11 +1,11 @@
 package rabbitescape.engine.solution;
 
-public interface TimeStepActionTypeSwitch
-{
-    void caseSelectAction( SelectAction selectAction );
+public interface TimeStepActionTypeSwitch {
 
-    void caseAssertStateAction( AssertStateAction targetStateAction )
+    void caseSelectAction(SelectAction selectAction);
+
+    void caseAssertStateAction(AssertStateAction targetStateAction)
         throws SolutionExceptions.UnexpectedState;
 
-    void casePlaceTokenAction( PlaceTokenAction placeTokenAction );
+    void casePlaceTokenAction(PlaceTokenAction placeTokenAction);
 }

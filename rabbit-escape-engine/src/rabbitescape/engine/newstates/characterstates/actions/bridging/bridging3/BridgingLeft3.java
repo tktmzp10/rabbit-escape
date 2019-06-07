@@ -11,19 +11,17 @@ import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_LEFT_3;
 
-public class BridgingLeft3 implements IBridgingState
-{
+public class BridgingLeft3 implements IBridgingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_BRIDGING_LEFT_3;
     }
 
     @Override
     public boolean behave(
         World world, Character character, BridgeType bridgeType
-    )
-    {
+    ) {
         character.onSlope = true;
         character.x--;
         world.changes.addBlock(

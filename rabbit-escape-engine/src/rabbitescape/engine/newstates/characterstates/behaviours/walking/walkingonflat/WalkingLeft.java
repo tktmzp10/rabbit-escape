@@ -7,19 +7,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_WALKING_LEFT;
 
-public class WalkingLeft implements IWalkingState
-{
+public class WalkingLeft implements IWalkingState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_WALKING_LEFT;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         --character.x;
         character.onSlope = false;
         return true;

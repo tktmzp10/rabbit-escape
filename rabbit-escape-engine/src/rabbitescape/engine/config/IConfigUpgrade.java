@@ -1,6 +1,6 @@
 package rabbitescape.engine.config;
 
-public interface IConfigUpgrade
-{
-    void run( IConfigStorage storage );
+public interface IConfigUpgrade {
+
+    void run(IConfigStorage storage);
 }

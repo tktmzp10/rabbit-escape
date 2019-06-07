@@ -6,19 +6,17 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BROLLYCHUTING;
 
-public class BrollychutingNormal implements IBrollychutingState
-{
+public class BrollychutingNormal implements IBrollychutingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_BROLLYCHUTING;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         character.y = character.y + 1;
         return true;
     }

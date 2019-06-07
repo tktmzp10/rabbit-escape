@@ -3,10 +3,9 @@ package rabbitescape.engine.menu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MenuItem
-{
-    public static enum Type
-    {
+public class MenuItem {
+
+    public static enum Type {
         MENU,
         ABOUT,
         DEMO,
@@ -24,8 +23,7 @@ public class MenuItem
     public boolean enabled;
     public boolean hidden;
 
-    public MenuItem( String name, Menu target, boolean enabled, boolean hidden )
-    {
+    public MenuItem(String name, Menu target, boolean enabled, boolean hidden) {
         this.name = name;
         this.menu = target;
         this.type = Type.MENU;
@@ -34,8 +32,7 @@ public class MenuItem
         this.hidden = hidden;
     }
 
-    public MenuItem( String name, Type type, boolean enabled, boolean hidden )
-    {
+    public MenuItem(String name, Type type, boolean enabled, boolean hidden) {
         this.name = name;
         this.menu = null;
         this.type = type;
@@ -50,8 +47,7 @@ public class MenuItem
         Map<String, Object> nameParams,
         boolean enabled,
         boolean hidden
-    )
-    {
+    ) {
         this.name = name;
         this.menu = null;
         this.type = type;

@@ -11,47 +11,39 @@ import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_TURNING_LEFT_TO_RIGHT;
 import static rabbitescape.engine.Direction.RIGHT;
 
-public class TurningLeftToRight implements IWalkingState
-{
+public class TurningLeftToRight implements IWalkingState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_TURNING_LEFT_TO_RIGHT;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
+    ) {
         character.onSlope = false;
         character.dir = RIGHT;
-        checkJumpOntoSlope( world, character );
+        checkJumpOntoSlope(world, character);
         return true;
     }
 
     /**
      * If we turn around near a slope, we jump onto it
      */
-    public void checkJumpOntoSlope( World world, Character character )
-    {
-        Block thisBlock = world.getBlockAt( character.x, character.y );
-        if ( isBridge( thisBlock ) )
-        {
-            Block aboveBlock = world.getBlockAt( character.x, character.y - 1 );
-            if ( character.onSlope && isBridge( aboveBlock ) )
-            {
+    public void checkJumpOntoSlope(World world, Character character) {
+        Block thisBlock = world.getBlockAt(character.x, character.y);
+        if (isBridge(thisBlock)) {
+            Block aboveBlock = world.getBlockAt(character.x, character.y - 1);
+            if (character.onSlope && isBridge(aboveBlock)) {
                 character.y--;
-            }
-            else
-            {
+            } else {
                 character.onSlope = true;
             }
         }
     }
 
-    private boolean isBridge( Block block )
-    {
+    private boolean isBridge(Block block) {
         return (
             block != null
                 && (

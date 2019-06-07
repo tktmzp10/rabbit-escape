@@ -4,13 +4,12 @@ import java.util.Map;
 
 import rabbitescape.engine.err.RabbitEscapeException;
 
-public class BadSavedState extends RabbitEscapeException
-{
+public class BadSavedState extends RabbitEscapeException {
+
     public final Map<String, String> saveState;
 
-    public BadSavedState( Throwable cause, Map<String, String> saveState )
-    {
-        super( cause );
+    public BadSavedState(Throwable cause, Map<String, String> saveState) {
+        super(cause);
         this.saveState = saveState;
     }
 

@@ -18,72 +18,61 @@ import rabbitescape.engine.newstates.characterstates.actions.brollychuting.NotBr
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public class Brollychuting extends CharacterActionStates
-{
+public class Brollychuting extends CharacterActionStates {
+
     private IBrollychutingState brollychutingState;
     boolean hasAbility = false;
     private final Climbing climbing;
     private final Digging digging;
 
-    public Brollychuting( Climbing climbing, Digging digging )
-    {
-        setBrollychutingState( new NotBrollychuting() );
+    public Brollychuting(Climbing climbing, Digging digging) {
+        setBrollychutingState(new NotBrollychuting());
         this.climbing = climbing;
         this.digging = digging;
     }
 
-    public void setBrollychutingState( IBrollychutingState brollychutingState )
-    {
+    public void setBrollychutingState(IBrollychutingState brollychutingState) {
         this.brollychutingState = brollychutingState;
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( triggered )
-        {
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (triggered) {
             hasAbility = true;
         }
 
-        if( !hasAbility )
-        {
-            setBrollychutingState( new NotBrollychuting() );
+        if (!hasAbility) {
+            setBrollychutingState(new NotBrollychuting());
             return brollychutingState.newState();
         }
 
-        if ( climbing.abilityActive )
-        {
-            setBrollychutingState( new NotBrollychuting() );
+        if (climbing.abilityActive) {
+            setBrollychutingState(new NotBrollychuting());
             return brollychutingState.newState();
         }
 
         Block below = t.blockBelow();
 
-        if ( t.isFlat( below ) )
-        {
-            setBrollychutingState( new NotBrollychuting() );
+        if (t.isFlat(below)) {
+            setBrollychutingState(new NotBrollychuting());
             return brollychutingState.newState();
         }
 
         if (
             t.character.onSlope
-         && !t.blockHereJustRemoved()
-        )
-        {
-            setBrollychutingState( new NotBrollychuting() );
+                && !t.blockHereJustRemoved()
+        ) {
+            setBrollychutingState(new NotBrollychuting());
             return brollychutingState.newState();
         }
 
-        if ( below != null )
-        {
-            if ( t.isUpSlope( below ) )
-            {
+        if (below != null) {
+            if (t.isUpSlope(below)) {
                 return t.rl(
                     RABBIT_FALLING_1_ONTO_RISE_RIGHT,
                     RABBIT_FALLING_1_ONTO_RISE_LEFT
                 );
-            }
-            else // Must be a slope in the opposite direction
+            } else // Must be a slope in the opposite direction
             {
                 return t.rl(
                     RABBIT_FALLING_1_ONTO_LOWER_RIGHT,
@@ -91,52 +80,44 @@ public class Brollychuting extends CharacterActionStates
                 );
             }
         }
-        setBrollychutingState( new BrollychutingNormal() );
+        setBrollychutingState(new BrollychutingNormal());
 
         return brollychutingState.newState();
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        return brollychutingState.behave( world, character );
+    public boolean behave(World world, Character character, State state) {
+        return brollychutingState.behave(world, character);
     }
 
-    public boolean hasBrolly()
-    {
+    public boolean hasBrolly() {
         return hasAbility;
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        BehaviourTools t = new BehaviourTools( character, world );
+    public boolean checkTriggered(Character character, World world) {
+        BehaviourTools t = new BehaviourTools(character, world);
 
-        if ( !hasAbility && t.pickUpToken( brolly, true ) )
-        {
+        if (!hasAbility && t.pickUpToken(brolly, true)) {
             return true;
         }
 
-        if( !hasAbility )
-        {
+        if (!hasAbility) {
             return false;
         }
 
-        if ( climbing.abilityActive || digging.stepsOfDigging > 2 )
-        {
+        if (climbing.abilityActive || digging.stepsOfDigging > 2) {
             return false;
         }
 
-        if ( t.isFlat( t.blockBelow() ) )
-        {
+        if (t.isFlat(t.blockBelow())) {
             return false;
         }
 
         if (
-               character.onSlope
-            && !t.blockHereJustRemoved()
-        )
-        {
+            character.onSlope
+                && !t.blockHereJustRemoved()
+        ) {
             return false;
         }
 
@@ -144,13 +125,11 @@ public class Brollychuting extends CharacterActionStates
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
         BehaviourState.addToStateIfTrue(
             saveState, "Brollychuting.hasAbility", hasAbility
         );
@@ -158,8 +137,7 @@ public class Brollychuting extends CharacterActionStates
     }
 
     @Override
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
         hasAbility = BehaviourState.restoreFromState(
             saveState, "Brollychuting.hasAbility", hasAbility
         );
@@ -167,8 +145,7 @@ public class Brollychuting extends CharacterActionStates
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 }

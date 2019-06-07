@@ -6,20 +6,18 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING_ON_SLOPE;
 
-public class DiggingOnSlope implements IDiggingState
-{
+public class DiggingOnSlope implements IDiggingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_DIGGING_ON_SLOPE;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
-        world.changes.removeBlockAt( character.x, character.y );
+    ) {
+        world.changes.removeBlockAt(character.x, character.y);
         character.onSlope = false;
         return true;
     }

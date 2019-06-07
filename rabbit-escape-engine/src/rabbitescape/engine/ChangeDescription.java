@@ -6,10 +6,9 @@ import java.util.List;
 /**
  * This class contains the monolothic enum of rabbit and token characterStates.
  */
-public class ChangeDescription
-{
-    public enum State
-    {
+public class ChangeDescription {
+
+    public enum State {
         NOTHING,
         FIRE_A,
         FIRE_A_RISE_RIGHT,
@@ -53,39 +52,59 @@ public class ChangeDescription
         RABBIT_FALLING,
         RABBIT_FALLING_1,
 
-        /** The flat block is two squares below where this starts.*/
+        /**
+         * The flat block is two squares below where this starts.
+         */
         RABBIT_FALLING_1_TO_DEATH,
 
-        /** Part 2 of the animation for RABBIT_FALLING_1_TO_DEATH.*/
+        /**
+         * Part 2 of the animation for RABBIT_FALLING_1_TO_DEATH.
+         */
         RABBIT_DYING_OF_FALLING_2,
 
-        /** The rabbit starts on the death square.*/
+        /**
+         * The rabbit starts on the death square.
+         */
         RABBIT_DYING_OF_FALLING,
 
-        /** The slope is one square below where this starts. */
+        /**
+         * The slope is one square below where this starts.
+         */
         RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT,
 
-        /** Part 2 of the animation for
-         *  RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT */
+        /**
+         * Part 2 of the animation for RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT
+         */
         RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT_2,
 
-        /** The slope is two squares below where this starts. */
+        /**
+         * The slope is two squares below where this starts.
+         */
         RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT,
 
-        /** Part 2 of RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT. */
+        /**
+         * Part 2 of RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT.
+         */
         RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT_2,
 
-        /** The slope is one square below where this starts. */
+        /**
+         * The slope is one square below where this starts.
+         */
         RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT,
 
-        /** Part 2 of the animation for
-         *  RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT */
+        /**
+         * Part 2 of the animation for RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT
+         */
         RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT_2,
 
-        /** The slope is two squares below where this starts. */
+        /**
+         * The slope is two squares below where this starts.
+         */
         RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT,
 
-        /** Part 2 of RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT. */
+        /**
+         * Part 2 of RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT.
+         */
         RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT_2,
 
         RABBIT_FALLING_ONTO_LOWER_RIGHT,
@@ -223,15 +242,14 @@ public class ChangeDescription
         EXIT,
     }
 
-    public static class Change
-    {
+    public static class Change {
+
         public final int x;
         public final int y;
         public final State state;
         public NewStates newState;
 
-        public Change( int x, int y, State state )
-        {
+        public Change(int x, int y, State state) {
             this.x = x;
             this.y = y;
             this.state = state;
@@ -240,8 +258,7 @@ public class ChangeDescription
 
     public final List<Change> changes = new ArrayList<>();
 
-    public void add( int x, int y, State state )
-    {
-        changes.add( new Change( x, y, state ) );
+    public void add(int x, int y, State state) {
+        changes.add(new Change(x, y, state));
     }
 }

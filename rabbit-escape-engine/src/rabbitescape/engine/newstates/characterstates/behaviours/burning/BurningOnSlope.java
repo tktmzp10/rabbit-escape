@@ -7,20 +7,18 @@ import rabbitescape.engine.textworld.Chars;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BURNING_ON_SLOPE;
 
-public class BurningOnSlope implements IBurningState
-{
+public class BurningOnSlope implements IBurningState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_BURNING_ON_SLOPE;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
-        world.changes.killRabbit( character );
+    ) {
+        world.changes.killRabbit(character);
         return false;
     }
 }

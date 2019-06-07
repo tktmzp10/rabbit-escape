@@ -4,9 +4,9 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.World;
 
-public interface IExitingState
-{
+public interface IExitingState {
+
     public State getState();
 
-    public boolean behave( World world, Character character );
+    public boolean behave(World world, Character character);
 }

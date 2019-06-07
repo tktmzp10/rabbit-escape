@@ -4,17 +4,15 @@ import rabbitescape.engine.ChangeDescription.State;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_BLOCKING_RISE_LEFT;
 
-public class BlockingRiseLeft implements IBlockingState
-{
+public class BlockingRiseLeft implements IBlockingState {
+
     @Override
-    public State getState()
-    {
+    public State getState() {
         return RABBIT_BLOCKING_RISE_LEFT;
     }
 
     @Override
-    public boolean behave()
-    {
+    public boolean behave() {
         return true;
     }
 }

@@ -14,66 +14,57 @@ import rabbitescape.engine.newstates.characterstates.behaviours.outofbounds.OutO
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_OUT_OF_BOUNDS;
 
-public class OutOfBounds extends CharacterBehaviourStates
-{
+public class OutOfBounds extends CharacterBehaviourStates {
+
     private IOutOfBoundsState outOfBoundsState;
 
-    public OutOfBounds()
-    {
-        setOutOfBoundsState( new NotOutOfBounds() );
+    public OutOfBounds() {
+        setOutOfBoundsState(new NotOutOfBounds());
     }
 
-    public void setOutOfBoundsState( IOutOfBoundsState outOfBoundsState )
-    {
+    public void setOutOfBoundsState(IOutOfBoundsState outOfBoundsState) {
         this.outOfBoundsState = outOfBoundsState;
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
+    public boolean checkTriggered(Character character, World world) {
         return (
-               character.x < 0
-            || character.x >= world.size.width
-            || character.y < 0
-            || character.y >= world.size.height
+            character.x < 0
+                || character.x >= world.size.width
+                || character.y < 0
+                || character.y >= world.size.height
         );
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
     @Override
     public State newState(
         BehaviourTools t, boolean triggered
-    )
-    {
-        if ( triggered )
-        {
-            setOutOfBoundsState( new OutOfBoundsNormal() );
+    ) {
+        if (triggered) {
+            setOutOfBoundsState(new OutOfBoundsNormal());
         }
 
         return outOfBoundsState.getState();
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
-        return outOfBoundsState.behave( world, character );
+    public boolean behave(World world, Character character, State state) {
+        return outOfBoundsState.behave(world, character);
     }
 
     @Override
     public boolean behave(
         World world, Character character, State state, NewStates newState
-    )
-    {
-        return behave( world, character, state );
+    ) {
+        return behave(world, character, state);
     }
 }

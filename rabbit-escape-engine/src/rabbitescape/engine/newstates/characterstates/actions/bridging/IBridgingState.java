@@ -5,9 +5,9 @@ import rabbitescape.engine.World;
 import rabbitescape.engine.newstates.characterstates.actions.Bridging.*;
 import rabbitescape.engine.things.Character;
 
-public interface IBridgingState
-{
+public interface IBridgingState {
+
     public State newState();
 
-    public boolean behave( World world, Character character, BridgeType bridgeType );
+    public boolean behave(World world, Character character, BridgeType bridgeType);
 }

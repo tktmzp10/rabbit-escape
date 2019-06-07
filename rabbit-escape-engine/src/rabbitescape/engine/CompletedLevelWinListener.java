@@ -2,8 +2,8 @@ package rabbitescape.engine;
 
 import rabbitescape.engine.menu.LevelsCompleted;
 
-public class CompletedLevelWinListener implements LevelWinListener
-{
+public class CompletedLevelWinListener implements LevelWinListener {
+
     private final String levelsDir;
     private final int levelNumber;
     private final LevelsCompleted levelsCompleted;
@@ -12,24 +12,20 @@ public class CompletedLevelWinListener implements LevelWinListener
         String levelsDir,
         int levelNumber,
         LevelsCompleted levelsCompleted
-    )
-    {
+    ) {
         this.levelsDir = levelsDir;
         this.levelNumber = levelNumber;
         this.levelsCompleted = levelsCompleted;
     }
 
     @Override
-    public void won()
-    {
-        if ( levelsCompleted.highestLevelCompleted( levelsDir ) < levelNumber )
-        {
-            levelsCompleted.setCompletedLevel( levelsDir, levelNumber );
+    public void won() {
+        if (levelsCompleted.highestLevelCompleted(levelsDir) < levelNumber) {
+            levelsCompleted.setCompletedLevel(levelsDir, levelNumber);
         }
     }
 
     @Override
-    public void lost()
-    {
+    public void lost() {
     }
 }

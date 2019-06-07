@@ -6,20 +6,18 @@ import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING;
 
-public class DiggingNormal implements IDiggingState
-{
+public class DiggingNormal implements IDiggingState {
+
     @Override
-    public State newState()
-    {
+    public State newState() {
         return RABBIT_DIGGING;
     }
 
     @Override
     public boolean behave(
         World world, Character character
-    )
-    {
-        world.changes.removeBlockAt( character.x, character.y + 1 );
+    ) {
+        world.changes.removeBlockAt(character.x, character.y + 1);
         ++character.y;
         return true;
     }

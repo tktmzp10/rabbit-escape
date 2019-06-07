@@ -9,8 +9,8 @@ import rabbitescape.engine.things.Character;
 
 import java.util.Map;
 
-public abstract class CharacterBehaviourStates extends CharacterStates
-{
+public abstract class CharacterBehaviourStates extends CharacterStates {
+
     public abstract boolean behave(
         World world, Character character, State state
     );
@@ -21,17 +21,15 @@ public abstract class CharacterBehaviourStates extends CharacterStates
 
     public abstract State getState();
 
-    public abstract State newState( BehaviourTools t, boolean triggered );
+    public abstract State newState(BehaviourTools t, boolean triggered);
 
-    public abstract boolean checkTriggered( Character character, World world );
+    public abstract boolean checkTriggered(Character character, World world);
 
     public abstract void cancel();
 
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
     }
 
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
     }
 }

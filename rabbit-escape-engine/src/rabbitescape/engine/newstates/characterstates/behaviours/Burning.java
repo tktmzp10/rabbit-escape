@@ -11,43 +11,34 @@ import rabbitescape.engine.newstates.characterstates.behaviours.burning.NotBurni
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-public class Burning extends CharacterBehaviourStates
-{
+public class Burning extends CharacterBehaviourStates {
+
     private IBurningState burningState;
 
-    public Burning()
-    {
-        setBurningState( new NotBurning() );
+    public Burning() {
+        setBurningState(new NotBurning());
     }
 
-    public void setBurningState( IBurningState burningState )
-    {
+    public void setBurningState(IBurningState burningState) {
         this.burningState = burningState;
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        return world.fireAt( character.x, character.y );
+    public boolean checkTriggered(Character character, World world) {
+        return world.fireAt(character.x, character.y);
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( triggered )
-        {
-            if ( t.character.onSlope )
-            {
-                setBurningState( new BurningOnSlope() );
-            }
-            else
-            {
-                setBurningState( new BurningNormal() );
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (triggered) {
+            if (t.character.onSlope) {
+                setBurningState(new BurningOnSlope());
+            } else {
+                setBurningState(new BurningNormal());
             }
         }
 
@@ -57,22 +48,19 @@ public class Burning extends CharacterBehaviourStates
     @Override
     public boolean behave(
         World world, Character character, State state
-    )
-    {
-        return burningState.behave( world, character );
+    ) {
+        return burningState.behave(world, character);
     }
 
     @Override
     public boolean behave(
         World world, Character character, State state, NewStates newState
-    )
-    {
-        return behave( world, character, state );
+    ) {
+        return behave(world, character, state);
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return burningState.getState();
     }
 }

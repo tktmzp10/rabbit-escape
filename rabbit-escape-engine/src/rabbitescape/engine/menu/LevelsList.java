@@ -10,10 +10,10 @@ import java.util.TreeMap;
 /**
  * List of all level sets in the game, sorted by directory name.
  */
-public class LevelsList implements Iterable<LevelsList.LevelSetInfo>
-{
-    public static class LevelSetInfo
-    {
+public class LevelsList implements Iterable<LevelsList.LevelSetInfo> {
+
+    public static class LevelSetInfo {
+
         public final String name;
         public final String dirName;
         public final List<LevelInfo> levels;
@@ -21,36 +21,32 @@ public class LevelsList implements Iterable<LevelsList.LevelSetInfo>
 
         public LevelSetInfo(
             String name, String dirName,
-            List<LevelInfo> levels, boolean hidden )
-        {
+            List<LevelInfo> levels, boolean hidden) {
             this.name = name;
             this.dirName = dirName;
             this.levels = levels;
             this.hidden = hidden;
         }
-        
+
         public LevelSetInfo(
             String name, String dirName,
-            List<LevelInfo> levels )
-        {
-            this( name, dirName, levels, false );
+            List<LevelInfo> levels) {
+            this(name, dirName, levels, false);
         }
     }
 
-    public static class LevelInfo
-    {
+    public static class LevelInfo {
+
         public final String fileName;
         public final String name;
 
-        public LevelInfo( String fileName, String name )
-        {
+        public LevelInfo(String fileName, String name) {
             this.fileName = fileName;
             this.name = name;
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return String.format(
                 "LevelInfo(\"%s\",\"%s\")",
                 fileName,
@@ -59,23 +55,20 @@ public class LevelsList implements Iterable<LevelsList.LevelSetInfo>
         }
 
         @Override
-        public boolean equals( Object objOther )
-        {
-            if ( objOther.getClass() != getClass() )
-            {
+        public boolean equals(Object objOther) {
+            if (objOther.getClass() != getClass()) {
                 return false;
             }
-            LevelInfo other = (LevelInfo)objOther;
+            LevelInfo other = (LevelInfo) objOther;
 
             return (
-                   other.name.equals( name )
-                && other.fileName.equals( fileName )
+                other.name.equals(name)
+                    && other.fileName.equals(fileName)
             );
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
             return 31 * name.hashCode() + fileName.hashCode();
         }
     }
@@ -84,46 +77,37 @@ public class LevelsList implements Iterable<LevelsList.LevelSetInfo>
 
     private final SortedMap<String, LevelSetInfo> levelSets;
 
-    public LevelsList( LevelSetInfo... levelSets )
-    {
-        this( Arrays.asList( levelSets ) );
+    public LevelsList(LevelSetInfo... levelSets) {
+        this(Arrays.asList(levelSets));
     }
 
-    public static LevelsList excludingHidden( LevelsList levelsList )
-    {
+    public static LevelsList excludingHidden(LevelsList levelsList) {
         List<LevelSetInfo> ret = new ArrayList<LevelSetInfo>();
-        for ( LevelSetInfo i : levelsList )
-        {
-            if ( !i.hidden )
-            {
-                ret.add( i );
+        for (LevelSetInfo i : levelsList) {
+            if (!i.hidden) {
+                ret.add(i);
             }
         }
-        return new LevelsList( ret );
+        return new LevelsList(ret);
     }
 
-    public LevelsList( List<LevelSetInfo> levelSets )
-    {
+    public LevelsList(List<LevelSetInfo> levelSets) {
         this.levelSets = new TreeMap<String, LevelSetInfo>();
-        for ( LevelSetInfo set : levelSets )
-        {
-            this.levelSets.put( set.dirName, set );
+        for (LevelSetInfo set : levelSets) {
+            this.levelSets.put(set.dirName, set);
         }
     }
 
-    public List<LevelInfo> inDir( String levelsDir )
-    {
-        return levelSets.get( levelsDir ).levels;
+    public List<LevelInfo> inDir(String levelsDir) {
+        return levelSets.get(levelsDir).levels;
     }
 
-    public int size()
-    {
+    public int size() {
         return levelSets.size();
     }
 
     @Override
-    public Iterator<LevelSetInfo> iterator()
-    {
+    public Iterator<LevelSetInfo> iterator() {
         return levelSets.values().iterator();
     }
 }

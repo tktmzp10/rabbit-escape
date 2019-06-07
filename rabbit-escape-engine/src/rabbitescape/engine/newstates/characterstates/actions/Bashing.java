@@ -13,24 +13,21 @@ import rabbitescape.engine.newstates.characterstates.CharacterActionStates;
 import rabbitescape.engine.newstates.characterstates.actions.bashing.*;
 import rabbitescape.engine.things.Character;
 
-public class Bashing extends CharacterActionStates
-{
+public class Bashing extends CharacterActionStates {
+
     private IBashingState bashingState;
     private int stepsOfBashing;
 
-    public Bashing()
-    {
+    public Bashing() {
         this.bashingState = new NotBashing();
     }
 
     @Override
-    public State getState()
-    {
+    public State getState() {
         return null;
     }
 
-    public void setBashingState( IBashingState bashingState )
-    {
+    public void setBashingState(IBashingState bashingState) {
         this.bashingState = bashingState;
     }
 
@@ -38,53 +35,41 @@ public class Bashing extends CharacterActionStates
         IBashingState right,
         IBashingState left,
         Character character
-    )
-    {
-        if ( character.dir == RIGHT )
-        {
-            setBashingState( right );
-        }
-        else
-        {
-            setBashingState( left );
+    ) {
+        if (character.dir == RIGHT) {
+            setBashingState(right);
+        } else {
+            setBashingState(left);
         }
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
         stepsOfBashing = 0;
     }
 
     @Override
-    public boolean checkTriggered( Character character, World world )
-    {
-        BehaviourTools t = new BehaviourTools( character, world );
+    public boolean checkTriggered(Character character, World world) {
+        BehaviourTools t = new BehaviourTools(character, world);
 
-        return t.pickUpToken( bash );
+        return t.pickUpToken(bash);
     }
 
     @Override
-    public State newState( BehaviourTools t, boolean triggered )
-    {
-        if ( triggered || stepsOfBashing > 0 )
-        {
+    public State newState(BehaviourTools t, boolean triggered) {
+        if (triggered || stepsOfBashing > 0) {
             if (
                 t.isOnUpSlope()
                     && t.blockAboveNext() != null
-            )
-            {
-                if (t.blockAboveNext().material == Block.Material.METAL)
-                {
+            ) {
+                if (t.blockAboveNext().material == Block.Material.METAL) {
                     stepsOfBashing = 0;
                     setBashingState(
                         new BashingUselesslyRightUp(),
                         new BashingUselesslyLeftUp(),
                         t.character
                     );
-                }
-                else
-                {
+                } else {
                     stepsOfBashing = 2;
                     setBashingState(
                         new BashingUpRight(),
@@ -92,32 +77,25 @@ public class Bashing extends CharacterActionStates
                         t.character
                     );
                 }
-            }
-            else if (
+            } else if (
                 t.isOnUpSlope()
                     && t.blockAboveNext() == null
                     && triggered
-            )
-            {
+            ) {
                 setBashingState(
                     new BashingUselesslyRightUp(),
                     new BashingUselesslyLeftUp(),
                     t.character
                 );
-            }
-            else if ( t.blockNext() != null )
-            {
-                if ( t.blockNext().material == Block.Material.METAL )
-                {
+            } else if (t.blockNext() != null) {
+                if (t.blockNext().material == Block.Material.METAL) {
                     stepsOfBashing = 0;
                     setBashingState(
                         new BashingUselesslyRight(),
                         new BashingUselesslyLeft(),
                         t.character
                     );
-                }
-                else
-                {
+                } else {
                     stepsOfBashing = 2;
                     setBashingState(
                         new BashingRight(),
@@ -125,24 +103,18 @@ public class Bashing extends CharacterActionStates
                         t.character
                     );
                 }
-            }
-            else if ( triggered )
-            {
+            } else if (triggered) {
                 setBashingState(
                     new BashingUselesslyRight(),
                     new BashingUselesslyLeft(),
                     t.character
                 );
-            }
-            else
-            {
-                setBashingState( new NotBashing() );
+            } else {
+                setBashingState(new NotBashing());
                 --stepsOfBashing;
             }
-        }
-        else
-        {
-            setBashingState( new NotBashing() );
+        } else {
+            setBashingState(new NotBashing());
             --stepsOfBashing;
         }
 
@@ -150,29 +122,25 @@ public class Bashing extends CharacterActionStates
     }
 
     @Override
-    public boolean behave( World world, Character character, State state )
-    {
+    public boolean behave(World world, Character character, State state) {
         //TODO: Deal with duplicate code of destX().
-        return bashingState.behave( world, character );
+        return bashingState.behave(world, character);
     }
 
     @Override
-    public void saveState( Map<String, String> saveState )
-    {
+    public void saveState(Map<String, String> saveState) {
         BehaviourState.addToStateIfGtZero(
             saveState, "Bashing.stepsOfBashing", stepsOfBashing
         );
     }
 
     @Override
-    public void restoreFromState( Map<String, String> saveState )
-    {
+    public void restoreFromState(Map<String, String> saveState) {
         stepsOfBashing = BehaviourState.restoreFromState(
             saveState, "Bashing.stepsOfBashing", stepsOfBashing
         );
 
-        if ( stepsOfBashing > 0 )
-        {
+        if (stepsOfBashing > 0) {
             ++stepsOfBashing;
         }
     }
