@@ -10,6 +10,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.actions.*;
 import rabbitescape.engine.newstates.characterstates.behaviours.*;
+import rabbitescape.engine.newstates.characterstates.behaviours.Falling;
 
 public abstract class Character extends Thing implements Comparable<Character>
 {
