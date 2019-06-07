@@ -1,16 +1,12 @@
 package rabbitescape.engine.newstates.characterstates.behaviours;
 
-import static rabbitescape.engine.CellularDirection.DOWN;
-import static rabbitescape.engine.CellularDirection.UP;
+import static rabbitescape.engine.CellularDirection.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
-import rabbitescape.engine.newstates.characterstates.behaviours.drowning.DrowningNormal;
-import rabbitescape.engine.newstates.characterstates.behaviours.drowning.IDrowningState;
-import rabbitescape.engine.newstates.characterstates.behaviours.drowning.NotDrowning;
+import rabbitescape.engine.newstates.characterstates.behaviours.drowning.*;
 import rabbitescape.engine.things.characters.Rabbot;
 import rabbitescape.engine.things.environment.WaterRegion;
 
@@ -74,8 +70,7 @@ public class Drowning extends CharacterBehaviourStates {
 
     @Override
     public boolean behave(
-        World world, Character character, State state, NewStates newState
-    ) {
+        World world, Character character, State state, NewStates newState) {
         return behave(world, character, state);
     }
 

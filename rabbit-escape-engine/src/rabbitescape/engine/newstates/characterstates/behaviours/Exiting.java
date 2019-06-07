@@ -4,7 +4,6 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
 import rabbitescape.engine.things.Character;
 import rabbitescape.engine.newstates.characterstates.behaviours.exiting.*;
@@ -72,8 +71,7 @@ public class Exiting extends CharacterBehaviourStates {
 
     @Override
     public boolean behave(
-        World world, Character character, State state, NewStates newState
-    ) {
+        World world, Character character, State state, NewStates newState) {
         return behave(world, character, state);
     }
 }

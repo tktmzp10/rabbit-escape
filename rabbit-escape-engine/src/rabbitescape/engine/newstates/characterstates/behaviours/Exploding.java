@@ -1,15 +1,11 @@
 package rabbitescape.engine.newstates.characterstates.behaviours;
 
 import static rabbitescape.engine.things.items.ItemType.*;
-import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
 import rabbitescape.engine.newstates.characterstates.CharacterBehaviourStates;
-import rabbitescape.engine.newstates.characterstates.behaviours.exploding.ExplodingNormal;
-import rabbitescape.engine.newstates.characterstates.behaviours.exploding.IExplodingState;
-import rabbitescape.engine.newstates.characterstates.behaviours.exploding.NotExploding;
+import rabbitescape.engine.newstates.characterstates.behaviours.exploding.*;
 import rabbitescape.engine.things.Character;
 
 public class Exploding extends CharacterBehaviourStates {
@@ -55,8 +51,7 @@ public class Exploding extends CharacterBehaviourStates {
 
     @Override
     public boolean behave(
-        World world, Character character, State state, NewStates newState
-    ) {
+        World world, Character character, State state, NewStates newState) {
         return behave(world, character, state);
     }
 }

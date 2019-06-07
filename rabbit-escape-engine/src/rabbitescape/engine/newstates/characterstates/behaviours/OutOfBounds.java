@@ -46,9 +46,7 @@ public class OutOfBounds extends CharacterBehaviourStates {
     }
 
     @Override
-    public State newState(
-        BehaviourTools t, boolean triggered
-    ) {
+    public State newState( BehaviourTools t, boolean triggered ) {
         if (triggered) {
             setOutOfBoundsState(new OutOfBoundsNormal());
         }
@@ -63,8 +61,7 @@ public class OutOfBounds extends CharacterBehaviourStates {
 
     @Override
     public boolean behave(
-        World world, Character character, State state, NewStates newState
-    ) {
+        World world, Character character, State state, NewStates newState) {
         return behave(world, character, state);
     }
 }
