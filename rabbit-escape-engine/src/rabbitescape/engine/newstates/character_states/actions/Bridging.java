@@ -409,18 +409,21 @@ public class Bridging extends CharacterActionStates {
             case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
             case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2: {
                 bridgeType = BridgeType.ALONG;
+                break;
             }
             case RABBIT_BRIDGING_UP_RIGHT_1:
             case RABBIT_BRIDGING_UP_RIGHT_2:
             case RABBIT_BRIDGING_UP_LEFT_1:
             case RABBIT_BRIDGING_UP_LEFT_2: {
                 bridgeType = BridgeType.UP;
+                break;
             }
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_1:
             case RABBIT_BRIDGING_DOWN_UP_RIGHT_2:
             case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
             case RABBIT_BRIDGING_DOWN_UP_LEFT_2: {
                 bridgeType = BridgeType.DOWN_UP;
+                break;
             }
         }
         return bridgingState.behave(world, character);
