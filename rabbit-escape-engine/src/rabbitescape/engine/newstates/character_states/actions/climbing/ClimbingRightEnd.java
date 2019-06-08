@@ -18,7 +18,7 @@ public class ClimbingRightEnd implements IClimbingState {
     }
 
     @Override
-    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
+    public IClimbingState newState(BehaviourTools t, Climbing climbing) {
         int nextX = t.nextX();
         int nextY = t.nextY();
         Block nextBlock = t.world.getBlockAt(nextX, nextY);

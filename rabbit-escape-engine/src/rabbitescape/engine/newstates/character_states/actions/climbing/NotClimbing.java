@@ -12,7 +12,7 @@ import static rabbitescape.engine.Direction.RIGHT;
 public class NotClimbing implements IClimbingState {
 
     @Override
-    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
+    public IClimbingState newState(BehaviourTools t, Climbing climbing) {
         int nextX = t.nextX();
         int nextY = t.nextY();
         Block nextBlock = t.world.getBlockAt(nextX, nextY);
@@ -35,9 +35,7 @@ public class NotClimbing implements IClimbingState {
     }
 
     @Override
-    public boolean behave(
-        World world, Character character, Climbing climbing
-    ) {
+    public boolean behave(World world, Character character, Climbing climbing) {
         return false;
     }
 }

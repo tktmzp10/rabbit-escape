@@ -17,8 +17,7 @@ public class ClimbingRightStart implements IClimbingState {
     }
 
     @Override
-    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
-        System.out.println("\t\tClimbingRightStart.getState()");
+    public IClimbingState newState(BehaviourTools t, Climbing climbing) {
         Block endBlock = t.blockAboveNext();
 
         if (t.isWall(endBlock)) {

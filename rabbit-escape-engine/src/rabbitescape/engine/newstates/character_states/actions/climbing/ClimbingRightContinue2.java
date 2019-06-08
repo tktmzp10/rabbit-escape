@@ -17,10 +17,11 @@ public class ClimbingRightContinue2 implements IClimbingState {
     }
 
     @Override
-    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
+    public IClimbingState newState(BehaviourTools t, Climbing climbing) {
         Block aboveBlock = t.blockAbove();
 
         if (t.isRoof(aboveBlock)) {
+            climbing.abilityActive = false;
             return new ClimbingRightBangHead();
         }
 

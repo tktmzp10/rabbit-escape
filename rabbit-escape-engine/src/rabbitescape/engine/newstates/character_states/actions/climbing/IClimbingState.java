@@ -10,10 +10,7 @@ public interface IClimbingState {
 
     public State getState();
 
-    public IClimbingState newState(
-        BehaviourTools t,
-        boolean abilityActive
-    );
+    public IClimbingState newState(BehaviourTools t, Climbing climbing);
 
     public boolean behave(World world, Character character, Climbing climbing);
 }

@@ -16,7 +16,7 @@ public class ClimbingRightContinue1 implements IClimbingState {
     }
 
     @Override
-    public IClimbingState newState(BehaviourTools t, boolean abilityActive) {
+    public IClimbingState newState(BehaviourTools t, Climbing climbing) {
         return new ClimbingRightContinue2();
     }
 

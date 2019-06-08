@@ -40,26 +40,22 @@ public class Climbing extends CharacterActionStates {
 
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
-        System.out.println("\tgetState()");
         if (triggered) {
-            System.out.println("\t\ttriggered");
             hasAbility = true;
         }
 
         if (!hasAbility) {
-            System.out.println("\t\t!hasAbility");
             setClimbingState(new NotClimbing());
             return null;
         }
 
-        climbingState = climbingState.newState(t, abilityActive);
+        climbingState = climbingState.newState(t, this);
 
         return climbingState.getState();
     }
 
     @Override
     public boolean behave(World world, Character character, State state) {
-        System.out.println("\tbehave()");
         BehaviourTools t = new BehaviourTools(character, world);
 
         if (t.rabbitIsClimbing()) { // Can't be both on a wall and on a slope.
