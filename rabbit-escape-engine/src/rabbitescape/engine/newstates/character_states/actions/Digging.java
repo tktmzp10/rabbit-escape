@@ -51,27 +51,34 @@ public class Digging extends CharacterActionStates {
         }
 
         if (triggered || stepsOfDigging > 0) {
-            if (t.character.onSlope && t.blockHere() != null) {
-                stepsOfDigging = 1;
-                setDiggingState(new DiggingOnSlope());
-            } else if (t.blockBelow() != null) {
-                if (t.blockBelow().material == Block.Material.METAL) {
-                    stepsOfDigging = 0;
-                    setDiggingState(new DiggingUselessly());
-                } else {
-                    stepsOfDigging = 2;
-                    setDiggingState(new DiggingNormal());
-                }
-            } else {
-                --stepsOfDigging;
-                setDiggingState(new NotDigging());
-            }
+            newStateWhenActive(t);
         } else {
-            --stepsOfDigging;
-            setDiggingState(new NotDigging());
+            newStateWhenNotActive();
         }
 
         return diggingState.newState();
+    }
+
+    private void newStateWhenActive(BehaviourTools t) {
+        if (t.character.onSlope && t.blockHere() != null) {
+            stepsOfDigging = 1;
+            setDiggingState(new DiggingOnSlope());
+        } else if (t.blockBelow() != null) {
+            if (t.blockBelow().material == Block.Material.METAL) {
+                stepsOfDigging = 0;
+                setDiggingState(new DiggingUselessly());
+            } else {
+                stepsOfDigging = 2;
+                setDiggingState(new DiggingNormal());
+            }
+        } else {
+            newStateWhenNotActive();
+        }
+    }
+
+    private void newStateWhenNotActive() {
+        --stepsOfDigging;
+        setDiggingState(new NotDigging());
     }
 
     @Override

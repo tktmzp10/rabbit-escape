@@ -4,6 +4,7 @@ import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.character_states.actions.Climbing;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_RIGHT_BANG_HEAD;
@@ -37,7 +38,7 @@ public class ClimbingRightBangHead implements IClimbingState {
 
     @Override
     public boolean behave(
-        World world, Character character, boolean abilityActive
+        World world, Character character, Climbing climbing
     ) {
         character.dir = opposite(character.dir);
         return true;

@@ -3,6 +3,7 @@ package rabbitescape.engine.newstates.character_states.actions.climbing;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.character_states.actions.Climbing;
 import rabbitescape.engine.things.Character;
 
 import static rabbitescape.engine.ChangeDescription.State.RABBIT_CLIMBING_LEFT_CONTINUE_1;
@@ -21,9 +22,9 @@ public class ClimbingLeftContinue1 implements IClimbingState {
 
     @Override
     public boolean behave(
-        World world, Character character, boolean abilityActive
+        World world, Character character, Climbing climbing
     ) {
-        abilityActive = true;
+        climbing.abilityActive = true;
         return true;
     }
 }

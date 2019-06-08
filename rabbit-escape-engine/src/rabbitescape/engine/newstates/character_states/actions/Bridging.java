@@ -18,7 +18,7 @@ import rabbitescape.engine.things.Character;
 
 public class Bridging extends CharacterActionStates {
 
-    private static IBridgingState bridgingState;
+    private IBridgingState bridgingState;
     private int smallSteps = 0;
     private int bigSteps = 0;
     public BridgeType bridgeType = BridgeType.ALONG;
@@ -27,11 +27,11 @@ public class Bridging extends CharacterActionStates {
         setBridgingState(new NotBridging());
     }
 
-    public static void setBridgingState(IBridgingState state) {
+    public void setBridgingState(IBridgingState state) {
         bridgingState = state;
     }
 
-    public static void setBridgingState(
+    public void setBridgingState(
         IBridgingState right,
         IBridgingState left,
         Character character
@@ -43,7 +43,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static State bridgingState(
+    private State bridgingState(
         BehaviourTools t,
         int bs,
         int ss,
@@ -97,7 +97,7 @@ public class Bridging extends CharacterActionStates {
         return bridgingState.newState();
     }
 
-    private static void atOneSmallStep(BridgeType bt, Character character) {
+    private void atOneSmallStep(BridgeType bt, Character character) {
         switch (bt) {
             case ALONG: {
                 setBridgingState(
@@ -129,7 +129,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static void atTwoSmallSteps(BridgeType bt, Character character) {
+    private void atTwoSmallSteps(BridgeType bt, Character character) {
         switch (bt) {
             case ALONG: {
                 setBridgingState(
@@ -161,7 +161,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static void atThreeSmallSteps(
+    private void atThreeSmallSteps(
         Character character,
         boolean slopeUp,
         boolean slopeDown
@@ -187,7 +187,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static State stateIntoWall(
+    private State stateIntoWall(
         BehaviourTools t, Character character, World world, int ss
     ) {
         // We are facing a wall.  This makes us a bit keener to bridge.
@@ -216,7 +216,7 @@ public class Bridging extends CharacterActionStates {
         return bridgingState.newState();
     }
 
-    private static void atOneSmallStep(Character character, Block thisBlock) {
+    private void atOneSmallStep(Character character, Block thisBlock) {
         if (isSlope(thisBlock)) {
             setBridgingState(
                 new BridgingInCornerUpRight3(),
@@ -232,7 +232,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static void atTwoSmallSteps(Character character, Block thisBlock) {
+    private void atTwoSmallSteps(Character character, Block thisBlock) {
         if (isSlope(thisBlock)) {
             setBridgingState(
                 new BridgingInCornerUpRight2(),
@@ -248,7 +248,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static void atThreeSmallSteps(
+    private void atThreeSmallSteps(
         Character character,
         World world,
         Block thisBlock
@@ -277,7 +277,7 @@ public class Bridging extends CharacterActionStates {
         }
     }
 
-    private static boolean startingIntoToWall(
+    private boolean startingIntoToWall(
         World world,
         Character character,
         int bs
