@@ -1,6 +1,5 @@
 package rabbitescape.engine.newstates.character_states.actions;
 
-import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.things.items.ItemType.*;
 import static rabbitescape.engine.Block.Shape.*;
@@ -75,7 +74,7 @@ public class Bridging extends CharacterActionStates {
         ) // Bang head next
             || (bs < 3 && BehaviourTools.s_isFlat(twoAboveHereBlock))) {
             setBridgingState(new NotBridging());
-            return bridgingState.newState(); // Stop bridging
+            return bridgingState.getState(); // Stop bridging
         }
 
         boolean slopeDown = (
@@ -94,7 +93,7 @@ public class Bridging extends CharacterActionStates {
             setBridgingState(new NotBridging());
         }
 
-        return bridgingState.newState();
+        return bridgingState.getState();
     }
 
     private static void atOneSmallStep(BridgeType bt, Character character) {
@@ -200,7 +199,7 @@ public class Bridging extends CharacterActionStates {
         // Don't bridge if there is no block behind us (we're not in a hole)
         if (isSlope(thisBlock) && world.getBlockAt(bx, ny) == null) {
             setBridgingState(new NotBridging());
-            return bridgingState.newState();
+            return bridgingState.getState();
         }
 
         if (ss == 3) {
@@ -213,7 +212,7 @@ public class Bridging extends CharacterActionStates {
             setBridgingState(new NotBridging());
         }
 
-        return bridgingState.newState();
+        return bridgingState.getState();
     }
 
     private static void atOneSmallStep(Character character, Block thisBlock) {
@@ -355,6 +354,7 @@ public class Bridging extends CharacterActionStates {
 
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
+        System.out.println("\tgetState()");
         if (triggered) {
             smallSteps = 3;
             bigSteps = 3;
@@ -390,6 +390,7 @@ public class Bridging extends CharacterActionStates {
 
     @Override
     public boolean behave(World world, Character character, State state) {
+        System.out.println("\tbehave()");
         return bridgingState.behave(world, character, this);
     }
 

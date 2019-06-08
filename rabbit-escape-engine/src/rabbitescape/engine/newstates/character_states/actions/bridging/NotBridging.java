@@ -9,7 +9,7 @@ import rabbitescape.engine.things.Character;
 public class NotBridging implements IBridgingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 
@@ -17,6 +17,7 @@ public class NotBridging implements IBridgingState {
     public boolean behave(
         World world, Character character, Bridging bridging
     ) {
+        System.out.println("\t\tNotBridging");
         return false;
     }
 }

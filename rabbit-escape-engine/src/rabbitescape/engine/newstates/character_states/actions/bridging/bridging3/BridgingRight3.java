@@ -15,7 +15,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_RIGHT_
 public class BridgingRight3 implements IBridgingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BRIDGING_RIGHT_3;
     }
 
@@ -23,6 +23,7 @@ public class BridgingRight3 implements IBridgingState {
     public boolean behave(
         World world, Character character, Bridging bridging
     ) {
+        System.out.println("\t\tRABBIT_BRIDGING_RIGHT_3");
         character.onSlope = true;
         character.x++;
         world.changes.addBlock(
