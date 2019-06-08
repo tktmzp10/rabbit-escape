@@ -1,17 +1,17 @@
 package rabbitescape.engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.junit.*;
+
 import static rabbitescape.engine.Tools.equalTo;
 import static rabbitescape.engine.textworld.TextWorldManip.createWorld;
 import static rabbitescape.engine.textworld.TextWorldManip.renderCompleteWorld;
 
-public class TestRabbitIndexing
-{
+public class TestRabbitIndexing {
 
     @Test
-    public void Rabbit_index_round_trips()
-    {
+    public void Rabbit_index_round_trips() {
         String[] lines = {
             ":name=Rabbit indexing test",
             ":description=",
@@ -32,14 +32,13 @@ public class TestRabbitIndexing
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Index_counter_increments_on_rabbit_entrance()
-    {
+    public void Index_counter_increments_on_rabbit_entrance() {
         String[] lines = {
             ":name=Rabbit indexing test",
             ":description=",
@@ -78,19 +77,18 @@ public class TestRabbitIndexing
             ":*=r{index:8}"
         };
 
-        World w = createWorld( lines );
+        World w = createWorld(lines);
 
         w.step();
 
         assertThat(
-            renderCompleteWorld( w , true ),
-            equalTo( expected )
+            renderCompleteWorld(w, true),
+            equalTo(expected)
         );
     }
 
     @Test
-    public void Counted_if_counter_not_given()
-    {
+    public void Counted_if_counter_not_given() {
         String[] lines = {
             ":name=Rabbit indexing test",
             ":description=",
@@ -130,8 +128,8 @@ public class TestRabbitIndexing
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( expected )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(expected)
         );
     }
 }

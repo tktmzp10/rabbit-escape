@@ -11,11 +11,10 @@ import org.junit.Test;
 import rabbitescape.engine.World;
 import rabbitescape.engine.util.WaterUtil;
 
-public class TestWater
-{
+public class TestWater {
+
     @Test
-    public void Water_goes_round_ubend()
-    {
+    public void Water_goes_round_ubend() {
         World world = createWorld(
             " P #  ",
             "#  # #",
@@ -28,7 +27,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             10,
-            new String[] {
+            new String[]{
                 "n*n#  ",
                 "#nn# #",
                 "#nn# #",
@@ -54,7 +53,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             20,
-            new String[] {
+            new String[]{
                 "n*n#  ",
                 "#nn# #",
                 "#nN# #",
@@ -81,7 +80,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             30,
-            new String[] {
+            new String[]{
                 "n*n#  ",
                 "#NN# #",
                 "#NN#n#",
@@ -109,7 +108,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             40,
-            new String[] {
+            new String[]{
                 "n*n#nn",
                 "#Nn#N#",
                 "#NN#N#",
@@ -139,8 +138,7 @@ public class TestWater
     }
 
     @Test
-    public void Bulkhead_flow()
-    {
+    public void Bulkhead_flow() {
         World world = createWorld(
             "#   P #",
             "#     #",
@@ -153,7 +151,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             10,
-            new String[] {
+            new String[]{
                 "#  n*n#",
                 "#  nnn#",
                 "#  n#n#",
@@ -180,7 +178,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             15,
-            new String[] {
+            new String[]{
                 "#  n*n#",
                 "#  nnn#",
                 "# nn#N#",
@@ -208,8 +206,7 @@ public class TestWater
     }
 
     @Test
-    public void Enclosed_regions_dont_fill()
-    {
+    public void Enclosed_regions_dont_fill() {
         World world = createWorld(
             "#  P  #",
             "#     #",
@@ -222,7 +219,7 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             50,
-            new String[] {
+            new String[]{
                 "#nN*nn#",
                 "#NNNNN#",
                 "#NNNNN#",
@@ -258,32 +255,30 @@ public class TestWater
     }
 
     /**
-     * Check that standing water can be loaded, stepped and output without any
-     * need for water amount description lines (lines starting ":n=").
+     * Check that standing water can be loaded, stepped and output without any need for water amount
+     * description lines (lines starting ":n=").
      */
     @Test
-    public void Unqualified_standing_water_steps_normally()
-    {
+    public void Unqualified_standing_water_steps_normally() {
         World world = createWorld(
             "#N#n# #",
-            "#######" );
+            "#######");
 
         assertWorldEvolvesLike(
             world,
             1,
-            new String[] {
+            new String[]{
                 "#N#n# #",
                 "#######"
-            } );
+            });
     }
 
     /**
-     * Check that standing water can be loaded, stepped and output without any
-     * need for water amount description lines (lines starting ":n=").
+     * Check that standing water can be loaded, stepped and output without any need for water amount
+     * description lines (lines starting ":n=").
      */
     @Test
-    public void Water_description_lines_are_only_output_when_needed()
-    {
+    public void Water_description_lines_are_only_output_when_needed() {
         World world = createWorld(
             "#N N#",
             "#####");
@@ -293,35 +288,33 @@ public class TestWater
         assertWorldEvolvesLike(
             world,
             1,
-            new String[] {
+            new String[]{
                 "#nNn#",
                 "#####"
-            } );
+            });
 
         // Check that after one more step, all cells have water description
         // lines.
         assertWorldEvolvesLike(
             world,
             1,
-            new String[] {
+            new String[]{
                 "#nnn#",
                 "#####",
                 ":n=1,0,682",
                 ":n=2,0,684",
                 ":n=3,0,682"
-            } );
+            });
     }
 
     /**
-     * Create some regions between ramps at the bottom and blocks at the top,
-     * and fill them with various amounts of water. Check that the water
-     * description isn't needed when the amount of water is exactly
-     * {@link WaterUtil#MAX_CAPACITY} (as created by a cell with an N) or
-     * {@link WaterUtil#HALF_CAPACITY} (as created by a cell with an n).
+     * Create some regions between ramps at the bottom and blocks at the top, and fill them with
+     * various amounts of water. Check that the water description isn't needed when the amount of
+     * water is exactly {@link WaterUtil#MAX_CAPACITY} (as created by a cell with an N) or {@link
+     * WaterUtil#HALF_CAPACITY} (as created by a cell with an n).
      */
     @Test
-    public void Standard_amounts_of_water_on_ramps_shouldnt_have_descriptions()
-    {
+    public void Standard_amounts_of_water_on_ramps_shouldnt_have_descriptions() {
         World world = createWorld(
             "######",
             "******",
@@ -332,20 +325,20 @@ public class TestWater
             ":*=\\n",
             ":*=/n",
             ":n=4,1,10",
-            ":n=5,1,20" );
+            ":n=5,1,20");
 
         // Check that this 'round trips' successfully.
-        String[] lines = renderCompleteWorld( world, true );
+        String[] lines = renderCompleteWorld(world, true);
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines ) );
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines));
 
         // Check that even after a step the left regions don't need
         // descriptions.
         assertWorldEvolvesLike(
             world,
             1,
-            new String[] {
+            new String[]{
                 "######",
                 "******",
                 ":*=\\N",
@@ -356,6 +349,6 @@ public class TestWater
                 ":*=/n",
                 ":n=4,1,15",
                 ":n=5,1,15"
-            } );
+            });
     }
 }

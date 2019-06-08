@@ -10,11 +10,10 @@ import org.junit.*;
 
 import rabbitescape.engine.World;
 
-public class TestWalking
-{
+public class TestWalking {
+
     @Test
-    public void Take_a_step_right_on_normal_ground()
-    {
+    public void Take_a_step_right_on_normal_ground() {
         World world = createWorld(
             "     ",
             "     ",
@@ -25,7 +24,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "     ",
                 "     ",
@@ -36,8 +35,7 @@ public class TestWalking
     }
 
     @Test
-    public void Take_a_step_left_on_normal_ground()
-    {
+    public void Take_a_step_left_on_normal_ground() {
         World world = createWorld(
             "     ",
             "     ",
@@ -48,7 +46,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "     ",
                 "     ",
@@ -59,15 +57,14 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_when_you_hit_a_wall_on_left()
-    {
+    public void Turn_when_you_hit_a_wall_on_left() {
         World world = createWorld(
             "#j   ",
             "#####"
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#|   ",
                 "#####"
@@ -77,7 +74,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "#r   ",
                 "#####"
@@ -86,8 +83,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_when_you_hit_a_wall_on_right()
-    {
+    public void Turn_when_you_hit_a_wall_on_right() {
         World world = createWorld(
             "# r# ",
             "#####"
@@ -96,7 +92,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "# j# ",
                 "#####"
@@ -105,8 +101,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_when_you_hit_the_back_of_a_slope_on_left()
-    {
+    public void Turn_when_you_hit_the_back_of_a_slope_on_left() {
         World world = createWorld(
             "/j  ",
             "####"
@@ -115,7 +110,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "/r  ",
                 "####"
@@ -124,8 +119,7 @@ public class TestWalking
     }
 
     @Test
-    public void Dont_turn_when_you_hit_the_back_of_a_bridge_on_left()
-    {
+    public void Dont_turn_when_you_hit_the_back_of_a_bridge_on_left() {
         World world = createWorld(
             " (j  ",
             "#####"
@@ -134,7 +128,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " j   ",
                 "#####"
@@ -144,7 +138,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "j(   ",
                 "#####"
@@ -153,8 +147,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_when_you_hit_the_back_of_a_slope_on_right()
-    {
+    public void Turn_when_you_hit_the_back_of_a_slope_on_right() {
         World world = createWorld(
             "  r\\",
             "####"
@@ -163,7 +156,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "  j\\",
                 "####"
@@ -172,8 +165,7 @@ public class TestWalking
     }
 
     @Test
-    public void Dont_turn_when_you_hit_the_back_of_a_slope_on_right()
-    {
+    public void Dont_turn_when_you_hit_the_back_of_a_slope_on_right() {
         World world = createWorld(
             "  r) ",
             "#####"
@@ -182,7 +174,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   r ",
                 "#####"
@@ -192,7 +184,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   )r",
                 "#####"
@@ -201,8 +193,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_up_a_slope_right()
-    {
+    public void Climb_up_a_slope_right() {
         World world = createWorld(
             "      ",
             "   /##",
@@ -213,7 +204,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   /##",
@@ -225,7 +216,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   $##",
@@ -237,7 +228,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ' ",
                 "   r##",
@@ -249,7 +240,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    r>",  // At top
                 "   /##",
@@ -261,8 +252,7 @@ public class TestWalking
 
 
     @Test
-    public void Climb_up_a_bridge_right()
-    {
+    public void Climb_up_a_bridge_right() {
         World world = createWorld(
             "      ",
             "   (##",
@@ -273,7 +263,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   (##",
@@ -285,7 +275,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   $##",
@@ -297,7 +287,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ' ",
                 "   r##",
@@ -309,7 +299,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    r>",  // At top
                 "   (##",
@@ -320,8 +310,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_up_a_slope_left()
-    {
+    public void Climb_up_a_slope_left() {
         World world = createWorld(
             "      ",
             "##\\   ",
@@ -332,7 +321,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##\\   ",
@@ -344,7 +333,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##^   ",
@@ -356,7 +345,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " !    ",
                 "##j   ",
@@ -368,7 +357,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "<j    ",  // At top
                 "##\\   ",
@@ -379,8 +368,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_up_a_bridge_left()
-    {
+    public void Climb_up_a_bridge_left() {
         World world = createWorld(
             "      ",
             "##)   ",
@@ -391,7 +379,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##)   ",
@@ -403,7 +391,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##^   ",
@@ -415,7 +403,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " !    ",
                 "##j   ",
@@ -427,7 +415,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "<j    ",  // At top
                 "##)   ",
@@ -438,8 +426,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_down_a_slope_right()
-    {
+    public void Climb_down_a_slope_right() {
         World world = createWorld(
             "r     ",
             "##\\   ",
@@ -450,7 +437,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r    ",
                 "##-   ", // Approaching
@@ -462,7 +449,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##r   ", // Going down slope
@@ -474,7 +461,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##\\   ", // Approaching bottom
@@ -485,7 +472,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##\\   ",
@@ -496,8 +483,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_bridge_a_slope_right()
-    {
+    public void Climb_bridge_a_slope_right() {
         World world = createWorld(
             "r     ",
             "##)   ",
@@ -508,7 +494,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r    ",
                 "##-   ", // Approaching
@@ -520,7 +506,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##r   ", // Going down slope
@@ -532,7 +518,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##)   ", // Approaching bottom
@@ -543,7 +529,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "##)   ",
@@ -554,8 +540,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_down_a_slope_left()
-    {
+    public void Climb_down_a_slope_left() {
         World world = createWorld(
             "     j",
             "   /##",
@@ -566,7 +551,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    j ",
                 "   =##", // Approaching
@@ -578,7 +563,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   j##", // Going down slope
@@ -590,7 +575,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   /##", // Approaching bottom
@@ -602,7 +587,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   /##",
@@ -613,8 +598,7 @@ public class TestWalking
     }
 
     @Test
-    public void Climb_down_a_bridge_left()
-    {
+    public void Climb_down_a_bridge_left() {
         World world = createWorld(
             "     j",
             "   (##",
@@ -625,7 +609,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    j ",
                 "   =##", // Approaching
@@ -637,7 +621,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   j##", // Going down slope
@@ -649,7 +633,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   (##", // Approaching bottom
@@ -661,7 +645,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "      ",
                 "   (##",
@@ -672,8 +656,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_slope_up_right()
-    {
+    public void Turn_on_a_slope_up_right() {
         World world = createWorld(
             "   #",
             "r /#",
@@ -683,7 +666,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 " r~#",
@@ -694,7 +677,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 "  ?#",
@@ -705,7 +688,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 " +j#",
@@ -716,7 +699,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 "<j/#",
@@ -726,8 +709,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_bridge_up_right()
-    {
+    public void Turn_on_a_bridge_up_right() {
         World world = createWorld(
             "   #",
             "r (#",
@@ -737,7 +719,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 " r~#",
@@ -748,7 +730,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 "  ?#",
@@ -759,7 +741,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 " +j#",
@@ -770,7 +752,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   #",
                 "<j(#",
@@ -780,8 +762,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_because_of_backslope_on_a_slope_up_right()
-    {
+    public void Turn_because_of_backslope_on_a_slope_up_right() {
         World world = createWorld(
             "   \\",
             " r/#",
@@ -791,7 +772,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   \\",
                 "  r#",
@@ -802,7 +783,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   \\",
                 "  j#",
@@ -812,8 +793,7 @@ public class TestWalking
     }
 
     @Test
-    public void Dont_turn_because_of_backbridge_on_a_slope_up_right()
-    {
+    public void Dont_turn_because_of_backbridge_on_a_slope_up_right() {
         World world = createWorld(
             "   ) ",
             " r/##",
@@ -823,7 +803,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   ) ",
                 "  r##",
@@ -834,7 +814,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   r ",
                 "  /##",
@@ -845,7 +825,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "   )r",
                 "  /##",
@@ -855,8 +835,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_slope_up_left()
-    {
+    public void Turn_on_a_slope_up_left() {
         World world = createWorld(
             "#   ",
             "#\\ j",
@@ -866,7 +845,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#`j ",
@@ -877,7 +856,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#|  ",
@@ -888,7 +867,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#r_ ",
@@ -899,7 +878,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#\\r>",
@@ -909,8 +888,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_bridge_up_left()
-    {
+    public void Turn_on_a_bridge_up_left() {
         World world = createWorld(
             "#   ",
             "#) j",
@@ -920,7 +898,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#`j ",
@@ -931,7 +909,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#|  ",
@@ -942,7 +920,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#r_ ",
@@ -953,7 +931,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "#   ",
                 "#)r>",
@@ -963,8 +941,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_because_of_backslope_on_a_slope_up_left()
-    {
+    public void Turn_because_of_backslope_on_a_slope_up_left() {
         World world = createWorld(
             "/   ",
             "#\\j ",
@@ -974,7 +951,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "/   ",
                 "#j  ",
@@ -985,7 +962,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "/   ",
                 "#r  ",
@@ -995,8 +972,7 @@ public class TestWalking
     }
 
     @Test
-    public void Dont_turn_because_of_backbridge_on_a_slope_up_left()
-    {
+    public void Dont_turn_because_of_backbridge_on_a_slope_up_left() {
         World world = createWorld(
             " (   ",
             "##\\j ",
@@ -1006,7 +982,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " (   ",
                 "##j  ",
@@ -1017,7 +993,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " j   ",
                 "##\\  ",
@@ -1028,7 +1004,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "j(   ",
                 "##\\  ",
@@ -1038,8 +1014,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_slope_down_right()
-    {
+    public void Turn_on_a_slope_down_right() {
         World world = createWorld(
             " r  ",
             "##\\#",
@@ -1047,7 +1022,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r  ",
                 "##-#",
@@ -1058,7 +1033,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "##]#",
@@ -1069,7 +1044,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " !  ",
                 "##j#",
@@ -1080,7 +1055,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "<j  ",
                 "##\\#",
@@ -1090,8 +1065,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_bridge_down_right()
-    {
+    public void Turn_on_a_bridge_down_right() {
         World world = createWorld(
             " r  ",
             "##)#",
@@ -1099,7 +1073,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r  ",
                 "##-#",
@@ -1110,7 +1084,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "##]#",
@@ -1121,7 +1095,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " !  ",
                 "##j#",
@@ -1132,7 +1106,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "<j  ",
                 "##)#",
@@ -1142,8 +1116,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_because_of_backslope_on_a_slope_down_right()
-    {
+    public void Turn_because_of_backslope_on_a_slope_down_right() {
         World world = createWorld(
             " r  ",
             "##\\\\",
@@ -1153,7 +1126,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "    ",
                 "##r\\",
@@ -1164,7 +1137,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "    ",
                 "##j\\",
@@ -1174,8 +1147,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_slope_down_left()
-    {
+    public void Turn_on_a_slope_down_left() {
         World world = createWorld(
             "  j ",
             "#/##",
@@ -1183,7 +1155,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  j ",
                 "#=##",
@@ -1194,7 +1166,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#[##",
@@ -1205,7 +1177,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  ' ",
                 "#r##",
@@ -1216,7 +1188,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r>",
                 "#/##",
@@ -1226,8 +1198,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_on_a_bridge_down_left()
-    {
+    public void Turn_on_a_bridge_down_left() {
         World world = createWorld(
             "  j ",
             "#(##",
@@ -1235,7 +1206,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  j ",
                 "#=##",
@@ -1246,7 +1217,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#[##",
@@ -1257,7 +1228,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  ' ",
                 "#r##",
@@ -1268,7 +1239,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r>",
                 "#(##",
@@ -1278,8 +1249,7 @@ public class TestWalking
     }
 
     @Test
-    public void Turn_because_of_blackslope_on_a_slope_down_left()
-    {
+    public void Turn_because_of_blackslope_on_a_slope_down_left() {
         World world = createWorld(
             "  j ",
             "//##",
@@ -1289,7 +1259,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "    ",
                 "/j##",
@@ -1300,7 +1270,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 "    ",
                 "/r##",
@@ -1310,8 +1280,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_down_then_immediately_up_right()
-    {
+    public void Slope_down_then_immediately_up_right() {
         World world = createWorld(
             "r   ",
             "#\\/#",
@@ -1319,7 +1288,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "r   ",
                 "#-/#",
@@ -1330,7 +1299,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#r,#",
@@ -1341,7 +1310,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   '",
                 "#\\r#",
@@ -1351,8 +1320,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_down_then_immediately_up_right()
-    {
+    public void Bridge_down_then_immediately_up_right() {
         World world = createWorld(
             "r   ",
             "#)(#",
@@ -1360,7 +1328,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "r   ",
                 "#-(#",
@@ -1371,7 +1339,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#r,#",
@@ -1382,7 +1350,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   '",
                 "#)r#",
@@ -1392,8 +1360,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_down_then_immediately_up_left()
-    {
+    public void Slope_down_then_immediately_up_left() {
         World world = createWorld(
             "   j",
             "#\\/#",
@@ -1401,7 +1368,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   j",
                 "#\\=#",
@@ -1412,7 +1379,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#.j#",
@@ -1423,7 +1390,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "!   ",
                 "#j/#",
@@ -1433,8 +1400,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_down_then_immediately_up_left()
-    {
+    public void Bridge_down_then_immediately_up_left() {
         World world = createWorld(
             "   j",
             "#)(#",
@@ -1442,7 +1408,7 @@ public class TestWalking
         );
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   j",
                 "#)=#",
@@ -1453,7 +1419,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "#.j#",
@@ -1464,7 +1430,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "!   ",
                 "#j(#",
@@ -1474,8 +1440,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_up_then_immediately_down_right()
-    {
+    public void Slope_up_then_immediately_down_right() {
         World world = createWorld(
             "    ",
             "r/\\ ",
@@ -1485,7 +1450,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " r& ",
@@ -1496,7 +1461,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " /r_",
@@ -1506,8 +1471,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_then_immediately_down_right()
-    {
+    public void Bridge_up_then_immediately_down_right() {
         World world = createWorld(
             "    ",
             "r() ",
@@ -1517,7 +1481,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " r& ",
@@ -1528,7 +1492,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " (r_",
@@ -1538,8 +1502,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_up_then_immediately_down_left()
-    {
+    public void Slope_up_then_immediately_down_left() {
         World world = createWorld(
             "    ",
             " /\\j",
@@ -1549,7 +1512,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " mj ",
@@ -1560,7 +1523,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "+j\\ ",
@@ -1570,8 +1533,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_then_immediately_down_left()
-    {
+    public void Bridge_up_then_immediately_down_left() {
         World world = createWorld(
             "    ",
             " ()j",
@@ -1581,7 +1543,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 " mj ",
@@ -1592,7 +1554,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    ",
                 "+j) ",
@@ -1602,8 +1564,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_up_right_nothing_under()
-    {
+    public void Slope_up_right_nothing_under() {
         World world = createWorld(
             "   /",
             "  / ",
@@ -1614,7 +1575,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   /",
                 "  $ ",
@@ -1626,7 +1587,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   $",
                 "  r ",
@@ -1637,8 +1598,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_right_nothing_under()
-    {
+    public void Bridge_up_right_nothing_under() {
         World world = createWorld(
             "   (",
             "  ( ",
@@ -1649,7 +1609,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   (",
                 "  $ ",
@@ -1661,7 +1621,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   $",
                 "  r ",
@@ -1672,8 +1632,7 @@ public class TestWalking
     }
 
     @Test
-    public void Slope_up_left_nothing_under()
-    {
+    public void Slope_up_left_nothing_under() {
         World world = createWorld(
             "\\   ",
             " \\  ",
@@ -1684,7 +1643,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "\\   ",
                 " ^  ",
@@ -1696,7 +1655,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "^   ",
                 " j  ",
@@ -1707,8 +1666,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_left_nothing_under()
-    {
+    public void Bridge_up_left_nothing_under() {
         World world = createWorld(
             ")   ",
             " )  ",
@@ -1719,7 +1677,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 ")   ",
                 " ^  ",
@@ -1731,7 +1689,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "^   ",
                 " j  ",
@@ -1742,8 +1700,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_right_slope_down_right()
-    {
+    public void Bridge_up_right_slope_down_right() {
         World world = createWorld(
             "   (",
             "  ( ",
@@ -1754,7 +1711,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   (",
                 "  $ ",
@@ -1766,7 +1723,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   $",
                 "  r ",
@@ -1777,8 +1734,7 @@ public class TestWalking
     }
 
     @Test
-    public void Bridge_up_left_slope_down_left()
-    {
+    public void Bridge_up_left_slope_down_left() {
         World world = createWorld(
             ")   ",
             " )  ",
@@ -1789,7 +1745,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 ")   ",
                 " ^  ",
@@ -1801,7 +1757,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "^   ",
                 " j  ",
@@ -1813,8 +1769,7 @@ public class TestWalking
 
 
     @Test
-    public void Down_then_Bridge_up_right_slope_down_right()
-    {
+    public void Down_then_Bridge_up_right_slope_down_right() {
         World world = createWorld(
             "    (",
             "r  ( ",
@@ -1825,7 +1780,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    (",
                 "   ( ",
@@ -1837,7 +1792,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    (",
                 "   $ ",
@@ -1848,8 +1803,7 @@ public class TestWalking
     }
 
     @Test
-    public void Down_then_bridge_up_left_slope_down_left()
-    {
+    public void Down_then_bridge_up_left_slope_down_left() {
         World world = createWorld(
             ")    ",
             " )  j",
@@ -1860,7 +1814,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 ")    ",
                 " )   ",
@@ -1872,7 +1826,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 ")    ",
                 " ^   ",
@@ -1883,8 +1837,7 @@ public class TestWalking
     }
 
     @Test
-    public void Mid_bridge_up_right_slope_down_right()
-    {
+    public void Mid_bridge_up_right_slope_down_right() {
         World world = createWorld(
             "   (",
             "  ( ",
@@ -1895,7 +1848,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   (",
                 "  $ ",
@@ -1907,7 +1860,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   $",
                 "  r ",
@@ -1918,8 +1871,7 @@ public class TestWalking
     }
 
     @Test
-    public void Mid_bridge_up_left_slope_down_left()
-    {
+    public void Mid_bridge_up_left_slope_down_left() {
         World world = createWorld(
             ")   ",
             " )  ",
@@ -1930,7 +1882,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 ")   ",
                 " ^  ",
@@ -1942,7 +1894,7 @@ public class TestWalking
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "^   ",
                 " j  ",
@@ -1953,249 +1905,238 @@ public class TestWalking
     }
 
     @Test
-    public void Walk_below_bridge()
-    {
+    public void Walk_below_bridge() {
         assertWorldEvolvesLike(
             "#       #" + "\n" +
-            "# ( j   #" + "\n" +
-            "#########",
+                "# ( j   #" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "# <j    #" + "\n" +
-            "#########",
+                "# <j    #" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "#<j     #" + "\n" +
-            "#########"
+                "#<j     #" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Walk_below_bridge_lowering()
-    {
+    public void Walk_below_bridge_lowering() {
         assertWorldEvolvesLike(
             "#    j  #" + "\n" +
-            "# ((##  #" + "\n" +
-            "#########",
+                "# ((##  #" + "\n" +
+                "#########",
 
             "#   j   #" + "\n" +
-            "# (=##  #" + "\n" +
-            "#########",
+                "# (=##  #" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "# +j##  #" + "\n" +
-            "#########",
+                "# +j##  #" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "#<j(##  #" + "\n" +
-            "#########"
+                "#<j(##  #" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Walk_below_bridge_rising()
-    {
+    public void Walk_below_bridge_rising() {
         assertWorldEvolvesLike(
             "# (     #" + "\n" +
-            "###)j ###" + "\n" +
-            "#########",
+                "###)j ###" + "\n" +
+                "#########",
 
             "# !     #" + "\n" +
-            "###j  ###" + "\n" +
-            "#########",
+                "###j  ###" + "\n" +
+                "#########",
 
             "#<j     #" + "\n" +
-            "###)  ###" + "\n" +
-            "#########"
+                "###)  ###" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Fall_below_bridge()
-    {
+    public void Fall_below_bridge() {
         assertWorldEvolvesLike(
             "# ( j   #" + "\n" +
-            "#  ##   #" + "\n" +
-            "#########",
+                "#  ##   #" + "\n" +
+                "#########",
 
             "# <j    #" + "\n" +
-            "#  ##   #" + "\n" +
-            "#########",
+                "#  ##   #" + "\n" +
+                "#########",
 
             "# j     #" + "\n" +
-            "# f##   #" + "\n" +
-            "#########",
+                "# f##   #" + "\n" +
+                "#########",
 
             "# (     #" + "\n" +
-            "#<j##   #" + "\n" +
-            "#########"
+                "#<j##   #" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Fall_below_bridge_lowering()
-    {
+    public void Fall_below_bridge_lowering() {
         assertWorldEvolvesLike(
             "#    j  #" + "\n" +
-            "# ((##  #" + "\n" +
-            "## ######" + "\n" +
-            "## ######",
+                "# ((##  #" + "\n" +
+                "## ######" + "\n" +
+                "## ######",
 
             "#   j   #" + "\n" +
-            "# (=##  #" + "\n" +
-            "## ######" + "\n" +
-            "## ######",
+                "# (=##  #" + "\n" +
+                "## ######" + "\n" +
+                "## ######",
 
             "#       #" + "\n" +
-            "# +j##  #" + "\n" +
-            "## ######" + "\n" +
-            "## ######",
+                "# +j##  #" + "\n" +
+                "## ######" + "\n" +
+                "## ######",
 
             "#       #" + "\n" +
-            "# j(##  #" + "\n" +
-            "##f######" + "\n" +
-            "##f######"
+                "# j(##  #" + "\n" +
+                "##f######" + "\n" +
+                "##f######"
         );
     }
 
     @Test
-    public void Fall_below_bridge_rising()
-    {
+    public void Fall_below_bridge_rising() {
         assertWorldEvolvesLike(
             "# (     #" + "\n" +
-            "## )j ###" + "\n" +
-            "#########",
+                "## )j ###" + "\n" +
+                "#########",
 
             "# !     #" + "\n" +
-            "## j  ###" + "\n" +
-            "#########",
+                "## j  ###" + "\n" +
+                "#########",
 
             "# j     #" + "\n" +
-            "##f)  ###" + "\n" +
-            "#########"
+                "##f)  ###" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Get_onto_bridge_by_wall()
-    {
+    public void Get_onto_bridge_by_wall() {
         assertWorldEvolvesLike(
             "#       #" + "\n" +
-            "#     ) #" + "\n" +
-            "#     r)#" + "\n" +
-            "#########",
+                "#     ) #" + "\n" +
+                "#     r)#" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "#     ) #" + "\n" +
-            "#      ?#" + "\n" +
-            "#########",
+                "#     ) #" + "\n" +
+                "#      ?#" + "\n" +
+                "#########",
 
             "#       #" + "\n" +
-            "#     ^ #" + "\n" +
-            "#      j#" + "\n" +
-            "#########",
+                "#     ^ #" + "\n" +
+                "#      j#" + "\n" +
+                "#########",
 
             "#    !  #" + "\n" +
-            "#     j #" + "\n" +
-            "#      )#" + "\n" +
-            "#########",
+                "#     j #" + "\n" +
+                "#      )#" + "\n" +
+                "#########",
 
             "#    j  #" + "\n" +
-            "#    f) #" + "\n" +
-            "#    f )#" + "\n" +
-            "#########"
+                "#    f) #" + "\n" +
+                "#    f )#" + "\n" +
+                "#########"
         );
     }
 
     @Test
-    public void Walk_out_of_a_hole()
-    {
+    public void Walk_out_of_a_hole() {
         assertWorldEvolvesLike(
             "     " + "\n" +
-            "##(##" + "\n" +
-            "##)##" + "\n" +
-            "#r(##" + "\n" +
-            "#####",
+                "##(##" + "\n" +
+                "##)##" + "\n" +
+                "#r(##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "##(##" + "\n" +
-            "##)##" + "\n" +
-            "# ?##" + "\n" +
-            "#####",
+                "##(##" + "\n" +
+                "##)##" + "\n" +
+                "# ?##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "##(##" + "\n" +
-            "##|##" + "\n" +
-            "# (##" + "\n" +
-            "#####",
+                "##(##" + "\n" +
+                "##|##" + "\n" +
+                "# (##" + "\n" +
+                "#####",
 
             "   ' " + "\n" +
-            "##r##" + "\n" +
-            "##)##" + "\n" +
-            "# (##" + "\n" +
-            "#####",
+                "##r##" + "\n" +
+                "##)##" + "\n" +
+                "# (##" + "\n" +
+                "#####",
 
             "   r>" + "\n" +
-            "##(##" + "\n" +
-            "##)##" + "\n" +
-            "# (##" + "\n" +
-            "#####"
+                "##(##" + "\n" +
+                "##)##" + "\n" +
+                "# (##" + "\n" +
+                "#####"
         );
     }
 
     @Test
-    public void Cant_walk_out_of_a_without_enough_bridges()
-    {
+    public void Cant_walk_out_of_a_without_enough_bridges() {
         assertWorldEvolvesLike(
             "     " + "\n" +
-            "## ##" + "\n" +
-            "##)##" + "\n" +
-            "#r(##" + "\n" +
-            "#####",
+                "## ##" + "\n" +
+                "##)##" + "\n" +
+                "#r(##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "## ##" + "\n" +
-            "##)##" + "\n" +
-            "# ?##" + "\n" +
-            "#####",
+                "## ##" + "\n" +
+                "##)##" + "\n" +
+                "# ?##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "## ##" + "\n" +
-            "##|##" + "\n" +
-            "# (##" + "\n" +
-            "#####",
+                "## ##" + "\n" +
+                "##|##" + "\n" +
+                "# (##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "## ##" + "\n" +
-            "##]##" + "\n" +
-            "# (##" + "\n" +
-            "#####",
+                "## ##" + "\n" +
+                "##]##" + "\n" +
+                "# (##" + "\n" +
+                "#####",
 
             "     " + "\n" +
-            "## ##" + "\n" +
-            "##|##" + "\n" +
-            "# (##" + "\n" +
-            "#####"
+                "## ##" + "\n" +
+                "##|##" + "\n" +
+                "# (##" + "\n" +
+                "#####"
         );
     }
 
 
     @Test
-    public void Bump_head_on_slope_not_past_roof()
-    {
+    public void Bump_head_on_slope_not_past_roof() {
         String[] lines = {
             "  #  # ",
             "#r/#r(#",
             "#######"
         };
 
-        World world = createWorld( lines );
-        for ( int i = 0; i < 2; i++ )
-        {
+        World world = createWorld(lines);
+        for (int i = 0; i < 2; i++) {
             world.step();
         }
 
-        String[] resultLines = renderCompleteWorld( world, false );
+        String[] resultLines = renderCompleteWorld(world, false);
 
         // The rabbits should not be able
         // to climb the slopes
@@ -2204,69 +2145,66 @@ public class TestWalking
             "# /# (#",
             "#######"
         };
-        assertThat( resultLines, not( equalTo( linesBad ) ) );
+        assertThat(resultLines, not(equalTo(linesBad)));
     }
 
     @Test
-    public void Bump_head_on_slope_turn()
-    {
+    public void Bump_head_on_slope_turn() {
         String[] lines = {
             " # # # # ",
-           "#\\r/#)r(#",
+            "#\\r/#)r(#",
             "#########",
         };
 
-        World world = createWorld( lines );
-        for ( int i = 0; i < 6; i++ )
-        {
+        World world = createWorld(lines);
+        for (int i = 0; i < 6; i++) {
             world.step();
         }
 
-        String[] resultLines = renderCompleteWorld( world, false, false );
+        String[] resultLines = renderCompleteWorld(world, false, false);
 
         String[] expected = {
             " # # # # ",
-           "#\\r/#)r(#",
+            "#\\r/#)r(#",
             "#########"
         };
 
-        assertThat( resultLines, equalTo( expected ) );
+        assertThat(resultLines, equalTo(expected));
     }
 
     @Test
-    public void No_levitation_after_slope_dug_out()
-    {
+    public void No_levitation_after_slope_dug_out() {
         assertWorldEvolvesLike(
             "#d#" + "\n" +
-            "#*#" + "\n" +
-            "###" + "\n" +
-            "###" + "\n" +
-            ":*=(rr",
+                "#*#" + "\n" +
+                "###" + "\n" +
+                "###" + "\n" +
+                ":*=(rr",
 
             "# #" + "\n" +
-            "#[#" + "\n" +
-            "###" + "\n" +
-            "###",
+                "#[#" + "\n" +
+                "###" + "\n" +
+                "###",
 
             "# #" + "\n" +
-            "#?#" + "\n" +
-            "#D#" + "\n" +
-            "###",
+                "#?#" + "\n" +
+                "#D#" + "\n" +
+                "###",
 
             "# #" + "\n" +
-            "#j#" + "\n" +
-            "#f#" + "\n" +
-            "###",
+                "#j#" + "\n" +
+                "#f#" + "\n" +
+                "###",
 
             "# #" + "\n" +
-            "# #" + "\n" +
-            "#|#" + "\n" +
-            "#D#",
+                "# #" + "\n" +
+                "#|#" + "\n" +
+                "#D#",
 
             "# #" + "\n" +
-            "# #" + "\n" +
-            "#r#" + "\n" +
-            "#f#"
+                "# #" + "\n" +
+                "#r#" + "\n" +
+                "#f#"
         );
 
     }

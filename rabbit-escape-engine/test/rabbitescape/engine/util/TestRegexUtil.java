@@ -5,43 +5,40 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
-public class TestRegexUtil
-{
+public class TestRegexUtil {
 
     @Test
-    public void Regex_remove_preserve_group()
-    {
+    public void Regex_remove_preserve_group() {
         String before, regex, after;
 
         before = "Level: \\\"Tetris\\\"";
-        regex  = "\\\\(\")";
-        after  = "Level: \"Tetris\"";
+        regex = "\\\\(\")";
+        after = "Level: \"Tetris\"";
         assertThat(
-            Util.regexRemovePreserveGroup( before, regex ),
-            equalTo( after )
+            Util.regexRemovePreserveGroup(before, regex),
+            equalTo(after)
         );
 
         before = "\\\"Thing in escaped quotes\\\" \"Thing in quotes\"";
-        regex  = "\\\\(\")";
-        after  = "\"Thing in escaped quotes\" \"Thing in quotes\"";
+        regex = "\\\\(\")";
+        after = "\"Thing in escaped quotes\" \"Thing in quotes\"";
         assertThat(
-            Util.regexRemovePreserveGroup( before, regex ),
-            equalTo( after )
+            Util.regexRemovePreserveGroup(before, regex),
+            equalTo(after)
         );
     }
 
     @Test
-    public void Regex_replace()
-    {
+    public void Regex_replace() {
         String before, regex, replacement, after;
 
         before = "The brown fox.";
-        regex  = "brown";
+        regex = "brown";
         replacement = "red";
-        after  = "The red fox.";
+        after = "The red fox.";
         assertThat(
-            Util.regexReplace( before, regex, replacement ),
-            equalTo( after )
+            Util.regexReplace(before, regex, replacement),
+            equalTo(after)
         );
     }
 

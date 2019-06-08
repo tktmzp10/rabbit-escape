@@ -10,11 +10,10 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 
-public class TestExit
-{
+public class TestExit {
+
     @Test
-    public void Rabbit_disappears_into_exit()
-    {
+    public void Rabbit_disappears_into_exit() {
         World world = createWorld(
             "r  O ",
             "#####"
@@ -23,7 +22,7 @@ public class TestExit
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r>O ",
                 "#####"
@@ -33,7 +32,7 @@ public class TestExit
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r> ",
                 "#####"
@@ -43,7 +42,7 @@ public class TestExit
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   R ",  // Entering
                 "#####"
@@ -53,7 +52,7 @@ public class TestExit
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   O ",  // Gone
                 "#####"
@@ -62,28 +61,26 @@ public class TestExit
     }
 
     @Test
-    public void World_keeps_score()
-    {
+    public void World_keeps_score() {
         World world = createWorld(
             "Ojjjj   ",
             "########"
         );
 
         world.step();
-        assertThat( world.num_saved, equalTo( 0 ) );
+        assertThat(world.num_saved, equalTo(0));
         world.step();
-        assertThat( world.num_saved, equalTo( 1 ) );
+        assertThat(world.num_saved, equalTo(1));
         world.step();
-        assertThat( world.num_saved, equalTo( 2 ) );
+        assertThat(world.num_saved, equalTo(2));
         world.step();
-        assertThat( world.num_saved, equalTo( 3 ) );
+        assertThat(world.num_saved, equalTo(3));
         world.step();
-        assertThat( world.num_saved, equalTo( 4 ) );
+        assertThat(world.num_saved, equalTo(4));
     }
 
     @Test
-    public void Splatting_prevents_exit()
-    {
+    public void Splatting_prevents_exit() {
         World world = createWorld(
             "r         #       ",
             "# r       #       ",
@@ -103,7 +100,7 @@ public class TestExit
         assertWorldEvolvesLike(
             world,
             10,
-            new String[] {
+            new String[]{
                 "          #       ",
                 "#         #       ",
                 "  #       #       ",
@@ -119,12 +116,11 @@ public class TestExit
                 "##################"
             });
 
-        assertThat( world.num_saved, equalTo ( 3 ) );
+        assertThat(world.num_saved, equalTo(3));
     }
 
     @Test
-    public void Climb_into_exit()
-    {
+    public void Climb_into_exit() {
         // Has a trap to see if the character climbed past
         World world = createWorld(
             "     ",
@@ -137,7 +133,7 @@ public class TestExit
         assertWorldEvolvesLike(
             world,
             6,
-            new String[] {
+            new String[]{
                 "     ",
                 " O# #",
                 "  ###",
@@ -146,12 +142,11 @@ public class TestExit
             });
 
         // The character escaped
-        assertThat( world.num_saved, equalTo ( 1 ) );
+        assertThat(world.num_saved, equalTo(1));
     }
 
     @Test
-    public void Fall_past_exit()
-    {
+    public void Fall_past_exit() {
         // All must die
         World world = createWorld(
             "rrrrrrr",
@@ -167,7 +162,7 @@ public class TestExit
         assertWorldEvolvesLike(
             world,
             5,
-            new String[] {
+            new String[]{
                 "       ",
                 "O      ",
                 " O     ",
@@ -179,27 +174,26 @@ public class TestExit
             });
 
         // None lived
-        assertThat( world.num_saved, equalTo ( 0 ) );
+        assertThat(world.num_saved, equalTo(0));
     }
 
     @Test
-    public void Rabbots_ignore_the_exit()
-    {
+    public void Rabbots_ignore_the_exit() {
         assertWorldEvolvesLike(
             "t  O y" + "\n" +
-            "######",
+                "######",
 
             " t><y " + "\n" +
-            "######",
+                "######",
 
             "  <>  " + "\n" +
-            "######",
+                "######",
 
             " <yO> " + "\n" + // They just walked straight past!
-            "######",
+                "######",
 
             "<y Ot>" + "\n" +
-            "######"
+                "######"
         );
     }
 }

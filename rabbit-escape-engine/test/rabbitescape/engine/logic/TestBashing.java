@@ -9,11 +9,10 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 
-public class TestBashing
-{
+public class TestBashing {
+
     @Test
-    public void Token_not_next_to_wall_makes_useless_bash()
-    {
+    public void Token_not_next_to_wall_makes_useless_bash() {
         World world = createWorld(
             " rb   bj ",
             "#########"
@@ -22,7 +21,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  rI Jj  ",
                 "#########"
@@ -32,7 +31,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r> <j  ",
                 "#########"
@@ -41,8 +40,7 @@ public class TestBashing
     }
 
     @Test
-    public void Bash_through_single_wall()
-    {
+    public void Bash_through_single_wall() {
         World world = createWorld(
             " rb#     #bj ",
             "#############"
@@ -51,7 +49,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  rK     Wj  ",
                 "#############"
@@ -61,7 +59,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r>     <j  ",
                 "#############"
@@ -71,7 +69,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   r>   <j   ",
                 "#############"
@@ -80,8 +78,7 @@ public class TestBashing
     }
 
     @Test
-    public void Bash_through_longer_wall()
-    {
+    public void Bash_through_longer_wall() {
         World world = createWorld(
             " rb###     ###bj ",
             "#################"
@@ -90,7 +87,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  rK##     ##Wj  ",
                 "#################"
@@ -100,7 +97,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "  r>##     ##<j  ",
                 "#################"
@@ -110,7 +107,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   rK#     #Wj   ",
                 "#################"
@@ -120,7 +117,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   r>#     #<j   ",
                 "#################"
@@ -130,7 +127,7 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    rK     Wj    ",
                 "#################"
@@ -140,18 +137,17 @@ public class TestBashing
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "    r>     <j    ",
                 "#################"
             )
         );
 
-
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "     r>   <j     ",
                 "#################"
@@ -160,363 +156,349 @@ public class TestBashing
     }
 
     @Test
-    public void Bashing_doesnt_last()
-    {
+    public void Bashing_doesnt_last() {
         World world = createWorld(
-                " rb# # # #bj ",
+            " rb# # # #bj ",
+            "#############"
+        );
+
+        world.step();
+
+        assertThat(
+            renderWorld(world, true, false),
+            equalTo(
+                "  rK # # Wj  ",
                 "#############"
+            )
         );
 
         world.step();
 
         assertThat(
-                renderWorld( world, true, false ),
-                equalTo(
-                        "  rK # # Wj  ",
-                        "#############"
-                )
+            renderWorld(world, true, false),
+            equalTo(
+                "  r> # # <j  ",
+                "#############"
+            )
         );
 
         world.step();
 
         assertThat(
-                renderWorld( world, true, false ),
-                equalTo(
-                        "  r> # # <j  ",
-                        "#############"
-                )
+            renderWorld(world, true, false),
+            equalTo(
+                "   r># #<j   ",
+                "#############"
+            )
         );
 
         world.step();
 
         assertThat(
-                renderWorld( world, true, false ),
-                equalTo(
-                        "   r># #<j   ",
-                        "#############"
-                )
+            renderWorld(world, true, false),
+            equalTo(
+                "    ?# #|    ",
+                "#############"
+            )
         );
 
         world.step();
 
         assertThat(
-                renderWorld( world, true, false ),
-                equalTo(
-                        "    ?# #|    ",
-                        "#############"
-                )
-        );
-
-        world.step();
-
-        assertThat(
-                renderWorld( world, true, false ),
-                equalTo(
-                        "   <j# #r>   ",
-                        "#############"
-                )
+            renderWorld(world, true, false),
+            equalTo(
+                "   <j# #r>   ",
+                "#############"
+            )
         );
     }
 
     @Test
-    public void Bash_through_single_slope()
-    {
+    public void Bash_through_single_slope() {
         assertWorldEvolvesLike(
             " rb/   " + "\n" +
-            "#######",
+                "#######",
 
             "  rK   " + "\n" +
-            "#######",
+                "#######",
 
             "  r>   " + "\n" +
-            "#######",
+                "#######",
 
             "   r>  " + "\n" +
-            "#######",
+                "#######",
 
             "    r> " + "\n" +
-            "#######"
+                "#######"
         );
     }
 
     @Test
-    public void Bash_through_slope_plus_blocks()
-    {
+    public void Bash_through_slope_plus_blocks() {
         assertWorldEvolvesLike(
             " rb/#\\  " + "\n" +
-            "########",
+                "########",
 
             "  rK#\\  " + "\n" +
-            "########",
+                "########",
 
             "  r>#\\  " + "\n" +
-            "########",
+                "########",
 
             "   rK\\  " + "\n" +
-            "########",
+                "########",
 
             "   r>\\  " + "\n" +
-            "########",
+                "########",
 
             "    rK  " + "\n" +
-            "########",
+                "########",
 
             "    r>  " + "\n" +
-            "########",
+                "########",
 
             "     r> " + "\n" +
-            "########",
+                "########",
 
             "      r>" + "\n" +
-            "########"
+                "########"
         );
     }
 
     @Test
-    public void Bash_on_single_slope()
-    {
+    public void Bash_on_single_slope() {
         assertWorldEvolvesLike(
             "    /  " + "\n" +
-            "  r*   " + "\n" + // Bash token on a slope
-            "#######" + "\n" +
-            ":*=b/",
+                "  r*   " + "\n" + // Bash token on a slope
+                "#######" + "\n" +
+                ":*=b/",
 
             "    K  " + "\n" +
-            "   r   " + "\n" +
-            "#######",
+                "   r   " + "\n" +
+                "#######",
 
             "   r>  " + "\n" +
-            "   /   " + "\n" +
-            "#######",
+                "   /   " + "\n" +
+                "#######",
 
             "    r  " + "\n" +
-            "   /f  " + "\n" +
-            "#######"
+                "   /f  " + "\n" +
+                "#######"
         );
     }
 
     @Test
-    public void Bash_on_single_bridge()
-    {
+    public void Bash_on_single_bridge() {
         assertWorldEvolvesLike(
             "    (  " + "\n" +
-            "  r*   " + "\n" + // Bash token on a slope
-            "#######" + "\n" +
-            ":*=b(",
+                "  r*   " + "\n" + // Bash token on a slope
+                "#######" + "\n" +
+                ":*=b(",
 
             "    K  " + "\n" +
-            "   r   " + "\n" +
-            "#######",
+                "   r   " + "\n" +
+                "#######",
 
             "   r>  " + "\n" +
-            "   (   " + "\n" +
-            "#######",
+                "   (   " + "\n" +
+                "#######",
 
             "    r  " + "\n" +
-            "   (f  " + "\n" +
-            "#######"
+                "   (f  " + "\n" +
+                "#######"
         );
     }
 
     @Test
-    public void Bash_on_slope_followed_by_blocks()
-    {
+    public void Bash_on_slope_followed_by_blocks() {
         assertWorldEvolvesLike(
             "    /  " + "\n" +
-            "  r*#  " + "\n" + // Bash token on a slope
-            "#######" + "\n" +
-            ":*=b/",
+                "  r*#  " + "\n" + // Bash token on a slope
+                "#######" + "\n" +
+                ":*=b/",
 
             "    K  " + "\n" +
-            "   r#  " + "\n" +
-            "#######",
+                "   r#  " + "\n" +
+                "#######",
 
             "   r>  " + "\n" +
-            "   /#  " + "\n" +
-            "#######",
+                "   /#  " + "\n" +
+                "#######",
 
             "    r> " + "\n" +
-            "   /#  " + "\n" +
-            "#######"
+                "   /#  " + "\n" +
+                "#######"
         );
     }
 
     @Test
-    public void Bash_on_slope_plus_blocks()
-    {
+    public void Bash_on_slope_plus_blocks() {
         assertWorldEvolvesLike(
             "    /# " + "\n" +
-            "  r*## " + "\n" + // Bash token on a slope
-            "#######" + "\n" +
-            ":*=b/",
+                "  r*## " + "\n" + // Bash token on a slope
+                "#######" + "\n" +
+                ":*=b/",
 
             "    K# " + "\n" +
-            "   r## " + "\n" +
-            "#######",
+                "   r## " + "\n" +
+                "#######",
 
             "   r># " + "\n" +
-            "   /## " + "\n" +
-            "#######",
+                "   /## " + "\n" +
+                "#######",
 
             "    rK " + "\n" +
-            "   /## " + "\n" +
-            "#######"
+                "   /## " + "\n" +
+                "#######"
         );
     }
 
     @Test
-    public void Bash_on_bridge_plus_blocks()
-    {
+    public void Bash_on_bridge_plus_blocks() {
         assertWorldEvolvesLike(
             "    (# " + "\n" +
-            "  r*## " + "\n" + // Bash token on a slope
-            "#######" + "\n" +
-            ":*=b(",
+                "  r*## " + "\n" + // Bash token on a slope
+                "#######" + "\n" +
+                ":*=b(",
 
             "    K# " + "\n" +
-            "   r## " + "\n" +
-            "#######",
+                "   r## " + "\n" +
+                "#######",
 
             "   r># " + "\n" +
-            "   (## " + "\n" +
-            "#######",
+                "   (## " + "\n" +
+                "#######",
 
             "    rK " + "\n" +
-            "   (## " + "\n" +
-            "#######"
+                "   (## " + "\n" +
+                "#######"
         );
     }
 
     @Test
-    public void Bash_purposefully_at_top_of_slope()
-    {
+    public void Bash_purposefully_at_top_of_slope() {
         assertWorldEvolvesLike(
             "rb/" + "\n" +
-            "#/#",
+                "#/#",
 
             " r/" + "\n" +
-            "#h#",
+                "#h#",
 
             "  K" + "\n" +
-            "#r#",
+                "#r#",
 
             " r>" + "\n" +
-            "#/#",
+                "#/#",
 
             "  r" + "\n" +
-            "#/#"
+                "#/#"
         );
     }
 
     @Test
-    public void Bash_uselessly_at_top_of_slope()
-    {
+    public void Bash_uselessly_at_top_of_slope() {
         assertWorldEvolvesLike(
             "rb " + "\n" +
-            "#/#",
+                "#/#",
 
             " r " + "\n" +
-            "#h#",
+                "#h#",
 
             "   " + "\n" +
-            "#rI",
+                "#rI",
 
             " r>" + "\n" +
-            "#/#",
+                "#/#",
 
             "  r" + "\n" +
-            "#/#"
+                "#/#"
         );
 
         assertWorldEvolvesLike(
             " bj" + "\n" +
-            "#\\#",
+                "#\\#",
 
             " j " + "\n" +
-            "#a#",
+                "#a#",
 
             "   " + "\n" +
-            "Jj#",
+                "Jj#",
 
             "<j " + "\n" +
-            "#\\#",
+                "#\\#",
 
             "j  " + "\n" +
-            "#\\#"
+                "#\\#"
         );
     }
 
     @Test
-    public void Bashing_fails_if_first_block_is_unbreakable()
-    {
+    public void Bashing_fails_if_first_block_is_unbreakable() {
         assertWorldEvolvesLike(
             "rbM" + "\n" +
-            "###",
+                "###",
 
             " rI" + "\n" +
-            "###",
+                "###",
 
             " ?M" + "\n" +
-            "###",
+                "###",
 
             "<jM" + "\n" +
-            "###"
+                "###"
         );
     }
 
     @Test
-    public void Bashing_fails_if_later_block_is_unbreakable()
-    {
+    public void Bashing_fails_if_later_block_is_unbreakable() {
         assertWorldEvolvesLike(
             "rb#M" + "\n" +
-            "####",
+                "####",
 
             " rKM" + "\n" +
-            "####",
+                "####",
 
             " r>M" + "\n" +
-            "####",
+                "####",
 
             "  rI" + "\n" +
-            "####",
+                "####",
 
             "  ?M" + "\n" +
-            "####",
+                "####",
 
             " <jM" + "\n" +
-            "####"
+                "####"
         );
     }
 
     @Test
-    public void Standing_on_slope_bashing_fails_if_first_block_is_unbreakable()
-    {
+    public void Standing_on_slope_bashing_fails_if_first_block_is_unbreakable() {
         assertWorldEvolvesLike(
             "  bM" + "\n" +
-            " r/#" + "\n" +
-            "####",
+                " r/#" + "\n" +
+                "####",
 
             "   M" + "\n" +
-            "  rI" + "\n" +
-            "####",
+                "  rI" + "\n" +
+                "####",
 
             "  ?M" + "\n" +
-            "  /#" + "\n" +
-            "####",
+                "  /#" + "\n" +
+                "####",
 
             "  jM" + "\n" + // This is a bit glitchy
-            "  s#" + "\n" + // because the character floats then falls.
-            "####",
+                "  s#" + "\n" + // because the character floats then falls.
+                "####",
 
             "   M" + "\n" +
-            " +j#" + "\n" +
-            "####"
+                " +j#" + "\n" +
+                "####"
         );
     }
 
     @Test
-    public void Bashing_does_not_destroy_water()
-    {
+    public void Bashing_does_not_destroy_water() {
         World world = createWorld(
             "rb*#",
             "####",
@@ -547,8 +529,7 @@ public class TestBashing
     }
 
     @Test
-    public void Basher_on_bridge_trans_to_digger_must_not_airwalk_after()
-    {
+    public void Basher_on_bridge_trans_to_digger_must_not_airwalk_after() {
         World world = createWorld(
             "   ",
             "r* ",
@@ -559,7 +540,7 @@ public class TestBashing
 
         world.step();
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 " rI",
@@ -570,7 +551,7 @@ public class TestBashing
 
         world.step();
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 " D ",
@@ -581,7 +562,7 @@ public class TestBashing
 
         world.step();
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 " r ",
@@ -592,7 +573,7 @@ public class TestBashing
 
         world.step();
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "   ",
@@ -603,7 +584,7 @@ public class TestBashing
 
         world.step();
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "   ",

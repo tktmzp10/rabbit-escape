@@ -20,7 +20,7 @@ public class Walking extends CharacterBehaviourStates {
         setWalkingState(new WalkingRight());
     }
 
-    public void setWalkingState( IWalkingState right, IWalkingState left, Direction direction ) {
+    public void setWalkingState(IWalkingState right, IWalkingState left, Direction direction) {
         if (direction == RIGHT) {
             setWalkingState(right);
         } else {
@@ -49,11 +49,11 @@ public class Walking extends CharacterBehaviourStates {
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
         if (t.isOnUpSlope()) {
-            newStateOnUpSlope( t );
+            newStateOnUpSlope(t);
         } else if (t.isOnDownSlope()) {
-            newStateOnDownSlope( t );
+            newStateOnDownSlope(t);
         } else {
-            newStateOnFlatGround( t );
+            newStateOnFlatGround(t);
         }
 
         return walkingState.getState();
@@ -64,7 +64,7 @@ public class Walking extends CharacterBehaviourStates {
         int nextY = t.character.y;
         Block next = t.blockNext();
 
-        if (t.isWall(next) || Blocking.blockerAt(t.world, nextX, nextY) ) {
+        if (t.isWall(next) || Blocking.blockerAt(t.world, nextX, nextY)) {
             setWalkingState(new TurningRightToLeft(),
                 new TurningLeftToRight(),
                 t.character.dir);
@@ -96,8 +96,8 @@ public class Walking extends CharacterBehaviourStates {
         Block belowNext = t.blockBelowNext();
 
         if (t.isWall(next)
-                || Blocking.blockerAt(t.world, nextX, nextY)
-                || (t.isValleying() && Blocking.blockerAt(t.world, nextX, t.character.y))) {
+            || Blocking.blockerAt(t.world, nextX, nextY)
+            || (t.isValleying() && Blocking.blockerAt(t.world, nextX, t.character.y))) {
             setWalkingState(new TurningRightToLeftLowering(),
                 new TurningLeftToRightLowering(),
                 t.character.dir);
@@ -131,7 +131,7 @@ public class Walking extends CharacterBehaviourStates {
         if (t.isWall(aboveNext)
             || Blocking.blockerAt(t.world, nextX, nextY)
             || t.isRoof(above)
-            || (t.isCresting() && Blocking.blockerAt(t.world, nextX, t.character.y)) ) {
+            || (t.isCresting() && Blocking.blockerAt(t.world, nextX, t.character.y))) {
             setWalkingState(new TurningRightToLeftRising(),
                 new TurningLeftToRightRising(),
                 t.character.dir);
@@ -176,7 +176,7 @@ public class Walking extends CharacterBehaviourStates {
 
     @Override
     public boolean behave(
-        World world, Character character, State state, NewStates newState ) {
+        World world, Character character, State state, NewStates newState) {
         return behave(world, character, state);
     }
 }

@@ -9,11 +9,10 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 
-public class TestEntrance
-{
+public class TestEntrance {
+
     @Test
-    public void Rabbit_comes_out_of_entrance()
-    {
+    public void Rabbit_comes_out_of_entrance() {
         World world = createWorld(
             ":num_rabbits=1",
             " Q   ",
@@ -25,7 +24,7 @@ public class TestEntrance
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " Q   ",
                 " r   ",
@@ -36,8 +35,7 @@ public class TestEntrance
     }
 
     @Test
-    public void Rabbits_come_out_every_other_step_when_delay_is_2()
-    {
+    public void Rabbits_come_out_every_other_step_when_delay_is_2() {
         World world = createWorld(
             ":num_rabbits=10",
             ":rabbit_delay=2",
@@ -46,10 +44,10 @@ public class TestEntrance
             "################"
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 " r r r          ",
@@ -57,11 +55,10 @@ public class TestEntrance
             )
         );
 
-
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "  r r r r r     ",
@@ -71,8 +68,7 @@ public class TestEntrance
     }
 
     @Test
-    public void Rabbits_come_out_every_5_when_delay_is_5()
-    {
+    public void Rabbits_come_out_every_5_when_delay_is_5() {
         World world = createWorld(
             ":num_rabbits=10",
             ":rabbit_delay=5",
@@ -81,10 +77,10 @@ public class TestEntrance
             "################"
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "     r          ",
@@ -92,11 +88,10 @@ public class TestEntrance
             )
         );
 
-
         world.step();
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 " r    r         ",
@@ -106,8 +101,7 @@ public class TestEntrance
     }
 
     @Test
-    public void Limit_to_1_rabbit_works()
-    {
+    public void Limit_to_1_rabbit_works() {
         World world = createWorld(
             ":num_rabbits=1",
             ":rabbit_delay=2",
@@ -116,10 +110,10 @@ public class TestEntrance
             "################"
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "     r          ",
@@ -127,10 +121,10 @@ public class TestEntrance
             )
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "          r     ",
@@ -141,8 +135,7 @@ public class TestEntrance
 
 
     @Test
-    public void Limit_to_4_rabbits_works()
-    {
+    public void Limit_to_4_rabbits_works() {
         World world = createWorld(
             ":num_rabbits=4",
             ":rabbit_delay=1",
@@ -151,10 +144,10 @@ public class TestEntrance
             "################"
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "  rrrr          ",
@@ -162,10 +155,10 @@ public class TestEntrance
             )
         );
 
-        fiveSteps( world );
+        fiveSteps(world);
 
         assertThat(
-            renderWorld( world, false, false ),
+            renderWorld(world, false, false),
             equalTo(
                 " Q              ",
                 "       rrrr     ",
@@ -176,10 +169,8 @@ public class TestEntrance
 
     // ---
 
-    private void fiveSteps( World world )
-    {
-        for( @SuppressWarnings( "unused" ) int t : range( 5 ) )
-        {
+    private void fiveSteps(World world) {
+        for (@SuppressWarnings("unused") int t : range(5)) {
             world.step();
         }
     }

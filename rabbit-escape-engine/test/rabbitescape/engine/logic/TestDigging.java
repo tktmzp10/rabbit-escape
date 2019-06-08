@@ -9,11 +9,10 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 
-public class TestDigging
-{
+public class TestDigging {
+
     @Test
-    public void Dig_through_single_floor()
-    {
+    public void Dig_through_single_floor() {
         World world = createWorld(
             "rd ",
             "###",
@@ -25,7 +24,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -38,7 +37,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#D#",
@@ -51,7 +50,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#r#",
@@ -64,7 +63,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -76,8 +75,7 @@ public class TestDigging
     }
 
     @Test
-    public void Dig_through_multilevel_floor()
-    {
+    public void Dig_through_multilevel_floor() {
         World world = createWorld(
             "rd ",
             "###",
@@ -91,7 +89,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -106,7 +104,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#D#",
@@ -121,7 +119,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#r#",
@@ -136,7 +134,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -151,7 +149,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -166,7 +164,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -181,7 +179,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -196,7 +194,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -210,8 +208,7 @@ public class TestDigging
     }
 
     @Test
-    public void Stop_after_single_gap()
-    {
+    public void Stop_after_single_gap() {
         World world = createWorld(
             "rd ",
             "###",
@@ -222,7 +219,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -234,7 +231,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#D#",
@@ -246,7 +243,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#r#",
@@ -258,7 +255,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -269,34 +266,32 @@ public class TestDigging
     }
 
     @Test
-    public void Stop_after_single_slope()
-    {
+    public void Stop_after_single_slope() {
         assertWorldEvolvesLike(
             " dj" + "\n" +
-            " /#" + "\n" +
-            "   " + "\n" +
-            "###",
+                " /#" + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " D#" + "\n" +
-            "   " + "\n" +
-            "###",
+                " D#" + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " j#" + "\n" +
-            " f " + "\n" +
-            "###",
+                " j#" + "\n" +
+                " f " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "  #" + "\n" +
-            "<j " + "\n" +
-            "###"
+                "  #" + "\n" +
+                "<j " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Stop_after_single_gap_after_multilevel_dig()
-    {
+    public void Stop_after_single_gap_after_multilevel_dig() {
         World world = createWorld(
             "rd ",
             "###",
@@ -309,7 +304,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -327,7 +322,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -340,7 +335,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -353,7 +348,7 @@ public class TestDigging
         world.step();
 
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "# #",
@@ -366,504 +361,492 @@ public class TestDigging
     }
 
     @Test
-    public void Dig_through_single_slope()
-    {
+    public void Dig_through_single_slope() {
         assertWorldEvolvesLike(
             " r " + "\n" +
-            " * " + "\n" +
-            "   " + "\n" +
-            "###" + "\n" +
-            ":*=d/",
+                " * " + "\n" +
+                "   " + "\n" +
+                "###" + "\n" +
+                ":*=d/",
 
             "   " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " r " + "\n" +
-            " f " + "\n" +
-            "###"
+                " r " + "\n" +
+                " f " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Dig_through_single_bridge()
-    {
+    public void Dig_through_single_bridge() {
         assertWorldEvolvesLike(
             " r " + "\n" +
-            " * " + "\n" +
-            "   " + "\n" +
-            "###" + "\n" +
-            ":*=d(",
+                " * " + "\n" +
+                "   " + "\n" +
+                "###" + "\n" +
+                ":*=d(",
 
             "   " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " r " + "\n" +
-            " f " + "\n" +
-            "###"
+                " r " + "\n" +
+                " f " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Dig_through_slope_plus_blocks()
-    {
+    public void Dig_through_slope_plus_blocks() {
         assertWorldEvolvesLike(
             " r " + "\n" +
-            " * " + "\n" +
-            " # " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###" + "\n" +
-            ":*=d/",
+                " * " + "\n" +
+                " # " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###" + "\n" +
+                ":*=d/",
 
             "   " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                " D " + "\n" +
+                " # " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " r " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                " r " + "\n" +
+                " D " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                " D " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            " r " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                " r " + "\n" +
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            "   " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                "   " + "\n" +
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            "   " + "\n" +
-            " r " + "\n" +
-            " f " + "\n" +
-            "###"
+                "   " + "\n" +
+                "   " + "\n" +
+                " r " + "\n" +
+                " f " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Dig_through_bridge_plus_blocks()
-    {
+    public void Dig_through_bridge_plus_blocks() {
         assertWorldEvolvesLike(
             " r " + "\n" +
-            " * " + "\n" +
-            " # " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###" + "\n" +
-            ":*=d(",
+                " * " + "\n" +
+                " # " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###" + "\n" +
+                ":*=d(",
 
             "   " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                " D " + "\n" +
+                " # " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " r " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                " r " + "\n" +
+                " D " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            " D " + "\n" +
-            " # " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                " D " + "\n" +
+                " # " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            " r " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                " r " + "\n" +
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            "   " + "\n" +
-            " D " + "\n" +
-            "   " + "\n" +
-            "###",
+                "   " + "\n" +
+                "   " + "\n" +
+                " D " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "   " + "\n" +
-            "   " + "\n" +
-            " r " + "\n" +
-            " f " + "\n" +
-            "###"
+                "   " + "\n" +
+                "   " + "\n" +
+                " r " + "\n" +
+                " f " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Dig_through_bridge_plus_bridges()
-    {
+    public void Dig_through_bridge_plus_bridges() {
         assertWorldEvolvesLike(
             " r " + "\n" +
-            " * " + "\n" +
-            " ( " + "\n" +
-            " ( " + "\n" +
-            "   " + "\n" +
-            "###" + "\n" +
-            ":*=d(",
+                " * " + "\n" +
+                " ( " + "\n" +
+                " ( " + "\n" +
+                "   " + "\n" +
+                "###" + "\n" +
+                ":*=d(",
 
             "   " + "\n" +
-            " D " + "\n" +
-            " ( " + "\n" +
-            " ( " + "\n" +
-            "   " + "\n" +
-            "###",
+                " D " + "\n" +
+                " ( " + "\n" +
+                " ( " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            " r " + "\n" +
-            " h " + "\n" +
-            " ( " + "\n" +
-            "   " + "\n" +
-            "###",
+                " r " + "\n" +
+                " h " + "\n" +
+                " ( " + "\n" +
+                "   " + "\n" +
+                "###",
 
             "   " + "\n" +
-            "  '" + "\n" +
-            " r " + "\n" + // Starts walking
-            " ( " + "\n" +
-            "   " + "\n" +
-            "###"
+                "  '" + "\n" +
+                " r " + "\n" + // Starts walking
+                " ( " + "\n" +
+                "   " + "\n" +
+                "###"
         );
     }
 
     @Test
-    public void Bash_stops_you_digging()
-    {
+    public void Bash_stops_you_digging() {
         assertWorldEvolvesLike(
             " bb " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "*dd " + "\n" +
-            "### " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            ":*=rr",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "*dd " + "\n" +
+                "### " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                ":*=rr",
 
             "    " + "\n" +
-            " bb " + "\n" +
-            " ff " + "\n" +
-            "    " + "\n" +
-            " r> " + "\n" +
-            "#D# " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                " bb " + "\n" +
+                " ff " + "\n" +
+                "    " + "\n" +
+                " r> " + "\n" +
+                "#D# " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            " bb " + "\n" +
-            " ff " + "\n" +
-            "  r " + "\n" +
-            "#DD " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                " bb " + "\n" +
+                " ff " + "\n" +
+                "  r " + "\n" +
+                "#DD " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            " bb " + "\n" +
-            " ff " + "\n" +
-            "#rD " + "\n" +
-            " D# " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                " bb " + "\n" +
+                " ff " + "\n" +
+                "#rD " + "\n" +
+                " D# " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            " bb " + "\n" +
-            "#ff " + "\n" +
-            " DD " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                " bb " + "\n" +
+                "#ff " + "\n" +
+                " DD " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#bb " + "\n" +
-            " ff " + "\n" +
-            " D# " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#bb " + "\n" +
+                " ff " + "\n" +
+                " D# " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            " brI" + "\n" +
-            " f# " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                " brI" + "\n" +
+                " f# " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            "  r>" + "\n" +
-            " rK " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                "  r>" + "\n" +
+                " rK " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            "   r" + "\n" +
-            " r>f" + "\n" +
-            " ##f" + "\n" +
-            " ## "
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                "   r" + "\n" +
+                " r>f" + "\n" +
+                " ##f" + "\n" +
+                " ## "
         );
     }
 
     @Test
-    public void Bridge_stops_you_digging()
-    {
+    public void Bridge_stops_you_digging() {
         assertWorldEvolvesLike(
             " ii " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "*dd " + "\n" +
-            "### " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            ":*=rr",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "*dd " + "\n" +
+                "### " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                ":*=rr",
 
             "    " + "\n" +
-            " ii " + "\n" +
-            " ff " + "\n" +
-            "    " + "\n" +
-            " r> " + "\n" +
-            "#D# " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                " ii " + "\n" +
+                " ff " + "\n" +
+                "    " + "\n" +
+                " r> " + "\n" +
+                "#D# " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            " ii " + "\n" +
-            " ff " + "\n" +
-            "  r " + "\n" +
-            "#DD " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                " ii " + "\n" +
+                " ff " + "\n" +
+                "  r " + "\n" +
+                "#DD " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            " ii " + "\n" +
-            " ff " + "\n" +
-            "#rD " + "\n" +
-            " D# " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                " ii " + "\n" +
+                " ff " + "\n" +
+                "#rD " + "\n" +
+                " D# " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            " ii " + "\n" +
-            "#ff " + "\n" +
-            " DD " + "\n" +
-            " ## " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                " ii " + "\n" +
+                "#ff " + "\n" +
+                " DD " + "\n" +
+                " ## " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#ii " + "\n" +
-            " ff " + "\n" +
-            " D# " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#ii " + "\n" +
+                " ff " + "\n" +
+                " D# " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            " irB" + "\n" +
-            " f# " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                " irB" + "\n" +
+                " f# " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            "  r[" + "\n" +
-            " B# " + "\n" +
-            " ## " + "\n" +
-            " ## ",
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                "  r[" + "\n" +
+                " B# " + "\n" +
+                " ## " + "\n" +
+                " ## ",
 
             "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "    " + "\n" +
-            "#   " + "\n" +
-            "  r{" + "\n" +
-            " [# " + "\n" +
-            " ## " + "\n" +
-            " ## "
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "    " + "\n" +
+                "#   " + "\n" +
+                "  r{" + "\n" +
+                " [# " + "\n" +
+                " ## " + "\n" +
+                " ## "
         );
     }
 
     @Test
-    public void Bashing_fails_if_first_block_is_unbreakable()
-    {
+    public void Bashing_fails_if_first_block_is_unbreakable() {
         assertWorldEvolvesLike(
             "rd " + "\n" +
-            "#M#",
+                "#M#",
 
             " r " + "\n" +
-            "#D#",
+                "#D#",
 
             " r>" + "\n" +
-            "#M#"
+                "#M#"
         );
     }
 
     @Test
-    public void Digging_fails_if_later_block_is_unbreakable()
-    {
+    public void Digging_fails_if_later_block_is_unbreakable() {
         assertWorldEvolvesLike(
             "rd " + "\n" +
-            "###" + "\n" +
-            "#M#",
+                "###" + "\n" +
+                "#M#",
 
             " r " + "\n" +
-            "#D#" + "\n" +
-            "#M#",
+                "#D#" + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#D#" + "\n" +
-            "#M#",
+                "#D#" + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#r#" + "\n" +
-            "#D#",
+                "#r#" + "\n" +
+                "#D#",
 
             "   " + "\n" +
-            "#?#" + "\n" +
-            "#M#"
+                "#?#" + "\n" +
+                "#M#"
         );
     }
 
     @Test
-    public void Digging_fails_if_later_block_is_unbreakable_on_slope()
-    {
+    public void Digging_fails_if_later_block_is_unbreakable_on_slope() {
         assertWorldEvolvesLike(
             "rd " + "\n" +
-            "#/ " + "\n" +
-            "#M#",
+                "#/ " + "\n" +
+                "#M#",
 
             " r " + "\n" +
-            "#h " + "\n" +
-            "#M#",
+                "#h " + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#D " + "\n" +
-            "#M#",
+                "#D " + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#r " + "\n" +
-            "#D#",
+                "#r " + "\n" +
+                "#D#",
 
             "   " + "\n" +
-            "#r>" + "\n" +
-            "#M#"
+                "#r>" + "\n" +
+                "#M#"
         );
     }
 
     @Test
-    public void Digging_fails_if_later_block_is_unbreakable_on_bridge()
-    {
+    public void Digging_fails_if_later_block_is_unbreakable_on_bridge() {
         assertWorldEvolvesLike(
             "rd " + "\n" +
-            "#( " + "\n" +
-            "#M#",
+                "#( " + "\n" +
+                "#M#",
 
             " r " + "\n" +
-            "#h " + "\n" +
-            "#M#",
+                "#h " + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#D " + "\n" +
-            "#M#",
+                "#D " + "\n" +
+                "#M#",
 
             "   " + "\n" +
-            "#r " + "\n" +
-            "#D#",
+                "#r " + "\n" +
+                "#D#",
 
             "   " + "\n" +
-            "#r>" + "\n" +
-            "#M#"
+                "#r>" + "\n" +
+                "#M#"
         );
     }
 
     @Test
-    public void Digging_does_not_destroy_water()
-    {
+    public void Digging_does_not_destroy_water() {
         World world = createWorld(
             "#r#",
             "#*#",
@@ -926,86 +909,84 @@ public class TestDigging
     }
 
     @Test
-    public void Brollychuting_allows_digging_through_deep_floor()
-    {
+    public void Brollychuting_allows_digging_through_deep_floor() {
         assertWorldEvolvesLike(
             "#r #" + "\n" +
-            "#ld#" + "\n" +
-            "####" + "\n" +
-            "####" + "\n" +
-            "####",
+                "#ld#" + "\n" +
+                "####" + "\n" +
+                "####" + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#r>#" + "\n" +
-            "####" + "\n" +
-            "####" + "\n" +
-            "####",
+                "#r>#" + "\n" +
+                "####" + "\n" +
+                "####" + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "# r#" + "\n" +
-            "##D#" + "\n" +
-            "####" + "\n" +
-            "####",
+                "# r#" + "\n" +
+                "##D#" + "\n" +
+                "####" + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "##D#" + "\n" +
-            "####" + "\n" +
-            "####",
+                "#  #" + "\n" +
+                "##D#" + "\n" +
+                "####" + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "##r#" + "\n" +
-            "##D#" + "\n" + // Continues digging
-            "####",
+                "#  #" + "\n" +
+                "##r#" + "\n" +
+                "##D#" + "\n" + // Continues digging
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "## #" + "\n" +
-            "##D#" + "\n" +
-            "####",
+                "#  #" + "\n" +
+                "## #" + "\n" +
+                "##D#" + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "## #" + "\n" +
-            "##r#" + "\n" +
-            "##D#"
+                "#  #" + "\n" +
+                "## #" + "\n" +
+                "##r#" + "\n" +
+                "##D#"
         );
     }
 
     @Test
-    public void Brollychuting_past_a_gap_cancels_bridging()
-    {
+    public void Brollychuting_past_a_gap_cancels_bridging() {
         assertWorldEvolvesLike(
             "#r #" + "\n" +
-            "#ld#" + "\n" +
-            "####" + "\n" +
-            "#   " + "\n" +
-            "####",
+                "#ld#" + "\n" +
+                "####" + "\n" +
+                "#   " + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#r>#" + "\n" +
-            "####" + "\n" +
-            "#   " + "\n" +
-            "####",
+                "#r>#" + "\n" +
+                "####" + "\n" +
+                "#   " + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "# r#" + "\n" +
-            "##D#" + "\n" +
-            "#   " + "\n" +
-            "####",
+                "# r#" + "\n" +
+                "##D#" + "\n" +
+                "#   " + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "##r#" + "\n" +
-            "# : " + "\n" +
-            "####",
+                "#  #" + "\n" +
+                "##r#" + "\n" +
+                "# : " + "\n" +
+                "####",
 
             "#  #" + "\n" +
-            "#  #" + "\n" +
-            "## #" + "\n" +
-            "# r>" + "\n" + // Does not dig again
-            "####"
+                "#  #" + "\n" +
+                "## #" + "\n" +
+                "# r>" + "\n" + // Does not dig again
+                "####"
         );
     }
 }

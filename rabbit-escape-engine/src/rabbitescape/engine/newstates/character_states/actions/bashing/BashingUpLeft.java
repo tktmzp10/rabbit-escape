@@ -17,7 +17,7 @@ public class BashingUpLeft implements IBashingState {
 
     @Override
     public boolean behave(World world, Character character) {
-        world.changes.removeBlockAt( Bashing.destX(character), character.y - 1);
+        world.changes.removeBlockAt(Bashing.destX(character), character.y - 1);
         character.slopeBashHop = true;
         character.y -= 1;
         return true;

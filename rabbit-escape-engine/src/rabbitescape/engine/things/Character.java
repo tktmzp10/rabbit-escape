@@ -55,7 +55,7 @@ public abstract class Character extends Thing implements Comparable<Character> {
         behavioursList.add(outOfBounds);
         behavioursList.add(burning);
         behavioursList.add(drowning);
-        behavioursList.add( crashing );
+        behavioursList.add(crashing);
         behavioursList.add(falling);
         behavioursList.add(exiting);
         behavioursList.add(brollychuting);
@@ -64,7 +64,7 @@ public abstract class Character extends Thing implements Comparable<Character> {
         behavioursList.add(digging);
         behavioursList.add(bridging);
         behavioursList.add(blocking);
-        behavioursList.add( waiting );
+        behavioursList.add(waiting);
         behavioursList.add(walking);
 
         behavioursTriggerOrder.addAll(behavioursList);

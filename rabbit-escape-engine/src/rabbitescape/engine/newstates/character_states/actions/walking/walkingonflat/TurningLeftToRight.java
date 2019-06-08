@@ -17,7 +17,7 @@ public class TurningLeftToRight implements IWalkingState {
     }
 
     @Override
-    public boolean behave(  World world, Character character ) {
+    public boolean behave(World world, Character character) {
         character.onSlope = false;
         character.dir = RIGHT;
         Walking.checkJumpOntoSlope(world, character);

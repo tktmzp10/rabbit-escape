@@ -3,6 +3,7 @@ package rabbitescape.engine.newstates.character_states.actions.bridging.bridging
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.character_states.actions.Bridging;
 import rabbitescape.engine.newstates.character_states.actions.Bridging.*;
 import rabbitescape.engine.newstates.character_states.actions.bridging.IBridgingState;
 import rabbitescape.engine.things.Character;
@@ -20,7 +21,7 @@ public class BridgingInCornerUpRight3 implements IBridgingState {
 
     @Override
     public boolean behave(
-        World world, Character character, BridgeType bridgeType
+        World world, Character character, Bridging bridging
     ) {
         character.onSlope = true;
         character.y--;

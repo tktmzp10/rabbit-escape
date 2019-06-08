@@ -42,7 +42,7 @@ public class Blocking extends CharacterActionStates {
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
         if (abilityActive || triggered) {
-            newStateWhenActive( t );
+            newStateWhenActive(t);
         } else {
             setBlockingState(new NotBlocking());
         }

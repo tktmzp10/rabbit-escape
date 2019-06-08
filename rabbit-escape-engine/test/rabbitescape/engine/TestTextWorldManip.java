@@ -30,11 +30,10 @@ import rabbitescape.engine.textworld.LineProcessor;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.util.Util.IdxObj;
 
-public class TestTextWorldManip
-{
+public class TestTextWorldManip {
+
     @Test
-    public void Round_trip_basic_world()
-    {
+    public void Round_trip_basic_world() {
         String[] lines = {
             "###########",
             "#  Q  A c #",
@@ -46,17 +45,16 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderWorld( createWorld( lines ), false, false ),
-            equalTo( lines )
+            renderWorld(createWorld(lines), false, false),
+            equalTo(lines)
         );
 
         // Also, shouldn't throw if we render this with characterStates
-        renderWorld( createWorld( lines ), true, false );
+        renderWorld(createWorld(lines), true, false);
     }
 
     @Test
-    public void Basic_world_with_coords()
-    {
+    public void Basic_world_with_coords() {
         String[] world = {
             "############",
             "#          #",
@@ -78,23 +76,22 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderWorld( createWorld( world ), false, true ),
-            equalTo( expected )
+            renderWorld(createWorld(world), false, true),
+            equalTo(expected)
         );
     }
 
     @Test
-    public void Walking_rabbits()
-    {
-        World world = createEmptyWorld( 3, 3 );
+    public void Walking_rabbits() {
+        World world = createEmptyWorld(3, 3);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_WALKING_RIGHT );
-        desc.add( 2, 1, RABBIT_WALKING_LEFT  );
-        desc.add( 1, 2, RABBIT_WALKING_RIGHT );
+        desc.add(0, 0, RABBIT_WALKING_RIGHT);
+        desc.add(2, 1, RABBIT_WALKING_LEFT);
+        desc.add(1, 2, RABBIT_WALKING_RIGHT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 " > ",
                 " < ",
@@ -104,16 +101,15 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Turning_rabbits()
-    {
-        World world = createEmptyWorld( 3, 2 );
+    public void Turning_rabbits() {
+        World world = createEmptyWorld(3, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_TURNING_LEFT_TO_RIGHT );
-        desc.add( 2, 0, RABBIT_TURNING_RIGHT_TO_LEFT  );
+        desc.add(0, 0, RABBIT_TURNING_LEFT_TO_RIGHT);
+        desc.add(2, 0, RABBIT_TURNING_RIGHT_TO_LEFT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "| ?",
                 "   "
@@ -122,18 +118,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rising_rabbits_right()
-    {
-        World world = createEmptyWorld( 5, 8 );
+    public void Rising_rabbits_right() {
+        World world = createEmptyWorld(5, 8);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 1, RABBIT_RISING_RIGHT_START );
-        desc.add( 0, 3, RABBIT_RISING_RIGHT_CONTINUE );
-        desc.add( 0, 5, RABBIT_RISING_RIGHT_END );
-        desc.add( 0, 7, RABBIT_TURNING_RIGHT_TO_LEFT_RISING );
+        desc.add(0, 1, RABBIT_RISING_RIGHT_START);
+        desc.add(0, 3, RABBIT_RISING_RIGHT_CONTINUE);
+        desc.add(0, 5, RABBIT_RISING_RIGHT_END);
+        desc.add(0, 7, RABBIT_TURNING_RIGHT_TO_LEFT_RISING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "     ",
                 " ~   ",
@@ -148,18 +143,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rising_rabbits_left()
-    {
-        World world = createEmptyWorld( 5, 8 );
+    public void Rising_rabbits_left() {
+        World world = createEmptyWorld(5, 8);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 4, 1, RABBIT_RISING_LEFT_START );
-        desc.add( 4, 3, RABBIT_RISING_LEFT_CONTINUE  );
-        desc.add( 4, 5, RABBIT_RISING_LEFT_END  );
-        desc.add( 4, 7, RABBIT_TURNING_LEFT_TO_RIGHT_RISING  );
+        desc.add(4, 1, RABBIT_RISING_LEFT_START);
+        desc.add(4, 3, RABBIT_RISING_LEFT_CONTINUE);
+        desc.add(4, 5, RABBIT_RISING_LEFT_END);
+        desc.add(4, 7, RABBIT_TURNING_LEFT_TO_RIGHT_RISING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "     ",
                 "   ` ",
@@ -174,18 +168,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Lowering_rabbits_right()
-    {
-        World world = createEmptyWorld( 5, 8 );
+    public void Lowering_rabbits_right() {
+        World world = createEmptyWorld(5, 8);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_LOWERING_RIGHT_START );
-        desc.add( 0, 2, RABBIT_LOWERING_RIGHT_CONTINUE  );
-        desc.add( 0, 4, RABBIT_LOWERING_RIGHT_END  );
-        desc.add( 0, 6, RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING  );
+        desc.add(0, 0, RABBIT_LOWERING_RIGHT_START);
+        desc.add(0, 2, RABBIT_LOWERING_RIGHT_CONTINUE);
+        desc.add(0, 4, RABBIT_LOWERING_RIGHT_END);
+        desc.add(0, 6, RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "     ",
                 " -   ",
@@ -200,18 +193,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Lowering_rabbits_left()
-    {
-        World world = createEmptyWorld( 5, 8 );
+    public void Lowering_rabbits_left() {
+        World world = createEmptyWorld(5, 8);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 4, 0, RABBIT_LOWERING_LEFT_START );
-        desc.add( 4, 2, RABBIT_LOWERING_LEFT_CONTINUE );
-        desc.add( 4, 4, RABBIT_LOWERING_LEFT_END  );
-        desc.add( 4, 6, RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING  );
+        desc.add(4, 0, RABBIT_LOWERING_LEFT_START);
+        desc.add(4, 2, RABBIT_LOWERING_LEFT_CONTINUE);
+        desc.add(4, 4, RABBIT_LOWERING_LEFT_END);
+        desc.add(4, 6, RABBIT_TURNING_LEFT_TO_RIGHT_LOWERING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "     ",
                 "   = ",
@@ -226,17 +218,16 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Falling_rabbits()
-    {
-        World world = createEmptyWorld( 3, 5 );
+    public void Falling_rabbits() {
+        World world = createEmptyWorld(3, 5);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_FALLING );
-        desc.add( 2, 1, RABBIT_FALLING  );
-        desc.add( 1, 2, RABBIT_FALLING_1 );
+        desc.add(0, 0, RABBIT_FALLING);
+        desc.add(2, 1, RABBIT_FALLING);
+        desc.add(1, 2, RABBIT_FALLING_1);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "   ",
                 "f  ",
@@ -248,16 +239,15 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rabbits_falling_odd_num_squares_to_death()
-    {
-        World world = createEmptyWorld( 3, 2 );
+    public void Rabbits_falling_odd_num_squares_to_death() {
+        World world = createEmptyWorld(3, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_FALLING_1_TO_DEATH );
-        desc.add( 2, 0, RABBIT_DYING_OF_FALLING_2  );
+        desc.add(0, 0, RABBIT_FALLING_1_TO_DEATH);
+        desc.add(2, 0, RABBIT_DYING_OF_FALLING_2);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "  y",
                 "x  "
@@ -266,15 +256,14 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rabbits_falling_even_num_squares_to_death()
-    {
-        World world = createEmptyWorld( 3, 2 );
+    public void Rabbits_falling_even_num_squares_to_death() {
+        World world = createEmptyWorld(3, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_DYING_OF_FALLING );
+        desc.add(0, 0, RABBIT_DYING_OF_FALLING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "X  ",
                 "   "
@@ -283,16 +272,15 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rabbits_walking_down_and_immediately_up()
-    {
-        World world = createEmptyWorld( 5, 2 );
+    public void Rabbits_walking_down_and_immediately_up() {
+        World world = createEmptyWorld(5, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_LOWERING_AND_RISING_RIGHT );
-        desc.add( 4, 0, RABBIT_LOWERING_AND_RISING_LEFT );
+        desc.add(0, 0, RABBIT_LOWERING_AND_RISING_RIGHT);
+        desc.add(4, 0, RABBIT_LOWERING_AND_RISING_LEFT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 " , . ",
                 "     "
@@ -301,16 +289,15 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rabbits_walking_up_and_immediately_down()
-    {
-        World world = createEmptyWorld( 5, 2 );
+    public void Rabbits_walking_up_and_immediately_down() {
+        World world = createEmptyWorld(5, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_RISING_AND_LOWERING_RIGHT );
-        desc.add( 4, 0, RABBIT_RISING_AND_LOWERING_LEFT );
+        desc.add(0, 0, RABBIT_RISING_AND_LOWERING_RIGHT);
+        desc.add(4, 0, RABBIT_RISING_AND_LOWERING_LEFT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 " & m ",
                 "     "
@@ -319,22 +306,21 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Rabbits_falling_onto_slopes()
-    {
-        World world = createEmptyWorld( 8, 3 );
+    public void Rabbits_falling_onto_slopes() {
+        World world = createEmptyWorld(8, 3);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, RABBIT_FALLING_ONTO_LOWER_RIGHT );
-        desc.add( 1, 0, RABBIT_FALLING_ONTO_RISE_RIGHT );
-        desc.add( 2, 0, RABBIT_FALLING_ONTO_LOWER_LEFT );
-        desc.add( 3, 0, RABBIT_FALLING_ONTO_RISE_LEFT );
-        desc.add( 4, 0, RABBIT_FALLING_1_ONTO_LOWER_RIGHT );
-        desc.add( 5, 0, RABBIT_FALLING_1_ONTO_RISE_RIGHT );
-        desc.add( 6, 0, RABBIT_FALLING_1_ONTO_LOWER_LEFT );
-        desc.add( 7, 0, RABBIT_FALLING_1_ONTO_RISE_LEFT );
+        desc.add(0, 0, RABBIT_FALLING_ONTO_LOWER_RIGHT);
+        desc.add(1, 0, RABBIT_FALLING_ONTO_RISE_RIGHT);
+        desc.add(2, 0, RABBIT_FALLING_ONTO_LOWER_LEFT);
+        desc.add(3, 0, RABBIT_FALLING_ONTO_RISE_LEFT);
+        desc.add(4, 0, RABBIT_FALLING_1_ONTO_LOWER_RIGHT);
+        desc.add(5, 0, RABBIT_FALLING_1_ONTO_RISE_RIGHT);
+        desc.add(6, 0, RABBIT_FALLING_1_ONTO_LOWER_LEFT);
+        desc.add(7, 0, RABBIT_FALLING_1_ONTO_RISE_LEFT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "        ",
                 "ffffehsa",
@@ -344,18 +330,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Tokens_falling()
-    {
-        World world = createEmptyWorld( 4, 2 );
+    public void Tokens_falling() {
+        World world = createEmptyWorld(4, 2);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 0, 0, TOKEN_BASH_FALLING );
-        desc.add( 1, 0, TOKEN_DIG_FALLING );
-        desc.add( 2, 0, TOKEN_BRIDGE_FALLING );
-        desc.add( 3, 0, TOKEN_BLOCK_FALLING );
+        desc.add(0, 0, TOKEN_BASH_FALLING);
+        desc.add(1, 0, TOKEN_DIG_FALLING);
+        desc.add(2, 0, TOKEN_BRIDGE_FALLING);
+        desc.add(3, 0, TOKEN_BLOCK_FALLING);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "    ",
                 "ffff"
@@ -364,18 +349,17 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Bashing()
-    {
-        World world = createEmptyWorld( 3, 4 );
+    public void Bashing() {
+        World world = createEmptyWorld(3, 4);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add( 1, 0, RABBIT_BASHING_RIGHT );
-        desc.add( 1, 1, RABBIT_BASHING_LEFT );
-        desc.add( 1, 2, RABBIT_BASHING_USELESSLY_RIGHT );
-        desc.add( 1, 3, RABBIT_BASHING_USELESSLY_LEFT );
+        desc.add(1, 0, RABBIT_BASHING_RIGHT);
+        desc.add(1, 1, RABBIT_BASHING_LEFT);
+        desc.add(1, 2, RABBIT_BASHING_USELESSLY_RIGHT);
+        desc.add(1, 3, RABBIT_BASHING_USELESSLY_LEFT);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "  K",
                 "W  ",
@@ -386,22 +370,21 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Climbing()
-    {
-        World world = createEmptyWorld( 17, 3 );
+    public void Climbing() {
+        World world = createEmptyWorld(17, 3);
 
         ChangeDescription desc = new ChangeDescription();
-        desc.add(  1, 1, RABBIT_CLIMBING_LEFT_START );
-        desc.add(  3, 1, RABBIT_CLIMBING_LEFT_CONTINUE_1 );
-        desc.add(  5, 1, RABBIT_CLIMBING_LEFT_CONTINUE_2 );
-        desc.add(  7, 1, RABBIT_CLIMBING_LEFT_END );
-        desc.add(  9, 1, RABBIT_CLIMBING_RIGHT_START );
-        desc.add( 11, 1, RABBIT_CLIMBING_RIGHT_CONTINUE_1 );
-        desc.add( 13, 1, RABBIT_CLIMBING_RIGHT_CONTINUE_2 );
-        desc.add( 15, 1, RABBIT_CLIMBING_RIGHT_END );
+        desc.add(1, 1, RABBIT_CLIMBING_LEFT_START);
+        desc.add(3, 1, RABBIT_CLIMBING_LEFT_CONTINUE_1);
+        desc.add(5, 1, RABBIT_CLIMBING_LEFT_CONTINUE_2);
+        desc.add(7, 1, RABBIT_CLIMBING_LEFT_END);
+        desc.add(9, 1, RABBIT_CLIMBING_RIGHT_START);
+        desc.add(11, 1, RABBIT_CLIMBING_RIGHT_CONTINUE_1);
+        desc.add(13, 1, RABBIT_CLIMBING_RIGHT_CONTINUE_2);
+        desc.add(15, 1, RABBIT_CLIMBING_RIGHT_END);
 
         assertThat(
-            renderChangeDescription( world, desc, false ),
+            renderChangeDescription(world, desc, false),
             equalTo(
                 "   Y YU    F F  L",
                 " T       G       ",
@@ -411,101 +394,93 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Can_supply_default_name()
-    {
+    public void Can_supply_default_name() {
         assertThat(
             createWorldWithName(
-                "defname", new IgnoreWorldStatsListener(), new String[] {}
+                "defname", new IgnoreWorldStatsListener(), new String[]{}
             ).name,
-            equalTo( "defname" )
+            equalTo("defname")
         );
     }
 
     @Test
-    public void Default_name_is_ignored_if_name_property_found()
-    {
+    public void Default_name_is_ignored_if_name_property_found() {
         String[] lines = {
             ":name=bar"
         };
 
         assertThat(
             createWorldWithName(
-                "defname", new IgnoreWorldStatsListener(), lines ).name,
-            equalTo( "bar" )
+                "defname", new IgnoreWorldStatsListener(), lines).name,
+            equalTo("bar")
         );
     }
 
     @Test
-    public void Can_provide_world_name()
-    {
+    public void Can_provide_world_name() {
         String[] lines = {
             ":name=My World!"
         };
 
         assertThat(
-            createWorld( lines ).name,
-            equalTo( "My World!" )
+            createWorld(lines).name,
+            equalTo("My World!")
         );
     }
 
     @Test
-    public void Can_provide_world_description()
-    {
+    public void Can_provide_world_description() {
         String[] lines = {
             ":description=Go here, then there"
         };
 
         assertThat(
-            createWorld( lines ).description,
-            equalTo( "Go here, then there" )
+            createWorld(lines).description,
+            equalTo("Go here, then there")
         );
     }
 
     @Test
-    public void Can_provide_empty_description()
-    {
+    public void Can_provide_empty_description() {
         String[] lines = {
             ":description="
         };
 
         assertThat(
-            createWorld( lines ).description,
-            equalTo( "" )
+            createWorld(lines).description,
+            equalTo("")
         );
     }
 
     @Test
-    public void Can_obfuscate_hints()
-    {
+    public void Can_obfuscate_hints() {
         String[] lines = {
             ":hint.1.code=_Uf?>3ZH_8>U>{3",
             ":hint.2.code=@XW@W:)e+:+ ",
             ":hint.3.code=X5g..T[6X4["
         };
 
-        World world = createWorld( lines );
+        World world = createWorld(lines);
 
-        assertThat( world.hints[0], equalTo( "Select the bash" ) );
-        assertThat( world.hints[1], equalTo( "Use the bash" ) );
-        assertThat( world.hints[2], equalTo( "Be the bash" ) );
+        assertThat(world.hints[0], equalTo("Select the bash"));
+        assertThat(world.hints[1], equalTo("Use the bash"));
+        assertThat(world.hints[2], equalTo("Be the bash"));
     }
 
     @Test
-    public void Can_provide_number_of_rabbits()
-    {
+    public void Can_provide_number_of_rabbits() {
         String[] lines = {
             ":num_rabbits=10"
         };
 
         assertThat(
-            createWorld( lines ).num_rabbits,
-            equalTo( 10 )
+            createWorld(lines).num_rabbits,
+            equalTo(10)
         );
     }
 
     @Test
-    public void Empty_lines_are_treated_as_spaces()
-    {
+    public void Empty_lines_are_treated_as_spaces() {
         World world = createWorld(
             "####",
             "",
@@ -514,7 +489,7 @@ public class TestTextWorldManip
         );
 
         assertThat(
-            renderCompleteWorld( world, false ),
+            renderCompleteWorld(world, false),
             equalTo(
                 "####",
                 "    ",
@@ -525,8 +500,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Full_dump_shows_overlapping_things()
-    {
+    public void Full_dump_shows_overlapping_things() {
         // Make an empty world
         World world = createWorld(
             "####",
@@ -536,13 +510,13 @@ public class TestTextWorldManip
         );
 
         // put 2 rabbits and 2 items all in the same place, on top of a block
-        world.rabbits.add( new Rabbit( 2, 2, Direction.RIGHT) );
-        world.rabbits.add( new Rabbit( 2, 2, Direction.LEFT) );
-        world.things.add( new BashItem( 2, 2 ) );
-        world.things.add( new BridgeItem( 2, 2 ) );
+        world.rabbits.add(new Rabbit(2, 2, Direction.RIGHT));
+        world.rabbits.add(new Rabbit(2, 2, Direction.LEFT));
+        world.things.add(new BashItem(2, 2));
+        world.things.add(new BridgeItem(2, 2));
 
         assertThat(
-            renderCompleteWorld( world, false ),
+            renderCompleteWorld(world, false),
             equalTo(
                 "####",
                 "#  #",
@@ -554,8 +528,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Multiple_overlapping_things_come_in_reading_order()
-    {
+    public void Multiple_overlapping_things_come_in_reading_order() {
         // Make an empty world
         World world = createWorld(
             "####",
@@ -565,19 +538,19 @@ public class TestTextWorldManip
         );
 
         // Rabbits in top left
-        world.rabbits.add( new Rabbit( 1, 1, Direction.RIGHT) );
-        world.rabbits.add( new Rabbit( 1, 1, Direction.LEFT) );
+        world.rabbits.add(new Rabbit(1, 1, Direction.RIGHT));
+        world.rabbits.add(new Rabbit(1, 1, Direction.LEFT));
 
         // bash and bridge in top right
-        world.things.add( new BashItem( 2, 1 ) );
-        world.things.add( new BridgeItem( 2, 1 ) );
+        world.things.add(new BashItem(2, 1));
+        world.things.add(new BridgeItem(2, 1));
 
         // dig in bottom left and bottom right
-        world.things.add( new DigItem( 1, 2 ) );
-        world.things.add( new DigItem( 2, 2 ) );
+        world.things.add(new DigItem(1, 2));
+        world.things.add(new DigItem(2, 2));
 
         assertThat(
-            renderCompleteWorld( world, false ),
+            renderCompleteWorld(world, false),
             equalTo(
                 "####",
                 "#**#",
@@ -592,8 +565,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Overlap_meta_lines_can_come_straight_after_their_stars()
-    {
+    public void Overlap_meta_lines_can_come_straight_after_their_stars() {
         // This is what we are testing: we can have * meta lines any time
         // after the * they refer to
         World world = createWorld(
@@ -609,7 +581,7 @@ public class TestTextWorldManip
 
         // Result is the same as if they came at the end
         assertThat(
-            renderCompleteWorld( world, false, false ),
+            renderCompleteWorld(world, false, false),
             equalTo(
                 "####",
                 "#**#",
@@ -624,17 +596,16 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Object_properties_are_excluded_when_runtime_meta_is_off()
-    {
+    public void Object_properties_are_excluded_when_runtime_meta_is_off() {
         World world = createWorld(
             "*",
             ":*=r{Blocking.abilityActive:true}k"  // Make blocking active
         );
 
-        world.rabbits.get( 0 ).restoreFromState( map("Blocking.abilityActive", "true") );
+        world.rabbits.get(0).restoreFromState(map("Blocking.abilityActive", "true"));
 
         assertThat(
-            renderCompleteWorld( world, false, false ),
+            renderCompleteWorld(world, false, false),
             equalTo(
                 "*",
                 ":*=rk"  // No {Blocking.abilityActive:true} because runtime
@@ -643,8 +614,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Blocking_state_is_preserved()
-    {
+    public void Blocking_state_is_preserved() {
         World world = createWorld(
             "rk ",
             "###"
@@ -655,7 +625,7 @@ public class TestTextWorldManip
 
         // We are now blocking
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " H ",
                 "###"
@@ -663,11 +633,11 @@ public class TestTextWorldManip
         );
 
         // Round trip
-        World world2 = createWorld( renderCompleteWorld( world, false ) );
+        World world2 = createWorld(renderCompleteWorld(world, false));
 
         // We are still blocking
         assertThat(
-            renderWorld( world2, true, false ),
+            renderWorld(world2, true, false),
             equalTo(
                 " H ",
                 "###"
@@ -676,8 +646,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Digging_state_is_preserved()
-    {
+    public void Digging_state_is_preserved() {
         World world = createWorld(
             "rd ",
             "###",
@@ -690,7 +659,7 @@ public class TestTextWorldManip
 
         // We are now digging
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -700,11 +669,11 @@ public class TestTextWorldManip
         );
 
         // Round trip
-        World world2 = createWorld( renderCompleteWorld( world, false ) );
+        World world2 = createWorld(renderCompleteWorld(world, false));
 
         // We are still digging
         assertThat(
-            renderWorld( world2, true, false ),
+            renderWorld(world2, true, false),
             equalTo(
                 " r ",
                 "#D#",
@@ -715,8 +684,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Digging_state_is_preserved_second_step()
-    {
+    public void Digging_state_is_preserved_second_step() {
         World world = createWorld(
             "rd ",
             "###",
@@ -730,7 +698,7 @@ public class TestTextWorldManip
 
         // We are now digging
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 "   ",
                 "#D#",
@@ -740,8 +708,8 @@ public class TestTextWorldManip
         );
 
         // Round trip
-        @SuppressWarnings( "unused" )
-        World world2 = createWorld( renderCompleteWorld( world, false ) );
+        @SuppressWarnings("unused")
+        World world2 = createWorld(renderCompleteWorld(world, false));
 
         // We are still digging
         // TODO: bug: we moved on a step in the round trip
@@ -757,8 +725,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Bashing_state_is_preserved()
-    {
+    public void Bashing_state_is_preserved() {
         World world = createWorld(
             "rb#",
             "###"
@@ -769,7 +736,7 @@ public class TestTextWorldManip
 
         // We are now bashing
         assertThat(
-            renderWorld( world, true, false ),
+            renderWorld(world, true, false),
             equalTo(
                 " rK",
                 "###"
@@ -777,11 +744,11 @@ public class TestTextWorldManip
         );
 
         // Round trip
-        World world2 = createWorld( renderCompleteWorld( world, false ) );
+        World world2 = createWorld(renderCompleteWorld(world, false));
 
         // We are still bashing
         assertThat(
-            renderWorld( world2, true, false ),
+            renderWorld(world2, true, false),
             equalTo(
                 " rK",
                 "###"
@@ -790,8 +757,7 @@ public class TestTextWorldManip
     }
 
     @Test
-    public void Round_trip_world_with_overlaps()
-    {
+    public void Round_trip_world_with_overlaps() {
         String[] lines = {
             "####",
             "#**#",
@@ -804,14 +770,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), false, false ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), false, false),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Deprecated_items_are_still_allowed_in_world_serialisation()
-    {
+    public void Deprecated_items_are_still_allowed_in_world_serialisation() {
         String[] lines = {
             ":name=My X Trip",
             ":description=",
@@ -839,15 +804,14 @@ public class TestTextWorldManip
             ":*=/d"
         };
 
-        World world = createWorld( lines );
+        World world = createWorld(lines);
 
         // Just a basic sanity check
-        assertThat( world.name, equalTo( "My X Trip" ) );
+        assertThat(world.name, equalTo("My X Trip"));
     }
 
     @Test
-    public void Round_trip_world_with_metadata()
-    {
+    public void Round_trip_world_with_metadata() {
         String[] lines = {
             ":name=My X Trip",
             ":description=",
@@ -881,61 +845,55 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void State_map_from_empty_string_is_empty()
-    {
+    public void State_map_from_empty_string_is_empty() {
         assertThat(
-            ItemsLineProcessor.stateMap( "" ),
-            equalTo( map() )
+            ItemsLineProcessor.stateMap(""),
+            equalTo(map())
         );
     }
 
     @Test
-    public void Single_field_state_map()
-    {
+    public void Single_field_state_map() {
         assertThat(
-            ItemsLineProcessor.stateMap( "adsfg.foo:9" ),
-            equalTo( map( "adsfg.foo", "9" ) )
+            ItemsLineProcessor.stateMap("adsfg.foo:9"),
+            equalTo(map("adsfg.foo", "9"))
         );
     }
 
     @Test
-    public void Multiple_field_state_map()
-    {
+    public void Multiple_field_state_map() {
         assertThat(
-            ItemsLineProcessor.stateMap( "adsfg.foo:9,x:6,Agf.d.9:10" ),
+            ItemsLineProcessor.stateMap("adsfg.foo:9,x:6,Agf.d.9:10"),
             equalTo(
                 map(
                     "adsfg.foo", "9",
-                    "x",         "6",
-                    "Agf.d.9",   "10"
+                    "x", "6",
+                    "Agf.d.9", "10"
                 )
             )
         );
     }
 
-    private static Map<String, String> map( String... keysAndValues )
-    {
-        assert ( keysAndValues.length % 2 ) == 0;
+    private static Map<String, String> map(String... keysAndValues) {
+        assert (keysAndValues.length % 2) == 0;
 
         Map<String, String> ret = new HashMap<String, String>();
 
-        for ( int i = 0; i < keysAndValues.length; i += 2 )
-        {
-            ret.put( keysAndValues[i], keysAndValues[i+1] );
+        for (int i = 0; i < keysAndValues.length; i += 2) {
+            ret.put(keysAndValues[i], keysAndValues[i + 1]);
         }
 
         return ret;
     }
 
     @Test
-    public void Round_trip_world_with_state()
-    {
+    public void Round_trip_world_with_state() {
         String[] lines = {
             ":name=My Round Trip",
             ":description=Go around",
@@ -968,14 +926,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Test_variable_rabbit_delay()
-    {
+    public void Test_variable_rabbit_delay() {
         String[] lines = {
             ":rabbit_delay=1,2,3",
             ":num_rabbits=5",
@@ -984,13 +941,12 @@ public class TestTextWorldManip
             "#############################################################################"
         };
 
-        World world = createWorld( lines );
-        for ( int i = 0 ; i<16 ; i++ )
-        {
+        World world = createWorld(lines);
+        for (int i = 0; i < 16; i++) {
             world.step();
         }
 
-        String[] resultLines = renderCompleteWorld( world, false, false );
+        String[] resultLines = renderCompleteWorld(world, false, false);
 
         String[] expectedLines = {
             "*                                                                            ",
@@ -998,17 +954,16 @@ public class TestTextWorldManip
             "#############################################################################",
             ":*=Q{Entrance.timeToNextRabbit:2}"
         };
-        assertThat( resultLines, equalTo( expectedLines ));
+        assertThat(resultLines, equalTo(expectedLines));
 
     }
 
     /**
-     * @brief Test an example world with variable rabbit_delay.
-     * Parse it, reserialise it, and test for changes.
+     * @brief Test an example world with variable rabbit_delay. Parse it, reserialise it, and test
+     * for changes.
      */
     @Test
-    public void Round_trip_for_variable_delay_world()
-    {
+    public void Round_trip_for_variable_delay_world() {
         String[] lines = {
             ":name=var delay round trip",
             ":description=trippy",
@@ -1036,14 +991,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Comments_for_string_arrays_by_key_associate_correctly()
-    {
+    public void Comments_for_string_arrays_by_key_associate_correctly() {
         String[] lines = {
             ":name=Comments",
             ":description=verbose",
@@ -1085,14 +1039,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Comments_for_abilities_round_trip()
-    {
+    public void Comments_for_abilities_round_trip() {
         String[] lines = {
             ":name=Comments",
             ":description=verbose",
@@ -1126,14 +1079,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Round_trip_comments()
-    {
+    public void Round_trip_comments() {
         String[] lines = {
             ":name=Comments",
             "% desc 1.",
@@ -1182,14 +1134,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Round_trip_comments_move_with_meta()
-    {
+    public void Round_trip_comments_move_with_meta() {
         String[] lines = {
             "% something erudite about hint.1",
             ":hint.1=take",
@@ -1272,14 +1223,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( expectedLines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(expectedLines)
         );
     }
 
     @Test
-    public void Starpoint_comments_move_to_a_block()
-    {
+    public void Starpoint_comments_move_to_a_block() {
         String[] lines = {
             ":name=Comments",
             ":description=verbose",
@@ -1334,14 +1284,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true, false ),
-            equalTo( expectedLines )
+            renderCompleteWorld(createWorld(lines), true, false),
+            equalTo(expectedLines)
         );
     }
 
     @Test
-    public void World_comments_move_to_a_block()
-    {
+    public void World_comments_move_to_a_block() {
         String[] lines = {
             ":name=Comments",
             ":description=verbose",
@@ -1392,19 +1341,18 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true, false ),
-            equalTo( expectedLines )
+            renderCompleteWorld(createWorld(lines), true, false),
+            equalTo(expectedLines)
         );
     }
 
 
     /**
-     * @brief Key meta should be unique. Test that Duplicate name
-     * entries cause a DuplicateMetaKey to be thrown.
+     * @brief Key meta should be unique. Test that Duplicate name entries cause a DuplicateMetaKey
+     * to be thrown.
      */
-    @Test( expected=DuplicateMetaKey.class )
-    public void Duplicate_meta_string_is_an_error()
-    {
+    @Test(expected = DuplicateMetaKey.class)
+    public void Duplicate_meta_string_is_an_error() {
         String[] lines = {
             ":name=1",
             ":name=2",
@@ -1413,16 +1361,15 @@ public class TestTextWorldManip
             "#####"
         };
 
-        renderCompleteWorld( createWorld( lines ), true );
+        renderCompleteWorld(createWorld(lines), true);
     }
 
     /**
-     * @brief Key meta should be unique. Test that Duplicate num_rabbits
-     * entries cause a DuplicateMetaKey to be thrown.
+     * @brief Key meta should be unique. Test that Duplicate num_rabbits entries cause a
+     * DuplicateMetaKey to be thrown.
      */
-    @Test( expected=DuplicateMetaKey.class )
-    public void Duplicate_meta_int_is_an_error()
-    {
+    @Test(expected = DuplicateMetaKey.class)
+    public void Duplicate_meta_int_is_an_error() {
         String[] lines = {
             ":num_rabbits=1",
             ":num_rabbits=2",
@@ -1431,16 +1378,15 @@ public class TestTextWorldManip
             "#####"
         };
 
-        renderCompleteWorld( createWorld( lines ), true );
+        renderCompleteWorld(createWorld(lines), true);
     }
 
     /**
-     * @brief Key meta should be unique. Test that Duplicate paused
-     * entries cause a DuplicateMetaKey to be thrown.
+     * @brief Key meta should be unique. Test that Duplicate paused entries cause a DuplicateMetaKey
+     * to be thrown.
      */
-    @Test( expected=DuplicateMetaKey.class )
-    public void Duplicate_meta_boolean_is_an_error()
-    {
+    @Test(expected = DuplicateMetaKey.class)
+    public void Duplicate_meta_boolean_is_an_error() {
         String[] lines = {
             ":paused=true",
             ":paused=true",
@@ -1449,16 +1395,15 @@ public class TestTextWorldManip
             "#####"
         };
 
-        renderCompleteWorld( createWorld( lines ), true );
+        renderCompleteWorld(createWorld(lines), true);
     }
 
     /**
-     * @brief Key meta should be unique. Test that Duplicate rabbit_delay
-     * entries cause a DuplicateMetaKey to be thrown.
+     * @brief Key meta should be unique. Test that Duplicate rabbit_delay entries cause a
+     * DuplicateMetaKey to be thrown.
      */
-    @Test( expected=DuplicateMetaKey.class )
-    public void Duplicate_meta_intarray_is_an_error()
-    {
+    @Test(expected = DuplicateMetaKey.class)
+    public void Duplicate_meta_intarray_is_an_error() {
         String[] lines = {
             ":rabbit_delay=1,2,6",
             ":rabbit_delay=4",
@@ -1466,16 +1411,15 @@ public class TestTextWorldManip
             "#r  #",
             "#####"
         };
-        renderCompleteWorld( createWorld( lines ), true );
+        renderCompleteWorld(createWorld(lines), true);
     }
 
     /**
-     * @brief Key meta should be unique. Test that Duplicate dig
-     * entries cause a DuplicateMetaKey to be thrown.
+     * @brief Key meta should be unique. Test that Duplicate dig entries cause a DuplicateMetaKey to
+     * be thrown.
      */
-    @Test( expected=DuplicateMetaKey.class )
-    public void Duplicate_ability_is_an_error()
-    {
+    @Test(expected = DuplicateMetaKey.class)
+    public void Duplicate_ability_is_an_error() {
         String[] lines = {
             ":dig=10",
             ":dig=10",
@@ -1483,16 +1427,15 @@ public class TestTextWorldManip
             "#r  #",
             "#####"
         };
-        renderCompleteWorld( createWorld( lines ), true );
+        renderCompleteWorld(createWorld(lines), true);
     }
 
     /**
-     * @brief Test an example world with some solutions.
-     * Parse it, reserialise it, and test for changes.
+     * @brief Test an example world with some solutions. Parse it, reserialise it, and test for
+     * changes.
      */
     @Test
-    public void Round_trip_for_solutions()
-    {
+    public void Round_trip_for_solutions() {
         String[] lines = {
             ":name=solution round trip",
             ":description=trippy",
@@ -1520,14 +1463,13 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void Incorrect_solution_string_throws_exception()
-    {
+    public void Incorrect_solution_string_throws_exception() {
         String[] lines = {
             ":num_rabbits=1",
             ":solution.1=5",
@@ -1536,22 +1478,18 @@ public class TestTextWorldManip
             "#####"
         };
 
-        try
-        {
-            runSolutions( lines );
-            fail( "Exception expected!" );
-        }
-        catch ( SolutionExceptions.DidNotWin e )
-        {
-            assertThat( e.solutionId, equalTo( 1 ) );
-            assertThat( e.commandIndex, equalTo( 2 ) );
-            assertThat( e.actual, equalTo( CompletionState.LOST ) );
+        try {
+            runSolutions(lines);
+            fail("Exception expected!");
+        } catch (SolutionExceptions.DidNotWin e) {
+            assertThat(e.solutionId, equalTo(1));
+            assertThat(e.commandIndex, equalTo(2));
+            assertThat(e.actual, equalTo(CompletionState.LOST));
         }
     }
 
     @Test
-    public void Incorrect_solution_2_string_throws_exception()
-    {
+    public void Incorrect_solution_2_string_throws_exception() {
         String[] lines = {
             ":num_rabbits=1",
             ":solution.1=6",
@@ -1561,22 +1499,18 @@ public class TestTextWorldManip
             "#####"
         };
 
-        try
-        {
-            runSolutions( lines );
-            fail( "Exception expected!" );
-        }
-        catch ( SolutionExceptions.DidNotWin e )
-        {
-            assertThat( e.solutionId, equalTo( 2 ) );
-            assertThat( e.commandIndex, equalTo( 2 ) );
-            assertThat( e.actual, equalTo( CompletionState.RUNNING ) );
+        try {
+            runSolutions(lines);
+            fail("Exception expected!");
+        } catch (SolutionExceptions.DidNotWin e) {
+            assertThat(e.solutionId, equalTo(2));
+            assertThat(e.commandIndex, equalTo(2));
+            assertThat(e.actual, equalTo(CompletionState.RUNNING));
         }
     }
 
     @Test
-    public void Valid_solution_string_throws_no_exception()
-    {
+    public void Valid_solution_string_throws_no_exception() {
         String[] lines = {
             ":num_rabbits=1",
             ":solution.1=6",
@@ -1585,12 +1519,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        runSolutions( lines );
+        runSolutions(lines);
     }
 
     @Test
-    public void Stepping_one_past_end_throws_no_exception()
-    {
+    public void Stepping_one_past_end_throws_no_exception() {
         // TODO: see SolutionRunner.shouldStepWorld: yuck - this should
         //       not pass!
         String[] lines = {
@@ -1601,12 +1534,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        runSolutions( lines );
+        runSolutions(lines);
     }
 
-    @Test( expected = RanPastEnd.class )
-    public void Solution_too_many_steps_throws_exception()
-    {
+    @Test(expected = RanPastEnd.class)
+    public void Solution_too_many_steps_throws_exception() {
         String[] lines = {
             ":num_rabbits=1",
             ":solution.1=8;bash",
@@ -1615,12 +1547,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        runSolutions( lines );
+        runSolutions(lines);
     }
 
     @Test
-    public void Complex_solution_strings()
-    {
+    public void Complex_solution_strings() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1633,12 +1564,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        runSolutions( lines );
+        runSolutions(lines);
     }
 
     @Test
-    public void Obfuscated_solution()
-    {
+    public void Obfuscated_solution() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1648,12 +1578,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        runSolutions( lines );
+        runSolutions(lines);
     }
 
     @Test
-    public void Solutions_are_held_in_world()
-    {
+    public void Solutions_are_held_in_world() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1664,15 +1593,14 @@ public class TestTextWorldManip
             "#####"
         };
 
-        World world = createWorld( lines );
+        World world = createWorld(lines);
 
-        assertThat( world.solutions[0],  equalTo( "1" ) );
-        assertThat( world.solutions[1],  equalTo( "2" ) );
+        assertThat(world.solutions[0], equalTo("1"));
+        assertThat(world.solutions[1], equalTo("2"));
     }
 
     @Test
-    public void Over_10_solutions_are_held_in_world()
-    {
+    public void Over_10_solutions_are_held_in_world() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1692,17 +1620,16 @@ public class TestTextWorldManip
             "#####"
         };
 
-        World world = createWorld( lines );
+        World world = createWorld(lines);
 
-        assertThat( world.solutions[0],  equalTo( "10" ) );
-        assertThat( world.solutions[1],  equalTo( "10" ) );
-        assertThat( world.solutions[9],  equalTo( "10" ) );
-        assertThat( world.solutions[10], equalTo( "10" ) );
+        assertThat(world.solutions[0], equalTo("10"));
+        assertThat(world.solutions[1], equalTo("10"));
+        assertThat(world.solutions[9], equalTo("10"));
+        assertThat(world.solutions[10], equalTo("10"));
     }
 
-    @Test ( expected = ArrayByKeyElementMissing.class )
-    public void Disorderly_solutions_throw_exceptions()
-    {
+    @Test(expected = ArrayByKeyElementMissing.class)
+    public void Disorderly_solutions_throw_exceptions() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1714,12 +1641,11 @@ public class TestTextWorldManip
             "#####"
         };
 
-        createWorld( lines );
+        createWorld(lines);
     }
 
-    @Test ( expected = ArrayByKeyElementMissing.class )
-    public void Many_solutions_with_gaps()
-    {
+    @Test(expected = ArrayByKeyElementMissing.class)
+    public void Many_solutions_with_gaps() {
         String[] lines = {
             ":num_rabbits=1",
             ":bash=2",
@@ -1730,64 +1656,59 @@ public class TestTextWorldManip
             "#####"
         };
 
-        World world = createWorld( lines );
+        World world = createWorld(lines);
 
-        assertThat( world.solutions[0],   equalTo( "10" ) );
-        assertThat( world.solutions[1],   equalTo( "" ) );
-        assertThat( world.solutions[100], equalTo( "10;bash" ) );
+        assertThat(world.solutions[0], equalTo("10"));
+        assertThat(world.solutions[1], equalTo(""));
+        assertThat(world.solutions[100], equalTo("10;bash"));
     }
 
     @Test
-    public void Identical_KeyListKeys_are_equal()
-    {
+    public void Identical_KeyListKeys_are_equal() {
         assertThat(
-            new LineProcessor.KeyListKey( "xyz", 3 ),
-            equalTo( new LineProcessor.KeyListKey( "xyz", 3 ) )
+            new LineProcessor.KeyListKey("xyz", 3),
+            equalTo(new LineProcessor.KeyListKey("xyz", 3))
         );
 
         assertThat(
-            new LineProcessor.KeyListKey( "xyz", 3 ).hashCode(),
-            equalTo( new LineProcessor.KeyListKey( "xyz", 3 ).hashCode() )
+            new LineProcessor.KeyListKey("xyz", 3).hashCode(),
+            equalTo(new LineProcessor.KeyListKey("xyz", 3).hashCode())
         );
     }
 
     @Test
-    public void Different_KeyListKeys_are_not_equal()
-    {
+    public void Different_KeyListKeys_are_not_equal() {
         assertThat(
-            new LineProcessor.KeyListKey( "xyz", 3 ),
-            not( equalTo( new LineProcessor.KeyListKey( "xyz", 4 ) ) )
+            new LineProcessor.KeyListKey("xyz", 3),
+            not(equalTo(new LineProcessor.KeyListKey("xyz", 4)))
         );
 
         assertThat(
-            new LineProcessor.KeyListKey( "xyz", 3 ).hashCode(),
+            new LineProcessor.KeyListKey("xyz", 3).hashCode(),
             not(
-                equalTo( new LineProcessor.KeyListKey( "xyz", 4 ).hashCode() )
+                equalTo(new LineProcessor.KeyListKey("xyz", 4).hashCode())
             )
         );
     }
 
     @Test
-    public void Can_parse_KeyListKey()
-    {
+    public void Can_parse_KeyListKey() {
         assertThat(
-            LineProcessor.parseKeyListKey( "solution.1" ),
-            equalTo( new LineProcessor.KeyListKey( "solution", 1 ) )
+            LineProcessor.parseKeyListKey("solution.1"),
+            equalTo(new LineProcessor.KeyListKey("solution", 1))
         );
     }
 
     @Test
-    public void Parsing_non_KeyListKey_returns_no_match()
-    {
+    public void Parsing_non_KeyListKey_returns_no_match() {
         assertThat(
-            LineProcessor.parseKeyListKey( "solution1" ),
-            equalTo( new LineProcessor.KeyListKey( "NO KEY LIST MATCH", -1 ) )
+            LineProcessor.parseKeyListKey("solution1"),
+            equalTo(new LineProcessor.KeyListKey("NO KEY LIST MATCH", -1))
         );
     }
 
     @Test
-    public void Comments_only_active_at_start_of_line()
-    {
+    public void Comments_only_active_at_start_of_line() {
         String[] lines = {
             ":name=Commentary % look at me",
             ":description=trippy",
@@ -1812,32 +1733,29 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderCompleteWorld( createWorld( lines ), true ),
-            equalTo( lines )
+            renderCompleteWorld(createWorld(lines), true),
+            equalTo(lines)
         );
     }
 
     @Test
-    public void String_hash_is_reproducible()
-    {
+    public void String_hash_is_reproducible() {
         String[] sa = new String[]{
-            "Dig for victory", "Tomb raider", "Slot machine", "Space invaders", "UFO" };
+            "Dig for victory", "Tomb raider", "Slot machine", "Space invaders", "UFO"};
         int[] h = new int[]{
-             1451,              1065,          1175,           1384,             234
+            1451, 1065, 1175, 1384, 234
         };
-        for ( int i = 0; i < sa.length ; i++ )
-        {
+        for (int i = 0; i < sa.length; i++) {
             assertThat(
-                LineProcessor.stringHash( sa[i] ),
-                equalTo( h[i] ) );
+                LineProcessor.stringHash(sa[i]),
+                equalTo(h[i]));
         }
 
 
     }
 
     @Test
-    public void Gentest_contains_extra_quotes_and_line_breaks()
-    {
+    public void Gentest_contains_extra_quotes_and_line_breaks() {
         String[] lines = {
             "#####",
             "# r #",
@@ -1845,18 +1763,17 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderWorldForTest( createWorld( lines ) ),
+            renderWorldForTest(createWorld(lines)),
             equalTo(
-                  "            \"#####\" + \"\\n\" +\n"
-                + "            \"# r>#\" + \"\\n\" +\n"
-                + "            \"#####\",\n"
+                "            \"#####\" + \"\\n\" +\n"
+                    + "            \"# r>#\" + \"\\n\" +\n"
+                    + "            \"#####\",\n"
             )
         );
     }
 
     @Test
-    public void Gentest_escapes_backslashes()
-    {
+    public void Gentest_escapes_backslashes() {
         String[] lines = {
             "#####",
             "#\\  #",
@@ -1864,18 +1781,17 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderWorldForTest( createWorld( lines ) ),
+            renderWorldForTest(createWorld(lines)),
             equalTo(
-                  "            \"#####\" + \"\\n\" +\n"
-                + "            \"#\\\\  #\" + \"\\n\" +\n"
-                + "            \"#####\",\n"
+                "            \"#####\" + \"\\n\" +\n"
+                    + "            \"#\\\\  #\" + \"\\n\" +\n"
+                    + "            \"#####\",\n"
             )
         );
     }
 
     @Test
-    public void Gentest_contains_extra_quotes_and_line_breaks_lots_of_types()
-    {
+    public void Gentest_contains_extra_quotes_and_line_breaks_lots_of_types() {
         String[] lines = {
             "###########",
             "#  Q A  c #",
@@ -1886,33 +1802,28 @@ public class TestTextWorldManip
         };
 
         assertThat(
-            renderWorldForTest( createWorld( lines ) ),
+            renderWorldForTest(createWorld(lines)),
             equalTo(
-                  "            \"###########\" + \"\\n\" +\n"
-                + "            \"#  Q A  c #\" + \"\\n\" +\n"
-                + "            \"#\\\\   g  f/#\" + \"\\n\" +\n"
-                + "            \"#  O    fd#\" + \"\\n\" +\n"
-                + "            \"#r<j )(  f#\" + \"\\n\" +\n"
-                + "            \"###########\",\n"
+                "            \"###########\" + \"\\n\" +\n"
+                    + "            \"#  Q A  c #\" + \"\\n\" +\n"
+                    + "            \"#\\\\   g  f/#\" + \"\\n\" +\n"
+                    + "            \"#  O    fd#\" + \"\\n\" +\n"
+                    + "            \"#r<j )(  f#\" + \"\\n\" +\n"
+                    + "            \"###########\",\n"
             )
         );
     }
 
     // ---
 
-    private void runSolutions( String[] lines )
-    {
-        World world = createWorld( lines );
+    private void runSolutions(String[] lines) {
+        World world = createWorld(lines);
 
-        for ( IdxObj<String> s : enumerate1( world.solutions ) )
-        {
-            Solution solution = SolutionParser.parse( s.object );
-            try
-            {
-                SolutionRunner.runSolution( solution, world );
-            }
-            catch ( SolutionExceptions.ProblemRunningSolution e )
-            {
+        for (IdxObj<String> s : enumerate1(world.solutions)) {
+            Solution solution = SolutionParser.parse(s.object);
+            try {
+                SolutionRunner.runSolution(solution, world);
+            } catch (SolutionExceptions.ProblemRunningSolution e) {
                 e.solutionId = s.index;
                 throw e;
             }
