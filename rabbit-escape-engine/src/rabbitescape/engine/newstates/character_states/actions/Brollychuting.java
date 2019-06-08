@@ -35,32 +35,10 @@ public class Brollychuting extends CharacterActionStates {
 
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
-        if (triggered) {
-            hasAbility = true;
-        }
-
-        if (!hasAbility) {
-            setBrollychutingState(new NotBrollychuting());
-            return brollychutingState.newState();
-        }
-
-        if (climbing.abilityActive) {
-            setBrollychutingState(new NotBrollychuting());
-            return brollychutingState.newState();
-        }
-
+        hasAbility = triggered;
         Block below = t.blockBelow();
 
-        if (t.isFlat(below)) {
-            setBrollychutingState(new NotBrollychuting());
-            return brollychutingState.newState();
-        }
-
-        if (
-            t.character.onSlope
-                && !t.blockHereJustRemoved()
-        ) {
-            setBrollychutingState(new NotBrollychuting());
+        if (checkNoBrollychuting(t, below)) {
             return brollychutingState.newState();
         }
 
@@ -70,8 +48,8 @@ public class Brollychuting extends CharacterActionStates {
                     RABBIT_FALLING_1_ONTO_RISE_RIGHT,
                     RABBIT_FALLING_1_ONTO_RISE_LEFT
                 );
-            } else // Must be a slope in the opposite direction
-            {
+            } else {
+                // Must be a slope in the opposite direction
                 return t.rl(
                     RABBIT_FALLING_1_ONTO_LOWER_RIGHT,
                     RABBIT_FALLING_1_ONTO_LOWER_LEFT
@@ -81,6 +59,14 @@ public class Brollychuting extends CharacterActionStates {
         setBrollychutingState(new BrollychutingNormal());
 
         return brollychutingState.newState();
+    }
+
+    private boolean checkNoBrollychuting(BehaviourTools t, Block below) {
+        if (!hasAbility || climbing.abilityActive || t.isFlat(below) || (t.character.onSlope && !t.blockHereJustRemoved())) {
+            setBrollychutingState(new NotBrollychuting());
+            return true;
+        }
+        return false;
     }
 
     @Override
