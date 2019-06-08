@@ -7,7 +7,7 @@ import rabbitescape.engine.things.Character;
 public class NotBashing implements IBashingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 

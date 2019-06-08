@@ -9,7 +9,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BASHING_USELESS
 public class BashingUselesslyLeft implements IBashingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BASHING_USELESSLY_LEFT;
     }
 

@@ -52,7 +52,7 @@ public class Climbing extends CharacterActionStates {
 
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
-        System.out.println("\tnewState()");
+        System.out.println("\tgetState()");
         if (triggered) {
             System.out.println("\t\ttriggered");
             hasAbility = true;

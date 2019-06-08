@@ -11,7 +11,7 @@ import static rabbitescape.engine.Direction.RIGHT;
 public class BashingRight implements IBashingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BASHING_RIGHT;
     }
 

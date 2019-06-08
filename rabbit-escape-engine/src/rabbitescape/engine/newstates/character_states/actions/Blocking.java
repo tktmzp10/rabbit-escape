@@ -42,22 +42,26 @@ public class Blocking extends CharacterActionStates {
     @Override
     public State newState(BehaviourTools t, boolean triggered) {
         if (abilityActive || triggered) {
-            t.character.possiblyUndoSlopeBashHop(t.world);
-            abilityActive = true;
-            Block here = t.blockHere();
-
-            if (BehaviourTools.isRightRiseSlope(here)) {
-                setBlockingState(new BlockingRiseRight());
-            } else if (BehaviourTools.isLeftRiseSlope(here)) {
-                setBlockingState(new BlockingRiseLeft());
-            } else {
-                setBlockingState(new BlockingNormal());
-            }
+            newStateWhenActive( t );
         } else {
             setBlockingState(new NotBlocking());
         }
 
         return blockingState.getState();
+    }
+
+    private void newStateWhenActive(BehaviourTools t) {
+        t.character.possiblyUndoSlopeBashHop(t.world);
+        abilityActive = true;
+        Block here = t.blockHere();
+
+        if (BehaviourTools.isRightRiseSlope(here)) {
+            setBlockingState(new BlockingRiseRight());
+        } else if (BehaviourTools.isLeftRiseSlope(here)) {
+            setBlockingState(new BlockingRiseLeft());
+        } else {
+            setBlockingState(new BlockingNormal());
+        }
     }
 
     @Override

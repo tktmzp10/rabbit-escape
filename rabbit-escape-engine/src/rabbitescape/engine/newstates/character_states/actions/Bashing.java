@@ -58,7 +58,7 @@ public class Bashing extends CharacterActionStates {
             newStateWhenNotActive();
         }
 
-        return bashingState.newState();
+        return bashingState.getState();
     }
 
     private void newStateWhenActive(BehaviourTools t, boolean triggered) {
