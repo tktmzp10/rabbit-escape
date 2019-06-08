@@ -15,14 +15,15 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_UP_RIG
 public class BridgingUpRight3 implements IBridgingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BRIDGING_UP_RIGHT_3;
     }
 
     @Override
     public boolean behave(
-        World world, Character character, Bridging bridging
+        World world, Character character
     ) {
+        System.out.println("\t\tRABBIT_BRIDGING_UP_RIGHT_3");
         character.onSlope = true;
         character.x++;
         character.y--;

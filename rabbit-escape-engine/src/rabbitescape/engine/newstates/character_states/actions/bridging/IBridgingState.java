@@ -8,7 +8,7 @@ import rabbitescape.engine.things.Character;
 
 public interface IBridgingState {
 
-    public State newState();
+    public State getState();
 
-    public boolean behave(World world, Character character, Bridging bridging);
+    public boolean behave(World world, Character character);
 }

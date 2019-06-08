@@ -12,16 +12,16 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BRIDGING_LEFT_2
 public class BridgingLeft2 implements IBridgingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BRIDGING_LEFT_2;
     }
 
     @Override
     public boolean behave(
-        World world, Character character, Bridging bridging
+        World world, Character character
     ) {
+        System.out.println("\t\tRABBIT_BRIDGING_LEFT_2");
         character.onSlope = true;
-        bridging.bridgeType = BridgeType.ALONG;
         return true;
     }
 }
