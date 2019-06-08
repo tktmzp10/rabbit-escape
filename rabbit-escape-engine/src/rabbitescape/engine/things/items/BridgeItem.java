@@ -1,44 +1,26 @@
 package rabbitescape.engine.things.items;
 
-import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.newstates.item_states.bridge.BridgeFallToSlope;
 import rabbitescape.engine.things.Item;
 
 public class BridgeItem extends Item {
 
-    private static final ItemType type = ItemType.bridge;
+    public static final ItemType TYPE = ItemType.bridge;
+    public static final ItemState DEFAULT_STATE = new BridgeFallToSlope();
 
     public BridgeItem(int x, int y) {
-        super(x, y, State.TOKEN_BRIDGE_FALL_TO_SLOPE, type);
+        super(x, y, DEFAULT_STATE, TYPE);
     }
 
     public BridgeItem(int x, int y, World world) {
-        super(x, y, State.TOKEN_BRIDGE_FALL_TO_SLOPE, type, world);
+        super(x, y, DEFAULT_STATE, TYPE, world);
     }
 
     @Override
     public char getCharRepresentation() {
         return 'i';
-    }
-
-    @Override
-    public State getStillState() {
-        return State.TOKEN_BRIDGE_STILL;
-    }
-
-    @Override
-    public State getFallingState() {
-        return State.TOKEN_BRIDGE_FALLING;
-    }
-
-    @Override
-    public State getFallToSlopState() {
-        return State.TOKEN_BRIDGE_FALL_TO_SLOPE;
-    }
-
-    @Override
-    public State getOnSlopeState() {
-        return State.TOKEN_BRIDGE_ON_SLOPE;
     }
 
     @Override

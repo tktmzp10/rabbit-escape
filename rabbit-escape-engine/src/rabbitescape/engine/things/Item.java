@@ -1,27 +1,35 @@
 package rabbitescape.engine.things;
 
-import rabbitescape.engine.*;
-import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.things.items.ItemType;
-
 import java.util.HashMap;
 import java.util.Map;
+import rabbitescape.engine.BehaviourTools;
+import rabbitescape.engine.Block;
+import rabbitescape.engine.BridgeTools;
+import rabbitescape.engine.Thing;
+import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.things.items.ItemType;
 
 public abstract class Item extends Thing {
 
     private final ItemType type;
+    private ItemState itemState;
 
-    public Item(int x, int y, State state, ItemType type) {
-        super(x, y, state);
+    public Item(int x, int y, ItemState itemState, ItemType type) {
+        super(x, y, itemState);
         this.type = type;
+        this.itemState = itemState;
     }
 
-    public Item(int x, int y, State state, ItemType type, World world) {
-        this(x, y, state, type);
+    public Item(int x, int y, ItemState itemState, ItemType type, World world) {
+        this(x, y, itemState, type);
         boolean onSlope = BehaviourTools.isSlope(world.getBlockAt(x, y));
         // Can't use calcNewState here since we have just been created, so
         // can't be moving (until a time step passes).
-        this.state = chooseState(false, false, onSlope);
+        this.itemState = itemState.newState(false, false, onSlope);
+
+        // @TODO must remove state enum
+        this.state = this.itemState.getState();
     }
 
     public ItemType getType() {
@@ -32,47 +40,23 @@ public abstract class Item extends Thing {
 
     public abstract char getCharRepresentation();
 
-    public abstract State getStillState();
-
-    public abstract State getFallingState();
-
-    public abstract State getFallToSlopState();
-
-    public abstract State getOnSlopeState();
-
-    protected State chooseState(
-        boolean moving, boolean slopeBelow, boolean onSlope
-    ) {
-        if (onSlope) {
-            return getOnSlopeState();
-        }
-        if (!moving) {
-            return getStillState();
-        }
-        if (slopeBelow) {
-            return getFallToSlopState();
-        }
-        return getFallingState();
-    }
-
     @Override
     public void calcNewState(World world) {
         Block onBlock = world.getBlockAt(x, y);
         Block belowBlock = world.getBlockAt(x, y + 1);
-        boolean still = (
-            BehaviourTools.s_isFlat(belowBlock)
-                || (onBlock != null)
-                || BridgeTools.someoneIsBridgingAt(world, x, y)
-        );
+        boolean still = BehaviourTools.s_isFlat(belowBlock) || (onBlock != null) || BridgeTools
+            .someoneIsBridgingAt(world, x, y);
 
-        state = chooseState(!still, BehaviourTools.isSlope(belowBlock),
-            BehaviourTools.isSlope(onBlock)
-        );
+        itemState = itemState.newState(!still, BehaviourTools.isSlope(belowBlock),
+            BehaviourTools.isSlope(onBlock));
+
+        // @TODO must remove state enum
+        state = itemState.getState();
     }
 
     @Override
     public void step(World world) {
-        if (state == getFallingState() || state == getFallToSlopState()) {
+        if (itemState.isFalling()) {
             y++;
 
             if (y >= world.size.height) {

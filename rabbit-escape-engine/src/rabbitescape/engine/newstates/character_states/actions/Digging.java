@@ -1,7 +1,6 @@
 package rabbitescape.engine.newstates.character_states.actions;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.newstates.character_states.CharacterActionStates;
 import rabbitescape.engine.newstates.character_states.actions.digging.*;
 import rabbitescape.engine.things.Character;
+import rabbitescape.engine.things.items.DigItem;
 
 public class Digging extends CharacterActionStates {
 
@@ -32,7 +32,7 @@ public class Digging extends CharacterActionStates {
     @Override
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
-        return t.pickUpToken(dig);
+        return t.pickUpToken(DigItem.TYPE);
     }
 
     @Override
