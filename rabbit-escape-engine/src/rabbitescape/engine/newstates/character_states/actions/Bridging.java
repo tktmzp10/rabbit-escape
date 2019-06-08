@@ -75,7 +75,7 @@ public class Bridging extends CharacterActionStates {
         ) // Bang head next
             || (bs < 3 && BehaviourTools.s_isFlat(twoAboveHereBlock))) {
             setBridgingState(new NotBridging());
-            return bridgingState.newState(); // Stop bridging
+            return bridgingState.getState(); // Stop bridging
         }
 
         boolean slopeDown = (
@@ -94,7 +94,7 @@ public class Bridging extends CharacterActionStates {
             setBridgingState(new NotBridging());
         }
 
-        return bridgingState.newState();
+        return bridgingState.getState();
     }
 
     private void atOneSmallStep(BridgeType bt, Character character) {
@@ -200,7 +200,7 @@ public class Bridging extends CharacterActionStates {
         // Don't bridge if there is no block behind us (we're not in a hole)
         if (isSlope(thisBlock) && world.getBlockAt(bx, ny) == null) {
             setBridgingState(new NotBridging());
-            return bridgingState.newState();
+            return bridgingState.getState();
         }
 
         if (ss == 3) {
@@ -213,7 +213,7 @@ public class Bridging extends CharacterActionStates {
             setBridgingState(new NotBridging());
         }
 
-        return bridgingState.newState();
+        return bridgingState.getState();
     }
 
     private void atOneSmallStep(Character character, Block thisBlock) {
@@ -390,7 +390,41 @@ public class Bridging extends CharacterActionStates {
 
     @Override
     public boolean behave(World world, Character character, State state) {
-        return bridgingState.behave(world, character, this);
+        switch (state) {
+            case RABBIT_BRIDGING_RIGHT_1:
+            case RABBIT_BRIDGING_RIGHT_2:
+            case RABBIT_BRIDGING_LEFT_1:
+            case RABBIT_BRIDGING_LEFT_2:
+            case RABBIT_BRIDGING_IN_CORNER_RIGHT_1:
+            case RABBIT_BRIDGING_IN_CORNER_LEFT_1:
+            case RABBIT_BRIDGING_IN_CORNER_RIGHT_2:
+            case RABBIT_BRIDGING_IN_CORNER_LEFT_2:
+            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
+            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
+            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2: {
+                bridgeType = BridgeType.ALONG;
+                break;
+            }
+            case RABBIT_BRIDGING_UP_RIGHT_1:
+            case RABBIT_BRIDGING_UP_RIGHT_2:
+            case RABBIT_BRIDGING_UP_LEFT_1:
+            case RABBIT_BRIDGING_UP_LEFT_2: {
+                character.onSlope = true;
+                bridgeType = BridgeType.UP;
+                break;
+            }
+            case RABBIT_BRIDGING_DOWN_UP_RIGHT_1:
+            case RABBIT_BRIDGING_DOWN_UP_RIGHT_2:
+            case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
+            case RABBIT_BRIDGING_DOWN_UP_LEFT_2: {
+                character.onSlope = true;
+                bridgeType = BridgeType.DOWN_UP;
+                break;
+            }
+        }
+
+        return bridgingState.behave(world, character);
     }
 
     @Override
