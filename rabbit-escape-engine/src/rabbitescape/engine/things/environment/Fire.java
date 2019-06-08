@@ -1,5 +1,6 @@
 package rabbitescape.engine.things.environment;
 
+import static rabbitescape.engine.BridgeTools.someoneIsBridgingAt;
 import static rabbitescape.engine.ChangeDescription.State.*;
 
 import java.util.HashMap;
@@ -7,33 +8,35 @@ import java.util.Map;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
-import rabbitescape.engine.BridgeTools;
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Thing;
 import rabbitescape.engine.World;
-import rabbitescape.engine.things.Environment;
+import rabbitescape.engine.things.environment.fire.Fire_A;
+import rabbitescape.engine.things.environment.fire.Fire_B;
+import rabbitescape.engine.things.environment.fire.Fire_C;
+import rabbitescape.engine.things.environment.fire.Fire_D;
 
-public class Fire extends Environment {
+public abstract class Fire extends Thing {
 
     public int variant;
 
     private final State baseVariant;
 
-    public Fire(int x, int y, int variant) {
-        super(x, y, stateForVariant(variant));
-        this.variant = variant;
+    public Fire(int x, int y, State state) {
+        super(x, y, state);
         baseVariant = state;
     }
 
-    private static State stateForVariant(int variant) {
+    public static Fire createFire(int x, int y, int variant) {
         switch (variant) {
             case 0:
-                return FIRE_A;
+                return new Fire_A(x, y);
             case 1:
-                return FIRE_B;
+                return new Fire_B(x, y);
             case 2:
-                return FIRE_C;
+                return new Fire_C(x, y);
             case 3:
-                return FIRE_D;
+                return new Fire_D(x, y);
         }
         throw new RuntimeException(
             "Variant outside expected range (0 - 3):" + variant);
@@ -41,42 +44,25 @@ public class Fire extends Environment {
 
     @Override
     public void calcNewState(World world) {
-        // Check if being extinguished.
-        for (WaterRegion waterRegion : world.waterTable.getItemsAt(x, y)) {
-            if (waterRegion.getContents() > 0) {
-                state = FIRE_EXTINGUISHING;
-                return;
-            }
+
+        if (isFireExtinguished(world)) {
+            state = FIRE_EXTINGUISHING;
+            return;
         }
 
         Block blockBelow = world.getBlockAt(x, y + 1);
         // Note: when flatBelow is true may be on a slope with a flat below,
         // or sitting on the flat
         boolean flatBelow = BehaviourTools.s_isFlat(blockBelow);
-        boolean still = (
-            flatBelow
-                || (world.getBlockAt(x, y) != null)
-                || BridgeTools.someoneIsBridgingAt(world, x, y)
-        );
-        if (still) {
+
+        if (isStill(world, flatBelow)) {
             Block onBlock = world.getBlockAt(x, y);
             if (BehaviourTools.isLeftRiseSlope(onBlock)) {
-
-                state = baseVariantSwitch(
-                    FIRE_A_RISE_LEFT,
-                    FIRE_B_RISE_LEFT,
-                    FIRE_C_RISE_LEFT,
-                    FIRE_D_RISE_LEFT
-                );
+                changeStateRiseLeft();
                 return;
             }
             if (BehaviourTools.isRightRiseSlope(onBlock)) {
-                state = baseVariantSwitch(
-                    FIRE_A_RISE_RIGHT,
-                    FIRE_B_RISE_RIGHT,
-                    FIRE_C_RISE_RIGHT,
-                    FIRE_D_RISE_RIGHT
-                );
+                changeStateRiseRight();
                 return;
             }
             // TODO: check here for fire falling on a bridger.
@@ -89,46 +75,43 @@ public class Fire extends Environment {
         } else // Falling
         {
             if (BehaviourTools.isLeftRiseSlope(blockBelow)) {
-                state = baseVariantSwitch(
-                    FIRE_A_FALL_TO_RISE_LEFT,
-                    FIRE_B_FALL_TO_RISE_LEFT,
-                    FIRE_C_FALL_TO_RISE_LEFT,
-                    FIRE_D_FALL_TO_RISE_LEFT
-                );
+                changeStateFallToRiseLeft();
                 return;
             }
             if (BehaviourTools.isRightRiseSlope(blockBelow)) {
-                state = baseVariantSwitch(
-                    FIRE_A_FALL_TO_RISE_RIGHT,
-                    FIRE_B_FALL_TO_RISE_RIGHT,
-                    FIRE_C_FALL_TO_RISE_RIGHT,
-                    FIRE_D_FALL_TO_RISE_RIGHT
-                );
+                changeStateFallToRiseRight();
                 return;
             }
-            state = baseVariantSwitch(
-                FIRE_A_FALLING,
-                FIRE_B_FALLING,
-                FIRE_C_FALLING,
-                FIRE_D_FALLING
-            );
+            changeStateFalling();
             return;
         }
     }
 
-    private State baseVariantSwitch(State a, State b, State c, State d) {
-        switch (baseVariant) {
-            case FIRE_A:
-                return a;
-            case FIRE_B:
-                return b;
-            case FIRE_C:
-                return c;
-            case FIRE_D:
-                return d;
-            default:
-                throw new RuntimeException("Fire not in fire state:" + state);
+    private boolean isFireExtinguished(World world) {
+        // Check if being extinguished.
+        for (WaterRegion waterRegion : world.waterTable.getItemsAt(x, y)) {
+            if (waterRegion.getContents() > 0) {
+
+                return true;
+            }
         }
+        return false;
+    }
+
+    public abstract void changeStateRiseLeft();
+
+    public abstract void changeStateRiseRight();
+
+    public abstract void changeStateFalling();
+
+    public abstract void changeStateFallToRiseRight();
+
+    public abstract void changeStateFallToRiseLeft();
+
+    private boolean isStill(World world, boolean flatBelow) {
+        return flatBelow
+            || (world.getBlockAt(x, y) != null)
+            || someoneIsBridgingAt(world, x, y);
     }
 
     @Override

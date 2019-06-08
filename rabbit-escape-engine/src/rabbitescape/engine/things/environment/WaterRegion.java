@@ -182,7 +182,8 @@ public class WaterRegion extends Environment implements LookupItem2D {
             ret,
             "WaterRegion.contents",
             String.valueOf(contents),
-            "0");
+            "0"
+        );
         List<String> flowBits = new ArrayList<>();
         for (Entry<CellularDirection, Integer> entry : flow.entrySet()) {
             flowBits.add(entry.getKey().toString());

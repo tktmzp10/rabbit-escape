@@ -466,7 +466,7 @@ public class LineProcessor {
                 break;
             }
             case 'A': {
-                ret = new Fire(x, y, variantGen.next(4));
+                ret = Fire.createFire(x, y, variantGen.next(4));
                 things.add(ret);
                 break;
             }

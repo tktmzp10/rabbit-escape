@@ -91,7 +91,7 @@ public class SandboxGame {
                 clonedThings.add(item.copyWithoutState());
             } else if (thing instanceof Fire) {
                 Fire fire = (Fire) thing;
-                clonedThings.add(new Fire(fire.x, fire.y, fire.variant));
+                clonedThings.add(Fire.createFire(fire.x, fire.y, fire.variant));
             } else if (thing instanceof Pipe) {
                 Pipe pipe = (Pipe) thing;
                 clonedThings.add(new Pipe(pipe.x, pipe.y));
