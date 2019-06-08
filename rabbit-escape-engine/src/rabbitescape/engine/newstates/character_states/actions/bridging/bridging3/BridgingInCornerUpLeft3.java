@@ -21,7 +21,7 @@ public class BridgingInCornerUpLeft3 implements IBridgingState {
 
     @Override
     public boolean behave(
-        World world, Character character, Bridging bridging
+        World world, Character character
     ) {
         System.out.println("\t\tRABBIT_BRIDGING_IN_CORNER_UP_LEFT_3");
         character.onSlope = true;

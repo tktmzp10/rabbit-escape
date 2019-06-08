@@ -18,11 +18,10 @@ public class BridgingDownUpLeft2 implements IBridgingState {
 
     @Override
     public boolean behave(
-        World world, Character character, Bridging bridging
+        World world, Character character
     ) {
         System.out.println("\t\tRABBIT_BRIDGING_DOWN_UP_LEFT_2");
         character.onSlope = true;
-        bridging.bridgeType = BridgeType.DOWN_UP;
         return true;
     }
 }

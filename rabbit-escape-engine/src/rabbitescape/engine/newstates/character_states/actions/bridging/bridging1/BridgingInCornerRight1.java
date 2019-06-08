@@ -18,11 +18,10 @@ public class BridgingInCornerRight1 implements IBridgingState {
 
     @Override
     public boolean behave(
-        World world, Character character, Bridging bridging
+        World world, Character character
     ) {
         System.out.println("\t\tRABBIT_BRIDGING_IN_CORNER_RIGHT_1");
         character.onSlope = true;
-        bridging.bridgeType = BridgeType.ALONG;
         return true;
     }
 }

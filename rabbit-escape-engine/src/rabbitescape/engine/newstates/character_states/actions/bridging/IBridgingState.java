@@ -10,5 +10,5 @@ public interface IBridgingState {
 
     public State getState();
 
-    public boolean behave(World world, Character character, Bridging bridging);
+    public boolean behave(World world, Character character);
 }
