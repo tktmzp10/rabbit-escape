@@ -9,7 +9,7 @@ public abstract class BrollyItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new BrollyOnSlop();
+            newState = new BrollyOnSlope();
         } else if (!isMoving) {
             newState = new BrollyStill();
         } else if (isSlopeBelow) {

@@ -9,7 +9,7 @@ public abstract class ExplodeItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new ExplodeOnSlop();
+            newState = new ExplodeOnSlope();
         } else if (!isMoving) {
             newState = new ExplodeStill();
         } else if (isSlopeBelow) {

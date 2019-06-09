@@ -9,7 +9,7 @@ public abstract class ClimbItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new ClimbOnSlop();
+            newState = new ClimbOnSlope();
         } else if (!isMoving) {
             newState = new ClimbStill();
         } else if (isSlopeBelow) {

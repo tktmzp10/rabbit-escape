@@ -9,7 +9,7 @@ public abstract class DigItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new DigOnSlop();
+            newState = new DigOnSlope();
         } else if (!isMoving) {
             newState = new DigStill();
         } else if (isSlopeBelow) {

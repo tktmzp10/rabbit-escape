@@ -74,4 +74,44 @@ public class ItemFactory {
 
         return itemCreated;
     }
+
+    public static Item createItem(int x, int y, char charRepresentation)
+        throws UnknownCharRepresentationException {
+        Item itemCreated;
+
+        switch (charRepresentation) {
+            case 'b': {
+                itemCreated = new BashItem(x, y);
+                break;
+            }
+            case 'd': {
+                itemCreated = new DigItem(x, y);
+                break;
+            }
+            case 'i': {
+                itemCreated = new BridgeItem(x, y);
+                break;
+            }
+            case 'k': {
+                itemCreated = new BlockItem(x, y);
+                break;
+            }
+            case 'c': {
+                itemCreated = new ClimbItem(x, y);
+                break;
+            }
+            case 'p': {
+                itemCreated = new ExplodeItem(x, y);
+                break;
+            }
+            case 'l': {
+                itemCreated = new BrollyItem(x, y);
+                break;
+            }
+            default:
+                throw new UnknownCharRepresentationException();
+        }
+
+        return itemCreated;
+    }
 }

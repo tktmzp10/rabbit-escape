@@ -1,12 +1,12 @@
-package rabbitescape.engine.newstates.item_states.bridge;
+package rabbitescape.engine.newstates.item_states.climb;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class BridgeOnSlop extends BridgeItemState {
+public class ClimbOnSlope extends ClimbItemState {
 
     @Override
     public State getState() {
-        return State.TOKEN_BRIDGE_ON_SLOPE;
+        return State.TOKEN_CLIMB_ON_SLOPE;
     }
 
     @Override

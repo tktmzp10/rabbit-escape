@@ -9,7 +9,7 @@ public abstract class BlockItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new BlockOnSlop();
+            newState = new BlockOnSlope();
         } else if (!isMoving) {
             newState = new BlockStill();
         } else if (isSlopeBelow) {

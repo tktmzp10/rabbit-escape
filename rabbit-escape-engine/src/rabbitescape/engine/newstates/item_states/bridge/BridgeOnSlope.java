@@ -1,12 +1,12 @@
-package rabbitescape.engine.newstates.item_states.brolly;
+package rabbitescape.engine.newstates.item_states.bridge;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class BrollyOnSlop extends BrollyItemState {
+public class BridgeOnSlope extends BridgeItemState {
 
     @Override
     public State getState() {
-        return State.TOKEN_BROLLY_ON_SLOPE;
+        return State.TOKEN_BRIDGE_ON_SLOPE;
     }
 
     @Override

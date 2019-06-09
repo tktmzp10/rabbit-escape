@@ -1,12 +1,12 @@
-package rabbitescape.engine.newstates.item_states.explode;
+package rabbitescape.engine.newstates.item_states.dig;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class ExplodeOnSlop extends ExplodeItemState {
+public class DigOnSlope extends DigItemState {
 
     @Override
     public State getState() {
-        return State.TOKEN_EXPLODE_ON_SLOPE;
+        return State.TOKEN_DIG_ON_SLOPE;
     }
 
     @Override

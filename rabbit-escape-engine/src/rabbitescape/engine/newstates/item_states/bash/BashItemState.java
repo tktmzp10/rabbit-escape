@@ -9,7 +9,7 @@ public abstract class BashItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new BashOnSlop();
+            newState = new BashOnSlope();
         } else if (!isMoving) {
             newState = new BashStill();
         } else if (isSlopeBelow) {

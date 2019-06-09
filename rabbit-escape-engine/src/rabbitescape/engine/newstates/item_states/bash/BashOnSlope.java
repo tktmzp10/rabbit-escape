@@ -2,7 +2,7 @@ package rabbitescape.engine.newstates.item_states.bash;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class BashOnSlop extends BashItemState {
+public class BashOnSlope extends BashItemState {
 
     @Override
     public State getState() {

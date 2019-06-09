@@ -2,7 +2,7 @@ package rabbitescape.engine.newstates.item_states.block;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class BlockOnSlop extends BlockItemState {
+public class BlockOnSlope extends BlockItemState {
 
     @Override
     public State getState() {
