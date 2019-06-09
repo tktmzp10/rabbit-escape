@@ -9,7 +9,7 @@ public abstract class BridgeItemState extends ItemState {
         ItemState newState;
 
         if (isOnSlope) {
-            newState = new BridgeOnSlop();
+            newState = new BridgeOnSlope();
         } else if (!isMoving) {
             newState = new BridgeStill();
         } else if (isSlopeBelow) {

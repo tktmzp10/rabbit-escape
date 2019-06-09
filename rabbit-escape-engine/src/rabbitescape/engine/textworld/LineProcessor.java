@@ -475,41 +475,16 @@ public class LineProcessor {
                 things.add(ret);
                 break;
             }
-            case 'b': {
-                ret = new BashItem(x, y);
+            case 'b':
+            case 'd':
+            case 'i':
+            case 'k':
+            case 'c':
+            case 'p':
+            case 'l':
+                ret = ItemFactory.createItem(x, y, c);
                 things.add(ret);
                 break;
-            }
-            case 'd': {
-                ret = new DigItem(x, y);
-                things.add(ret);
-                break;
-            }
-            case 'i': {
-                ret = new BridgeItem(x, y);
-                things.add(ret);
-                break;
-            }
-            case 'k': {
-                ret = new BlockItem(x, y);
-                things.add(ret);
-                break;
-            }
-            case 'c': {
-                ret = new ClimbItem(x, y);
-                things.add(ret);
-                break;
-            }
-            case 'p': {
-                ret = new ExplodeItem(x, y);
-                things.add(ret);
-                break;
-            }
-            case 'l': {
-                ret = new BrollyItem(x, y);
-                things.add(ret);
-                break;
-            }
             case 'N': {
                 // Default amount for a full water region, but may be
                 // overwritten by an explicit water definition line.

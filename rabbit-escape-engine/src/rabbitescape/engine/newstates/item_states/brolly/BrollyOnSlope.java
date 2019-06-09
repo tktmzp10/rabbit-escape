@@ -1,12 +1,12 @@
-package rabbitescape.engine.newstates.item_states.dig;
+package rabbitescape.engine.newstates.item_states.brolly;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class DigOnSlop extends DigItemState {
+public class BrollyOnSlope extends BrollyItemState {
 
     @Override
     public State getState() {
-        return State.TOKEN_DIG_ON_SLOPE;
+        return State.TOKEN_BROLLY_ON_SLOPE;
     }
 
     @Override

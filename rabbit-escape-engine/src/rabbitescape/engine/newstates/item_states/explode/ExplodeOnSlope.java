@@ -1,12 +1,12 @@
-package rabbitescape.engine.newstates.item_states.climb;
+package rabbitescape.engine.newstates.item_states.explode;
 
 import rabbitescape.engine.ChangeDescription.State;
 
-public class ClimbOnSlop extends ClimbItemState {
+public class ExplodeOnSlope extends ExplodeItemState {
 
     @Override
     public State getState() {
-        return State.TOKEN_CLIMB_ON_SLOPE;
+        return State.TOKEN_EXPLODE_ON_SLOPE;
     }
 
     @Override
