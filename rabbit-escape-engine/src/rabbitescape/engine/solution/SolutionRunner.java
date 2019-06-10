@@ -5,8 +5,10 @@ import static rabbitescape.engine.util.Util.*;
 import java.io.PrintStream;
 
 import rabbitescape.engine.World;
+import rabbitescape.engine.solution.SolutionExceptions.FailedToPlaceItem;
+import rabbitescape.engine.solution.SolutionExceptions.PlacedItemOutsideWorld;
 import rabbitescape.engine.things.items.ItemType;
-import rabbitescape.engine.World.CantAddTokenOutsideWorld;
+import rabbitescape.engine.World.CantAddItemOutsideWorld;
 import rabbitescape.engine.World.CompletionState;
 import rabbitescape.engine.World.DontStepAfterFinish;
 import rabbitescape.engine.World.NoSuchAbilityInThisWorld;
@@ -178,9 +180,9 @@ public class SolutionRunner {
             throw new SolutionExceptions.UsedRunOutAbility(e.ability);
         } catch (NoSuchAbilityInThisWorld e) {
             throw new SolutionExceptions.UsedMissingAbility(e.ability);
-        } catch (CantAddTokenOutsideWorld e) {
+        } catch (CantAddItemOutsideWorld e) {
             Dimension worldSize = sandboxGame.getWorld().size;
-            throw new SolutionExceptions.PlacedTokenOutsideWorld(
+            throw new PlacedItemOutsideWorld(
                 e.x,
                 e.y,
                 worldSize.width,
@@ -222,17 +224,17 @@ public class SolutionRunner {
                               }
 
                               @Override
-                              public void casePlaceTokenAction(PlaceTokenAction p) {
+                              public void casePlaceItemAction(PlaceItemAction p) {
                                   ItemType type = sandboxGame.getSelectedType();
                                   World world = sandboxGame.getWorld();
 
                                   Integer previousNum = world.abilities.get(type);
                                   // (Note: previousNum may be null, so can't be int.)
 
-                                  world.changes.addToken(p.x, p.y, type);
+                                  world.changes.addItem(p.x, p.y, type);
 
                                   if (world.abilities.get(type) == previousNum) {
-                                      throw new SolutionExceptions.FailedToPlaceToken(
+                                      throw new FailedToPlaceItem(
                                           p.x,
                                           p.y,
                                           type

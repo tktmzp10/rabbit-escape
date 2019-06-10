@@ -13,11 +13,11 @@ import rabbitescape.engine.err.RabbitEscapeException;
 
 public class ThingRenderer {
 
-    public static class UnknownTokenType extends RabbitEscapeException {
+    public static class UnknownItemType extends RabbitEscapeException {
 
         public final ItemType type;
 
-        public UnknownTokenType(ItemType type) {
+        public UnknownItemType(ItemType type) {
             this.type = type;
         }
 

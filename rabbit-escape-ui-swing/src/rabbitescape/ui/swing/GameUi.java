@@ -638,17 +638,17 @@ public class GameUi implements StatsChangedListener
     {
         Point p = pixelToCell( pixelPosition );
 
-        addToken( p.x , p.y );
+        addItem( p.x , p.y );
     }
 
-    protected void addToken(int tileX, int tileY )
+    protected void addItem(int tileX, int tileY )
     {
         if ( chosenAbility == null )
         {
             return;
         }
 
-        int numLeft = gameLaunch.addToken( tileX, tileY, chosenAbility );
+        int numLeft = gameLaunch.addItem( tileX, tileY, chosenAbility );
         menu.abilities.get( chosenAbility ).setNumLeft( numLeft );
 
         updateChosenAbility();

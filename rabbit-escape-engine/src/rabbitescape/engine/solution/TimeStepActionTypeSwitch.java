@@ -7,5 +7,5 @@ public interface TimeStepActionTypeSwitch {
     void caseAssertStateAction(AssertStateAction targetStateAction)
         throws SolutionExceptions.UnexpectedState;
 
-    void casePlaceTokenAction(PlaceTokenAction placeTokenAction);
+    void casePlaceItemAction(PlaceItemAction placeItemAction);
 }

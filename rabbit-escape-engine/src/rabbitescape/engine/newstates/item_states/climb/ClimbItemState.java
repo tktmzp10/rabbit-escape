@@ -5,14 +5,14 @@ import rabbitescape.engine.newstates.item_states.ItemState;
 public abstract class ClimbItemState extends ItemState {
 
     @Override
-    public ItemState newState(boolean isMoving, boolean isSlopeBelow, boolean isOnSlope) {
+    public ItemState newState() {
         ItemState newState;
 
-        if (isOnSlope) {
+        if (isOnSlope()) {
             newState = new ClimbOnSlope();
-        } else if (!isMoving) {
+        } else if (!isMoving()) {
             newState = new ClimbStill();
-        } else if (isSlopeBelow) {
+        } else if (isSlopeBelow()) {
             newState = new ClimbFallToSlope();
         } else {
             newState = new ClimbFalling();

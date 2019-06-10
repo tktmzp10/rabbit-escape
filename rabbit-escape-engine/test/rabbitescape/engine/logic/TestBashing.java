@@ -12,7 +12,7 @@ import rabbitescape.engine.World;
 public class TestBashing {
 
     @Test
-    public void Token_not_next_to_wall_makes_useless_bash() {
+    public void Item_not_next_to_wall_makes_useless_bash() {
         World world = createWorld(
             " rb   bj ",
             "#########"
@@ -269,7 +269,7 @@ public class TestBashing {
     public void Bash_on_single_slope() {
         assertWorldEvolvesLike(
             "    /  " + "\n" +
-                "  r*   " + "\n" + // Bash token on a slope
+                "  r*   " + "\n" + // Bash item on a slope
                 "#######" + "\n" +
                 ":*=b/",
 
@@ -291,7 +291,7 @@ public class TestBashing {
     public void Bash_on_single_bridge() {
         assertWorldEvolvesLike(
             "    (  " + "\n" +
-                "  r*   " + "\n" + // Bash token on a slope
+                "  r*   " + "\n" + // Bash item on a slope
                 "#######" + "\n" +
                 ":*=b(",
 
@@ -313,7 +313,7 @@ public class TestBashing {
     public void Bash_on_slope_followed_by_blocks() {
         assertWorldEvolvesLike(
             "    /  " + "\n" +
-                "  r*#  " + "\n" + // Bash token on a slope
+                "  r*#  " + "\n" + // Bash item on a slope
                 "#######" + "\n" +
                 ":*=b/",
 
@@ -335,7 +335,7 @@ public class TestBashing {
     public void Bash_on_slope_plus_blocks() {
         assertWorldEvolvesLike(
             "    /# " + "\n" +
-                "  r*## " + "\n" + // Bash token on a slope
+                "  r*## " + "\n" + // Bash item on a slope
                 "#######" + "\n" +
                 ":*=b/",
 
@@ -357,7 +357,7 @@ public class TestBashing {
     public void Bash_on_bridge_plus_blocks() {
         assertWorldEvolvesLike(
             "    (# " + "\n" +
-                "  r*## " + "\n" + // Bash token on a slope
+                "  r*## " + "\n" + // Bash item on a slope
                 "#######" + "\n" +
                 ":*=b(",
 

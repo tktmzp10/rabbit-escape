@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestExploding {
 
     @Test
-    public void Rabbit_explodes_when_picks_up_token() {
+    public void Rabbit_explodes_when_picks_up_item() {
         assertWorldEvolvesLike(
             " rp " + "\n" +
                 "####",

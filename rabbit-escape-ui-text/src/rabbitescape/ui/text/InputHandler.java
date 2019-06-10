@@ -115,7 +115,7 @@ public class InputHandler
         }
         // Surround coordinates with brackets
         input = Util.regexReplace( input, "\\(?+([0-9]+,[0-9]+)\\)?+", "($1)" );
-        // Expand token selection shortcuts
+        // Expand item selection shortcuts
         for ( InputExpansion e : InputExpansion.expansions )
         {
             input = Util.regexReplace(
@@ -139,7 +139,7 @@ public class InputHandler
             "Press return to move forward a time step.\n" +
             "Type 'exit' to stop.\n" +
             "Type an ability name (e.g. 'bash') to switch to that ability.\n" +
-            "Type '(x,y)' (e.g '(2,3)') to place a token.\n" +
+            "Type '(x,y)' (e.g '(2,3)') to place a item.\n" +
             "Type a number (e.g. '5') to skip that many steps.\n" +
             "\n" +
             "The following abbreviations are available:\n" ;
@@ -148,7 +148,7 @@ public class InputHandler
             msg = msg + e + "\n";
         }
         msg +=
-            "Brackets may be omitted when placing tokens: '2,3'.\n" +
+            "Brackets may be omitted when placing items: '2,3'.\n" +
             "Multiple commands may be joined by ';'.\n";
 
         terminal.out.println( t( msg ) );

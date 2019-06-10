@@ -31,7 +31,7 @@ public class Blocking extends CharacterActionStates {
     @Override
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
-        return t.pickUpToken(block);
+        return t.pickUpItem(block);
     }
 
     @Override

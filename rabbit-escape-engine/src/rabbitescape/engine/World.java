@@ -46,18 +46,18 @@ public class World {
         }
     }
 
-    public static class UnableToAddToken extends RabbitEscapeException {
+    public static class UnableToAddItem extends RabbitEscapeException {
 
         private static final long serialVersionUID = 1L;
 
         public final ItemType ability;
 
-        public UnableToAddToken(ItemType ability) {
+        public UnableToAddItem(ItemType ability) {
             this.ability = ability;
         }
     }
 
-    public static class NoSuchAbilityInThisWorld extends UnableToAddToken {
+    public static class NoSuchAbilityInThisWorld extends UnableToAddItem {
 
         private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class World {
         }
     }
 
-    public static class NoneOfThisAbilityLeft extends UnableToAddToken {
+    public static class NoneOfThisAbilityLeft extends UnableToAddItem {
 
         private static final long serialVersionUID = 1L;
 
@@ -75,7 +75,7 @@ public class World {
         }
     }
 
-    public static class CantAddTokenOutsideWorld extends UnableToAddToken {
+    public static class CantAddItemOutsideWorld extends UnableToAddItem {
 
         private static final long serialVersionUID = 1L;
 
@@ -83,7 +83,7 @@ public class World {
         public final int y;
         public final Dimension worldSize;
 
-        public CantAddTokenOutsideWorld(
+        public CantAddItemOutsideWorld(
             ItemType ability, int x, int y, Dimension worldSize) {
             super(ability);
             this.x = x;
@@ -344,7 +344,7 @@ public class World {
         }
     }
 
-    public Item getTokenAt(int x, int y) {
+    public Item getItemAt(int x, int y) {
         // Note it is not worth using LookupTable2D for things.
         // Handling their movement would complicate the code.
         // There are not as many instances of Thing as Block.
@@ -352,7 +352,7 @@ public class World {
         // consuming.
         for (Thing thing : things) {
             if (thing.x == x && thing.y == y && thing instanceof Item) {
-                if (!changes.tokensToRemove.contains(thing)) {
+                if (!changes.itemsToRemove.contains(thing)) {
                     return (Item) thing;
                 }
             }
@@ -364,7 +364,7 @@ public class World {
         ArrayList<Thing> ret = new ArrayList<Thing>();
         for (Thing thing : things) {
             if (thing.x == x && thing.y == y) {
-                if (!changes.tokensToRemove.contains(thing) &&
+                if (!changes.itemsToRemove.contains(thing) &&
                     !changes.fireToRemove.contains(thing)) {
                     ret.add(thing);
                 }
@@ -374,7 +374,7 @@ public class World {
     }
 
     public boolean fireAt(int x, int y) {
-        // See note for getTokenAt() about Thing storage.
+        // See note for getItemAt() about Thing storage.
         for (Thing thing : things) {
             if (thing.x == x && thing.y == y && thing instanceof Fire) {
                 if (!changes.fireToRemove.contains(thing)) {

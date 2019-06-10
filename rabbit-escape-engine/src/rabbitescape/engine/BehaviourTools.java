@@ -26,8 +26,8 @@ public class BehaviourTools {
         return character.dir == RIGHT ? rightState : leftState;
     }
 
-    public boolean pickUpToken(ItemType type) {
-        return pickUpToken(type, false);
+    public boolean pickUpItem(ItemType type) {
+        return pickUpItem(type, false);
     }
 
     public boolean rabbitIsFalling() {
@@ -96,18 +96,18 @@ public class BehaviourTools {
     }
 
     /**
-     * Checks for the presence of a token. Removes token from the world and returns true if a token
+     * Checks for the presence of a item. Removes item from the world and returns true if a item
      * is being picked up.
      */
-    public boolean pickUpToken(ItemType type, boolean evenIfNotOnGround) {
+    public boolean pickUpItem(ItemType type, boolean evenIfNotOnGround) {
         if (rabbitIsFalling() && character.isFallingToDeath()) {
-            return false; // Dying rabbits not allowed to consume tokens
+            return false; // Dying rabbits not allowed to consume items
         }
 
         if (evenIfNotOnGround || onGround()) {
-            Item item = world.getTokenAt(character.x, character.y);
+            Item item = world.getItemAt(character.x, character.y);
             if (item != null && item.getType() == type) {
-                world.changes.removeToken(item);
+                world.changes.removeItem(item);
                 return true;
             }
         }

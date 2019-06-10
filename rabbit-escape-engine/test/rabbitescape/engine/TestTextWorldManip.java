@@ -330,7 +330,7 @@ public class TestTextWorldManip {
     }
 
     @Test
-    public void Tokens_falling() {
+    public void Items_falling() {
         World world = createEmptyWorld(4, 2);
 
         ChangeDescription desc = new ChangeDescription();
@@ -620,7 +620,7 @@ public class TestTextWorldManip {
             "###"
         );
 
-        // Pick up block token
+        // Pick up block item
         world.step();
 
         // We are now blocking
@@ -654,7 +654,7 @@ public class TestTextWorldManip {
             "###"
         );
 
-        // Pick up dig token
+        // Pick up dig item
         world.step();
 
         // We are now digging
@@ -692,7 +692,7 @@ public class TestTextWorldManip {
             "###"
         );
 
-        // Pick up dig token and begin digging
+        // Pick up dig item and begin digging
         world.step();
         world.step();
 
@@ -731,7 +731,7 @@ public class TestTextWorldManip {
             "###"
         );
 
-        // Pick up bash token
+        // Pick up bash item
         world.step();
 
         // We are now bashing

@@ -73,7 +73,7 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.explode),
-                new PlaceTokenAction(2, 2)
+                new PlaceItemAction(2, 2)
             )
         );
 
@@ -87,7 +87,7 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1
                         , new SelectAction(ItemType.explode)
-                        , new PlaceTokenAction(2, 2)
+                        , new PlaceItemAction(2, 2)
                     )
                 )
             )
@@ -99,10 +99,10 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.explode),
-                new PlaceTokenAction(2, 2)
+                new PlaceItemAction(2, 2)
             ),
             new SolutionCommand(new WaitAction(4)),
-            new SolutionCommand(new PlaceTokenAction(3, 2))
+            new SolutionCommand(new PlaceItemAction(3, 2))
         );
 
         SolutionInterpreter interpreter =
@@ -115,13 +115,13 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1
                         , new SelectAction(ItemType.explode)
-                        , new PlaceTokenAction(2, 2)
+                        , new PlaceItemAction(2, 2)
                     ),
                     new SolutionTimeStep(2),
                     new SolutionTimeStep(2),
                     new SolutionTimeStep(2),
                     new SolutionTimeStep(2),
-                    new SolutionTimeStep(3, new PlaceTokenAction(3, 2))
+                    new SolutionTimeStep(3, new PlaceItemAction(3, 2))
                 )
             )
         );
@@ -134,7 +134,7 @@ public class TestSolutionInterpreter {
             new SolutionCommand(new WaitAction(1)),
             new SolutionCommand(
                 new SelectAction(ItemType.explode),
-                new PlaceTokenAction(2, 2)
+                new PlaceItemAction(2, 2)
             ),
             new SolutionCommand(new WaitAction(2)),
             new SolutionCommand()
@@ -152,7 +152,7 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         3
                         , new SelectAction(ItemType.explode)
-                        , new PlaceTokenAction(2, 2)
+                        , new PlaceItemAction(2, 2)
                     ),
                     new SolutionTimeStep(4),
                     new SolutionTimeStep(4),
@@ -186,7 +186,7 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(),
             new SolutionCommand(new SelectAction(ItemType.dig)),
-            new SolutionCommand(new PlaceTokenAction(1, 1)),
+            new SolutionCommand(new PlaceItemAction(1, 1)),
             new SolutionCommand(
                 new AssertStateAction(CompletionState.RUNNING)),
             new SolutionCommand(),
@@ -206,7 +206,7 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         2, new SelectAction(ItemType.dig)),
 
-                    new SolutionTimeStep(3, new PlaceTokenAction(1, 1)),
+                    new SolutionTimeStep(3, new PlaceItemAction(1, 1)),
 
                     new SolutionTimeStep(
                         4, new AssertStateAction(CompletionState.RUNNING)),
@@ -243,8 +243,8 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.dig),
-                new PlaceTokenAction(1, 1)),
-            new SolutionCommand(new PlaceTokenAction(1, 1))
+                new PlaceItemAction(1, 1)),
+            new SolutionCommand(new PlaceItemAction(1, 1))
         );
 
         SolutionInterpreter interpreter = new SolutionInterpreter(solution);
@@ -256,9 +256,9 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1,
                         new SelectAction(ItemType.dig),
-                        new PlaceTokenAction(1, 1)
+                        new PlaceItemAction(1, 1)
                     ),
-                    new SolutionTimeStep(2, new PlaceTokenAction(1, 1)),
+                    new SolutionTimeStep(2, new PlaceItemAction(1, 1)),
                     new SolutionTimeStep(
                         3, new AssertStateAction(CompletionState.WON))
                 )
@@ -271,9 +271,9 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.dig),
-                new PlaceTokenAction(1, 1)
+                new PlaceItemAction(1, 1)
             ),
-            new SolutionCommand(new PlaceTokenAction(1, 1)),
+            new SolutionCommand(new PlaceItemAction(1, 1)),
             new SolutionCommand()
         );
 
@@ -286,9 +286,9 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1,
                         new SelectAction(ItemType.dig),
-                        new PlaceTokenAction(1, 1)
+                        new PlaceItemAction(1, 1)
                     ),
-                    new SolutionTimeStep(2, new PlaceTokenAction(1, 1)),
+                    new SolutionTimeStep(2, new PlaceItemAction(1, 1)),
                     new SolutionTimeStep(3),
                     new SolutionTimeStep(
                         4, new AssertStateAction(CompletionState.WON))
@@ -302,8 +302,8 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.dig),
-                new PlaceTokenAction(1, 1)),
-            new SolutionCommand(new PlaceTokenAction(1, 1)),
+                new PlaceItemAction(1, 1)),
+            new SolutionCommand(new PlaceItemAction(1, 1)),
             new SolutionCommand(
                 new AssertStateAction(CompletionState.LOST))
         );
@@ -317,9 +317,9 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1,
                         new SelectAction(ItemType.dig),
-                        new PlaceTokenAction(1, 1)
+                        new PlaceItemAction(1, 1)
                     ),
-                    new SolutionTimeStep(2, new PlaceTokenAction(1, 1)),
+                    new SolutionTimeStep(2, new PlaceItemAction(1, 1)),
                     new SolutionTimeStep(
                         3, new AssertStateAction(CompletionState.LOST))
                 )
@@ -332,9 +332,9 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(
                 new SelectAction(ItemType.dig),
-                new PlaceTokenAction(1, 1)
+                new PlaceItemAction(1, 1)
             ),
-            new SolutionCommand(new PlaceTokenAction(1, 1)),
+            new SolutionCommand(new PlaceItemAction(1, 1)),
             new SolutionCommand(
                 new AssertStateAction(CompletionState.WON)),
             new SolutionCommand()
@@ -349,9 +349,9 @@ public class TestSolutionInterpreter {
                     new SolutionTimeStep(
                         1,
                         new SelectAction(ItemType.dig),
-                        new PlaceTokenAction(1, 1)
+                        new PlaceItemAction(1, 1)
                     ),
-                    new SolutionTimeStep(2, new PlaceTokenAction(1, 1)),
+                    new SolutionTimeStep(2, new PlaceItemAction(1, 1)),
                     new SolutionTimeStep(
                         3, new AssertStateAction(CompletionState.WON)),
                     new SolutionTimeStep(4),
@@ -397,7 +397,7 @@ public class TestSolutionInterpreter {
         Solution solution = new Solution(
             new SolutionCommand(new WaitAction(2)),
             new SolutionCommand(new SelectAction(ItemType.bridge)),
-            new SolutionCommand(new PlaceTokenAction(2, 3)),
+            new SolutionCommand(new PlaceItemAction(2, 3)),
             new SolutionCommand(new UntilAction(CompletionState.WON))
         );
 
@@ -420,7 +420,7 @@ public class TestSolutionInterpreter {
         assertThat(
             i.next(R),
             equalTo(
-                new SolutionTimeStep(3, new PlaceTokenAction(2, 3))
+                new SolutionTimeStep(3, new PlaceItemAction(2, 3))
             )
         );
 

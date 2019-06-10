@@ -69,7 +69,7 @@ public class TestSolutionCommand {
 
     private static SolutionCommand makeSolutionCommand(int placeX, int placeY) {
         return new SolutionCommand(
-            new PlaceTokenAction(placeX, placeY)
+            new PlaceItemAction(placeX, placeY)
             , new SelectAction(ItemType.block)
             , new AssertStateAction(World.CompletionState.RUNNING)
         );
@@ -77,7 +77,7 @@ public class TestSolutionCommand {
 
     private static SolutionCommand makeShortSolutionCommand() {
         return new SolutionCommand(
-            new PlaceTokenAction(3, 2)
+            new PlaceItemAction(3, 2)
             , new SelectAction(ItemType.block)
         );
     }

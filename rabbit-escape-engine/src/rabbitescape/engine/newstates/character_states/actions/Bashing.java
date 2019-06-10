@@ -46,7 +46,7 @@ public class Bashing extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        return t.pickUpToken(bash);
+        return t.pickUpItem(bash);
     }
 
     @Override

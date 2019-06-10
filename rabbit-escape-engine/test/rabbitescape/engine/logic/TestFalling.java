@@ -1113,7 +1113,7 @@ public class TestFalling {
     }
 
     @Test
-    public void Dont_pick_up_tokens_when_falling_except_explode() {
+    public void Dont_pick_up_items_when_falling_except_explode() {
         assertWorldEvolvesLike(
             "rrrrrr" + "\n" +
                 "bdikcp" + "\n" +

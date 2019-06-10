@@ -26,7 +26,7 @@ public abstract class Item extends Thing {
         boolean onSlope = BehaviourTools.isSlope(world.getBlockAt(x, y));
         // Can't use calcNewState here since we have just been created, so
         // can't be moving (until a time step passes).
-        this.itemState = itemState.newState(false, false, onSlope);
+        this.itemState = itemState.newState();
 
         // @TODO must remove state enum
         this.state = this.itemState.getState();
@@ -47,8 +47,10 @@ public abstract class Item extends Thing {
         boolean still = BehaviourTools.s_isFlat(belowBlock) || (onBlock != null) || BridgeTools
             .someoneIsBridgingAt(world, x, y);
 
-        itemState = itemState.newState(!still, BehaviourTools.isSlope(belowBlock),
-            BehaviourTools.isSlope(onBlock));
+        itemState.setMoving(!still);
+        itemState.setSlopeBelow(BehaviourTools.isSlope(belowBlock));
+        itemState.setOnSlope(BehaviourTools.isSlope(onBlock));
+        itemState = itemState.newState();
 
         // @TODO must remove state enum
         state = itemState.getState();
@@ -60,7 +62,7 @@ public abstract class Item extends Thing {
             y++;
 
             if (y >= world.size.height) {
-                world.changes.removeToken(this);
+                world.changes.removeItem(this);
             }
         }
     }

@@ -2,7 +2,7 @@
 :description=Don't explode on the way to the exit.
 :author_name=Andy Balaam
 :author_url=http://artificialworlds.net
-:hint.1=Can you get the rabbot to use up the explode token?
+:hint.1=Can you get the rabbot to use up the explode item?
 :hint.2=Make the rabbot a floater first.
 :hint.3=Dig the rabbot down, climb it across through the water to explode, then climb the rabbit leftwards to the exit.
 :solution.1=brolly;(1,0);;dig;;(1,0);18;climb;;(7,7);until:WON

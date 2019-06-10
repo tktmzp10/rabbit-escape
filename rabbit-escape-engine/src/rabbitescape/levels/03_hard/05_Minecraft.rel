@@ -4,7 +4,7 @@
 :author_url=http://artificialworlds.net/rabbit-escape/
 :hint.1=There are not enough bridges.
 :hint.2=That's a nice thick roof.
-:hint.3=Put a bridge token just before the first mine. Extend the bridge using a second bridge token. Bash at the wall at the top. Convert the rabbit to a digger after the mines.
+:hint.3=Put a bridge item just before the first mine. Extend the bridge using a second bridge item. Bash at the wall at the top. Convert the rabbit to a digger after the mines.
 :solution.1=bridge;(6,6);11;(9,4);bash;10;(11,2);dig;38;(22,1);6;WON
 :num_rabbits=1
 :num_to_save=1

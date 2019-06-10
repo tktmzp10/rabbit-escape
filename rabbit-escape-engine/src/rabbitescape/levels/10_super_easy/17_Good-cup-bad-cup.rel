@@ -2,9 +2,9 @@
 :description=Can you drip into a cup?
 :author_name=Andy Balaam
 :author_url=http://artificialworlds.net/rabbit-escape
-:hint.1=If you place tokens in the right order, you will make this level easier.
-:hint.2=Place a bridge token on the right of the barrier, next to the gap.
-:hint.3=When your bridge token is placed, bash through towards it (time it right so your rabbit is facing the right way) then place a bash token at the very top of the bridge.
+:hint.1=If you place items in the right order, you will make this level easier.
+:hint.2=Place a bridge item on the right of the barrier, next to the gap.
+:hint.3=When your bridge item is placed, bash through towards it (time it right so your rabbit is facing the right way) then place a bash item at the very top of the bridge.
 :solution.1=bridge&(3,4);;bash&(1,4);11;(6,2);until:WON
 :num_rabbits=1
 :num_to_save=1

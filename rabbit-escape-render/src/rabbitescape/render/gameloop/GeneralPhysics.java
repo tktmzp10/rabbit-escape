@@ -3,8 +3,8 @@ package rabbitescape.render.gameloop;
 import java.util.ArrayList;
 import java.util.List;
 
+import rabbitescape.engine.solution.PlaceItemAction;
 import rabbitescape.engine.things.items.ItemType;
-import rabbitescape.engine.solution.PlaceTokenAction;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.engine.solution.SolutionIgnorer;
 import rabbitescape.engine.solution.SolutionInterpreter;
@@ -44,10 +44,10 @@ public class GeneralPhysics implements Physics
             solutionRecorder.appendStepEnd( );
         }
 
-        public synchronized void addToken(
+        public synchronized void addItem(
             int tileX, int tileY, ItemType type )
         {
-            world.changes.addToken( tileX, tileY, type );
+            world.changes.addItem( tileX, tileY, type );
         }
     }
 
@@ -169,7 +169,7 @@ public class GeneralPhysics implements Physics
     }
 
     /**
-     * Take actions for demo mode, eg drop tokens.
+     * Take actions for demo mode, eg drop items.
      */
     private void doInterpreterActions()
     {
@@ -179,11 +179,11 @@ public class GeneralPhysics implements Physics
         {
             if ( action instanceof SelectAction )
             {
-                uiPlayback.selectToken( (SelectAction)action );
+                uiPlayback.selectItem( (SelectAction)action );
             }
-            else if ( action instanceof PlaceTokenAction )
+            else if ( action instanceof PlaceItemAction)
             {
-                uiPlayback.placeToken( (PlaceTokenAction)action );
+                uiPlayback.placeItem( (PlaceItemAction)action );
             }
         }
     }
@@ -200,7 +200,7 @@ public class GeneralPhysics implements Physics
         }
     }
 
-    public int addToken( int tileX, int tileY, ItemType ability )
+    public int addItem( int tileX, int tileY, ItemType ability )
     {
         if (
                gameRunning()
@@ -211,7 +211,7 @@ public class GeneralPhysics implements Physics
             && world.abilities.get( ability ) > 0
         )
         {
-            worldModifier.addToken( tileX, tileY, ability );
+            worldModifier.addItem( tileX, tileY, ability );
         }
 
         return world.abilities.get( ability );

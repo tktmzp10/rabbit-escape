@@ -27,7 +27,7 @@ public class Exploding extends CharacterBehaviourStates {
     @Override
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
-        return t.pickUpToken(explode, true);
+        return t.pickUpItem(explode, true);
     }
 
     @Override

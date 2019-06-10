@@ -372,7 +372,7 @@ public class TestClimbing {
     }
 
     @Test
-    public void Climb_starts_straight_after_token() {
+    public void Climb_starts_straight_after_item() {
         assertWorldEvolvesLike(
             "    " + "\n" +
                 "rc##" + "\n" +
@@ -569,7 +569,7 @@ public class TestClimbing {
     }
 
     @Test
-    public void Cant_pick_up_tokens_when_climbing() {
+    public void Cant_pick_up_items_when_climbing() {
         assertWorldEvolvesLike(
             "  #  #  #  #" + "\n" +
                 "  #  #  #  #" + "\n" +
@@ -638,7 +638,7 @@ public class TestClimbing {
     }
 
     @Test
-    public void Dont_pick_up_climb_token_if_already_a_climber() {
+    public void Dont_pick_up_climb_item_if_already_a_climber() {
         assertWorldEvolvesLike(
             "     " + "\n" +
                 "rcc  " + "\n" +

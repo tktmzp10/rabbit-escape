@@ -129,7 +129,7 @@ public class SolutionInterpreter {
                 }
 
                 @Override
-                public void casePlaceTokenAction(PlaceTokenAction action) {
+                public void casePlaceItemAction(PlaceItemAction action) {
                     tsActions.add(action);
                 }
 

@@ -24,13 +24,13 @@ public class TestSolutionTimeStep {
     public void Identical_nonempty_timesteps_are_equal() {
         SolutionTimeStep ts1 = new SolutionTimeStep(
             2,
-            new PlaceTokenAction(2, 2),
+            new PlaceItemAction(2, 2),
             new SelectAction(ItemType.bridge)
         );
 
         SolutionTimeStep ts2 = new SolutionTimeStep(
             2,
-            new PlaceTokenAction(2, 2),
+            new PlaceItemAction(2, 2),
             new SelectAction(ItemType.bridge)
         );
 
@@ -82,7 +82,7 @@ public class TestSolutionTimeStep {
         int commandIndex, int yCoord) {
         return new SolutionTimeStep(
             commandIndex
-            , new PlaceTokenAction(3, yCoord)
+            , new PlaceItemAction(3, yCoord)
             , new SelectAction(ItemType.block)
             , new AssertStateAction(World.CompletionState.RUNNING)
         );
@@ -92,7 +92,7 @@ public class TestSolutionTimeStep {
         int commandIndex, int yCoord) {
         return new SolutionTimeStep(
             commandIndex
-            , new PlaceTokenAction(3, yCoord)
+            , new PlaceItemAction(3, yCoord)
             , new SelectAction(ItemType.block)
         );
     }

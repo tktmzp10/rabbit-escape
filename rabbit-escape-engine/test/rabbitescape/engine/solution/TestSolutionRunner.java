@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.CompletionState;
+import rabbitescape.engine.solution.SolutionExceptions.FailedToPlaceItem;
+import rabbitescape.engine.solution.SolutionExceptions.PlacedItemOutsideWorld;
 import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.textworld.TextWorldManip;
 
@@ -157,20 +159,20 @@ public class TestSolutionRunner {
         }
     }
 
-    @Test(expected = SolutionExceptions.PlacedTokenOutsideWorld.class)
-    public void Placing_a_token_outside_the_world_is_an_error() {
+    @Test(expected = PlacedItemOutsideWorld.class)
+    public void Placing_a_item_outside_the_world_is_an_error() {
         SolutionRunner.runSolution(
             useBash100Solution(), neverEndingWorldWithBash());
     }
 
     @Test
-    public void Placing_a_token_outside_the_world_is_serialised_nicely() {
+    public void Placing_a_item_outside_the_world_is_serialised_nicely() {
         try {
             SolutionRunner.runSolution(
                 useBash100Solution(), neverEndingWorldWithBash());
 
             fail("Expected exception!");
-        } catch (SolutionExceptions.PlacedTokenOutsideWorld e) {
+        } catch (PlacedItemOutsideWorld e) {
             e.solutionId = 8;
             e.level = "bar";
             e.world = "";
@@ -200,18 +202,18 @@ public class TestSolutionRunner {
         );
     }
 
-    @Test(expected = SolutionExceptions.FailedToPlaceToken.class)
-    public void Placing_a_token_on_a_block_is_an_error() {
+    @Test(expected = FailedToPlaceItem.class)
+    public void Placing_a_item_on_a_block_is_an_error() {
         SolutionRunner.runSolution(useBash30Solution(), blockAt30World());
     }
 
     @Test
-    public void Placing_a_token_on_a_block_is_serialised_nicely() {
+    public void Placing_a_item_on_a_block_is_serialised_nicely() {
         try {
             SolutionRunner.runSolution(useBash30Solution(), blockAt30World());
 
             fail("Expected exception!");
-        } catch (SolutionExceptions.FailedToPlaceToken e) {
+        } catch (FailedToPlaceItem e) {
             e.solutionId = 9;
             e.level = "bar";
             e.world = "y\nx";
@@ -502,16 +504,16 @@ public class TestSolutionRunner {
     private Solution useBash30Solution() {
         return new Solution(
             new SolutionCommand(new SelectAction(ItemType.bash)),
-            new SolutionCommand(new PlaceTokenAction(1, 0)),
+            new SolutionCommand(new PlaceItemAction(1, 0)),
             new SolutionCommand(new WaitAction(1)),
-            new SolutionCommand(new PlaceTokenAction(3, 0))
+            new SolutionCommand(new PlaceItemAction(3, 0))
         );
     }
 
     private Solution useBash100Solution() {
         return new Solution(
             new SolutionCommand(new SelectAction(ItemType.bash)),
-            new SolutionCommand(new PlaceTokenAction(10, 0))
+            new SolutionCommand(new PlaceItemAction(10, 0))
         );
     }
 }

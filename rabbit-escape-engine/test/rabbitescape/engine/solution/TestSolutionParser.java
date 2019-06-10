@@ -107,7 +107,7 @@ public class TestSolutionParser {
                 new Solution(
                     new SolutionCommand(
                         new SelectAction(ItemType.bash),
-                        new PlaceTokenAction(1, 1)),
+                        new PlaceItemAction(1, 1)),
                     new SolutionCommand(
                         new AssertStateAction(World.CompletionState.WON))
                 )
@@ -155,7 +155,7 @@ public class TestSolutionParser {
                         new SelectAction(ItemType.bridge)
                     ),
                     new SolutionCommand(
-                        new PlaceTokenAction(22, 40)
+                        new PlaceItemAction(22, 40)
                     )
                 )
             )
@@ -180,7 +180,7 @@ public class TestSolutionParser {
             equalTo(
                 new SolutionCommand(
                     new SelectAction(ItemType.bash)
-                    , new PlaceTokenAction(1, 2)
+                    , new PlaceItemAction(1, 2)
                 )
             )
         );
@@ -261,7 +261,7 @@ public class TestSolutionParser {
     }
 
     @Test
-    public void Single_choose_token_round_trips() {
+    public void Single_choose_item_round_trips() {
         assertThat("bash", roundTrips());
     }
 
@@ -291,7 +291,7 @@ public class TestSolutionParser {
     }
 
     @Test
-    public void Single_choose_token_plus_empty_round_trips() {
+    public void Single_choose_item_plus_empty_round_trips() {
         assertThat("bash;", roundTrips());
     }
 

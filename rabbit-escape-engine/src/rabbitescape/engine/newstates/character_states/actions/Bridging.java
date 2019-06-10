@@ -1,6 +1,5 @@
 package rabbitescape.engine.newstates.character_states.actions;
 
-import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.things.items.ItemType.*;
 import static rabbitescape.engine.Block.Shape.*;
@@ -347,7 +346,7 @@ public class Bridging extends CharacterActionStates {
 
             // Only pick up if we can bridge
             if (possibleState != null) {
-                return t.pickUpToken(bridge);
+                return t.pickUpItem(bridge);
             }
         }
         return false;
