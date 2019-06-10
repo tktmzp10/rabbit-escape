@@ -44,7 +44,6 @@ public class WorldChanges {
     }
 
     public synchronized void apply() {
-        System.out.println("/WorldChanges.apply()");
         // Add any new things
         for (Character rabbit : charactersToEnter) {
             rabbit.calcNewState(world);

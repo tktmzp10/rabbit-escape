@@ -127,7 +127,6 @@ public abstract class Character extends Thing implements Comparable<Character> {
 
     @Override
     public void step(World world) {
-        System.out.println("/Character.step()");
         for (CharacterStates characterStates : this.characterStates) {
             boolean handled = characterStates.behave(world, this, state, newState);
             if (handled) {

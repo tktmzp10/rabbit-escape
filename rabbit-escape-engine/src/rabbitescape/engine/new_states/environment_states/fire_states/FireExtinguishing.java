@@ -4,7 +4,9 @@ import static rabbitescape.engine.ChangeDescription.State.FIRE_EXTINGUISHING;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.*;
+import rabbitescape.engine.World;
 import rabbitescape.engine.new_states.environment_states.FireStates;
+import rabbitescape.engine.things.environment.Fire;
 
 public class FireExtinguishing extends FireStates {
 
@@ -18,5 +20,10 @@ public class FireExtinguishing extends FireStates {
         BehaviourTools t, boolean triggered
     ) {
         return null;
+    }
+
+    @Override
+    public void step(World world, Fire fire) {
+        world.changes.removeFire(fire);
     }
 }

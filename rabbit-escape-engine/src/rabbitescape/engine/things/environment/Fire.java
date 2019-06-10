@@ -10,12 +10,12 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.World;
-import rabbitescape.engine.new_states.EnvironmentStates;
+import rabbitescape.engine.new_states.environment_states.FireStates;
 import rabbitescape.engine.new_states.environment_states.fire_states.FireExtinguishing;
 
 public abstract class Fire extends Thing {
 
-    public EnvironmentStates environmentState;
+    public FireStates fireState;
     public int variant;
 
     private final State baseVariant;
@@ -25,16 +25,16 @@ public abstract class Fire extends Thing {
         baseVariant = state;
     }
 
-    public void setEnvironmentState(EnvironmentStates environmentState) {
-        this.environmentState = environmentState;
-        state = environmentState.getState();
+    public void setFireState(FireStates fireState) {
+        this.fireState = fireState;
+        state = fireState.getState();
     }
 
     @Override
     public void calcNewState(World world) {
 
         if (isFireExtinguished(world)) {
-            setEnvironmentState(new FireExtinguishing());
+            setFireState(new FireExtinguishing());
             return;
         }
 
@@ -98,30 +98,7 @@ public abstract class Fire extends Thing {
 
     @Override
     public void step(World world) {
-        switch (state) {
-            case FIRE_A_FALLING:
-            case FIRE_B_FALLING:
-            case FIRE_C_FALLING:
-            case FIRE_D_FALLING:
-            case FIRE_A_FALL_TO_RISE_RIGHT:
-            case FIRE_B_FALL_TO_RISE_RIGHT:
-            case FIRE_C_FALL_TO_RISE_RIGHT:
-            case FIRE_D_FALL_TO_RISE_RIGHT:
-            case FIRE_A_FALL_TO_RISE_LEFT:
-            case FIRE_B_FALL_TO_RISE_LEFT:
-            case FIRE_C_FALL_TO_RISE_LEFT:
-            case FIRE_D_FALL_TO_RISE_LEFT:
-                ++y;
-                if (y >= world.size.height) {
-                    world.changes.removeFire(this);
-                }
-                return;
-            case FIRE_EXTINGUISHING:
-                world.changes.removeFire(this);
-                return;
-            default:
-        }
-
+        fireState.step(world, this);
     }
 
     @Override

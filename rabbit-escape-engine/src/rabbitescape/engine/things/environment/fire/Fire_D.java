@@ -17,26 +17,26 @@ public class Fire_D extends Fire {
 
     @Override
     public void changeStateRiseLeft() {
-        setEnvironmentState( new FireCRiseLeft() );
+        setFireState( new FireCRiseLeft() );
     }
 
     @Override
     public void changeStateRiseRight() {
-        setEnvironmentState( new FireCRiseRight() );
+        setFireState( new FireCRiseRight() );
     }
 
     @Override
     public void changeStateFalling() {
-        setEnvironmentState( new FireCFalling() );
+        setFireState( new FireCFalling() );
     }
 
     @Override
     public void changeStateFallToRiseRight() {
-        setEnvironmentState( new FireCFallToRiseRight() );
+        setFireState( new FireCFallToRiseRight() );
     }
 
     @Override
     public void changeStateFallToRiseLeft() {
-        setEnvironmentState( new FireCFallToRiseLeft() );
+        setFireState( new FireCFallToRiseLeft() );
     }
 }

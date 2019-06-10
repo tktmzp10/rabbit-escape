@@ -302,7 +302,6 @@ public class World {
             thing.calcNewState(this);
         }
 
-        System.out.println("/World.changes.blockJustRemoved.clear()");
         changes.blocksJustRemoved.clear();
 
         changes.apply();
