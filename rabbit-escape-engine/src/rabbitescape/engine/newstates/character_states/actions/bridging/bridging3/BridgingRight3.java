@@ -4,7 +4,6 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.World;
 import rabbitescape.engine.newstates.character_states.actions.Bridging;
-import rabbitescape.engine.newstates.character_states.actions.Bridging.*;
 import rabbitescape.engine.newstates.character_states.actions.bridging.IBridgingState;
 import rabbitescape.engine.things.Character;
 
@@ -20,10 +19,7 @@ public class BridgingRight3 implements IBridgingState {
     }
 
     @Override
-    public boolean behave(
-        World world, Character character
-    ) {
-        System.out.println("\t\tRABBIT_BRIDGING_RIGHT_3");
+    public boolean behave(World world, Character character, Bridging bridging) {
         character.onSlope = true;
         character.x++;
         world.changes.addBlock(

@@ -75,14 +75,14 @@ public abstract class Fire extends Thing {
     }
 
     private boolean isFireExtinguished(World world) {
-        // Check if being extinguished.
+        boolean extinguished = false;
+
         for (WaterRegion waterRegion : world.waterTable.getItemsAt(x, y)) {
             if (waterRegion.getContents() > 0) {
-
-                return true;
+                extinguished = true;
             }
         }
-        return false;
+        return extinguished;
     }
 
     public abstract void changeStateRiseLeft();

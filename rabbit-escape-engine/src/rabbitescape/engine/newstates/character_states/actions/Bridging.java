@@ -97,98 +97,40 @@ public class Bridging extends CharacterActionStates {
     }
 
     private void atOneSmallStep(BridgeType bt, Character character) {
-        switch (bt) {
-            case ALONG: {
-                setBridgingState(
-                    new BridgingRight3(),
-                    new BridgingLeft3(),
-                    character
-                );
-                break;
-            }
-            case UP: {
-                setBridgingState(
-                    new BridgingUpRight3(),
-                    new BridgingUpLeft3(),
-                    character
-                );
-                break;
-            }
-            case DOWN_UP: {
-                setBridgingState(
-                    new BridgingDownUpRight3(),
-                    new BridgingDownUpLeft3(),
-                    character
-                );
-                break;
-            }
-            default: {
-                throw new AssertionError("Unexpected bridge type: " + bt);
-            }
+        if (bt == BridgeType.ALONG) {
+            setBridgingState(new BridgingRight3(), new BridgingLeft3(), character);
+        } else if (bt == BridgeType.UP) {
+            setBridgingState(new BridgingUpRight3(), new BridgingUpLeft3(), character);
+        } else if (bt == BridgeType.DOWN_UP) {
+            setBridgingState(new BridgingDownUpRight3(), new BridgingDownUpLeft3(), character);
+        } else {
+            throw new AssertionError("Unexpected bridge type: " + bt);
         }
     }
 
     private void atTwoSmallSteps(BridgeType bt, Character character) {
-        switch (bt) {
-            case ALONG: {
-                setBridgingState(
-                    new BridgingRight2(),
-                    new BridgingLeft2(),
-                    character
-                );
-                break;
-            }
-            case UP: {
-                setBridgingState(
-                    new BridgingUpRight2(),
-                    new BridgingUpLeft2(),
-                    character
-                );
-                break;
-            }
-            case DOWN_UP: {
-                setBridgingState(
-                    new BridgingDownUpRight2(),
-                    new BridgingDownUpLeft2(),
-                    character
-                );
-                break;
-            }
-            default: {
-                throw new AssertionError("Unexpected bridge type: " + bt);
-            }
-        }
-    }
-
-    private void atThreeSmallSteps(
-        Character character,
-        boolean slopeUp,
-        boolean slopeDown
-    ) {
-        if (slopeUp) {
-            setBridgingState(
-                new BridgingUpRight1(),
-                new BridgingUpLeft1(),
-                character
-            );
-        } else if (slopeDown) {
-            setBridgingState(
-                new BridgingDownUpRight1(),
-                new BridgingDownUpLeft1(),
-                character
-            );
+        if (bt == BridgeType.ALONG) {
+            setBridgingState(new BridgingRight2(), new BridgingLeft2(), character);
+        } else if (bt == BridgeType.UP) {
+            setBridgingState(new BridgingUpRight2(), new BridgingUpLeft2(), character);
+        } else if (bt == BridgeType.DOWN_UP) {
+            setBridgingState(new BridgingDownUpRight2(), new BridgingDownUpLeft2(), character);
         } else {
-            setBridgingState(
-                new BridgingRight1(),
-                new BridgingLeft1(),
-                character
-            );
+            throw new AssertionError("Unexpected bridge type: " + bt);
         }
     }
 
-    private State stateIntoWall(
-        BehaviourTools t, Character character, World world, int ss
-    ) {
+    private void atThreeSmallSteps(Character character, boolean slopeUp, boolean slopeDown) {
+        if (slopeUp) {
+            setBridgingState(new BridgingUpRight1(), new BridgingUpLeft1(), character);
+        } else if (slopeDown) {
+            setBridgingState(new BridgingDownUpRight1(), new BridgingDownUpLeft1(), character);
+        } else {
+            setBridgingState(new BridgingRight1(), new BridgingLeft1(), character);
+        }
+    }
+
+    private State stateIntoWall(BehaviourTools t, Character character, World world, int ss) {
         // We are facing a wall.  This makes us a bit keener to bridge.
         Block thisBlock = world.getBlockAt(character.x, character.y);
 
@@ -217,11 +159,7 @@ public class Bridging extends CharacterActionStates {
 
     private void atOneSmallStep(Character character, Block thisBlock) {
         if (isSlope(thisBlock)) {
-            setBridgingState(
-                new BridgingInCornerUpRight3(),
-                new BridgingInCornerUpLeft3(),
-                character
-            );
+            setBridgingState(new BridgingInCornerUpRight3(), new BridgingInCornerUpLeft3(), character);
         } else {
             setBridgingState(
                 new BridgingInCornerRight3(),
@@ -389,41 +327,7 @@ public class Bridging extends CharacterActionStates {
 
     @Override
     public boolean behave(World world, Character character, State state) {
-        switch (state) {
-            case RABBIT_BRIDGING_RIGHT_1:
-            case RABBIT_BRIDGING_RIGHT_2:
-            case RABBIT_BRIDGING_LEFT_1:
-            case RABBIT_BRIDGING_LEFT_2:
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_LEFT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_1:
-            case RABBIT_BRIDGING_IN_CORNER_UP_RIGHT_2:
-            case RABBIT_BRIDGING_IN_CORNER_UP_LEFT_2: {
-                bridgeType = BridgeType.ALONG;
-                break;
-            }
-            case RABBIT_BRIDGING_UP_RIGHT_1:
-            case RABBIT_BRIDGING_UP_RIGHT_2:
-            case RABBIT_BRIDGING_UP_LEFT_1:
-            case RABBIT_BRIDGING_UP_LEFT_2: {
-                character.onSlope = true;
-                bridgeType = BridgeType.UP;
-                break;
-            }
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_1:
-            case RABBIT_BRIDGING_DOWN_UP_RIGHT_2:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_1:
-            case RABBIT_BRIDGING_DOWN_UP_LEFT_2: {
-                character.onSlope = true;
-                bridgeType = BridgeType.DOWN_UP;
-                break;
-            }
-        }
-
-        return bridgingState.behave(world, character);
+        return bridgingState.behave(world, character, this);
     }
 
     @Override

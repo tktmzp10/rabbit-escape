@@ -2,6 +2,7 @@ package rabbitescape.engine.things.environment.fire;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
+import rabbitescape.engine.newstates.environment_states.fire_states.FireARiseLeft;
 import rabbitescape.engine.things.environment.Fire;
 
 public class Fire_A extends Fire {
@@ -12,7 +13,7 @@ public class Fire_A extends Fire {
 
     @Override
     public void changeStateRiseLeft() {
-        state = FIRE_A_RISE_LEFT;
+        setEnvironmentState( new FireARiseLeft() );
     }
 
     @Override
