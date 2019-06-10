@@ -1,6 +1,6 @@
 package rabbitescape.engine.newstates.item_states.brolly;
 
-import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.newstates.ItemState;
 
 public abstract class BrollyItemState extends ItemState {
 

@@ -96,8 +96,8 @@ public class BehaviourTools {
     }
 
     /**
-     * Checks for the presence of a item. Removes item from the world and returns true if a item
-     * is being picked up.
+     * Checks for the presence of a item. Removes item from the world and returns true if a item is
+     * being picked up.
      */
     public boolean pickUpItem(ItemType type, boolean evenIfNotOnGround) {
         if (rabbitIsFalling() && character.isFallingToDeath()) {

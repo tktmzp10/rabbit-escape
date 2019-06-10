@@ -1,10 +1,11 @@
-package rabbitescape.engine.newstates.item_states;
+package rabbitescape.engine.newstates;
 
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.NewStates;
 
 public abstract class ItemState extends NewStates {
+
     private boolean isMoving;
     private boolean isSlopeBelow;
     private boolean isOnSlope;

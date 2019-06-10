@@ -21,7 +21,8 @@ public class BridgingInCornerUpRight1 implements IBridgingState {
         World world, Character character
     ) {
         System.out.println("\t\tRABBIT_BRIDGING_IN_CORNER_UP_RIGHT_1");
-        character.onSlope = true;;
+        character.onSlope = true;
+        ;
         return true;
     }
 }

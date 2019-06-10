@@ -1,6 +1,6 @@
 package rabbitescape.engine.newstates.item_states.bash;
 
-import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.newstates.ItemState;
 
 public abstract class BashItemState extends ItemState {
 

@@ -11,6 +11,8 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.World;
+import rabbitescape.engine.newstates.EnvironmentStates;
+import rabbitescape.engine.newstates.environment_states.fire_states.FireExtinguishing;
 import rabbitescape.engine.things.environment.fire.Fire_A;
 import rabbitescape.engine.things.environment.fire.Fire_B;
 import rabbitescape.engine.things.environment.fire.Fire_C;
@@ -18,6 +20,7 @@ import rabbitescape.engine.things.environment.fire.Fire_D;
 
 public abstract class Fire extends Thing {
 
+    public EnvironmentStates environmentState;
     public int variant;
 
     private final State baseVariant;
@@ -27,63 +30,47 @@ public abstract class Fire extends Thing {
         baseVariant = state;
     }
 
-    public static Fire createFire(int x, int y, int variant) {
-        switch (variant) {
-            case 0:
-                return new Fire_A(x, y);
-            case 1:
-                return new Fire_B(x, y);
-            case 2:
-                return new Fire_C(x, y);
-            case 3:
-                return new Fire_D(x, y);
-        }
-        throw new RuntimeException(
-            "Variant outside expected range (0 - 3):" + variant);
+    public void setEnvironmentState(EnvironmentStates environmentState) {
+        this.environmentState = environmentState;
+        state = environmentState.getState();
     }
 
     @Override
     public void calcNewState(World world) {
 
         if (isFireExtinguished(world)) {
-            state = FIRE_EXTINGUISHING;
+            setEnvironmentState(new FireExtinguishing());
             return;
         }
 
         Block blockBelow = world.getBlockAt(x, y + 1);
-        // Note: when flatBelow is true may be on a slope with a flat below,
-        // or sitting on the flat
         boolean flatBelow = BehaviourTools.s_isFlat(blockBelow);
 
         if (isStill(world, flatBelow)) {
-            Block onBlock = world.getBlockAt(x, y);
-            if (BehaviourTools.isLeftRiseSlope(onBlock)) {
-                changeStateRiseLeft();
-                return;
-            }
-            if (BehaviourTools.isRightRiseSlope(onBlock)) {
-                changeStateRiseRight();
-                return;
-            }
-            // TODO: check here for fire falling on a bridger.
-            // Fire going to a falling state may be OK
-            // as bridger is burnt
-            if (flatBelow) {
-                state = baseVariant;
-                return;
-            }
+            calcNewStateOnFlatGround(world, flatBelow);
         } else // Falling
         {
-            if (BehaviourTools.isLeftRiseSlope(blockBelow)) {
-                changeStateFallToRiseLeft();
-                return;
-            }
-            if (BehaviourTools.isRightRiseSlope(blockBelow)) {
-                changeStateFallToRiseRight();
-                return;
-            }
-            changeStateFalling();
-            return;
+            calcNewStateWhenFalling(blockBelow);
+        }
+    }
+
+    private void calcNewStateWhenFalling(Block blockBelow) {
+        if (BehaviourTools.isLeftRiseSlope(blockBelow)) {
+            changeStateFallToRiseLeft();
+        } else if (BehaviourTools.isRightRiseSlope(blockBelow)) {
+            changeStateFallToRiseRight();
+        }
+        changeStateFalling();
+    }
+
+    private void calcNewStateOnFlatGround(World world, boolean flatBelow) {
+        Block onBlock = world.getBlockAt(x, y);
+        if (BehaviourTools.isLeftRiseSlope(onBlock)) {
+            changeStateRiseLeft();
+        } else if (BehaviourTools.isRightRiseSlope(onBlock)) {
+            changeStateRiseRight();
+        } else if (flatBelow) {
+            state = baseVariant;
         }
     }
 
@@ -130,7 +117,6 @@ public abstract class Fire extends Thing {
             case FIRE_C_FALL_TO_RISE_LEFT:
             case FIRE_D_FALL_TO_RISE_LEFT:
                 ++y;
-
                 if (y >= world.size.height) {
                     world.changes.removeFire(this);
                 }
@@ -139,7 +125,6 @@ public abstract class Fire extends Thing {
                 world.changes.removeFire(this);
                 return;
             default:
-                return;
         }
 
     }

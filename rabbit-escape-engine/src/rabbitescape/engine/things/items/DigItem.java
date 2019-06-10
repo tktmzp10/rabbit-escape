@@ -1,7 +1,7 @@
 package rabbitescape.engine.things.items;
 
 import rabbitescape.engine.World;
-import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.newstates.ItemState;
 import rabbitescape.engine.newstates.item_states.dig.DigFallToSlope;
 import rabbitescape.engine.things.Item;
 

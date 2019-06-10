@@ -1,6 +1,6 @@
 package rabbitescape.engine.newstates.item_states.explode;
 
-import rabbitescape.engine.newstates.item_states.ItemState;
+import rabbitescape.engine.newstates.ItemState;
 
 public abstract class ExplodeItemState extends ItemState {
 

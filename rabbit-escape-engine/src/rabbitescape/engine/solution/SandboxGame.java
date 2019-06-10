@@ -16,6 +16,7 @@ import rabbitescape.engine.Thing;
 import rabbitescape.engine.things.Item;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
+import rabbitescape.engine.things.environment.fire.FireFactory;
 import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.textworld.Comment;
 
@@ -91,7 +92,7 @@ public class SandboxGame {
                 clonedThings.add(item.copyWithoutState());
             } else if (thing instanceof Fire) {
                 Fire fire = (Fire) thing;
-                clonedThings.add(Fire.createFire(fire.x, fire.y, fire.variant));
+                clonedThings.add(FireFactory.createFire(fire.x, fire.y, fire.variant));
             } else if (thing instanceof Pipe) {
                 Pipe pipe = (Pipe) thing;
                 clonedThings.add(new Pipe(pipe.x, pipe.y));

@@ -8,7 +8,6 @@ public class Fire_A extends Fire {
 
     public Fire_A(int x, int y) {
         super(x, y, FIRE_A);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

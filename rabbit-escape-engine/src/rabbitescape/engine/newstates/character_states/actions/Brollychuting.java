@@ -62,7 +62,8 @@ public class Brollychuting extends CharacterActionStates {
     }
 
     private boolean newStateNotBrollychuting(BehaviourTools t, Block below) {
-        if (!hasAbility || climbing.abilityActive || t.isFlat(below) || (t.character.onSlope && !t.blockHereJustRemoved())) {
+        if (!hasAbility || climbing.abilityActive || t.isFlat(below) || (t.character.onSlope && !t
+            .blockHereJustRemoved())) {
             setBrollychutingState(new NotBrollychuting());
             return true;
         }
