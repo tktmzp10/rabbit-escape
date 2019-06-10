@@ -50,7 +50,7 @@ public class TestSolution {
     private static Solution makeSolution(int waitTime) {
         return new Solution(
             new SolutionCommand(new WaitAction(waitTime))
-            , new SolutionCommand(new PlaceTokenAction(3, 2))
+            , new SolutionCommand(new PlaceItemAction(3, 2))
             , new SolutionCommand(new SelectAction(ItemType.block))
             , new SolutionCommand(
             new AssertStateAction(World.CompletionState.RUNNING))
@@ -60,7 +60,7 @@ public class TestSolution {
     private static Solution makeShortSolution(int waitTime) {
         return new Solution(
             new SolutionCommand(new WaitAction(waitTime))
-            , new SolutionCommand(new PlaceTokenAction(3, 2))
+            , new SolutionCommand(new PlaceItemAction(3, 2))
             , new SolutionCommand(new SelectAction(ItemType.block))
         );
     }

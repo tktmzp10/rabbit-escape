@@ -9,8 +9,8 @@ public class TestPlaceItemAction {
 
     @Test
     public void Equal_actions_are_equal() {
-        PlaceTokenAction a1 = new PlaceTokenAction(5, 4);
-        PlaceTokenAction a2 = new PlaceTokenAction(5, 4);
+        PlaceItemAction a1 = new PlaceItemAction(5, 4);
+        PlaceItemAction a2 = new PlaceItemAction(5, 4);
 
         assertThat(a1, equalTo(a2));
         assertThat(a1.hashCode(), equalTo(a2.hashCode()));
@@ -18,8 +18,8 @@ public class TestPlaceItemAction {
 
     @Test
     public void Different_actions_are_unequal() {
-        PlaceTokenAction a1 = new PlaceTokenAction(5, 4);
-        PlaceTokenAction a2 = new PlaceTokenAction(4, 5);
+        PlaceItemAction a1 = new PlaceItemAction(5, 4);
+        PlaceItemAction a2 = new PlaceItemAction(4, 5);
 
         assertThat(a1, not(equalTo(a2)));
 

@@ -82,7 +82,7 @@ public class Brollychuting extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        if (!hasAbility && t.pickUpToken(brolly, true)) {
+        if (!hasAbility && t.pickUpItem(brolly, true)) {
             return true;
         }
 

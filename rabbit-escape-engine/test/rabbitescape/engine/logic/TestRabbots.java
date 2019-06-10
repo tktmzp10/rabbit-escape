@@ -24,7 +24,7 @@ public class TestRabbots {
     }
 
     @Test
-    public void If_a_rabbot_gets_a_bridging_token_it_still_explodes() {
+    public void If_a_rabbot_gets_a_bridging_item_it_still_explodes() {
         assertWorldEvolvesLike(
             "ti j" + "\n" +
                 "####",

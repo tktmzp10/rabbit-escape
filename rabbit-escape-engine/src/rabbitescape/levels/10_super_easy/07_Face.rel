@@ -4,7 +4,7 @@
 :author_url=http://artificialworlds.net/rabbit-escape
 :hint.1=There must be a way to the exit without hitting a fire.
 :hint.2=Try going over some obstacles.
-:hint.3=Place two climb tokens on the left-hand slope so the rabbits climb over the metal block and drop into the exit.
+:hint.3=Place two climb items on the left-hand slope so the rabbits climb over the metal block and drop into the exit.
 :solution.1=climb;;(3,3);7;(3,3);until:WON
 :num_rabbits=2
 :num_to_save=2

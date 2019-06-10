@@ -1,6 +1,5 @@
 package rabbitescape.engine.newstates.character_states.actions;
 
-import static rabbitescape.engine.Direction.*;
 import static rabbitescape.engine.things.items.ItemType.*;
 
 import java.util.Map;
@@ -35,7 +34,7 @@ public class Climbing extends CharacterActionStates {
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
 
-        return !hasAbility && t.pickUpToken(climb, true);
+        return !hasAbility && t.pickUpItem(climb, true);
     }
 
     @Override

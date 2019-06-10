@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import rabbitescape.engine.World.UnableToAddItem;
 import rabbitescape.engine.things.items.BridgeItem;
 import rabbitescape.engine.things.Item;
 import rabbitescape.engine.World;
@@ -243,7 +244,7 @@ public class TestWorld {
     }
 
     @Test
-    public void World_reduces_abilities_when_you_use_a_token() {
+    public void World_reduces_abilities_when_you_use_a_item() {
         World world = createWorld(
             ":bash=5",
             ":dig=3",
@@ -253,7 +254,7 @@ public class TestWorld {
         );
 
         // This is what we are testing
-        world.changes.addToken(0, 0, ItemType.bash);
+        world.changes.addItem(0, 0, ItemType.bash);
         world.step();
 
         // There should be one less bash
@@ -267,7 +268,7 @@ public class TestWorld {
     }
 
     @Test
-    public void World_refuses_to_add_a_token_if_none_left() {
+    public void World_refuses_to_add_a_item_if_none_left() {
         World world = createWorld(
             ":bash=1",
             "   ",
@@ -275,17 +276,17 @@ public class TestWorld {
         );
 
         // Use up the last bash
-        world.changes.addToken(0, 0, ItemType.bash);
+        world.changes.addItem(0, 0, ItemType.bash);
         world.step();
 
         // Sanity
         assertThat(world.abilities.get(ItemType.bash), equalTo(0));
 
         // This is what we are testing: can't add another
-        World.UnableToAddToken caughtException = null;
+        UnableToAddItem caughtException = null;
         try {
-            world.changes.addToken(1, 0, ItemType.bash);
-        } catch (World.UnableToAddToken e) {
+            world.changes.addItem(1, 0, ItemType.bash);
+        } catch (UnableToAddItem e) {
             caughtException = e;
         }
 
@@ -293,30 +294,30 @@ public class TestWorld {
     }
 
     @Test
-    public void Cant_find_token_if_already_removed() {
+    public void Cant_find_item_if_already_removed() {
         World world = createWorld(
             " i ",
             "###"
         );
 
-        Item item = world.getTokenAt(1, 0);
+        Item item = world.getItemAt(1, 0);
 
         // Sanity
         assertThat(item, is(notNullValue()));
 
         // Remove it
-        world.changes.removeToken(item);
+        world.changes.removeItem(item);
 
         // This is what we are testing: it's gone
-        assertThat(world.getTokenAt(1, 0), is(nullValue()));
+        assertThat(world.getItemAt(1, 0), is(nullValue()));
 
         // Sanity: after a step it's still gone
         world.step();
-        assertThat(world.getTokenAt(1, 0), is(nullValue()));
+        assertThat(world.getItemAt(1, 0), is(nullValue()));
     }
 
     @Test
-    public void Can_find_token_if_there_were_2_and_only_1_is_removed() {
+    public void Can_find_item_if_there_were_2_and_only_1_is_removed() {
         World world = createWorld(
             " i ",
             "###"
@@ -324,23 +325,23 @@ public class TestWorld {
 
         world.things.add(new BridgeItem(1, 0));
 
-        Item item = world.getTokenAt(1, 0);
+        Item item = world.getItemAt(1, 0);
 
         // Sanity
         assertThat(item, is(notNullValue()));
 
         // Remove one item
-        world.changes.removeToken(item);
+        world.changes.removeItem(item);
 
         // This is what we are testing: there's another
-        Item item2 = world.getTokenAt(1, 0);
+        Item item2 = world.getItemAt(1, 0);
         assertThat(item2, is(notNullValue()));
 
         // Remove that one too
-        world.changes.removeToken(item2);
+        world.changes.removeItem(item2);
 
         // Now there's nothing left
-        assertThat(world.getTokenAt(1, 0), is(nullValue()));
+        assertThat(world.getItemAt(1, 0), is(nullValue()));
     }
 
     @Test

@@ -17,18 +17,18 @@ import rabbitescape.engine.things.characters.Rabbit;
 
 public class TestWorldChanges {
 
-    class AddTokens implements Runnable {
+    class AddItems implements Runnable {
 
         private final World world;
 
-        public AddTokens(World world) {
+        public AddItems(World world) {
             this.world = world;
         }
 
         @Override
         public void run() {
             for (int i = 0; i < 100; ++i) {
-                world.changes.addToken(3, 0, ItemType.bash);
+                world.changes.addItem(3, 0, ItemType.bash);
             }
         }
     }
@@ -66,9 +66,9 @@ public class TestWorldChanges {
 
         world.abilities.put(ItemType.bash, 201);
 
-        // This is what we're testing: add tokens in 2 simultaneous threads
-        Thread t1 = new Thread(new AddTokens(world));
-        Thread t2 = new Thread(new AddTokens(world));
+        // This is what we're testing: add items in 2 simultaneous threads
+        Thread t1 = new Thread(new AddItems(world));
+        Thread t2 = new Thread(new AddItems(world));
         StepAlot stepalot = new StepAlot(world);
         Thread t3 = new Thread(stepalot);
         t1.start();
@@ -122,7 +122,7 @@ public class TestWorldChanges {
             };
 
         World world = TextWorldManip.createWorld(worldText);
-        Item tok0 = world.getTokenAt(1, 1);
+        Item tok0 = world.getItemAt(1, 1);
         Character rabbit0 = world.rabbits.get(0);
         Character rabbit1 = world.rabbits.get(1);
         Character rabbit2 = world.rabbits.get(2);
@@ -134,8 +134,8 @@ public class TestWorldChanges {
         world.changes.killRabbit(rabbit0);
         world.changes.saveRabbit(rabbit1);
         world.changes.killRabbit(rabbit2);
-        world.changes.addToken(2, 1, ItemType.bash);
-        world.changes.removeToken(tok0);
+        world.changes.addItem(2, 1, ItemType.bash);
+        world.changes.removeItem(tok0);
         world.changes.addBlock(new Block(1, 1, Block.Material.EARTH, Shape.FLAT, 0));
         world.changes.removeBlockAt(0, 0);
 

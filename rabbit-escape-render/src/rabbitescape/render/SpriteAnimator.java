@@ -81,7 +81,7 @@ public class SpriteAnimator
             addThing( frameNum, thing, null, ret );
         }
 
-        for ( Thing thing : world.changes.tokensAboutToAppear() )
+        for ( Thing thing : world.changes.itemsAboutToAppear() )
         {
             addThing( frameNum, thing, null, ret );
         }

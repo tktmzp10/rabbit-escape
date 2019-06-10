@@ -968,7 +968,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridge_token_next_to_wall_makes_you_bridge_towards_it() {
+    public void Bridge_item_next_to_wall_makes_you_bridge_towards_it() {
         assertWorldEvolvesLike(
             "#      #" + "\n" +
                 "#      #" + "\n" +
@@ -1003,7 +1003,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridge_token_next_to_short_wall_makes_you_bridge_towards_it() {
+    public void Bridge_item_next_to_short_wall_makes_you_bridge_towards_it() {
         assertWorldEvolvesLike(
             "#      #" + "\n" +
                 "#      #" + "\n" +
@@ -1038,7 +1038,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridge_token_next_to_back_slope_makes_you_bridge_towards_it() {
+    public void Bridge_item_next_to_back_slope_makes_you_bridge_towards_it() {
         assertWorldEvolvesLike(
             "           " + "\n" +
                 "           " + "\n" +
@@ -1073,7 +1073,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridge_token_at_top_of_bridge_continues() {
+    public void Bridge_item_at_top_of_bridge_continues() {
         assertWorldEvolvesLike(
             "#       #" + "\n" +
                 "#   i   #" + "\n" +
@@ -1114,7 +1114,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridge_token_at_top_of_bridge_by_wall_continues_reversed() {
+    public void Bridge_item_at_top_of_bridge_by_wall_continues_reversed() {
         assertWorldEvolvesLike(
             "#       #" + "\n" +
                 "#      i#" + "\n" +
@@ -1143,7 +1143,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Bridger_ignores_bridging_tokens() {
+    public void Bridger_ignores_bridging_items() {
         assertWorldEvolvesLike(
             "   i     " + "\n" +
                 "         " + "\n" +
@@ -1270,7 +1270,7 @@ public class TestBridging {
 
     @Test
     public void Bridge_out_of_a_hole() {
-        // Drop bridge tokens on a character in a hole
+        // Drop bridge items on a character in a hole
 
         assertWorldEvolvesLike(
             "  i  " + "\n" +
@@ -1444,7 +1444,7 @@ public class TestBridging {
     }
 
     @Test
-    public void Two_rabbits_cant_pick_up_the_same_token() {
+    public void Two_rabbits_cant_pick_up_the_same_item() {
         World world = createWorld(
             "         ",
             "         ",

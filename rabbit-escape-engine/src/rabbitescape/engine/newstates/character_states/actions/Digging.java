@@ -32,7 +32,7 @@ public class Digging extends CharacterActionStates {
     @Override
     public boolean checkTriggered(Character character, World world) {
         BehaviourTools t = new BehaviourTools(character, world);
-        return t.pickUpToken(DigItem.TYPE);
+        return t.pickUpItem(DigItem.TYPE);
     }
 
     @Override

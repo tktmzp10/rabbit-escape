@@ -16,7 +16,7 @@ import rabbitescape.engine.config.Config;
 import rabbitescape.engine.things.items.ItemType;
 import rabbitescape.engine.menu.LevelMenuItem;
 import rabbitescape.engine.menu.LevelsMenu;
-import rabbitescape.engine.solution.PlaceTokenAction;
+import rabbitescape.engine.solution.PlaceItemAction;
 import rabbitescape.engine.solution.SolutionDemo;
 import rabbitescape.engine.solution.SolutionInterpreter;
 import rabbitescape.engine.solution.SolutionRecorder;
@@ -511,17 +511,17 @@ public class SwingGameLaunch implements GameLaunch
         }
     }
 
-    public int addToken( int tileX, int tileY, ItemType ability )
+    public int addItem( int tileX, int tileY, ItemType ability )
     {
         int prev = world.abilities.get( ability );
-        int now = physics.addToken( tileX, tileY, ability );
+        int now = physics.addItem( tileX, tileY, ability );
         if ( now != prev )
         {
             graphics.playSound( "place_token" );
         }
         if ( prev != now )
         {
-            solutionRecorder.append( new PlaceTokenAction( tileX, tileY ) );
+            solutionRecorder.append( new PlaceItemAction( tileX, tileY ) );
         }
         return now;
     }

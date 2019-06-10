@@ -126,9 +126,9 @@ public class TextGameLaunch implements GameLaunch
         {
             terminal.out.println(
                 t(
-                    "${token}: ${number_left}${selected}",
+                    "${item}: ${number_left}${selected}",
                     newMap(
-                        "token", entry.getKey().name(),
+                        "item", entry.getKey().name(),
                         "number_left", String.valueOf( entry.getValue() ),
                         "selected", isSelected( entry.getKey() ) ? "*" : ""
                     )

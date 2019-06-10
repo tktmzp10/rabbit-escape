@@ -1,11 +1,11 @@
 package rabbitescape.engine.solution;
 
-public class PlaceTokenAction implements CommandAction, TimeStepAction {
+public class PlaceItemAction implements CommandAction, TimeStepAction {
 
     public final int x;
     public final int y;
 
-    public PlaceTokenAction(int x, int y) {
+    public PlaceItemAction(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -20,15 +20,15 @@ public class PlaceTokenAction implements CommandAction, TimeStepAction {
 
     @Override
     public String toString() {
-        return "PlaceTokenAction( " + x + ", " + y + " )";
+        return "PlaceItemAction( " + x + ", " + y + " )";
     }
 
     @Override
     public boolean equals(Object otherObj) {
-        if (!(otherObj instanceof PlaceTokenAction)) {
+        if (!(otherObj instanceof PlaceItemAction)) {
             return false;
         }
-        PlaceTokenAction other = (PlaceTokenAction) otherObj;
+        PlaceItemAction other = (PlaceItemAction) otherObj;
 
         return (x == other.x && y == other.y);
     }
@@ -40,11 +40,11 @@ public class PlaceTokenAction implements CommandAction, TimeStepAction {
 
     @Override
     public void typeSwitch(CommandActionTypeSwitch actionTypeSwitch) {
-        actionTypeSwitch.casePlaceTokenAction(this);
+        actionTypeSwitch.casePlaceItemAction(this);
     }
 
     @Override
     public void typeSwitch(TimeStepActionTypeSwitch timeStepActionTypeSwitch) {
-        timeStepActionTypeSwitch.casePlaceTokenAction(this);
+        timeStepActionTypeSwitch.casePlaceItemAction(this);
     }
 }

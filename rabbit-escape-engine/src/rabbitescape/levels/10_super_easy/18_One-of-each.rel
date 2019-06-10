@@ -1,9 +1,9 @@
 :name=One of each
-:description=Try to solve this using one of each token
+:description=Try to solve this using one of each item
 :author_name=Andy Balaam
 :author_url=http://artificialworlds.net/rabbit-escape
 :hint.1=Dig through the rightmost piece of bridge.  Block on the far-left square under the bridge.  Explode the rabbot.
-:hint.2=Place a bridge token just before the big gap, and a climb token to the left of that (under the metal).
+:hint.2=Place a bridge item just before the big gap, and a climb item to the left of that (under the metal).
 :hint.3=Bash through towards the right and float just before falling down to the exit.
 :solution.1=;dig;(1,2);block;;(0,3);explode;;(5,3);;bridge;bash;3;bridge;(5,3);3;climb;;(4,3);2;brolly;;(8,0);2;bash;2;(2,4);23;explode;(0,3);until:WON
 :num_rabbits=2

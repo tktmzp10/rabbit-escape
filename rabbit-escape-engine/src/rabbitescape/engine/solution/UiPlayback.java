@@ -7,7 +7,7 @@ package rabbitescape.engine.solution;
  */
 public interface UiPlayback {
 
-    void selectToken(SelectAction selectAction);
+    void selectItem(SelectAction selectAction);
 
-    void placeToken(PlaceTokenAction placeTokenAction);
+    void placeItem(PlaceItemAction placeItemAction);
 }

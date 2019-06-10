@@ -69,7 +69,7 @@ public class TestPhysics
                 {
                     for ( int i = 0; i < num_iters; ++i )
                     {
-                        modifier.addToken( 5, 0, ItemType.climb );
+                        modifier.addItem( 5, 0, ItemType.climb );
                     }
                 }
                 catch ( Throwable e )
@@ -218,7 +218,7 @@ public class TestPhysics
         assertEquals( 0, world.things.size() );
 
         // This is what we are testing - add the token
-        physics.addToken( 1, 1, ItemType.bash );
+        physics.addItem( 1, 1, ItemType.bash );
 
         // Allow the change to happen
         world.step();
@@ -247,12 +247,12 @@ public class TestPhysics
             world, winListener, false );
 
         // Add 1 - should work
-        physics.addToken( 1, 1, ItemType.bash );
+        physics.addItem( 1, 1, ItemType.bash );
         world.step();
         assertEquals( 1, world.things.size() );
 
         // This is what we are testing - add another, but you don't have it
-        physics.addToken( 1, 1, ItemType.bash );
+        physics.addItem( 1, 1, ItemType.bash );
 
         // It was not added - there still only 1 thing
         assertEquals( 1, world.things.size() );
@@ -274,16 +274,16 @@ public class TestPhysics
             world, winListener, false );
 
         // Add 1 - 1 left
-        assertEquals( 1, physics.addToken( 1, 1, ItemType.bash ) );
+        assertEquals( 1, physics.addItem( 1, 1, ItemType.bash ) );
 
         // Add another, 0 left
-        assertEquals( 0, physics.addToken( 1, 1, ItemType.bash ) );
+        assertEquals( 0, physics.addItem( 1, 1, ItemType.bash ) );
 
         // Try to add more, still 0 left
-        assertEquals( 0, physics.addToken( 1, 1, ItemType.bash ) );
+        assertEquals( 0, physics.addItem( 1, 1, ItemType.bash ) );
 
         // Different type is independent
-        assertEquals( 11, physics.addToken( 1, 1, ItemType.climb ) );
+        assertEquals( 11, physics.addItem( 1, 1, ItemType.climb ) );
     }
 
     @Test
@@ -301,22 +301,22 @@ public class TestPhysics
             world, winListener, false );
 
         // Off the left does not add
-        physics.addToken( -1, 1, ItemType.bash );
+        physics.addItem( -1, 1, ItemType.bash );
         world.step();
         assertEquals( 0, world.things.size() );
 
         // Off the right does not add
-        physics.addToken( 8, 1, ItemType.bash );
+        physics.addItem( 8, 1, ItemType.bash );
         world.step();
         assertEquals( 0, world.things.size() );
 
         // Off the top does not add
-        physics.addToken( 1, -1, ItemType.bash );
+        physics.addItem( 1, -1, ItemType.bash );
         world.step();
         assertEquals( 0, world.things.size() );
 
         // Off the bottom does not add
-        physics.addToken( 1, 3, ItemType.bash );
+        physics.addItem( 1, 3, ItemType.bash );
         world.step();
         assertEquals( 0, world.things.size() );
     }
@@ -337,7 +337,7 @@ public class TestPhysics
 
         // Paused does not add
         world.setPaused( true );
-        physics.addToken( 1, 1, ItemType.bash );
+        physics.addItem( 1, 1, ItemType.bash );
 
         // Unpause to step and check
         world.setPaused( false );
@@ -345,7 +345,7 @@ public class TestPhysics
         assertEquals( 0, world.things.size() );
 
         // Unpaused does add
-        physics.addToken( 1, 1, ItemType.bash );
+        physics.addItem( 1, 1, ItemType.bash );
         world.step();
         assertEquals( 1, world.things.size() );
     }
@@ -404,7 +404,7 @@ public class TestPhysics
         assertFalse( myListener.changedCalled );
 
         // Change something that changes stats
-        physics.addToken( 1, 1, ItemType.block );
+        physics.addItem( 1, 1, ItemType.block );
 
         // This is what we are testing - step the world
         for ( int i = 0; i < 10; ++i )

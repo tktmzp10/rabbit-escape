@@ -2,7 +2,7 @@
 :description=Can you find all seven solutions?
 :author_name=Andy Balaam
 :author_url=http://artificialworlds.net/rabbit-escape
-:hint.1=Place a bash token on the middle floating block.
+:hint.1=Place a bash item on the middle floating block.
 :hint.2=Or, dig through one of the bridges.
 :hint.3=Or, bridge rightwards from the middle floating block, or try to find the other four solutions, or some extra ones!
 :solution.1=;bash;;(4,3);until:WON

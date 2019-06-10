@@ -87,7 +87,7 @@ public class SolutionParser {
         } else {
             Matcher m = PLACE_TOKEN_REGEX.matcher(actionString);
             if (m.matches()) {
-                return new PlaceTokenAction(
+                return new PlaceItemAction(
                     Integer.valueOf(m.group(1)),
                     Integer.valueOf(m.group(2)));
             }
@@ -139,8 +139,8 @@ public class SolutionParser {
         }
 
         @Override
-        public void casePlaceTokenAction(PlaceTokenAction placeTokenAction) {
-            ret = "(" + placeTokenAction.x + "," + placeTokenAction.y + ")";
+        public void casePlaceItemAction(PlaceItemAction placeItemAction) {
+            ret = "(" + placeItemAction.x + "," + placeItemAction.y + ")";
         }
 
         @Override

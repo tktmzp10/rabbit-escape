@@ -62,7 +62,7 @@ public abstract class Item extends Thing {
             y++;
 
             if (y >= world.size.height) {
-                world.changes.removeToken(this);
+                world.changes.removeItem(this);
             }
         }
     }

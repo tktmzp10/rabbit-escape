@@ -105,7 +105,7 @@ public class SolutionExceptions {
     /**
      * We placed a token outside the size of this world.
      */
-    public static class PlacedTokenOutsideWorld extends ProblemRunningSolution {
+    public static class PlacedItemOutsideWorld extends ProblemRunningSolution {
 
         private static final long serialVersionUID = 1L;
 
@@ -114,7 +114,7 @@ public class SolutionExceptions {
         public final int worldWidth;
         public final int worldHeight;
 
-        public PlacedTokenOutsideWorld(
+        public PlacedItemOutsideWorld(
             int x,
             int y,
             int worldWidth,
@@ -131,7 +131,7 @@ public class SolutionExceptions {
      * We placed a token but the world wouldn't accept it (presumably because there was a block at
      * that position).
      */
-    public static class FailedToPlaceToken extends ProblemRunningSolution {
+    public static class FailedToPlaceItem extends ProblemRunningSolution {
 
         private static final long serialVersionUID = 1L;
 
@@ -139,7 +139,7 @@ public class SolutionExceptions {
         public final int y;
         public final ItemType type;
 
-        public FailedToPlaceToken(
+        public FailedToPlaceItem(
             int x,
             int y,
             ItemType type

@@ -1,6 +1,6 @@
 package rabbitescape.ui.swing;
 
-import rabbitescape.engine.solution.PlaceTokenAction;
+import rabbitescape.engine.solution.PlaceItemAction;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.engine.solution.UiPlayback;
 
@@ -14,16 +14,16 @@ public class SwingPlayback implements UiPlayback
     }
 
     @Override
-    public void selectToken( SelectAction selectAction )
+    public void selectItem( SelectAction selectAction )
     {
         launch.solutionRecorder.append( selectAction );
         launch.getUi().chooseAbility( selectAction.type );
     }
 
     @Override
-    public void placeToken( PlaceTokenAction placeTokenAction )
+    public void placeItem( PlaceItemAction placeItemAction)
     {
-        launch.getUi().addToken( placeTokenAction.x, placeTokenAction.y );
+        launch.getUi().addItem( placeItemAction.x, placeItemAction.y );
     }
 
 

@@ -15,18 +15,18 @@ import rabbitescape.engine.things.Item;
 import rabbitescape.engine.World;
 import rabbitescape.engine.things.items.ItemType;
 
-public class TestTokens {
+public class TestItems {
     // TODO: slopes and bridges
 
     @Test
-    public void Tokens_return_their_state_names_lowercase() {
+    public void Items_return_their_state_names_lowercase() {
         Item t = new BashItem(1, 2);
         t.state = TOKEN_BASH_FALLING;
         assertThat(t.stateName(), equalTo("token_bash_falling"));
     }
 
     @Test
-    public void Tokens_fall_slowly_and_stop_on_ground() {
+    public void Items_fall_slowly_and_stop_on_ground() {
         assertWorldEvolvesLike(
             "bdikcp" + "\n" +
                 "      " + "\n" +
@@ -61,7 +61,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_disappear_when_they_drop_outside_world() {
+    public void Items_disappear_when_they_drop_outside_world() {
         World world = createWorld(
             "bdikc",
             "     "
@@ -82,48 +82,48 @@ public class TestTokens {
     }
 
     @Test
-    public void Can_add_tokens_on_empty_and_sloping_blocks() {
+    public void Can_add_items_on_empty_and_sloping_blocks() {
         World world = createWorld(
             "\\) (/",  // 2 slopes, 2 bridges
             "#####",
             ":dig=5"
         );
 
-        // Sanity - no tokens yet
+        // Sanity - no items yet
         assertThat(world.things.size(), equalTo(0));
         assertThat(world.abilities.get(ItemType.dig), equalTo(5));
 
-        // This is what we are testing: add tokens on slopes, bridges, space
-        world.changes.addToken(0, 0, ItemType.dig);
-        world.changes.addToken(1, 0, ItemType.dig);
-        world.changes.addToken(2, 0, ItemType.dig);
-        world.changes.addToken(3, 0, ItemType.dig);
-        world.changes.addToken(4, 0, ItemType.dig);
+        // This is what we are testing: add items on slopes, bridges, space
+        world.changes.addItem(0, 0, ItemType.dig);
+        world.changes.addItem(1, 0, ItemType.dig);
+        world.changes.addItem(2, 0, ItemType.dig);
+        world.changes.addItem(3, 0, ItemType.dig);
+        world.changes.addItem(4, 0, ItemType.dig);
         world.step();
 
-        // All 4 tokens were added
+        // All 4 items were added
         assertThat(world.things.size(), equalTo(5));
         assertThat(world.abilities.get(ItemType.dig), equalTo(0));
     }
 
     @Test
-    public void Cant_add_tokens_on_solid_blocks() {
+    public void Cant_add_items_on_solid_blocks() {
         World world = createWorld(
             "\\) (/",  // 2 slopes, 2 bridges
             "#####",
             ":dig=5"
         );
 
-        // Sanity - no tokens yet
+        // Sanity - no items yet
         assertThat(world.things.size(), equalTo(0));
         assertThat(world.abilities.get(ItemType.dig), equalTo(5));
 
-        // This is what we are testing: add tokens on solid blocks
-        world.changes.addToken(0, 1, ItemType.dig);
-        world.changes.addToken(1, 1, ItemType.dig);
-        world.changes.addToken(2, 1, ItemType.dig);
-        world.changes.addToken(3, 1, ItemType.dig);
-        world.changes.addToken(4, 1, ItemType.dig);
+        // This is what we are testing: add items on solid blocks
+        world.changes.addItem(0, 1, ItemType.dig);
+        world.changes.addItem(1, 1, ItemType.dig);
+        world.changes.addItem(2, 1, ItemType.dig);
+        world.changes.addItem(3, 1, ItemType.dig);
+        world.changes.addItem(4, 1, ItemType.dig);
         world.step();
 
         // None of them were were added
@@ -132,7 +132,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_do_not_fall_through_half_built_bridges_from_down_slope() {
+    public void Items_do_not_fall_through_half_built_bridges_from_down_slope() {
         assertWorldEvolvesLike(
             "r d" + "\n" +
                 "#* " + "\n" +
@@ -153,7 +153,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_do_not_fall_through_half_built_bridges_from_flat() {
+    public void Items_do_not_fall_through_half_built_bridges_from_flat() {
         assertWorldEvolvesLike(
             "  d" + "\n" +
                 "ri " + "\n" +
@@ -178,7 +178,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_do_not_fall_through_half_built_bridges_from_up_slope() {
+    public void Items_do_not_fall_through_half_built_bridges_from_up_slope() {
         assertWorldEvolvesLike(
             "  d" + "\n" +
                 "   " + "\n" +
@@ -209,7 +209,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_do_not_fall_through_half_built_bridges_in_tight_corners() {
+    public void Items_do_not_fall_through_half_built_bridges_in_tight_corners() {
         assertWorldEvolvesLike(
             " d " + "\n" +
                 "#r#" + "\n" +
@@ -240,11 +240,11 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_falling_onto_bridgers_in_corner_take_effect() {
+    public void Items_falling_onto_bridgers_in_corner_take_effect() {
         // This looks like the character catches it when it's off to the side,
         // because really the character is stuck in a hole, so it's not too
         // bad, but inconsistent with
-        // Tokens_do_not_fall_through_half_built_bridges_in_tight_corners
+        // Items_do_not_fall_through_half_built_bridges_in_tight_corners
 
         assertWorldEvolvesLike(
             " d#" + "\n" +
@@ -265,7 +265,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Rabbits_falling_to_death_do_not_consume_tokens() {
+    public void Rabbits_falling_to_death_do_not_consume_items() {
         World world = createWorld(
             " r       ",
             "  j      ",
@@ -311,7 +311,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Rabbits_falling_and_living_do_consume_tokens() {
+    public void Rabbits_falling_and_living_do_consume_items() {
         World world = createWorld(
             " r       ",
             "   r   r ",
@@ -335,7 +335,7 @@ public class TestTokens {
     }
 
     @Test
-    public void Tokens_start_off_in_non_falling_states() {
+    public void Items_start_off_in_non_falling_states() {
         // See https://github.com/andybalaam/rabbit-escape/issues/447
 
         World world = createWorld(

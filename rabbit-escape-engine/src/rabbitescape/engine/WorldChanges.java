@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.World.CantAddTokenOutsideWorld;
+import rabbitescape.engine.World.CantAddItemOutsideWorld;
 import rabbitescape.engine.World.NoBlockFound;
 import rabbitescape.engine.World.NoSuchAbilityInThisWorld;
 import rabbitescape.engine.World.NoneOfThisAbilityLeft;
-import rabbitescape.engine.World.UnableToAddToken;
+import rabbitescape.engine.World.UnableToAddItem;
 import rabbitescape.engine.things.Item;
 import rabbitescape.engine.things.items.ItemFactory;
 import rabbitescape.engine.things.items.ItemType;
@@ -25,8 +25,8 @@ public class WorldChanges {
     private final List<Character> charactersToEnter = new ArrayList<Character>();
     private final List<Character> charactersToKill = new ArrayList<Character>();
     private final List<Character> charactersToSave = new ArrayList<Character>();
-    private final List<Item> tokensToAdd = new ArrayList<Item>();
-    public final List<Item> tokensToRemove = new ArrayList<Item>();
+    private final List<Item> itemsToAdd = new ArrayList<Item>();
+    public final List<Item> itemsToRemove = new ArrayList<Item>();
     public final List<Fire> fireToRemove = new ArrayList<Fire>();
     private final List<Block> blocksToAdd = new ArrayList<Block>();
     private final List<Block> blocksToRemove = new ArrayList<Block>();
@@ -50,13 +50,13 @@ public class WorldChanges {
             rabbit.calcNewState(world);
         }
         world.rabbits.addAll(charactersToEnter);
-        world.things.addAll(tokensToAdd);
+        world.things.addAll(itemsToAdd);
         world.blockTable.addAll(blocksToAdd);
 
-        // Remove dead/saved rabbits, used tokens, dug out blocks
+        // Remove dead/saved rabbits, used items, dug out blocks
         world.rabbits.removeAll(charactersToKill);
         world.rabbits.removeAll(charactersToSave);
-        world.things.removeAll(tokensToRemove);
+        world.things.removeAll(itemsToRemove);
         world.things.removeAll(fireToRemove);
         world.blockTable.removeAll(blocksToRemove);
 
@@ -71,8 +71,8 @@ public class WorldChanges {
         charactersToEnter.clear();
         charactersToKill.clear();
         charactersToSave.clear();
-        tokensToAdd.clear();
-        tokensToRemove.clear();
+        itemsToAdd.clear();
+        itemsToRemove.clear();
         fireToRemove.clear();
         blocksToAdd.clear();
         blocksToRemove.clear();
@@ -98,8 +98,8 @@ public class WorldChanges {
         revertEnterRabbits();
         revertKillRabbits();
         revertSaveRabbits();
-        revertAddTokens();
-        tokensToRemove.clear();
+        revertAddItems();
+        itemsToRemove.clear();
         blocksToAdd.clear();
         blocksToRemove.clear();
         waterPointsToRecalculate.clear();
@@ -141,15 +141,15 @@ public class WorldChanges {
         charactersToSave.add(character);
     }
 
-    private synchronized void revertAddTokens() {
-        for (Item t : tokensToAdd) {
+    private synchronized void revertAddItems() {
+        for (Item t : itemsToAdd) {
             world.abilities.put(t.getType(), world.abilities.get(t.getType()) + 1);
         }
-        tokensToAdd.clear();
+        itemsToAdd.clear();
     }
 
-    public synchronized void addToken(int x, int y, ItemType type)
-        throws UnableToAddToken {
+    public synchronized void addItem(int x, int y, ItemType type)
+        throws UnableToAddItem {
         Integer numLeft = world.abilities.get(type);
 
         if (numLeft == null) {
@@ -161,7 +161,7 @@ public class WorldChanges {
         }
 
         if (x < 0 || y < 0 || x >= world.size.width || y >= world.size.height) {
-            throw new CantAddTokenOutsideWorld(type, x, y, world.size);
+            throw new CantAddItemOutsideWorld(type, x, y, world.size);
         }
 
         Block block = world.getBlockAt(x, y);
@@ -169,12 +169,12 @@ public class WorldChanges {
             return;
         }
 
-        tokensToAdd.add(ItemFactory.createItem(x, y, type, world));
+        itemsToAdd.add(ItemFactory.createItem(x, y, type, world));
         world.abilities.put(type, numLeft - 1);
     }
 
-    public synchronized void removeToken(Item thing) {
-        tokensToRemove.add(thing);
+    public synchronized void removeItem(Item thing) {
+        itemsToRemove.add(thing);
     }
 
     public synchronized void removeFire(Fire thing) {
@@ -197,8 +197,8 @@ public class WorldChanges {
         waterPointsToRecalculate.add(new Position(x, y));
     }
 
-    public synchronized List<Thing> tokensAboutToAppear() {
-        return new ArrayList<Thing>(tokensToAdd);
+    public synchronized List<Thing> itemsAboutToAppear() {
+        return new ArrayList<Thing>(itemsToAdd);
     }
 
     public synchronized void explodeAllRabbits() {
