@@ -5,14 +5,14 @@ import rabbitescape.engine.newstates.item_states.ItemState;
 public abstract class ExplodeItemState extends ItemState {
 
     @Override
-    public ItemState newState(boolean isMoving, boolean isSlopeBelow, boolean isOnSlope) {
+    public ItemState newState() {
         ItemState newState;
 
-        if (isOnSlope) {
+        if (isOnSlope()) {
             newState = new ExplodeOnSlope();
-        } else if (!isMoving) {
+        } else if (!isMoving()) {
             newState = new ExplodeStill();
-        } else if (isSlopeBelow) {
+        } else if (isSlopeBelow()) {
             newState = new ExplodeFallToSlope();
         } else {
             newState = new ExplodeFalling();

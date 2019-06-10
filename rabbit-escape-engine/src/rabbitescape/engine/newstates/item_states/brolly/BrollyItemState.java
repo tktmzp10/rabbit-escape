@@ -5,14 +5,14 @@ import rabbitescape.engine.newstates.item_states.ItemState;
 public abstract class BrollyItemState extends ItemState {
 
     @Override
-    public ItemState newState(boolean isMoving, boolean isSlopeBelow, boolean isOnSlope) {
+    public ItemState newState() {
         ItemState newState;
 
-        if (isOnSlope) {
+        if (isOnSlope()) {
             newState = new BrollyOnSlope();
-        } else if (!isMoving) {
+        } else if (!isMoving()) {
             newState = new BrollyStill();
-        } else if (isSlopeBelow) {
+        } else if (isSlopeBelow()) {
             newState = new BrollyFallToSlope();
         } else {
             newState = new BrollyFalling();
