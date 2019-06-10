@@ -1,8 +1,8 @@
 package rabbitescape.engine.things.items;
 
 import rabbitescape.engine.World;
-import rabbitescape.engine.newstates.ItemState;
-import rabbitescape.engine.newstates.item_states.bridge.BridgeFallToSlope;
+import rabbitescape.engine.new_states.ItemState;
+import rabbitescape.engine.new_states.item_states.bridge.BridgeFallToSlope;
 import rabbitescape.engine.things.Item;
 
 public class BridgeItem extends Item {

@@ -7,10 +7,10 @@ import java.util.Map;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.newstates.CharacterStates;
-import rabbitescape.engine.newstates.character_states.actions.*;
-import rabbitescape.engine.newstates.character_states.behaviours.*;
-import rabbitescape.engine.newstates.character_states.actions.Falling;
+import rabbitescape.engine.new_states.CharacterStates;
+import rabbitescape.engine.new_states.character_states.actions.*;
+import rabbitescape.engine.new_states.character_states.behaviours.*;
+import rabbitescape.engine.new_states.character_states.actions.Falling;
 
 public abstract class Character extends Thing implements Comparable<Character> {
 

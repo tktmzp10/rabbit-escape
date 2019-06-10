@@ -2,6 +2,11 @@ package rabbitescape.engine.things.environment.fire;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_b_states.FireBFallToRiseLeft;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_b_states.FireBFallToRiseRight;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_b_states.FireBFalling;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_b_states.FireBRiseLeft;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_b_states.FireBRiseRight;
 import rabbitescape.engine.things.environment.Fire;
 
 
@@ -9,31 +14,30 @@ public class Fire_B extends Fire {
 
     public Fire_B(int x, int y) {
         super(x, y, FIRE_B);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public void changeStateRiseLeft() {
-        state = FIRE_B_RISE_LEFT;
+        setEnvironmentState( new FireBRiseLeft() );
     }
 
     @Override
     public void changeStateRiseRight() {
-        state = FIRE_B_RISE_RIGHT;
+        setEnvironmentState( new FireBRiseRight() );
     }
 
     @Override
     public void changeStateFalling() {
-        state = FIRE_B_FALLING;
+        setEnvironmentState( new FireBFalling() );
     }
 
     @Override
     public void changeStateFallToRiseRight() {
-        state = FIRE_B_FALL_TO_RISE_RIGHT;
+        setEnvironmentState( new FireBFallToRiseRight() );
     }
 
     @Override
     public void changeStateFallToRiseLeft() {
-        state = FIRE_B_FALL_TO_RISE_LEFT;
+        setEnvironmentState( new FireBFallToRiseLeft() );
     }
 }

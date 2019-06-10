@@ -2,7 +2,11 @@ package rabbitescape.engine.things.environment.fire;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-import rabbitescape.engine.newstates.environment_states.fire_states.FireARiseLeft;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_a_states.FireAFallToRiseLeft;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_a_states.FireAFallToRiseRight;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_a_states.FireAFalling;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_a_states.FireARiseLeft;
+import rabbitescape.engine.new_states.environment_states.fire_states.fire_a_states.FireARiseRight;
 import rabbitescape.engine.things.environment.Fire;
 
 public class Fire_A extends Fire {
@@ -18,21 +22,21 @@ public class Fire_A extends Fire {
 
     @Override
     public void changeStateRiseRight() {
-        state = FIRE_A_RISE_RIGHT;
+        setEnvironmentState( new FireARiseRight() );
     }
 
     @Override
     public void changeStateFalling() {
-        state = FIRE_A_FALLING;
+        setEnvironmentState( new FireAFalling() );
     }
 
     @Override
     public void changeStateFallToRiseRight() {
-        state = FIRE_A_FALL_TO_RISE_RIGHT;
+        setEnvironmentState( new FireAFallToRiseRight() );
     }
 
     @Override
     public void changeStateFallToRiseLeft() {
-        state = FIRE_A_FALL_TO_RISE_LEFT;
+        setEnvironmentState( new FireAFallToRiseLeft() );
     }
 }

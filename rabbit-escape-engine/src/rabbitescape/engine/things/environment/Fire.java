@@ -1,7 +1,6 @@
 package rabbitescape.engine.things.environment;
 
 import static rabbitescape.engine.BridgeTools.someoneIsBridgingAt;
-import static rabbitescape.engine.ChangeDescription.State.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +10,8 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.World;
-import rabbitescape.engine.newstates.EnvironmentStates;
-import rabbitescape.engine.newstates.environment_states.fire_states.FireExtinguishing;
-import rabbitescape.engine.things.environment.fire.Fire_A;
-import rabbitescape.engine.things.environment.fire.Fire_B;
-import rabbitescape.engine.things.environment.fire.Fire_C;
-import rabbitescape.engine.things.environment.fire.Fire_D;
+import rabbitescape.engine.new_states.EnvironmentStates;
+import rabbitescape.engine.new_states.environment_states.fire_states.FireExtinguishing;
 
 public abstract class Fire extends Thing {
 

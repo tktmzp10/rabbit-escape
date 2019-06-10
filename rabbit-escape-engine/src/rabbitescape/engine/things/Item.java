@@ -7,7 +7,7 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.BridgeTools;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.World;
-import rabbitescape.engine.newstates.ItemState;
+import rabbitescape.engine.new_states.ItemState;
 import rabbitescape.engine.things.items.ItemType;
 
 public abstract class Item extends Thing {
