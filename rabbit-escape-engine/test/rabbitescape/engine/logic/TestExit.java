@@ -203,6 +203,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(3));
     }
 
+    /**
+     * Purpose: To test rabbit is exiting using climbing actions.
+     * Input:
+     * steps to exit = 6
+     * World maps that Rabbit reaches Exit using climbing actions.
+     * Expected: Rabbit exits exactly after six steps.
+     */
     @Test
     public void Climb_into_exit() {
         // Has a trap to see if the character climbed past
