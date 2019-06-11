@@ -275,6 +275,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(0));
     }
 
+    /**
+     * Purpose: To test rabbot can't exit.
+     * Input:
+     * steps to exit = 4
+     * World maps instances that rabbot meets exit.
+     * Expected: Rabbot ignore the exit.
+     */
     @Test
     public void Rabbots_ignore_the_exit() {
         assertWorldEvolvesLike(
