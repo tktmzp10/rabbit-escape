@@ -134,6 +134,11 @@ public class TestExit {
 
     }
 
+    /**
+     * Purpose: To test world class maintaining the number of escaped rabbits.
+     * Input: World maps that four Rabbit reaches Exit
+     * Expected: the saved number of rabbit in world instance is 4.
+     */
     @Test
     public void World_keeps_score() {
         World world = createWorld(
