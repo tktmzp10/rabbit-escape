@@ -42,6 +42,12 @@ public class TestDrowning {
         );
     }
 
+    /**
+     * Purpose: To test rabbot dosen't drowns when pipes pump water on the rabbit.
+     * Input:
+     * World maps instances that pipes pump water on the rabbot.
+     * Expected: Rabbot is not elimintaed.
+     */
     @Test
     public void rabbits_drown_but_rabbots_dont() {
         assertWorldEvolvesLike(
