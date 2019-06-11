@@ -35,6 +35,13 @@ public class TestOutOfBounds {
         );
     }
 
+    /**
+     * Purpose: To test rabbit dies when it falls to out of bounds.
+     * Input:
+     * steps to death = 2
+     * World maps instances that rabbit is falling to out of bounds.
+     * Expected: Rabbit instance is to be eliminated.
+     */
     @Test
     public void Die_if_fall_out_of_bounds() {
         assertRabbitDeadAfter(
