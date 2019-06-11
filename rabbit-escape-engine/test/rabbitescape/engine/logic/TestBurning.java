@@ -28,6 +28,27 @@ public class TestBurning {
         );
     }
 
+    /**
+     * Purpose: To test rabbit is dying when it meets fire on slopes
+     * Input:
+     * steps to reach death = 5
+     * World maps
+     * "     A#",
+     * "     /#",
+     * " r  /##",
+     * "#######"
+     * Expected: Rabbit dies exactly after five steps.
+     */
+    @Test
+    public void Burning_on_slope_test(){
+        assertRabbitDeadAfter( 5,
+            "     A#",
+            "     /#",
+            " r  /##",
+            "#######"
+        );
+    }
+
     private void assertRabbitDeadAfter(int stepsToDeath, String... worldLines) {
         World world = createWorld(worldLines);
 
