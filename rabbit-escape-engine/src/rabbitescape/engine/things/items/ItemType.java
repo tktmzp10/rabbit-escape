@@ -1,6 +1,7 @@
 package rabbitescape.engine.things.items;
 
 public enum ItemType {
+    empty,
     bash,
     dig,
     bridge,
