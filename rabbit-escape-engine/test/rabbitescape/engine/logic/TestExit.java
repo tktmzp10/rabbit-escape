@@ -12,6 +12,15 @@ import rabbitescape.engine.World;
 
 public class TestExit {
 
+    /**
+     * Purpose: To test rabbit is exiting on grounds
+     * Input:
+     * steps to exit = 4
+     * World maps
+     * "r  O ",
+     * "#####"
+     * Expected: Rabbit exits exactly after four steps.
+     */
     @Test
     public void Rabbit_disappears_into_exit() {
         World world = createWorld(
