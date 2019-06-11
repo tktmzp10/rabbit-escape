@@ -79,6 +79,12 @@ public class TestDrowning {
         );
     }
 
+    /**
+     * Purpose: To test rabbit drowns on slopes.
+     * Input:
+     * World maps instances that rabbit drowns on slopes.
+     * Expected: Rabbit is elimintaed.
+     */
     @Test
     public void rabbits_drown_on_slopes() {
         assertWorldEvolvesLike(
