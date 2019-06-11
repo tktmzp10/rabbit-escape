@@ -176,6 +176,14 @@ public class TestDrowning {
         );
     }
 
+
+    /**
+     * Purpose: To test bashing can cause drowning.
+     * Input:
+     * World maps instances that bashing cause drowning.
+     * Expected: Rabbit is elimintaed.
+     */
+
     @Test
     public void bashing_can_cause_drowning() {
         assertWorldEvolvesLike(
