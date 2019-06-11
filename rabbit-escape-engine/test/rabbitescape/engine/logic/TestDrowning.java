@@ -6,6 +6,12 @@ import org.junit.Test;
 
 public class TestDrowning {
 
+    /**
+     * Purpose: To test rabbit drowns when pipes pump water on the rabbit.
+     * Input:
+     * World maps instances that pipes pump water on the rabbit.
+     * Expected: Rabbit is elimintaed.
+     */
     @Test
     public void rabbits_drown_when_pipes_pump_water_on_them() {
         assertWorldEvolvesLike(
