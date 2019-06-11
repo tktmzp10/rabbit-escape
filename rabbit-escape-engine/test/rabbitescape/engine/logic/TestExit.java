@@ -69,6 +69,41 @@ public class TestExit {
         );
     }
 
+    /**
+     * Purpose: To test rabbit is exiting on climbing right
+     * Input:
+     * steps to exit = 6
+     * World maps
+     * "     "
+     * " O# #"
+     * "  ###"
+     * "rc#  "
+     * "###  "
+     * "#####"
+     * Expected: Rabbit exits exactly after six steps.
+     */
+    @Test
+    public void EnteringExitClimbingRight() {
+        World world = createWorld(
+            "     ",
+            " O# #",
+            "  ###",
+            "rc#  ",
+            "###  "
+        );
+
+        assertWorldEvolvesLike(
+            world,
+            6,
+            new String[]{
+                "     ",
+                " O# #",
+                "  ###",
+                "  #  ",
+                "###  "
+            });
+    }
+
     @Test
     public void World_keeps_score() {
         World world = createWorld(
