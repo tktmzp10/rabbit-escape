@@ -236,6 +236,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(1));
     }
 
+    /**
+     * Purpose: To test rabbit can't exit when it is falling.
+     * Input:
+     * steps to exit = 5
+     * World maps that six rabbit reaches exit with falling states.
+     * Expected: All rabbits must die. saved number of world instance should be 0.
+     */
     @Test
     public void Fall_past_exit() {
         // All must die
