@@ -7,7 +7,7 @@ import rabbitescape.engine.things.Character;
 public class NotDigging implements IDiggingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 

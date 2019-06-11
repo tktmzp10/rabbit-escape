@@ -7,7 +7,7 @@ import rabbitescape.engine.things.Character;
 public class NotCrashing implements ICrashingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 

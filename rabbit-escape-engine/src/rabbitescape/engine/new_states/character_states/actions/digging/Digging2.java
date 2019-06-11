@@ -9,7 +9,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING_2;
 public class Digging2 implements IDiggingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_DIGGING_2;
     }
 

@@ -9,7 +9,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING_USELESS
 public class DiggingUselessly implements IDiggingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_DIGGING_USELESSLY;
     }
 

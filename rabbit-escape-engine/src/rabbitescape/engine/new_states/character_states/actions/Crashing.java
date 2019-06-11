@@ -48,7 +48,7 @@ public class Crashing extends CharacterActionStates {
             setCrashingState(new CrashingNormal());
         }
 
-        return crashingState.newState();
+        return crashingState.getState();
     }
 
     @Override

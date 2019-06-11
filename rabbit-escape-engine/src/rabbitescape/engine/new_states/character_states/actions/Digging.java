@@ -39,7 +39,7 @@ public class Digging extends CharacterActionStates {
     public State newState(BehaviourTools t, boolean triggered) {
         if (!triggered && stepsOfDigging == 0) {
             setDiggingState(new NotDigging());
-            return diggingState.newState();
+            return diggingState.getState();
         }
 
         t.character.possiblyUndoSlopeBashHop(t.world);
@@ -47,7 +47,7 @@ public class Digging extends CharacterActionStates {
         if (t.character.state == RABBIT_DIGGING) {
             stepsOfDigging = 1;
             setDiggingState(new Digging2());
-            return diggingState.newState();
+            return diggingState.getState();
         }
 
         if (triggered || stepsOfDigging > 0) {
@@ -56,7 +56,7 @@ public class Digging extends CharacterActionStates {
             newStateWhenNotActive();
         }
 
-        return diggingState.newState();
+        return diggingState.getState();
     }
 
     private void newStateWhenActive(BehaviourTools t) {

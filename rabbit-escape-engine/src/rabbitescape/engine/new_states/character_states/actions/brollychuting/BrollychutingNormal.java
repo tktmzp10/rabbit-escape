@@ -9,7 +9,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_BROLLYCHUTING;
 public class BrollychutingNormal implements IBrollychutingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_BROLLYCHUTING;
     }
 

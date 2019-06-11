@@ -7,7 +7,7 @@ import rabbitescape.engine.things.Character;
 public class NotWaiting implements IWaitingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 

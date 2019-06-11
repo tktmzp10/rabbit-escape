@@ -9,7 +9,7 @@ import static rabbitescape.engine.ChangeDescription.State.RABBIT_DIGGING_ON_SLOP
 public class DiggingOnSlope implements IDiggingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return RABBIT_DIGGING_ON_SLOPE;
     }
 

@@ -39,7 +39,7 @@ public class Brollychuting extends CharacterActionStates {
         Block below = t.blockBelow();
 
         if (newStateNotBrollychuting(t, below)) {
-            return brollychutingState.newState();
+            return brollychutingState.getState();
         }
 
         if (below != null) {
@@ -58,7 +58,7 @@ public class Brollychuting extends CharacterActionStates {
         }
         setBrollychutingState(new BrollychutingNormal());
 
-        return brollychutingState.newState();
+        return brollychutingState.getState();
     }
 
     private boolean newStateNotBrollychuting(BehaviourTools t, Block below) {

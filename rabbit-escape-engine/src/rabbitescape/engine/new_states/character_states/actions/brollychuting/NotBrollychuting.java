@@ -7,7 +7,7 @@ import rabbitescape.engine.things.Character;
 public class NotBrollychuting implements IBrollychutingState {
 
     @Override
-    public State newState() {
+    public State getState() {
         return null;
     }
 

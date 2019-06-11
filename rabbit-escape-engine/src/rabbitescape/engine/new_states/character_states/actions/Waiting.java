@@ -94,7 +94,7 @@ public class Waiting extends CharacterActionStates {
             );
         }
 
-        return waitingState.newState();
+        return waitingState.getState();
     }
 
     @Override
