@@ -11,6 +11,13 @@ import rabbitescape.engine.World;
 
 public class TestOutOfBounds {
 
+    /**
+     * Purpose: To test rabbit dies when it walks out of bounds.
+     * Input:
+     * steps to death = 5
+     * World maps instances that rabbit walks to out of bounds.
+     * Expected: Rabbit instance is to be eliminated.
+     */
     @Test
     public void Die_if_walk_out_of_bounds() {
         assertRabbitDeadAfter(
