@@ -158,6 +158,11 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(4));
     }
 
+    /**
+     * Purpose: To test world class maintaining the number of escaped rabbits.
+     * Input: World maps that three Rabbit reaches Exit
+     * Expected: the saved number of rabbit in world instance is 3.
+     */
     @Test
     public void Splatting_prevents_exit() {
         World world = createWorld(
