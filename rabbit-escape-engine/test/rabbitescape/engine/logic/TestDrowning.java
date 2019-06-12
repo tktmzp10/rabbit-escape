@@ -6,6 +6,12 @@ import org.junit.Test;
 
 public class TestDrowning {
 
+    /**
+     * Purpose: To test rabbit drowns when pipes pump water on the rabbit.
+     * Input:
+     * World maps instances that pipes pump water on the rabbit.
+     * Expected: Rabbit is elimintaed.
+     */
     @Test
     public void rabbits_drown_when_pipes_pump_water_on_them() {
         assertWorldEvolvesLike(
@@ -36,6 +42,12 @@ public class TestDrowning {
         );
     }
 
+    /**
+     * Purpose: To test rabbot dosen't drowns when pipes pump water on the rabbit.
+     * Input:
+     * World maps instances that pipes pump water on the rabbot.
+     * Expected: Rabbot is not elimintaed.
+     */
     @Test
     public void rabbits_drown_but_rabbots_dont() {
         assertWorldEvolvesLike(
@@ -67,6 +79,12 @@ public class TestDrowning {
         );
     }
 
+    /**
+     * Purpose: To test rabbit drowns on slopes.
+     * Input:
+     * World maps instances that rabbit drowns on slopes.
+     * Expected: Rabbit is elimintaed.
+     */
     @Test
     public void rabbits_drown_on_slopes() {
         assertWorldEvolvesLike(
@@ -157,6 +175,14 @@ public class TestDrowning {
                 "######"
         );
     }
+
+
+    /**
+     * Purpose: To test bashing can cause drowning.
+     * Input:
+     * World maps instances that bashing cause drowning.
+     * Expected: Rabbit is elimintaed.
+     */
 
     @Test
     public void bashing_can_cause_drowning() {

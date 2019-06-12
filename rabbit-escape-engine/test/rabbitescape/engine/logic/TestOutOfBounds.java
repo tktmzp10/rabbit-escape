@@ -11,6 +11,13 @@ import rabbitescape.engine.World;
 
 public class TestOutOfBounds {
 
+    /**
+     * Purpose: To test rabbit dies when it walks out of bounds.
+     * Input:
+     * steps to death = 5
+     * World maps instances that rabbit walks to out of bounds.
+     * Expected: Rabbit instance is to be eliminated.
+     */
     @Test
     public void Die_if_walk_out_of_bounds() {
         assertRabbitDeadAfter(
@@ -28,6 +35,13 @@ public class TestOutOfBounds {
         );
     }
 
+    /**
+     * Purpose: To test rabbit dies when it falls to out of bounds.
+     * Input:
+     * steps to death = 2
+     * World maps instances that rabbit is falling to out of bounds.
+     * Expected: Rabbit instance is to be eliminated.
+     */
     @Test
     public void Die_if_fall_out_of_bounds() {
         assertRabbitDeadAfter(
@@ -38,6 +52,13 @@ public class TestOutOfBounds {
         );
     }
 
+    /**
+     * Purpose: To test rabbit dies when it goes to out of bounds through the slope.
+     * Input:
+     * steps to death = 5
+     * World maps instances that rabbit is walking to the out of bounds.
+     * Expected: Rabbit instance is to be eliminated.
+     */
     @Test
     public void Die_if_walk_up_out_of_bounds() {
         assertRabbitDeadAfter(

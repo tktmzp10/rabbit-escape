@@ -12,6 +12,15 @@ import rabbitescape.engine.World;
 
 public class TestExit {
 
+    /**
+     * Purpose: To test rabbit is exiting on grounds
+     * Input:
+     * steps to exit = 4
+     * World maps
+     * "r  O ",
+     * "#####"
+     * Expected: Rabbit exits exactly after four steps.
+     */
     @Test
     public void Rabbit_disappears_into_exit() {
         World world = createWorld(
@@ -60,6 +69,76 @@ public class TestExit {
         );
     }
 
+    /**
+     * Purpose: To test rabbit is exiting on climbing right
+     * Input:
+     * steps to exit = 6
+     * World maps
+     * "     "
+     * " O# #"
+     * "  ###"
+     * "rc#  "
+     * "###  "
+     * "#####"
+     * Expected: Rabbit exits exactly after six steps.
+     */
+    @Test
+    public void EnteringExitClimbingRight() {
+        World world = createWorld(
+            "     ",
+            " O# #",
+            "  ###",
+            "rc#  ",
+            "###  "
+        );
+
+        assertWorldEvolvesLike(
+            world,
+            6,
+            new String[]{
+                "     ",
+                " O# #",
+                "  ###",
+                "  #  ",
+                "###  "
+            });
+    }
+
+    /**
+     * Purpose: To test rabbit is exiting on climbing left
+     * Input:
+     * steps to exit = 6
+     * World maps that Rabbit reaches Exit through left climbing
+     * Expected: Rabbit exits exactly after six steps.
+     */
+    @Test
+    public void EnteringExitClimbingLeft() {
+        World world = createWorld(
+            "     ",
+            "# #O ",
+            "###  ",
+            "  #cj",
+            "#####"
+        );
+
+        assertWorldEvolvesLike(
+            world,
+            6,
+            new String[]{
+                "     ",
+                "# #O ",
+                "###  ",
+                "  #  ",
+                "#####"
+            });
+
+    }
+
+    /**
+     * Purpose: To test world class maintaining the number of escaped rabbits.
+     * Input: World maps that four Rabbit reaches Exit
+     * Expected: the saved number of rabbit in world instance is 4.
+     */
     @Test
     public void World_keeps_score() {
         World world = createWorld(
@@ -79,6 +158,11 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(4));
     }
 
+    /**
+     * Purpose: To test world class maintaining the number of escaped rabbits.
+     * Input: World maps that three Rabbit reaches Exit
+     * Expected: the saved number of rabbit in world instance is 3.
+     */
     @Test
     public void Splatting_prevents_exit() {
         World world = createWorld(
@@ -119,6 +203,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(3));
     }
 
+    /**
+     * Purpose: To test rabbit is exiting using climbing actions.
+     * Input:
+     * steps to exit = 6
+     * World maps that Rabbit reaches Exit using climbing actions.
+     * Expected: Rabbit exits exactly after six steps.
+     */
     @Test
     public void Climb_into_exit() {
         // Has a trap to see if the character climbed past
@@ -145,6 +236,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(1));
     }
 
+    /**
+     * Purpose: To test rabbit can't exit when it is falling.
+     * Input:
+     * steps to exit = 5
+     * World maps that six rabbit reaches exit with falling states.
+     * Expected: All rabbits must die. saved number of world instance should be 0.
+     */
     @Test
     public void Fall_past_exit() {
         // All must die
@@ -177,6 +275,13 @@ public class TestExit {
         assertThat(world.num_saved, equalTo(0));
     }
 
+    /**
+     * Purpose: To test rabbot can't exit.
+     * Input:
+     * steps to exit = 4
+     * World maps instances that rabbot meets exit.
+     * Expected: Rabbot ignore the exit.
+     */
     @Test
     public void Rabbots_ignore_the_exit() {
         assertWorldEvolvesLike(
