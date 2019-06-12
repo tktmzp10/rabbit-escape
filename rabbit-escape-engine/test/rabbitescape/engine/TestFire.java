@@ -18,23 +18,15 @@ import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.things.characters.Rabbit;
 import rabbitescape.engine.things.environment.Fire;
 import rabbitescape.engine.things.environment.WaterRegion;
-import rabbitescape.engine.things.environment.fire.FireFactory;
+import rabbitescape.engine.things.environment.fire.*;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.LookupTable2D;
 import rabbitescape.engine.util.Position;
 import rabbitescape.engine.util.WaterUtil;
 
 public class TestFire {
-
-
-	@Before
-	public void setUp() throws Exception {
-
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
+	int x = 2;
+	int y = 2;
 
 	@Test(expected = RuntimeException.class)
 	public void testCreateFire() throws Exception {
@@ -42,6 +34,12 @@ public class TestFire {
 		Fire fire_B = FireFactory.createFire(1, 2, 1);
 		Fire fire_C = FireFactory.createFire(1, 2, 2);
 		Fire fire_D = FireFactory.createFire(1, 2, 3);
+
+		assertTrue(fire_A instanceof Fire_A);
+		assertTrue(fire_B instanceof Fire_B);
+		assertTrue(fire_C instanceof Fire_C);
+		assertTrue(fire_D instanceof Fire_D);
+		
 		Fire fire_RuntimeError = FireFactory.createFire(1, 2, 4);
 	}
 
@@ -96,22 +94,10 @@ public class TestFire {
 		Fire fire = FireFactory.createFire(0, 0, 0);
 		fire.calcNewState(world);
 	}
-	
-	@Test
-	public void testCalcNewState5() {
 
-        String[] worldString = {
-                "#  ",
-                "   ",
-                "   "
-            };
-        World world = createWorld(worldString);
-		Fire fire = FireFactory.createFire(0, 0, 0);
-		fire.calcNewState(world);
-	}
 	
 	@Test
-	public void testCalcNewState6() {//Fire will be created in Water.-> isFireExtinguished  True
+	public void testCalcNewState5() {//Fire will be created in Water.-> isFireExtinguished  True
 
         String[] worldString = {
                 "n  ",
@@ -124,7 +110,7 @@ public class TestFire {
 	}
 	
 	@Test
-	public void testCalcNewState7() {//fire is Falling -> calcNewStateWhenFalling -> isRightRiseSlope True
+	public void testCalcNewState6() {//fire is Falling -> calcNewStateWhenFalling -> isRightRiseSlope True
 
         String[] worldString = {
                 "   ",
@@ -137,7 +123,7 @@ public class TestFire {
 	}
 	
 	@Test
-	public void testCalcNewState8() {//fire is Falling -> calcNewStateWhenFalling -> isLeftRiseSlope True
+	public void testCalcNewState7() {//fire is Falling -> calcNewStateWhenFalling -> isLeftRiseSlope True
 
         String[] worldString = {
                 "   ",
@@ -150,7 +136,7 @@ public class TestFire {
 	}
 	
 	@Test
-	public void testCalcNewState9() {//isStill is true because someoneIsBridgingAt is true;
+	public void testCalcNewState8() {//isStill is true because someoneIsBridgingAt is true;
 
         String[] worldString = {
                 "   ",
@@ -169,29 +155,24 @@ public class TestFire {
 	
 	@Test
 	public void testStep() {
-		int x = 2;
-		int y = 2;
-		World world = TextWorldManip.createEmptyWorld(2, 2);
+
+		World world = TextWorldManip.createEmptyWorld(x, y);
 		Fire fire = FireFactory.createFire(x, y, 0);	
 		fire.step(world);
 	}
 	
 	@Test
 	public void testSaveState() {
-		int x = 2;
-		int y = 2;
+
 		boolean runtimeMeta = false;
-		World world = TextWorldManip.createEmptyWorld(2, 2);
+
 		Fire fire = FireFactory.createFire(x, y, 0);	
-		fire.saveState(runtimeMeta);
+		assertTrue(fire.saveState(runtimeMeta) instanceof HashMap);
 	}
 	
 	@Test
 	public void testOverlayText() {
-		int x = 2;
-		int y = 2;
 
-		World world = TextWorldManip.createEmptyWorld(2, 2);
 		Fire fire = FireFactory.createFire(x, y, 0);	
 		assertEquals(fire.overlayText(), "Fire");
 	}
